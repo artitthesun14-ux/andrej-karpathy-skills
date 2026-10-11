@@ -6,6 +6,7 @@ Updated: 2026-10-11. Repo: artitthesun14-ux/andrej-karpathy-skills. Branch for w
 
 - Goal: maintain the `ai-product-workflow-skills` collection (Claude Code and Codex). This session added a visual style and color library (`/visual-style`) and a single entry point for presentations (`/create-presentation`).
 - Success for this round: both skills meet the Promotion Contract, validation passes, PR #6 is merged. Reached.
+- Session 2026-10-11 (second): branch reset to `main` (`a8ed227`), changeset decision applied, `/create-presentation` route A tested end to end. Not pushed as a PR; user has not asked for one.
 
 ## 2. Current Status
 
@@ -77,8 +78,11 @@ Modified: `.agents/invocation.md`, `.claude-plugin/plugin.json`, `README.md`, `o
 
 ## 9. Open Questions and Risks
 
-- OPEN: no changesets set up (`@changesets/cli` not installed, no `.changeset/`).
-- UNKNOWN: `/create-presentation` route A (new deck from scratch) and route D (continue) have not been run end to end.
+- DECIDED (user): no changesets. `package.json` keeps only `version` (npm hook that runs `sync-plugin-version.js`) and `check-plugin-version`; `.claude/CLAUDE.md` says to bump with `npm version <patch|minor|major> --no-git-tag-version`. Commit `4141454`. Verified in a scratch copy: 0.1.0 to 0.1.1 synced both files.
+- RISK: `.claude-plugin/marketplace.json` also holds `version` 0.1.0 and is not synced or checked by the scripts.
+- CONFIRMED: route A run end to end (7-slide Thai deck introducing this repo, `swiss-international` plus `swiss-signal`, brief and deck in the scratchpad only). Rendered at 1440x900 and 390x844: no page errors, no horizontal overflow, keys, buttons and hash navigation work. Fixes from it in commit `0a0a5f6`: `library.mjs` rejects unknown options (before, `find --help` printed unfiltered results with exit 0); `presentation-principles.md` notes mid-word headline breaks in Thai and similar scripts.
+- UNKNOWN: route D (continue) not yet run. The container had no Thai font; Noto Sans Thai was installed into `~/.fonts` for rendering only.
+- RISK: `--mood` and `--use` values are free text with no listed vocabulary, so `find` needs guessing (`--use explainer` matched nothing; `--use "technical presentation"` worked).
 - UNKNOWN: whether `npx skills add` keeps sibling skill folders so `../visual-style/` resolves. Plugin installs keep the whole repo.
 - UNKNOWN: the published gallery artifact was not opened after publishing; Google Fonts were not seen rendering.
 - RISK: `visual-production` still lists presentations in its description; the router now sends presentations to `/create-presentation`. Overlap is intentional but may confuse.
@@ -86,9 +90,9 @@ Modified: `.agents/invocation.md`, `.claude-plugin/plugin.json`, `README.md`, `o
 
 ## 10. Next Actions, in priority order
 
-1. Restart the work branch from `main` (see section 11).
-2. Test `/create-presentation` route A with real content from the user: a short deck, rendered at desktop and phone width; fix the skill from what breaks. Then route D (continue) on the same deck.
-3. Decide on changesets (install `@changesets/cli` or document that none are used).
+1. Ask the user whether to open a PR for `4141454` and `0a0a5f6`.
+2. Test route D (continue) on a deck with a saved `presentation-brief.md`.
+3. Consider listing `mood` and `use_cases` values (for example a `library.mjs vocab` command) and syncing `marketplace.json` version.
 4. Optionally add real reference images per style (`library/references/<style-id>/`, registered in `styles.json`), then run `check`.
 
 ## 11. Exact First Step for the Next Session
