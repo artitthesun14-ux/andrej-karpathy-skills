@@ -23,7 +23,7 @@ experiment) are user-invoked, matching the `/command` workflow in `README.md`.
 - Reserved for skills under `productivity/` or `misc/` that support the
   workflow steps but are not themselves workflow stages (for example, a lookup or
   formatting helper). The animation and visual helper skills in `productivity/` are
-  model-invoked. `/visual-production` is the one user-invoked skill in `productivity/`.
+  model-invoked. `/visual-production` and `/handoff` are the user-invoked skills in `productivity/`.
 
 ## Choosing which step to run
 
@@ -35,6 +35,8 @@ Do not run the full workflow by default. Match the step to the size of the task:
 - Full feature build: the entire workflow, in order.
 - Data-driven design change: `/experiment`, then loop back into `/ux-design` or
   `/ui-design` based on the result.
+- Ending a session or continuing work in a new one: `/handoff`. It records state, issues,
+  decisions, and next steps. It does not change code and does not commit.
 - Presentation, animation, data story, or technical visualization: `/visual-production`.
   It picks the helper skills it needs. It does not replace the product workflow above.
 

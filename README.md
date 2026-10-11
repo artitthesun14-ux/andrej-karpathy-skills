@@ -74,6 +74,12 @@ Visual production (bucket `productivity/`): เริ่มที่ `/visual-pr
 | Technical Visualization | model-invoked | ทำ technical diagram และ 3D scene (exploded, cutaway, layered) | [docs/productivity/technical-visualization.md](docs/productivity/technical-visualization.md) |
 | Visual Review | model-invoked | ตรวจคุณภาพ visual output จริง | [docs/productivity/visual-review.md](docs/productivity/visual-review.md) |
 
+Handoff (bucket `productivity/`): ส่งต่องานข้าม session
+
+| Skill | การเรียก | หน้าที่ | เอกสาร |
+|---|---|---|---|
+| Handoff | `/handoff` | สรุปสถานะ ปัญหา การตัดสินใจ และขั้นตอนถัดไป บันทึกที่ `.ai/handoff/` | [docs/productivity/handoff.md](docs/productivity/handoff.md) |
+
 ## Token efficiency
 
 ควรโหลด SKILL.md เฉพาะตอนที่ workflow ต้องใช้ Skill นั้น ไม่ควรใส่ทุก Skill เข้า context ทุกครั้ง
@@ -97,7 +103,7 @@ Visual production (bucket `productivity/`): เริ่มที่ `/visual-pr
 โครงสร้างนี้อ้างอิงรูปแบบเดียวกับ `mattpocock/skills`:
 
 - `skills/engineering/`: promoted skills ทั้ง 11 ตัวข้างต้น
-- `skills/productivity/`: promoted skills ชุด animation 5 ตัว และชุด visual production 5 ตัวข้างต้น
+- `skills/productivity/`: promoted skills ชุด animation 5 ตัว ชุด visual production 5 ตัว และ handoff ข้างต้น
 - `skills/misc/`, `skills/in-progress/`, `skills/deprecated/`: buckets อื่นที่เผื่อไว้สำหรับ skill ในอนาคต
 - `docs/engineering/`: เอกสารประกอบต่อ skill
 - `.claude-plugin/plugin.json`: manifest ของ plugin
