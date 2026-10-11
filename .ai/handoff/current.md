@@ -60,21 +60,22 @@ Repo rules (from `.claude/CLAUDE.md`): no em-dashes anywhere; Promotion Contract
 - `scripts/list-skills.sh | wc -l`: 22 (run during this handoff).
 - `npm run check-plugin-version`: passed at 0.1.0 (earlier in this session, not re-run now).
 - Visual checks: a sample investor deck and an 8-slide overview deck were rendered with Chromium and inspected at desktop (and phone width for the first). These files are NOT in the repo and the overview deck was later deleted.
-- Not tested: animation skills, `technical-visualization` (3D), data storytelling at scale, reduced-motion behavior, touch input.
+- Animation test (2026-10-11, CONFIRMED by Chromium renders at 1440px and 390px): a 5-slide Thai HTML deck with an SVG burger (CSS keyframes for assembly and a bite mask, JS-driven layer peel with stacking that re-settles). Passed: assembly and bite animation, layer peel, keyboard and swipe navigation, phone layout. Defects found and fixed after rendering: oversized text overflowing a fixed-size box, a fixed header overlapped by scrolled content on phone, a disabled button with too little contrast. Deck and artifact were deleted at the user's request.
+- Not tested: `technical-visualization` (3D), data storytelling at scale, reduced-motion behavior (CSS written, not rendered), touch input on a real device.
 
 ## 9. Open Questions and Risks
 
 - OPEN: README has no marketplace install line (validate gives advice only). The repo has no `marketplace.json`. Decide whether to add one.
 - OPEN: no changeset set up (`@changesets/cli` not installed, no `.changeset/`), so `npm run changeset` would fail.
 - RISK: model-invoked skills may not load automatically. Users should name them in the prompt.
-- RISK: `/visual-production` was only exercised on presentation and refinement tasks (CONFIRMED). The other three example tasks are untested.
+- RISK: `/visual-production` was exercised on presentation, refinement, and one 2D animation task (CONFIRMED). The 3D and data story example tasks are untested.
 - CONFIRMED: the overview deck artifact and the PDFs made in this session were deleted at the user's request. Do not look for them. The deck source slides and screenshots may remain in the session scratchpad only.
 
 ## 10. Next Actions, in priority order
 
 1. Start from `main`: `git fetch origin && git checkout -B claude/setup-workflow-xd5lho origin/main`.
 2. Ask the user whether to add a `marketplace.json` and a README install line.
-3. Test `/visual-production` on an animation task and a 3D explainer; fix the skills based on real renders.
+3. Test `/visual-production` on a 3D explainer (the animation task is done); fix the skills based on real renders.
 4. Decide on changesets (install `@changesets/cli` or document that none are used).
 
 ## 11. Exact First Step for the Next Session

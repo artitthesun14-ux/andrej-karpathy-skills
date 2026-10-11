@@ -1,0 +1,21 @@
+{
+  "name": "ai-product-workflow-skills",
+  "owner": {
+    "name": "artitthesun14-ux"
+  },
+  "metadata": {
+    "description": "Skills for a disciplined product and website workflow, plus animation and visual production skills."
+  },
+  "plugins": [
+    {
+      "name": "ai-product-workflow-skills",
+      "source": "./",
+      "description": "Skills for a disciplined product/website workflow: research, spec, design, prototype, tickets, implement, test, review, experiment.",
+      "version": "0.1.0",
+      "author": {
+        "name": "artitthesun14-ux"
+      },
+      "category": "workflow"
+    }
+  ]
+}
