@@ -10,9 +10,8 @@ Updated: 2026-10-11. Repo: artitthesun14-ux/andrej-karpathy-skills. Branch for w
 ## 2. Current Status
 
 - CONFIRMED: PR #6 squash-merged into `main` on request. `main` is at `f09c91b` ("Add /visual-style library and /create-presentation entry point (#6)"). `git diff origin/main HEAD` is empty: the branch tree equals `main`.
-- CONFIRMED: the branch `claude/setup-workflow-xd5lho` is at `d30a3d5` and still carries the pre-squash commits, so it is not a fast-forward of `main`. Restart it from `main` before new work.
+- CONFIRMED: this handoff was merged to `main` in a follow-up PR after #6. The work branch is not a fast-forward of `main` after a squash merge, so restart it from `main` before new work (section 11).
 - CONFIRMED (on `d30a3d5`, same tree as `main`): 24 skills; both `claude plugin validate --strict` commands pass; `npm run check-plugin-version` passes (0.1.0); `library.mjs check` 0 errors, 0 warnings. No CI workflows in the repo.
-- UNCOMMITTED: this handoff update only.
 
 ## 3. Completed
 
