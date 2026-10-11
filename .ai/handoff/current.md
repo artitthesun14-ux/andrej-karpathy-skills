@@ -59,7 +59,7 @@ Repo rules (from `.claude/CLAUDE.md`): no em-dashes anywhere; Promotion Contract
 - `claude plugin validate . --strict`: passed (run during this handoff).
 - `scripts/list-skills.sh | wc -l`: 22 (run during this handoff).
 - `npm run check-plugin-version`: passed at 0.1.0 (earlier in this session, not re-run now).
-- Visual checks: a sample investor deck and an 8-slide overview deck were rendered with Chromium and inspected at desktop (and phone width for the first). These files are NOT in the repo.
+- Visual checks: a sample investor deck and an 8-slide overview deck were rendered with Chromium and inspected at desktop (and phone width for the first). These files are NOT in the repo and the overview deck was later deleted.
 - Not tested: animation skills, `technical-visualization` (3D), data storytelling at scale, reduced-motion behavior, touch input.
 
 ## 9. Open Questions and Risks
@@ -68,7 +68,7 @@ Repo rules (from `.claude/CLAUDE.md`): no em-dashes anywhere; Promotion Contract
 - OPEN: no changeset set up (`@changesets/cli` not installed, no `.changeset/`), so `npm run changeset` would fail.
 - RISK: model-invoked skills may not load automatically. Users should name them in the prompt.
 - RISK: `/visual-production` was only exercised on presentation and refinement tasks (CONFIRMED). The other three example tasks are untested.
-- ARTIFACT (private): https://claude.ai/artifact/THgUMzZX4xnzCtR9P2E2d5 (overview deck). The PDF copies lived in the session scratchpad and may be gone.
+- CONFIRMED: the overview deck artifact and the PDFs made in this session were deleted at the user's request. Do not look for them. The deck source slides and screenshots may remain in the session scratchpad only.
 
 ## 10. Next Actions, in priority order
 
