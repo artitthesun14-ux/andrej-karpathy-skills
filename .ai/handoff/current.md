@@ -5,14 +5,14 @@ Updated: 2026-10-11. Repo: artitthesun14-ux/andrej-karpathy-skills. Branch for w
 ## 1. Goal and Success Criteria
 
 - Goal: maintain the `ai-product-workflow-skills` collection (Claude Code and Codex). This session added a visual style and color library (`/visual-style`) and a single entry point for presentations (`/create-presentation`).
-- Success for this round: both skills meet the Promotion Contract, validation passes, PR #6 is merged. Validation is reached; merge is pending the user.
+- Success for this round: both skills meet the Promotion Contract, validation passes, PR #6 is merged. Reached.
 
 ## 2. Current Status
 
-- CONFIRMED: PR #6 (https://github.com/artitthesun14-ux/andrej-karpathy-skills/pull/6) is open, `mergeable_state: clean`, head `dd3ac2e`, base `main` at `703e933`. 35 files, +4026 / -43. No CI workflows in the repo.
-- CONFIRMED: 24 skills (`scripts/list-skills.sh`). `claude plugin validate . --strict` and `claude plugin validate .claude-plugin/plugin.json --strict` pass. `npm run check-plugin-version` passes (0.1.0). `library.mjs check`: 0 errors, 0 warnings.
-- CONFIRMED: `origin/main` is an ancestor of the branch (merged `origin/main` in this session), so PR #6 merges cleanly.
-- UNCOMMITTED: this handoff update only (`.ai/handoff/current.md`, `sessions/2026-10-11.md`).
+- CONFIRMED: PR #6 squash-merged into `main` on request. `main` is at `f09c91b` ("Add /visual-style library and /create-presentation entry point (#6)"). `git diff origin/main HEAD` is empty: the branch tree equals `main`.
+- CONFIRMED: the branch `claude/setup-workflow-xd5lho` is at `d30a3d5` and still carries the pre-squash commits, so it is not a fast-forward of `main`. Restart it from `main` before new work.
+- CONFIRMED (on `d30a3d5`, same tree as `main`): 24 skills; both `claude plugin validate --strict` commands pass; `npm run check-plugin-version` passes (0.1.0); `library.mjs check` 0 errors, 0 warnings. No CI workflows in the repo.
+- UNCOMMITTED: this handoff update only.
 
 ## 3. Completed
 
@@ -78,7 +78,6 @@ Modified: `.agents/invocation.md`, `.claude-plugin/plugin.json`, `README.md`, `o
 
 ## 9. Open Questions and Risks
 
-- OPEN: PR #6 not merged; waiting for the user.
 - OPEN: no changesets set up (`@changesets/cli` not installed, no `.changeset/`).
 - UNKNOWN: `/create-presentation` route A (new deck from scratch) and route D (continue) have not been run end to end.
 - UNKNOWN: whether `npx skills add` keeps sibling skill folders so `../visual-style/` resolves. Plugin installs keep the whole repo.
@@ -88,23 +87,21 @@ Modified: `.agents/invocation.md`, `.claude-plugin/plugin.json`, `README.md`, `o
 
 ## 10. Next Actions, in priority order
 
-1. Ask the user whether to merge PR #6 (squash, as with PRs #1 to #5). Merge only on request, passing the full 40-char head SHA.
-2. Test `/create-presentation` route A with real content: a short deck, rendered at desktop and phone width; fix the skill from what breaks.
+1. Restart the work branch from `main` (see section 11).
+2. Test `/create-presentation` route A with real content from the user: a short deck, rendered at desktop and phone width; fix the skill from what breaks. Then route D (continue) on the same deck.
 3. Decide on changesets (install `@changesets/cli` or document that none are used).
 4. Optionally add real reference images per style (`library/references/<style-id>/`, registered in `styles.json`), then run `check`.
 
 ## 11. Exact First Step for the Next Session
 
-Run `git fetch origin && git status -sb` on `claude/setup-workflow-xd5lho`, then check PR #6 state. If still open, run `claude plugin validate . --strict` and `node skills/productivity/visual-style/scripts/library.mjs check`. Success check: validation passes, check reports 0 errors, PR #6 is still `clean`.
+Run `git fetch origin main && git checkout -B claude/setup-workflow-xd5lho origin/main`, then `claude plugin validate . --strict`, `scripts/list-skills.sh | wc -l`, and `node skills/productivity/visual-style/scripts/library.mjs check`. Success check: validation passes, count is 24, check reports 0 errors. To push the reset branch, do not force push: merge the old remote branch with `git merge -s ours origin/claude/setup-workflow-xd5lho` first (force push was denied in an earlier session).
 
 ## 12. Ready-to-paste Continuation Prompt
 
 ```
-อ่าน .ai/handoff/current.md ก่อน แล้วทำต่อ: repo ai-product-workflow-skills มี 24 skills.
-session ก่อนเพิ่ม /visual-style (คลัง 53 สไตล์, 25 palettes, 6 presets, CLI library.mjs, gallery)
-และ /create-presentation (orchestrator 4 เส้นทาง ใช้ไฟล์ reference ร่วม ไม่เรียก user-invoked skill อื่น)
-อยู่ใน PR #6 ที่ยังไม่ merge.
-เริ่มจากเช็กสถานะ PR #6 และรัน claude plugin validate . --strict กับ library.mjs check
-แล้วถามฉันว่าจะ merge PR #6 ไหม และจะทดสอบ /create-presentation สร้าง deck ใหม่ด้วยเนื้อหาอะไร.
-ทำตาม .claude/CLAUDE.md (ไม่มี em-dash, Promotion Contract) และอย่า merge จนกว่าฉันจะสั่ง.
+อ่าน .ai/handoff/current.md ก่อน แล้วทำต่อ: repo ai-product-workflow-skills มี 24 skills และ PR #6 merge เข้า main แล้ว
+(/visual-style: คลัง 53 สไตล์, 25 palettes, 6 presets, CLI library.mjs, gallery และ /create-presentation: orchestrator 4 เส้นทาง).
+เริ่มจาก reset branch claude/setup-workflow-xd5lho ให้ตรงกับ origin/main แล้วรัน validate, list-skills และ library.mjs check.
+จากนั้นถามฉันว่าจะทดสอบ /create-presentation สร้าง deck ใหม่ด้วยเนื้อหาอะไร และจะจัดการ changeset อย่างไร.
+ทำตาม .claude/CLAUDE.md (ไม่มี em-dash, Promotion Contract) และอย่าเปิด PR หรือ merge จนกว่าฉันจะสั่ง.
 ```
