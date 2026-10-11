@@ -40,5 +40,8 @@ Typical guidance:
 Motion must not be required to understand the interface.
 Support reduced-motion preferences by reducing or removing nonessential movement while preserving state and feedback.
 
+## Storytelling Motion
+For explanatory animation, scene transitions, camera movement, or data flow, read `references/motion-principles.md`.
+
 ## Review
 Check purpose, focal point, timing, easing, layout stability, consistency, mobile behavior, and reduced-motion behavior.

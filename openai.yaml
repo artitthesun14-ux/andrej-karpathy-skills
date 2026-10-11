@@ -23,3 +23,5 @@ commands:
     path: skills/engineering/code-review/SKILL.md
   - name: experiment
     path: skills/engineering/experiment/SKILL.md
+  - name: visual-production
+    path: skills/productivity/visual-production/SKILL.md

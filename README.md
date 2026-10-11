@@ -64,6 +64,16 @@ Promoted skills (bucket `productivity/`), ชุด animation แบบ model-in
 | Animation Review | ตรวจ animation ด้าน purpose, timing, easing, layout, performance, accessibility | [docs/productivity/animation-review.md](docs/productivity/animation-review.md) |
 | Visual Prototyping | ทำ prototype ของ motion ผ่าน storyboard, motion sequence, inspect และ iterate | [docs/productivity/visual-prototyping.md](docs/productivity/visual-prototyping.md) |
 
+Visual production (bucket `productivity/`): เริ่มที่ `/visual-production` ลำดับ BRIEF → STORY → ART DIRECTION → VISUAL PLAN → BUILD → REVIEW → REFINE → FINAL ข้ามขั้นที่ไม่จำเป็นได้ และใช้ร่วมกับ skill animation ด้านบน
+
+| Skill | การเรียก | หน้าที่ | เอกสาร |
+|---|---|---|---|
+| Visual Production | `/visual-production` | workflow งาน presentation, animation, data story และ technical visualization | [docs/productivity/visual-production.md](docs/productivity/visual-production.md) |
+| Visual Storytelling | model-invoked | เปลี่ยนเนื้อหาซับซ้อนให้เป็นเรื่องราวที่เข้าใจง่าย | [docs/productivity/visual-storytelling.md](docs/productivity/visual-storytelling.md) |
+| Presentation Design | model-invoked | ออกแบบ presentation ที่เล่าเรื่องและสวยงาม | [docs/productivity/presentation-design.md](docs/productivity/presentation-design.md) |
+| Technical Visualization | model-invoked | ทำ technical diagram และ 3D scene (exploded, cutaway, layered) | [docs/productivity/technical-visualization.md](docs/productivity/technical-visualization.md) |
+| Visual Review | model-invoked | ตรวจคุณภาพ visual output จริง | [docs/productivity/visual-review.md](docs/productivity/visual-review.md) |
+
 ## Token efficiency
 
 ควรโหลด SKILL.md เฉพาะตอนที่ workflow ต้องใช้ Skill นั้น ไม่ควรใส่ทุก Skill เข้า context ทุกครั้ง
@@ -87,7 +97,7 @@ Promoted skills (bucket `productivity/`), ชุด animation แบบ model-in
 โครงสร้างนี้อ้างอิงรูปแบบเดียวกับ `mattpocock/skills`:
 
 - `skills/engineering/` — promoted skills ทั้ง 11 ตัวข้างต้น
-- `skills/productivity/` — promoted skills ชุด animation 5 ตัวข้างต้น
+- `skills/productivity/` — promoted skills ชุด animation 5 ตัว และชุด visual production 5 ตัวข้างต้น
 - `skills/misc/`, `skills/in-progress/`, `skills/deprecated/` — buckets อื่นที่เผื่อไว้สำหรับ skill ในอนาคต
 - `docs/engineering/` — เอกสารประกอบต่อ skill
 - `.claude-plugin/plugin.json` — manifest ของ plugin

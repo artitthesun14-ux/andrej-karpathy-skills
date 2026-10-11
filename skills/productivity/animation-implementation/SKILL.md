@@ -16,6 +16,8 @@ Use the simplest suitable approach:
 5. JavaScript
 6. Libraries only when they materially simplify complex requirements
 
+Use Canvas for many elements or particles. For real 3D, camera work, or WebGL, follow `technical-visualization`.
+
 Do not introduce a dependency for a simple transition.
 
 ## Performance
