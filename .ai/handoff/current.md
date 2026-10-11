@@ -82,6 +82,10 @@ Modified: `.agents/invocation.md`, `.claude-plugin/plugin.json`, `README.md`, `o
 - RISK: `.claude-plugin/marketplace.json` also holds `version` 0.1.0 and is not synced or checked by the scripts.
 - CONFIRMED: route A run end to end (7-slide Thai deck introducing this repo, `swiss-international` plus `swiss-signal`, brief and deck in the scratchpad only). Rendered at 1440x900 and 390x844: no page errors, no horizontal overflow, keys, buttons and hash navigation work. Fixes from it in commit `0a0a5f6`: `library.mjs` rejects unknown options (before, `find --help` printed unfiltered results with exit 0); `presentation-principles.md` notes mid-word headline breaks in Thai and similar scripts.
 - CONFIRMED: route D run on the same deck: one slide inserted after slide 5 (route A in 4 stages), brief updated to `continue`. Found and fixed in the deck: slide count hard-coded in 8 places (now computed in script); reused flow pattern overflowed at 390px (modifier beat the mobile rule). Deep link `#6` now opens the new slide. Route D in `create-presentation/SKILL.md` now covers renumbering, moved deep links, and review at every target width. The container had no Thai font; Noto Sans Thai was installed into `~/.fonts` for rendering only.
+- CONFIRMED: route B run both ways. Shortlist of 3 (brutalist-editorial, oversized-type, japanese-minimalism) shown to the user, who picked Japanese Minimalism; 4-slide release-notes deck with `earth-tone`, rendered at both widths, reviewed against the direction. Named-style mapping: `bauhaus` and `brutalism` found nothing, now aliases of `geometric-composition` and `brutalist-editorial` (agent decision, user may reject). Own-colors path: `contrast green "#fff"` printed NaN with exit 0, now an error with exit 1.
+- CONFIRMED: Chromium ignored fonts installed as woff2 in `~/.fonts` and drew Thai in system Loma; the route A deck never showed Noto Sans Thai. The route B deck embeds a 10 KB Thai serif subset; `presentation-principles.md` now says to confirm the drawn face and embed fonts for offline decks.
+- CONFIRMED: route C run as a motion-only change (flow steps enter in order) on the route D deck. Final frames match the baseline (3 of 16 shots differ by one pixel at one brightness level, anti-aliasing). Reduced motion shows everything at once; re-entry replays. Route C step 4 now says to compare final renders with the baseline.
+- All four routes of `/create-presentation` have now been run end to end. Test decks live in the scratchpad only.
 - RISK: `--mood` and `--use` values are free text with no listed vocabulary, so `find` needs guessing (`--use explainer` matched nothing; `--use "technical presentation"` worked).
 - UNKNOWN: whether `npx skills add` keeps sibling skill folders so `../visual-style/` resolves. Plugin installs keep the whole repo.
 - UNKNOWN: the published gallery artifact was not opened after publishing; Google Fonts were not seen rendering.
@@ -90,8 +94,8 @@ Modified: `.agents/invocation.md`, `.claude-plugin/plugin.json`, `README.md`, `o
 
 ## 10. Next Actions, in priority order
 
-1. Ask the user whether to open a PR for `4141454` and `0a0a5f6`.
-2. Optionally test route B (named style, shortlist of 3) and route C on a real user deck.
+1. Ask the user whether to open a PR for the branch (changeset decision plus fixes from testing all four routes).
+2. Decide whether to keep the Bauhaus and Brutalism aliases.
 3. Consider listing `mood` and `use_cases` values (for example a `library.mjs vocab` command) and syncing `marketplace.json` version.
 4. Optionally add real reference images per style (`library/references/<style-id>/`, registered in `styles.json`), then run `check`.
 

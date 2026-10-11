@@ -86,7 +86,7 @@ INSPECT EXISTING WORK → IDENTIFY CHANGE SCOPE → APPLY STYLE OR MOTION → RE
 2. Set `change_scope` to exactly what was asked. "Change the colors" changes color tokens only, not layout, type, or motion. Widen the scope only with the person's agreement or when the request cannot work otherwise, and say which.
 3. Apply: a new look uses `style-direction.md` and the library, mapped onto the existing structure; motion uses the motion specialists.
    A color change also covers colors hard-coded in SVG, charts, and images, and any text that names a color (legends, "actuals in teal").
-4. Review, then list the changes that matter (before and after where useful).
+4. Review: compare final-state renders with the step 1 renders; only the requested scope may differ. Then list the changes that matter (before and after where useful).
 
 Do not rebuild the deck from scratch unless the person asks or the existing structure cannot carry the change; explain why if so.
 
