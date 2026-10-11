@@ -2,6 +2,20 @@
 
 ชุดนี้ออกแบบเป็น workflow สำหรับสร้าง Product / Website / Feature โดยผสมแนวคิดจาก disciplined engineering, research, design thinking และ experiment loops
 
+## การติดตั้ง
+
+Claude Code (2.1.275 ขึ้นไป):
+
+```
+/plugin install ai-product-workflow-skills --marketplace artitthesun14-ux/andrej-karpathy-skills
+```
+
+Codex และ agent อื่น:
+
+```
+npx skills@latest add artitthesun14-ux/andrej-karpathy-skills
+```
+
 ## Workflow
 
 /research
@@ -107,6 +121,7 @@ Handoff (bucket `productivity/`): ส่งต่องานข้าม sessio
 - `skills/misc/`, `skills/in-progress/`, `skills/deprecated/`: buckets อื่นที่เผื่อไว้สำหรับ skill ในอนาคต
 - `docs/engineering/`: เอกสารประกอบต่อ skill
 - `.claude-plugin/plugin.json`: manifest ของ plugin
+- `.claude-plugin/marketplace.json`: marketplace สำหรับติดตั้งผ่าน `/plugin install`
 - `.agents/invocation.md`: กติกาการเรียกใช้ skill (user-invoked vs model-invoked)
 - `workflow-router`: router สำหรับ skill ที่เรียกใช้โดยผู้ใช้โดยตรง
 - `openai.yaml`: config สำหรับ user-invoked skills
