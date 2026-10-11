@@ -1,171 +1,88 @@
-# Karpathy-Inspired Claude Code Guidelines
+# AI Product Workflow Skills
 
-> Check out my new project [Multica](https://github.com/multica-ai/multica) — an open-source platform for running and managing coding agents with reusable skills.
->
-> Follow me on X: [https://x.com/jiayuan_jy](https://x.com/jiayuan_jy)
+ชุดนี้ออกแบบเป็น workflow สำหรับสร้าง Product / Website / Feature โดยผสมแนวคิดจาก disciplined engineering, research, design thinking และ experiment loops
 
-A single `CLAUDE.md` file to improve Claude Code behavior, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+## Workflow
 
-English | [简体中文](./README.zh.md)
+/research
+↓
+/grill-with-docs
+↓
+/to-spec
+↓
+/ux-design
+↓
+/ui-design
+↓
+/prototype
+↓
+/to-tickets
+↓
+/implement
+↓
+/test
+↓
+/code-review
+↓
+/experiment
 
-## The Problems
+## หลักการใช้งาน
 
-From Andrej's post:
+ไม่จำเป็นต้องเรียกทุก Skill ทุกครั้ง ให้ Orchestrator เลือกเฉพาะ Skill ที่เหมาะกับงาน
 
-> "The models make wrong assumptions on your behalf and just run along with them without checking. They don't manage their confusion, don't seek clarifications, don't surface inconsistencies, don't present tradeoffs, don't push back when they should."
+ตัวอย่าง:
+- แก้ bug เล็ก ๆ → /implement → /test → /code-review
+- ออกแบบ feature ใหม่ → /research → /grill-with-docs → /to-spec → /ux-design → /ui-design → /prototype
+- สร้าง feature จริง → ใช้ workflow เต็ม
+- ปรับปรุง design จากข้อมูล → /experiment → วนกลับไป /ux-design หรือ /ui-design ตามผล
 
-> "They really like to overcomplicate code and APIs, bloat abstractions, don't clean up dead code... implement a bloated construction over 1000 lines when 100 would do."
+## Skills
 
-> "They still sometimes change/remove comments and code they don't sufficiently understand as side effects, even if orthogonal to the task."
+Promoted skills (bucket `engineering/`), เรียงตามลำดับ workflow:
 
-## The Solution
+| Skill | คำสั่ง | หน้าที่ | เอกสาร |
+|---|---|---|---|
+| Research | `/research` | ค้นข้อมูลก่อนตัดสินใจ ลดการเดา | [docs/engineering/research.md](docs/engineering/research.md) |
+| Grill with Docs | `/grill-with-docs` | ซักถามด้วยเอกสารจริง ลด ambiguity | [docs/engineering/grill-with-docs.md](docs/engineering/grill-with-docs.md) |
+| To Spec | `/to-spec` | แปลงข้อสรุปให้เป็นเป้าหมายที่ testable | [docs/engineering/to-spec.md](docs/engineering/to-spec.md) |
+| UX Design | `/ux-design` | ออกแบบ flow ให้ชัด | [docs/engineering/ux-design.md](docs/engineering/ux-design.md) |
+| UI Design | `/ui-design` | ออกแบบ visual system ให้สม่ำเสมอ | [docs/engineering/ui-design.md](docs/engineering/ui-design.md) |
+| Prototype | `/prototype` | ลดความเสี่ยงก่อน build เต็ม | [docs/engineering/prototype.md](docs/engineering/prototype.md) |
+| To Tickets | `/to-tickets` | แบ่งงานให้ตรวจสอบได้ | [docs/engineering/to-tickets.md](docs/engineering/to-tickets.md) |
+| Implement | `/implement` | ลงมือสร้างของจริง | [docs/engineering/implement.md](docs/engineering/implement.md) |
+| Test | `/test` | ตรวจ behavior | [docs/engineering/test.md](docs/engineering/test.md) |
+| Code Review | `/code-review` | ตรวจคุณภาพจากมุมที่สอง | [docs/engineering/code-review.md](docs/engineering/code-review.md) |
+| Experiment | `/experiment` | เรียนรู้จากผลลัพธ์จริง | [docs/engineering/experiment.md](docs/engineering/experiment.md) |
 
-Four principles in one file that directly address these issues:
+## Token efficiency
 
-| Principle | Addresses |
-|-----------|-----------|
-| **Think Before Coding** | Wrong assumptions, hidden confusion, missing tradeoffs |
-| **Simplicity First** | Overcomplication, bloated abstractions |
-| **Surgical Changes** | Orthogonal edits, touching code you shouldn't |
-| **Goal-Driven Execution** | Leverage through tests-first, verifiable success criteria |
+ควรโหลด SKILL.md เฉพาะตอนที่ workflow ต้องใช้ Skill นั้น ไม่ควรใส่ทุก Skill เข้า context ทุกครั้ง
 
-## The Four Principles in Detail
+## Design philosophy
 
-### 1. Think Before Coding
+- Research ลดการเดา
+- Grill ลด ambiguity
+- Spec ทำให้เป้าหมาย testable
+- UX ทำให้ flow ชัด
+- UI ทำให้ visual system สม่ำเสมอ
+- Prototype ลดความเสี่ยงก่อน build เต็ม
+- Tickets ทำให้งานแบ่งและตรวจได้
+- Implement ทำให้เกิดของจริง
+- Test ตรวจ behavior
+- Code Review ตรวจคุณภาพจากมุมที่สอง
+- Experiment ทำให้ระบบเรียนรู้จากผลลัพธ์
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+## Repository layout
 
-LLMs often pick an interpretation silently and run with it. This principle forces explicit reasoning:
+โครงสร้างนี้อ้างอิงรูปแบบเดียวกับ `mattpocock/skills`:
 
-- **State assumptions explicitly** — If uncertain, ask rather than guess
-- **Present multiple interpretations** — Don't pick silently when ambiguity exists
-- **Push back when warranted** — If a simpler approach exists, say so
-- **Stop when confused** — Name what's unclear and ask for clarification
+- `skills/engineering/` — promoted skills ทั้ง 11 ตัวข้างต้น
+- `skills/productivity/`, `skills/misc/`, `skills/in-progress/`, `skills/deprecated/` — buckets อื่นที่เผื่อไว้สำหรับ skill ในอนาคต
+- `docs/engineering/` — เอกสารประกอบต่อ skill
+- `.claude-plugin/plugin.json` — manifest ของ plugin
+- `.agents/invocation.md` — กติกาการเรียกใช้ skill (user-invoked vs model-invoked)
+- `workflow-router` — router สำหรับ skill ที่เรียกใช้โดยผู้ใช้โดยตรง
+- `openai.yaml` — config สำหรับ user-invoked skills
+- `scripts/link-skills.sh`, `scripts/list-skills.sh` — เครื่องมือ maintenance
 
-### 2. Simplicity First
-
-**Minimum code that solves the problem. Nothing speculative.**
-
-Combat the tendency toward overengineering:
-
-- No features beyond what was asked
-- No abstractions for single-use code
-- No "flexibility" or "configurability" that wasn't requested
-- No error handling for impossible scenarios
-- If 200 lines could be 50, rewrite it
-
-**The test:** Would a senior engineer say this is overcomplicated? If yes, simplify.
-
-### 3. Surgical Changes
-
-**Touch only what you must. Clean up only your own mess.**
-
-When editing existing code:
-
-- Don't "improve" adjacent code, comments, or formatting
-- Don't refactor things that aren't broken
-- Match existing style, even if you'd do it differently
-- If you notice unrelated dead code, mention it — don't delete it
-
-When your changes create orphans:
-
-- Remove imports/variables/functions that YOUR changes made unused
-- Don't remove pre-existing dead code unless asked
-
-**The test:** Every changed line should trace directly to the user's request.
-
-### 4. Goal-Driven Execution
-
-**Define success criteria. Loop until verified.**
-
-Transform imperative tasks into verifiable goals:
-
-| Instead of... | Transform to... |
-|--------------|-----------------|
-| "Add validation" | "Write tests for invalid inputs, then make them pass" |
-| "Fix the bug" | "Write a test that reproduces it, then make it pass" |
-| "Refactor X" | "Ensure tests pass before and after" |
-
-For multi-step tasks, state a brief plan:
-
-```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
-```
-
-Strong success criteria let the LLM loop independently. Weak criteria ("make it work") require constant clarification.
-
-## Install
-
-**Option A: Claude Code Plugin (recommended)**
-
-From within Claude Code, first add the marketplace:
-```
-/plugin marketplace add forrestchang/andrej-karpathy-skills
-```
-
-Then install the plugin:
-```
-/plugin install andrej-karpathy-skills@karpathy-skills
-```
-
-This installs the guidelines as a Claude Code plugin, making the skill available across all your projects.
-
-**Option B: CLAUDE.md (per-project)**
-
-New project:
-```bash
-curl -o CLAUDE.md https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md
-```
-
-Existing project (append):
-```bash
-echo "" >> CLAUDE.md
-curl https://raw.githubusercontent.com/forrestchang/andrej-karpathy-skills/main/CLAUDE.md >> CLAUDE.md
-```
-
-## Using with Cursor
-
-This repository includes a committed Cursor project rule ([`.cursor/rules/karpathy-guidelines.mdc`](.cursor/rules/karpathy-guidelines.mdc)) so the same guidelines apply when you open the project in Cursor. See **[CURSOR.md](CURSOR.md)** for setup, using the rule in other projects, and how this relates to Claude Code.
-
-## Key Insight
-
-From Andrej:
-
-> "LLMs are exceptionally good at looping until they meet specific goals... Don't tell it what to do, give it success criteria and watch it go."
-
-The "Goal-Driven Execution" principle captures this: transform imperative instructions into declarative goals with verification loops.
-
-## How to Know It's Working
-
-These guidelines are working if you see:
-
-- **Fewer unnecessary changes in diffs** — Only requested changes appear
-- **Fewer rewrites due to overcomplication** — Code is simple the first time
-- **Clarifying questions come before implementation** — Not after mistakes
-- **Clean, minimal PRs** — No drive-by refactoring or "improvements"
-
-## Customization
-
-These guidelines are designed to be merged with project-specific instructions. Add them to your existing `CLAUDE.md` or create a new one.
-
-For project-specific rules, add sections like:
-
-```markdown
-## Project-Specific Guidelines
-
-- Use TypeScript strict mode
-- All API endpoints must have tests
-- Follow the existing error handling patterns in `src/utils/errors.ts`
-```
-
-## Tradeoff Note
-
-These guidelines bias toward **caution over speed**. For trivial tasks (simple typo fixes, obvious one-liners), use judgment — not every change needs the full rigor.
-
-The goal is reducing costly mistakes on non-trivial work, not slowing down simple tasks.
-
-## License
-
-MIT
+ดูกติกาการทำงานในโปรเจกต์นี้ที่ [`CLAUDE.md`](CLAUDE.md)

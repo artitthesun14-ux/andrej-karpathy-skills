@@ -1,11 +1,18 @@
 {
-  "name": "andrej-karpathy-skills",
-  "description": "Behavioral guidelines to reduce common LLM coding mistakes, derived from Andrej Karpathy's observations on LLM coding pitfalls",
-  "version": "1.0.0",
-  "author": {
-    "name": "forrestchang"
-  },
-  "license": "MIT",
-  "keywords": ["guidelines", "best-practices", "coding", "karpathy"],
-  "skills": ["./skills/karpathy-guidelines"]
+  "name": "ai-product-workflow-skills",
+  "version": "0.1.0",
+  "description": "Skills for a disciplined product/website workflow: research, spec, design, prototype, tickets, implement, test, review, experiment.",
+  "skills": [
+    "skills/engineering/research",
+    "skills/engineering/grill-with-docs",
+    "skills/engineering/to-spec",
+    "skills/engineering/ux-design",
+    "skills/engineering/ui-design",
+    "skills/engineering/prototype",
+    "skills/engineering/to-tickets",
+    "skills/engineering/implement",
+    "skills/engineering/test",
+    "skills/engineering/code-review",
+    "skills/engineering/experiment"
+  ]
 }
