@@ -4,7 +4,7 @@ Equivalent of `ask-matt` in the original `mattpocock/skills` repo: the router fo
 every user-reachable skill in this project.
 
 Keep this file updated whenever a user-invoked skill is added, renamed, or removed
-(see CLAUDE.md > Router).
+(see .claude/CLAUDE.md > Router).
 
 ## Routing table
 

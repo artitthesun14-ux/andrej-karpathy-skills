@@ -96,14 +96,14 @@ Visual production (bucket `productivity/`): เริ่มที่ `/visual-pr
 
 โครงสร้างนี้อ้างอิงรูปแบบเดียวกับ `mattpocock/skills`:
 
-- `skills/engineering/` — promoted skills ทั้ง 11 ตัวข้างต้น
-- `skills/productivity/` — promoted skills ชุด animation 5 ตัว และชุด visual production 5 ตัวข้างต้น
-- `skills/misc/`, `skills/in-progress/`, `skills/deprecated/` — buckets อื่นที่เผื่อไว้สำหรับ skill ในอนาคต
-- `docs/engineering/` — เอกสารประกอบต่อ skill
-- `.claude-plugin/plugin.json` — manifest ของ plugin
-- `.agents/invocation.md` — กติกาการเรียกใช้ skill (user-invoked vs model-invoked)
-- `workflow-router` — router สำหรับ skill ที่เรียกใช้โดยผู้ใช้โดยตรง
-- `openai.yaml` — config สำหรับ user-invoked skills
-- `scripts/link-skills.sh`, `scripts/list-skills.sh` — เครื่องมือ maintenance
+- `skills/engineering/`: promoted skills ทั้ง 11 ตัวข้างต้น
+- `skills/productivity/`: promoted skills ชุด animation 5 ตัว และชุด visual production 5 ตัวข้างต้น
+- `skills/misc/`, `skills/in-progress/`, `skills/deprecated/`: buckets อื่นที่เผื่อไว้สำหรับ skill ในอนาคต
+- `docs/engineering/`: เอกสารประกอบต่อ skill
+- `.claude-plugin/plugin.json`: manifest ของ plugin
+- `.agents/invocation.md`: กติกาการเรียกใช้ skill (user-invoked vs model-invoked)
+- `workflow-router`: router สำหรับ skill ที่เรียกใช้โดยผู้ใช้โดยตรง
+- `openai.yaml`: config สำหรับ user-invoked skills
+- `scripts/link-skills.sh`, `scripts/list-skills.sh`: เครื่องมือ maintenance
 
-ดูกติกาการทำงานในโปรเจกต์นี้ที่ [`CLAUDE.md`](CLAUDE.md)
+ดูกติกาการทำงานในโปรเจกต์นี้ที่ [`.claude/CLAUDE.md`](.claude/CLAUDE.md)
