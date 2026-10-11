@@ -81,7 +81,7 @@ Modified: `.agents/invocation.md`, `.claude-plugin/plugin.json`, `README.md`, `o
 - DECIDED (user): no changesets. `package.json` keeps only `version` (npm hook that runs `sync-plugin-version.js`) and `check-plugin-version`; `.claude/CLAUDE.md` says to bump with `npm version <patch|minor|major> --no-git-tag-version`. Commit `4141454`. Verified in a scratch copy: 0.1.0 to 0.1.1 synced both files.
 - RISK: `.claude-plugin/marketplace.json` also holds `version` 0.1.0 and is not synced or checked by the scripts.
 - CONFIRMED: route A run end to end (7-slide Thai deck introducing this repo, `swiss-international` plus `swiss-signal`, brief and deck in the scratchpad only). Rendered at 1440x900 and 390x844: no page errors, no horizontal overflow, keys, buttons and hash navigation work. Fixes from it in commit `0a0a5f6`: `library.mjs` rejects unknown options (before, `find --help` printed unfiltered results with exit 0); `presentation-principles.md` notes mid-word headline breaks in Thai and similar scripts.
-- UNKNOWN: route D (continue) not yet run. The container had no Thai font; Noto Sans Thai was installed into `~/.fonts` for rendering only.
+- CONFIRMED: route D run on the same deck: one slide inserted after slide 5 (route A in 4 stages), brief updated to `continue`. Found and fixed in the deck: slide count hard-coded in 8 places (now computed in script); reused flow pattern overflowed at 390px (modifier beat the mobile rule). Deep link `#6` now opens the new slide. Route D in `create-presentation/SKILL.md` now covers renumbering, moved deep links, and review at every target width. The container had no Thai font; Noto Sans Thai was installed into `~/.fonts` for rendering only.
 - RISK: `--mood` and `--use` values are free text with no listed vocabulary, so `find` needs guessing (`--use explainer` matched nothing; `--use "technical presentation"` worked).
 - UNKNOWN: whether `npx skills add` keeps sibling skill folders so `../visual-style/` resolves. Plugin installs keep the whole repo.
 - UNKNOWN: the published gallery artifact was not opened after publishing; Google Fonts were not seen rendering.
@@ -91,7 +91,7 @@ Modified: `.agents/invocation.md`, `.claude-plugin/plugin.json`, `README.md`, `o
 ## 10. Next Actions, in priority order
 
 1. Ask the user whether to open a PR for `4141454` and `0a0a5f6`.
-2. Test route D (continue) on a deck with a saved `presentation-brief.md`.
+2. Optionally test route B (named style, shortlist of 3) and route C on a real user deck.
 3. Consider listing `mood` and `use_cases` values (for example a `library.mjs vocab` command) and syncing `marketplace.json` version.
 4. Optionally add real reference images per style (`library/references/<style-id>/`, registered in `styles.json`), then run `check`.
 

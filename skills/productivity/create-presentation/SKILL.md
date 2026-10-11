@@ -95,7 +95,8 @@ Do not rebuild the deck from scratch unless the person asks or the existing stru
 1. Read the brief file if one exists (see Handoff), then inspect the deck: what is done, what is missing or broken.
 2. Keep the existing design system: tokens, type, layouts, motion. New slides reuse existing slide patterns before inventing new ones.
 3. Change only the slides concerned. Never create a second version of the deck alongside the first.
-4. Review the changed slides and their neighbors, update the brief.
+   Adding or removing a slide shifts numbering: update hard-coded slide counts and numbers, and tell the person which deep links now point elsewhere.
+4. Review the changed slides and their neighbors at every target width (a reused pattern can lose its responsive rules), then update the brief.
 
 ## Handoff
 
