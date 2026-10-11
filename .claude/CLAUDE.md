@@ -23,12 +23,12 @@ Correctness means:
 
 Use only when relevant to the current task.
 
-- `npm run changeset` — record user-facing skill changes.
-- `npm run version` — apply changesets and sync plugin version.
-- `npm run check-plugin-version` — verify plugin version, read-only.
-- `claude plugin validate . --strict` — validate plugin manifests after manifest changes.
-- `scripts/link-skills.sh` — update local skill symlinks after adding, removing, or renaming skills.
-- `scripts/list-skills.sh` — list all `SKILL.md` paths.
+- `npm run changeset`: record user-facing skill changes.
+- `npm run version`: apply changesets and sync plugin version.
+- `npm run check-plugin-version`: verify plugin version, read-only.
+- `claude plugin validate . --strict`: validate plugin manifests after manifest changes.
+- `scripts/link-skills.sh`: update local skill symlinks after adding, removing, or renaming skills.
+- `scripts/list-skills.sh`: list all `SKILL.md` paths.
 
 Do not run unrelated commands.
 
@@ -36,13 +36,13 @@ Do not run unrelated commands.
 
 Skills live under `skills/` and belong to one bucket:
 
-- `engineering/` — promoted, shipped in plugin. Holds the product workflow skills
+- `engineering/`: promoted, shipped in plugin. Holds the product workflow skills
   (`research`, `grill-with-docs`, `to-spec`, `ux-design`, `ui-design`, `prototype`,
   `to-tickets`, `implement`, `test`, `code-review`, `experiment`).
-- `productivity/` — promoted, shipped in plugin.
-- `misc/` — kept but not promoted.
-- `in-progress/` — public beta, excluded from plugin.
-- `deprecated/` — normally empty. Delete skills instead of archiving them.
+- `productivity/`: promoted, shipped in plugin.
+- `misc/`: kept but not promoted.
+- `in-progress/`: public beta, excluded from plugin.
+- `deprecated/`: normally empty. Delete skills instead of archiving them.
 
 ### Promotion Contract
 
