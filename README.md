@@ -54,6 +54,16 @@ Promoted skills (bucket `engineering/`), เรียงตามลำดับ
 | Code Review | `/code-review` | ตรวจคุณภาพจากมุมที่สอง | [docs/engineering/code-review.md](docs/engineering/code-review.md) |
 | Experiment | `/experiment` | เรียนรู้จากผลลัพธ์จริง | [docs/engineering/experiment.md](docs/engineering/experiment.md) |
 
+Promoted skills (bucket `productivity/`), ชุด animation แบบ model-invoked (ไม่มี slash command) Design → Implement → Inspect → Iterate:
+
+| Skill | หน้าที่ | เอกสาร |
+|---|---|---|
+| Motion Design | ออกแบบ motion ของ UI อย่างมีเป้าหมาย: timing, easing, ลำดับ, hierarchy | [docs/productivity/motion-design.md](docs/productivity/motion-design.md) |
+| Interaction Motion | ออกแบบ motion ของ state ต่าง ๆ เช่น hover, focus, modal, loading, success, error | [docs/productivity/interaction-motion.md](docs/productivity/interaction-motion.md) |
+| Animation Implementation | เขียน animation ด้วย CSS, SVG, WAAPI, JS โดยเน้น performance และ accessibility | [docs/productivity/animation-implementation.md](docs/productivity/animation-implementation.md) |
+| Animation Review | ตรวจ animation ด้าน purpose, timing, easing, layout, performance, accessibility | [docs/productivity/animation-review.md](docs/productivity/animation-review.md) |
+| Visual Prototyping | ทำ prototype ของ motion ผ่าน storyboard, motion sequence, inspect และ iterate | [docs/productivity/visual-prototyping.md](docs/productivity/visual-prototyping.md) |
+
 ## Token efficiency
 
 ควรโหลด SKILL.md เฉพาะตอนที่ workflow ต้องใช้ Skill นั้น ไม่ควรใส่ทุก Skill เข้า context ทุกครั้ง
@@ -77,7 +87,8 @@ Promoted skills (bucket `engineering/`), เรียงตามลำดับ
 โครงสร้างนี้อ้างอิงรูปแบบเดียวกับ `mattpocock/skills`:
 
 - `skills/engineering/` — promoted skills ทั้ง 11 ตัวข้างต้น
-- `skills/productivity/`, `skills/misc/`, `skills/in-progress/`, `skills/deprecated/` — buckets อื่นที่เผื่อไว้สำหรับ skill ในอนาคต
+- `skills/productivity/` — promoted skills ชุด animation 5 ตัวข้างต้น
+- `skills/misc/`, `skills/in-progress/`, `skills/deprecated/` — buckets อื่นที่เผื่อไว้สำหรับ skill ในอนาคต
 - `docs/engineering/` — เอกสารประกอบต่อ skill
 - `.claude-plugin/plugin.json` — manifest ของ plugin
 - `.agents/invocation.md` — กติกาการเรียกใช้ skill (user-invoked vs model-invoked)

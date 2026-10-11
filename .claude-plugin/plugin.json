@@ -13,6 +13,11 @@
     "skills/engineering/implement",
     "skills/engineering/test",
     "skills/engineering/code-review",
-    "skills/engineering/experiment"
+    "skills/engineering/experiment",
+    "skills/productivity/motion-design",
+    "skills/productivity/interaction-motion",
+    "skills/productivity/animation-implementation",
+    "skills/productivity/animation-review",
+    "skills/productivity/visual-prototyping"
   ]
 }
