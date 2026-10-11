@@ -78,11 +78,12 @@ Promoted skills (bucket `productivity/`), ชุด animation แบบ model-in
 | Animation Review | ตรวจ animation ด้าน purpose, timing, easing, layout, performance, accessibility | [docs/productivity/animation-review.md](docs/productivity/animation-review.md) |
 | Visual Prototyping | ทำ prototype ของ motion ผ่าน storyboard, motion sequence, inspect และ iterate | [docs/productivity/visual-prototyping.md](docs/productivity/visual-prototyping.md) |
 
-Visual production (bucket `productivity/`): เริ่มที่ `/visual-production` ลำดับ BRIEF → STORY → ART DIRECTION → VISUAL PLAN → BUILD → REVIEW → REFINE → FINAL ข้ามขั้นที่ไม่จำเป็นได้ และใช้ร่วมกับ skill animation ด้านบน
+Visual production (bucket `productivity/`): เริ่มที่ `/visual-production` ลำดับ BRIEF → STORY → ART DIRECTION → VISUAL PLAN → BUILD → REVIEW → REFINE → FINAL ข้ามขั้นที่ไม่จำเป็นได้ และใช้ร่วมกับ skill animation ด้านบน ถ้าเป็นงาน presentation เริ่มที่ `/create-presentation` ได้เลย
 
 | Skill | การเรียก | หน้าที่ | เอกสาร |
 |---|---|---|---|
 | Visual Production | `/visual-production` | workflow งาน presentation, animation, data story และ technical visualization | [docs/productivity/visual-production.md](docs/productivity/visual-production.md) |
+| Create a Presentation | `/create-presentation` | จุดเริ่มต้นเดียวสำหรับงาน presentation: สร้างใหม่ เลือกสไตล์ ปรับงานเดิม หรือทำต่อ เลือก workflow และ helper ให้เอง | [docs/productivity/create-presentation.md](docs/productivity/create-presentation.md) |
 | Visual Style | `/visual-style` | คลังสไตล์และคลังสีแยกกัน เลือก ผสม และนำไปใช้กับงานจริง พร้อมตรวจ contrast และ gallery | [docs/productivity/visual-style.md](docs/productivity/visual-style.md) |
 | Visual Storytelling | model-invoked | เปลี่ยนเนื้อหาซับซ้อนให้เป็นเรื่องราวที่เข้าใจง่าย | [docs/productivity/visual-storytelling.md](docs/productivity/visual-storytelling.md) |
 | Presentation Design | model-invoked | ออกแบบ presentation ที่เล่าเรื่องและสวยงาม | [docs/productivity/presentation-design.md](docs/productivity/presentation-design.md) |
@@ -118,7 +119,7 @@ Handoff (bucket `productivity/`): ส่งต่องานข้าม sessio
 โครงสร้างนี้อ้างอิงรูปแบบเดียวกับ `mattpocock/skills`:
 
 - `skills/engineering/`: promoted skills ทั้ง 11 ตัวข้างต้น
-- `skills/productivity/`: promoted skills ชุด animation 5 ตัว ชุด visual production 6 ตัว และ handoff ข้างต้น
+- `skills/productivity/`: promoted skills ชุด animation 5 ตัว ชุด visual production 7 ตัว และ handoff ข้างต้น
 - `skills/misc/`, `skills/in-progress/`, `skills/deprecated/`: buckets อื่นที่เผื่อไว้สำหรับ skill ในอนาคต
 - `docs/engineering/`: เอกสารประกอบต่อ skill
 - `.claude-plugin/plugin.json`: manifest ของ plugin

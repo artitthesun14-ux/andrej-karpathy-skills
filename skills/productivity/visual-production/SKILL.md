@@ -35,17 +35,7 @@ Skip steps when the input already covers them. A small animation fix can start a
 
 ## Visual plan (medium and large work)
 
-Show a short plan before coding:
-
-- Objective, audience, core message
-- Story structure (per slide: its single job. per scene: its job and transition. per interactive piece: states, user actions, results)
-- Art direction
-- Visual technique (text, chart, diagram, 2D, 3D) and why
-- Animation strategy
-- Implementation approach
-- Quality checks
-
-Keep it to what prevents wrong turns.
+Show a short plan before coding, using `references/visual-plan.md`. Keep it to what prevents wrong turns.
 
 ## Rules
 
@@ -56,6 +46,6 @@ Keep it to what prevents wrong turns.
 
 ## Workflow position
 
-Independent of the product workflow. Can follow `/ui-design` or `/prototype` when a product needs a visual explainer, and `/code-review` still applies to code.
+Independent of the product workflow. For presentations, `/create-presentation` is the simpler entry point. Can follow `/ui-design` or `/prototype` when a product needs a visual explainer, and `/code-review` still applies to code.
 
 See `README.md` for the full picture.
