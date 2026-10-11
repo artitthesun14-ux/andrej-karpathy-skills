@@ -83,6 +83,7 @@ Visual production (bucket `productivity/`): เริ่มที่ `/visual-pr
 | Skill | การเรียก | หน้าที่ | เอกสาร |
 |---|---|---|---|
 | Visual Production | `/visual-production` | workflow งาน presentation, animation, data story และ technical visualization | [docs/productivity/visual-production.md](docs/productivity/visual-production.md) |
+| Visual Style | `/visual-style` | คลังสไตล์และคลังสีแยกกัน เลือก ผสม และนำไปใช้กับงานจริง พร้อมตรวจ contrast และ gallery | [docs/productivity/visual-style.md](docs/productivity/visual-style.md) |
 | Visual Storytelling | model-invoked | เปลี่ยนเนื้อหาซับซ้อนให้เป็นเรื่องราวที่เข้าใจง่าย | [docs/productivity/visual-storytelling.md](docs/productivity/visual-storytelling.md) |
 | Presentation Design | model-invoked | ออกแบบ presentation ที่เล่าเรื่องและสวยงาม | [docs/productivity/presentation-design.md](docs/productivity/presentation-design.md) |
 | Technical Visualization | model-invoked | ทำ technical diagram และ 3D scene (exploded, cutaway, layered) | [docs/productivity/technical-visualization.md](docs/productivity/technical-visualization.md) |
@@ -117,7 +118,7 @@ Handoff (bucket `productivity/`): ส่งต่องานข้าม sessio
 โครงสร้างนี้อ้างอิงรูปแบบเดียวกับ `mattpocock/skills`:
 
 - `skills/engineering/`: promoted skills ทั้ง 11 ตัวข้างต้น
-- `skills/productivity/`: promoted skills ชุด animation 5 ตัว ชุด visual production 5 ตัว และ handoff ข้างต้น
+- `skills/productivity/`: promoted skills ชุด animation 5 ตัว ชุด visual production 6 ตัว และ handoff ข้างต้น
 - `skills/misc/`, `skills/in-progress/`, `skills/deprecated/`: buckets อื่นที่เผื่อไว้สำหรับ skill ในอนาคต
 - `docs/engineering/`: เอกสารประกอบต่อ skill
 - `.claude-plugin/plugin.json`: manifest ของ plugin

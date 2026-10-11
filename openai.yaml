@@ -25,5 +25,7 @@ commands:
     path: skills/engineering/experiment/SKILL.md
   - name: visual-production
     path: skills/productivity/visual-production/SKILL.md
+  - name: visual-style
+    path: skills/productivity/visual-style/SKILL.md
   - name: handoff
     path: skills/productivity/handoff/SKILL.md

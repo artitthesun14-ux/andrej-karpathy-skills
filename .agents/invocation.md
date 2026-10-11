@@ -23,7 +23,7 @@ experiment) are user-invoked, matching the `/command` workflow in `README.md`.
 - Reserved for skills under `productivity/` or `misc/` that support the
   workflow steps but are not themselves workflow stages (for example, a lookup or
   formatting helper). The animation and visual helper skills in `productivity/` are
-  model-invoked. `/visual-production` and `/handoff` are the user-invoked skills in `productivity/`.
+  model-invoked. `/visual-production`, `/visual-style`, and `/handoff` are the user-invoked skills in `productivity/`.
 
 ## Choosing which step to run
 
@@ -39,6 +39,8 @@ Do not run the full workflow by default. Match the step to the size of the task:
   decisions, and next steps. It does not change code and does not commit.
 - Presentation, animation, data story, or technical visualization: `/visual-production`.
   It picks the helper skills it needs. It does not replace the product workflow above.
+- Choosing a visual style or color palette for any visual work (site, deck, animation, brand):
+  `/visual-style`. It searches the style and color library and applies the choice.
 
 ## Adding a new step
 
