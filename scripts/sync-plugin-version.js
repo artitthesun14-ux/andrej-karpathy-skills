@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Copy package.json's version into .claude-plugin/plugin.json after `changeset version`.
+// Copy package.json's version into .claude-plugin/plugin.json (runs as the npm `version` hook).
 const fs = require("fs");
 const path = require("path");
 

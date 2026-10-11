@@ -23,8 +23,7 @@ Correctness means:
 
 Use only when relevant to the current task.
 
-- `npm run changeset`: record user-facing skill changes.
-- `npm run version`: apply changesets and sync plugin version.
+- `npm version <patch|minor|major> --no-git-tag-version`: bump the version for a release; the `version` hook syncs `plugin.json`. No changesets are used.
 - `npm run check-plugin-version`: verify plugin version, read-only.
 - `claude plugin validate . --strict`: validate plugin manifests after manifest changes.
 - `scripts/link-skills.sh`: update local skill symlinks after adding, removing, or renaming skills.
@@ -110,7 +109,6 @@ For a new or modified skill:
 3. Check invocation rules.
 4. Update required manifests, README, docs, and routers.
 5. Run only relevant validation commands.
-6. Record user-facing changes with a changeset when required.
 
 For a promoted skill, verify the full Promotion Contract.
 
