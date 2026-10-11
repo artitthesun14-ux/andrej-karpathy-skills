@@ -1,0 +1,32 @@
+# workflow-router
+
+Equivalent of `ask-matt` in the original `mattpocock/skills` repo: the router for
+every user-reachable skill in this project.
+
+Keep this file updated whenever a user-invoked skill is added, renamed, or removed
+(see CLAUDE.md > Router).
+
+## Routing table
+
+| Command | Skill path |
+|---|---|
+| `/research` | `skills/engineering/research/SKILL.md` |
+| `/grill-with-docs` | `skills/engineering/grill-with-docs/SKILL.md` |
+| `/to-spec` | `skills/engineering/to-spec/SKILL.md` |
+| `/ux-design` | `skills/engineering/ux-design/SKILL.md` |
+| `/ui-design` | `skills/engineering/ui-design/SKILL.md` |
+| `/prototype` | `skills/engineering/prototype/SKILL.md` |
+| `/to-tickets` | `skills/engineering/to-tickets/SKILL.md` |
+| `/implement` | `skills/engineering/implement/SKILL.md` |
+| `/test` | `skills/engineering/test/SKILL.md` |
+| `/code-review` | `skills/engineering/code-review/SKILL.md` |
+| `/experiment` | `skills/engineering/experiment/SKILL.md` |
+| `/visual-production` | `skills/productivity/visual-production/SKILL.md` |
+
+## How to route
+
+1. Read the person's request.
+2. Pick the smallest set of steps that covers it (see `.agents/invocation.md` >
+   "Choosing which step to run").
+3. Never invoke a user-invoked skill from inside another user-invoked skill; surface
+   the next command to the person instead of chaining automatically.

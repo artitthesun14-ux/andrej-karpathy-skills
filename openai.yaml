@@ -1,0 +1,27 @@
+# User-invoked skill configuration.
+# Every skill listed here must have disable-model-invocation: true in its SKILL.md.
+commands:
+  - name: research
+    path: skills/engineering/research/SKILL.md
+  - name: grill-with-docs
+    path: skills/engineering/grill-with-docs/SKILL.md
+  - name: to-spec
+    path: skills/engineering/to-spec/SKILL.md
+  - name: ux-design
+    path: skills/engineering/ux-design/SKILL.md
+  - name: ui-design
+    path: skills/engineering/ui-design/SKILL.md
+  - name: prototype
+    path: skills/engineering/prototype/SKILL.md
+  - name: to-tickets
+    path: skills/engineering/to-tickets/SKILL.md
+  - name: implement
+    path: skills/engineering/implement/SKILL.md
+  - name: test
+    path: skills/engineering/test/SKILL.md
+  - name: code-review
+    path: skills/engineering/code-review/SKILL.md
+  - name: experiment
+    path: skills/engineering/experiment/SKILL.md
+  - name: visual-production
+    path: skills/productivity/visual-production/SKILL.md
