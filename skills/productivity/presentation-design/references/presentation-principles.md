@@ -31,6 +31,7 @@ Mix roles across the deck: opener, section break, claim with one visual, evidenc
 
 - Arrow keys, click, swipe. Progress indicator. Escape or overview for orientation.
 - Scale type with viewport. Below tablet width, stack layouts and keep one idea per screen.
+- Scripts without spaces between words (Thai, Chinese, Japanese) can break mid-word in headlines. Check breaks in the render and keep words together with `white-space: nowrap` spans or `<wbr>` hints.
 
 ## Investor audience (beginners)
 
