@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Visual Style Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@400;600&family=Poiret+One&family=Zilla+Slab:wght@500;700&display=swap">
+<style>
+/* Layout: a working index, filter rail above a dense card grid; specimens carry the color, the chrome stays quiet. */
+:root {
+  --bg: #F4F3EF;
+  --panel: #FFFFFF;
+  --ink: #1B1C1F;
+  --muted: #5D5F66;
+  --rule: #DAD8D1;
+  --accent: #23408E;
+  --ok: #1F6B3A;
+  --warn: #8A5300;
+  --bad: #A3241A;
+  --chip: #ECEAE4;
+  --f-ui: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --f-display: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
+  --f-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131417; --panel: #1C1D22; --ink: #ECEBE6; --muted: #A3A4AB; --rule: #33353C;
+    --accent: #9DB4F2; --ok: #7ACB93; --warn: #E7B45C; --bad: #F08A80; --chip: #26282E; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131417; --panel: #1C1D22; --ink: #ECEBE6; --muted: #A3A4AB; --rule: #33353C;
+  --accent: #9DB4F2; --ok: #7ACB93; --warn: #E7B45C; --bad: #F08A80; --chip: #26282E; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-ui); }
+.wrap { max-width: 1320px; margin: 0 auto; padding-inline: max(16px, 3vw); padding-block: 28px 64px; }
+header.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; border-bottom: 1px solid var(--rule); padding-bottom: 16px; }
+h1 { font: italic 400 clamp(30px, 4vw, 44px)/1.05 var(--f-display); margin: 0; letter-spacing: -0.01em; }
+.lede { color: var(--muted); margin: 6px 0 0; max-width: 62ch; }
+.counts { font: 500 12px/1.4 var(--f-mono); color: var(--muted); }
+nav.tabs { display: flex; gap: 4px; margin: 20px 0 12px; flex-wrap: wrap; }
+nav.tabs button { font: 600 13px var(--f-ui); letter-spacing: 0.04em; text-transform: uppercase; padding: 8px 14px; border: 1px solid var(--rule); background: transparent; color: var(--muted); border-radius: 999px; cursor: pointer; }
+nav.tabs button[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.filters { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-bottom: 8px; }
+.filters label { display: grid; gap: 2px; font: 600 11px var(--f-ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); min-width: 0; }
+.filters input, .filters select { font: 400 14px var(--f-ui); padding: 7px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); color: var(--ink); width: 100%; min-width: 0; }
+.filters .search { grid-column: span 2; }
+@media (max-width: 420px) { .filters .search { grid-column: auto; } }
+.status { font: 500 12px var(--f-mono); color: var(--muted); margin: 8px 0 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.status button { font: 500 12px var(--f-mono); background: none; border: 0; color: var(--accent); cursor: pointer; padding: 0; text-decoration: underline; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
+.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.thumb { position: relative; aspect-ratio: 16 / 10; max-width: 100%; border-bottom: 1px solid var(--rule); }
+.thumb svg { display: block; width: 100%; height: 100%; }
+.tag-synth { position: absolute; right: 6px; top: 6px; font: 500 10px var(--f-mono); padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,.55); color: #fff; letter-spacing: 0.02em; }
+.body { padding: 12px 14px 14px; display: grid; gap: 8px; flex: 1; align-content: start; }
+.eyebrow { font: 600 11px var(--f-ui); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.card h3 { margin: 0; font: 600 18px/1.2 var(--f-ui); text-wrap: balance; }
+.summary { margin: 0; color: var(--muted); font-size: 14px; }
+.swatches { display: flex; height: 18px; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); }
+.swatches span { display: block; height: 100%; }
+.specimen { display: flex; align-items: baseline; gap: 10px; min-width: 0; overflow: hidden; white-space: nowrap; }
+.specimen .d { font-size: 26px; line-height: 1; }
+.specimen .t { font-size: 13px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
+.actions { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
+.btn { font: 600 13px var(--f-ui); padding: 7px 12px; border-radius: 6px; border: 1px solid var(--rule); background: transparent; color: var(--ink); cursor: pointer; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+.btn:focus-visible, nav.tabs button:focus-visible, .filters :focus-visible, .linkish:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.chips { display: flex; gap: 4px; flex-wrap: wrap; }
+.chip { font: 500 11px var(--f-mono); padding: 2px 6px; border-radius: 4px; background: var(--chip); color: var(--muted); }
+.empty { padding: 40px 0; color: var(--muted); }
+.notice { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--warn); padding: 16px; border-radius: 6px; }
+.notice code { font-family: var(--f-mono); }
+/* palettes */
+.pcard .bar { display: flex; height: 64px; }
+.pcard .bar span { display: block; height: 100%; }
+.colors { display: grid; gap: 4px; font-size: 13px; }
+.colors div { display: grid; grid-template-columns: 14px 76px 1fr auto; gap: 8px; align-items: center; }
+.colors i { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--rule); display: block; }
+.colors code, .pairs code { font: 500 12px var(--f-mono); }
+.colors .role { color: var(--muted); font: 500 11px var(--f-mono); }
+.pairs { display: grid; gap: 4px; font-size: 13px; }
+.pair { display: grid; grid-template-columns: 34px 1fr auto; gap: 8px; align-items: center; }
+.pair .demo { font: 700 13px var(--f-ui); text-align: center; border-radius: 4px; padding: 2px 0; }
+.badge { font: 600 11px var(--f-mono); padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
+.badge.ok { color: var(--ok); border: 1px solid currentColor; }
+.badge.warn { color: var(--warn); border: 1px solid currentColor; }
+.badge.bad { color: var(--bad); border: 1px solid currentColor; }
+.checker { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 14px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.checker label { display: grid; gap: 2px; font: 600 11px var(--f-ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.checker input[type="text"] { font: 500 14px var(--f-mono); width: 110px; padding: 6px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); color: var(--ink); }
+.checker input[type="color"] { width: 40px; height: 34px; border: 1px solid var(--rule); border-radius: 6px; padding: 2px; background: var(--bg); }
+.checker .sample { padding: 8px 14px; border-radius: 6px; font-weight: 600; border: 1px solid var(--rule); }
+.checker .result { font: 500 14px var(--f-mono); }
+/* dialog */
+dialog { border: 1px solid var(--rule); border-radius: 12px; padding: 0; width: min(760px, calc(100vw - 32px)); max-height: calc(100vh - 48px); background: var(--panel); color: var(--ink); }
+dialog::backdrop { background: rgba(10, 10, 12, .5); }
+.dlg { padding: 20px 22px 24px; display: grid; gap: 14px; }
+.dlg header { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+.dlg h2 { margin: 0; font: 400 30px/1.1 var(--f-display); }
+.dlg .meta { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; font-size: 13px; }
+.dlg .meta dt { color: var(--muted); font: 600 11px var(--f-ui); letter-spacing: 0.06em; text-transform: uppercase; padding-top: 2px; }
+.dlg .meta dd { margin: 0; min-width: 0; }
+.profile { display: grid; gap: 10px; }
+.profile div h4 { margin: 0 0 2px; font: 600 11px var(--f-ui); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.profile div p { margin: 0; max-width: 72ch; }
+.linkish { font: inherit; background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+pre.snippet { font: 500 12.5px/1.5 var(--f-mono); background: var(--bg); border: 1px solid var(--rule); border-radius: 8px; padding: 12px; overflow-x: auto; margin: 0; white-space: pre; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.row select { font: 400 14px var(--f-ui); padding: 7px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); color: var(--ink); max-width: 100%; }
+.copied { font: 500 12px var(--f-mono); color: var(--ok); }
+@media (prefers-reduced-motion: no-preference) { .card { transition: border-color .15s; } .card:hover { border-color: var(--muted); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Visual Style Library</h1>
+      <p class="lede">Styles and palettes are separate systems. Filter, open a profile, then pick a style and a palette for the work. Previews are synthetic sketches drawn from each style's layout pattern and palette, not reference images.</p>
+    </div>
+    <div class="counts" id="counts"></div>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Library sections">
+    <button role="tab" id="tab-styles" aria-selected="true" data-tab="styles">Styles</button>
+    <button role="tab" id="tab-palettes" aria-selected="false" data-tab="palettes">Palettes</button>
+    <button role="tab" id="tab-presets" aria-selected="false" data-tab="presets">Presets</button>
+  </nav>
+
+  <section id="view-styles">
+    <div class="filters" id="filters">
+      <label class="search">Style<input id="f-text" type="search" placeholder="Name, alias, mood, use case"></label>
+      <label>Category<select id="f-category"></select></label>
+      <label>Color<select id="f-color"></select></label>
+      <label>Mood<select id="f-mood"></select></label>
+      <label>Typography<select id="f-typography"></select></label>
+      <label>Layout<select id="f-layout"></select></label>
+      <label>Medium<select id="f-medium"></select></label>
+      <label>Use case<select id="f-use"></select></label>
+      <label>Motion<select id="f-motion"></select></label>
+    </div>
+    <div class="status"><span id="style-count"></span><button type="button" id="reset">Clear filters</button></div>
+    <div class="grid" id="style-grid"></div>
+  </section>
+
+  <section id="view-palettes" hidden>
+    <div class="checker" aria-label="Contrast checker">
+      <label>Text<span class="row"><input type="color" id="c-fg-pick" value="#1B1C1F" aria-label="Text color picker"><input type="text" id="c-fg" value="#1B1C1F" aria-label="Text color HEX"></span></label>
+      <label>Background<span class="row"><input type="color" id="c-bg-pick" value="#F6F1E4" aria-label="Background color picker"><input type="text" id="c-bg" value="#F6F1E4" aria-label="Background color HEX"></span></label>
+      <div class="sample" id="c-sample">Sample text Aa</div>
+      <div class="result" id="c-result" aria-live="polite"></div>
+    </div>
+    <div class="filters">
+      <label class="search">Palette<input id="p-text" type="search" placeholder="Name, color, mood"></label>
+      <label>Category<select id="p-category"></select></label>
+    </div>
+    <div class="status"><span id="palette-count"></span></div>
+    <div class="grid" id="palette-grid"></div>
+  </section>
+
+  <section id="view-presets" hidden>
+    <div class="grid" id="preset-grid"></div>
+  </section>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlg-title"><div class="dlg" id="dlg-body"></div></dialog>
+
+<script>
+(() => {
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const FONTS = {
+    didone: "'Bodoni Moda', Didot, 'Bodoni 72', serif",
+    garalde: "'EB Garamond', Garamond, 'Times New Roman', serif",
+    grotesk: "'Archivo', 'Helvetica Neue', Arial, sans-serif",
+    geometric: "'Jost', Futura, 'Century Gothic', sans-serif",
+    condensed: "'Anton', Impact, 'Arial Narrow', sans-serif",
+    mono: "'IBM Plex Mono', ui-monospace, Menlo, monospace",
+    slab: "'Zilla Slab', Rockwell, serif",
+    hand: "'Caveat', 'Bradley Hand', cursive",
+    deco: "'Poiret One', Futura, sans-serif",
+  };
+  const THRESH = { body: 4.5, large: 3, ui: 3 };
+  let DB = null;
+  const state = { tab: "styles", paletteOverride: {} };
+
+  // ---------- color ----------
+  function lum(hex) {
+    const h = hex.replace("#", "");
+    const f = h.length === 3 ? [...h].map((c) => c + c).join("") : h;
+    const [r, g, b] = [0, 2, 4].map((i) => { const c = parseInt(f.slice(i, i + 2), 16) / 255; return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; });
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+  }
+  function ratio(a, b) { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); }
+  function badge(r, use) {
+    if (r >= THRESH[use || "body"] && r >= 7) return `<span class="badge ok">${r.toFixed(2)} AAA</span>`;
+    if (r >= 4.5) return `<span class="badge ok">${r.toFixed(2)} AA</span>`;
+    if (r >= 3) return `<span class="badge warn">${r.toFixed(2)} large only</span>`;
+    return `<span class="badge bad">${r.toFixed(2)} fails</span>`;
+  }
+  function roles(p) {
+    const by = (...rs) => { for (const r of rs) { const c = p.colors.find((x) => x.role === r); if (c) return c.hex; } return p.colors[0].hex; };
+    return { bg: by("background"), fg: by("text"), pri: by("primary", "accent", "text"), acc: by("accent", "signal", "primary"),
+      sec: by("secondary", "surface", "line", "text-muted"), sur: by("surface", "secondary", "line"), mut: by("text-muted", "line", "secondary", "surface") };
+  }
+
+  // ---------- synthetic previews (320 x 200) ----------
+  const T = (x, y, s, fill, fam, txt, extra = "") => `<text x="${x}" y="${y}" font-size="${s}" fill="${fill}" font-family="${fam}" ${extra}>${txt}</text>`;
+  const L = (n, x, y, w, gap, h, fill) => Array.from({ length: n }, (_, i) => `<rect x="${x}" y="${y + i * gap}" width="${i === n - 1 ? w * 0.6 : w}" height="${h}" fill="${fill}"/>`).join("");
+  const frames = (c, f, draw) => [0, 1, 2].map((i) => `<g transform="translate(${14 + i * 102},44)"><rect width="88" height="112" rx="4" fill="${c.sur}" opacity=".35"/>${draw(i)}</g>`).join("") +
+    `<path d="M104 100h8M206 100h8" stroke="${c.fg}" stroke-width="2"/>${T(14, 30, 11, c.fg, f.t, "frame 1 → 3", 'letter-spacing="1"')}`;
+  const R = {
+    editorial: (c, f) => `${T(18, 70, 34, c.fg, f.d, "Lumière")}<rect x="18" y="82" width="70" height="1" fill="${c.acc}"/>${L(4, 18, 96, 110, 9, 3, c.mut)}<rect x="178" y="22" width="124" height="156" fill="${c.sec}"/><rect x="178" y="22" width="124" height="156" fill="${c.fg}" opacity=".18"/>`,
+    cover: (c, f) => `<rect width="320" height="200" fill="${c.sec}"/><ellipse cx="200" cy="200" rx="70" ry="110" fill="${c.fg}" opacity=".55"/><circle cx="200" cy="74" r="26" fill="${c.fg}" opacity=".7"/>${T(16, 58, 50, c.bg, f.d, "MODE", 'font-weight="700" letter-spacing="-1"')}${T(16, 150, 11, c.bg, f.t, "THE SPRING ISSUE", 'letter-spacing="2"')}${T(16, 168, 11, c.bg, f.t, "40 LOOKS")}`,
+    concept: (c, f) => `<circle cx="214" cy="100" r="54" fill="${c.acc}"/><rect x="211" y="34" width="6" height="18" fill="${c.fg}"/>${T(22, 92, 22, c.fg, f.d, "Fresh ideas")}${T(22, 116, 22, c.fg, f.d, "keep", 'font-style="italic"')}${L(3, 22, 136, 90, 8, 3, c.mut)}`,
+    product: (c, f) => `<radialGradient id="pg"><stop offset="0" stop-color="${c.sur}"/><stop offset="1" stop-color="${c.bg}"/></radialGradient><rect width="320" height="200" fill="url(#pg)"/><ellipse cx="160" cy="156" rx="52" ry="7" fill="${c.fg}" opacity=".18"/><rect x="132" y="46" width="56" height="104" rx="10" fill="${c.pri}"/><rect x="140" y="54" width="10" height="88" rx="5" fill="${c.fg}" opacity=".12"/>${T(160, 186, 11, c.fg, f.t, "Made to last", 'text-anchor="middle" letter-spacing="1"')}`,
+    plate: (c, f) => `<rect x="104" y="20" width="112" height="128" fill="${c.sec}"/><rect x="116" y="32" width="88" height="104" fill="${c.pri}" opacity=".5"/>${T(104, 166, 10, c.fg, f.t, "Untitled (Blue), 1962", 'font-style="italic"')}${T(104, 180, 9, c.mut, f.t, "Oil on canvas, 120 × 98 cm")}`,
+    grid: (c, f) => Array.from({ length: 6 }, (_, i) => `<rect x="${16 + i * 50}" y="0" width="0.6" height="200" fill="${c.mut}" opacity=".35"/>`).join("") + `${T(16, 64, 40, c.fg, f.d, "Raster", 'font-weight="800" letter-spacing="-1"')}<rect x="166" y="90" width="98" height="98" fill="${c.acc}"/>${L(5, 16, 96, 130, 9, 3, c.fg)}${T(166, 82, 10, c.fg, f.t, "Nr. 07")}`,
+    diagonal: (c, f) => `<g transform="rotate(-24 160 100)"><rect x="-30" y="84" width="380" height="34" fill="${c.acc}"/>${T(20, 76, 38, c.fg, f.d, "FORWARD")}<rect x="40" y="128" width="200" height="10" fill="${c.fg}"/></g><circle cx="262" cy="52" r="22" fill="${c.fg}"/>`,
+    raw: (c, f) => `<rect x="10" y="10" width="300" height="180" fill="none" stroke="${c.fg}"/><path d="M10 40h300M160 40v150M10 120h150" stroke="${c.fg}"/>${T(16, 30, 13, c.fg, f.d, "INDEX.TXT / 2026")}${T(16, 60, 11, c.fg, f.t, "01 manifesto")}${T(16, 76, 11, c.fg, f.t, "02 archive")}${T(16, 92, 11, c.acc, f.t, "03 contact", 'text-decoration="underline"')}${T(166, 70, 40, c.fg, f.d, "RAW")}${T(16, 150, 11, c.mut, f.t, "img_0423.jpg 1200x800")}`,
+    geometric: (c, f) => `<circle cx="104" cy="96" r="58" fill="${c.pri}"/><rect x="164" y="40" width="74" height="74" fill="${c.sec}"/><path d="M200 168 L258 168 L229 118 Z" fill="${c.acc}"/>${T(20, 186, 14, c.fg, f.d, "form und farbe")}`,
+    symmetric: (c, f) => `<rect x="20" y="14" width="280" height="172" fill="none" stroke="${c.acc}"/><path d="M128 120 v-40 a32 32 0 0 1 64 0 v40 z" fill="${c.pri}"/>${T(160, 46, 16, c.fg, f.d, "M U S E V M", 'text-anchor="middle"')}<rect x="130" y="128" width="60" height="1" fill="${c.acc}"/>${L(2, 112, 142, 96, 8, 3, c.mut)}`,
+    triangle: (c, f) => `<radialGradient id="tg" cx=".5" cy=".42" r=".5"><stop offset="0" stop-color="${c.acc}" stop-opacity=".9"/><stop offset="1" stop-color="${c.bg}" stop-opacity="0"/></radialGradient><rect width="320" height="200" fill="${c.bg}"/><rect width="320" height="200" fill="url(#tg)"/><path d="M160 46 L232 170 L88 170 Z" fill="${c.fg}" opacity=".85"/><circle cx="160" cy="62" r="12" fill="${c.fg}"/>${T(160, 192, 11, c.fg, f.d, "Annunciation", 'text-anchor="middle" font-style="italic"')}`,
+    panel: (c, f) => `<rect x="14" y="14" width="140" height="172" fill="${c.sur}"/>${T(26, 70, 54, c.fg, f.d, "03", 'font-weight="600"')}${T(26, 96, 13, c.fg, f.t, "The Desert City")}${L(4, 26, 108, 110, 8, 3, c.fg)}<rect x="174" y="40" width="132" height="2" fill="${c.fg}"/>${[0, 1, 2, 3].map((i) => `<circle cx="${184 + i * 38}" cy="41" r="4" fill="${c.acc}"/>${T(176 + i * 38, 60, 9, c.fg, f.t, 1880 + i * 40)}`).join("")}`,
+    poster: (c, f) => `<rect width="320" height="200" fill="${c.bg}"/><circle cx="160" cy="118" r="60" fill="${c.acc}"/>${Array.from({ length: 7 }, (_, i) => `<rect x="${158}" y="20" width="4" height="40" fill="${c.acc}" transform="rotate(${-60 + i * 20} 160 118)"/>`).join("")}<path d="M0 150 Q80 120 160 146 T320 140 V200 H0Z" fill="${c.pri}"/><rect y="168" width="320" height="32" fill="${c.fg}"/>${T(160, 192, 18, c.bg, f.d, "RIVIERA", 'text-anchor="middle" letter-spacing="6"')}`,
+    oversized: (c, f) => `<rect width="320" height="200" fill="${c.bg}"/>${T(-8, 186, 196, c.fg, f.d, "GO!", 'letter-spacing="-6"')}${T(232, 24, 10, c.fg, f.t, "DROP 11.11")}`,
+    "layered-type": (c, f) => `<rect x="150" y="0" width="170" height="200" fill="${c.pri}"/>${T(14, 84, 48, c.fg, f.d, "Talks", 'font-weight="800"')}${T(118, 150, 48, c.bg, f.d, "Talks", 'font-weight="800" opacity=".9"')}<g transform="rotate(90 300 20)">${T(300, 20, 13, c.bg, f.t, "SERIES 04 · OCT 12 TO 30")}</g>${L(3, 14, 168, 90, 7, 2, c.fg)}`,
+    distort: (c, f) => `<g transform="translate(0,0) scale(1,2.2)">${T(14, 54, 44, c.pri, f.d, "NOISE", 'opacity=".9"')}</g><g transform="translate(10,8) scale(1,2.2)" style="mix-blend-mode:multiply">${T(14, 54, 44, c.sec, f.d, "NOISE")}</g>${T(14, 190, 11, c.fg, f.t, "fri 22:00 / basement")}`,
+    halftone: (c, f) => `<pattern id="ht" width="8" height="8" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="2.2" fill="${c.sec}"/></pattern><rect width="320" height="200" fill="${c.acc}"/><rect width="320" height="200" fill="url(#ht)" opacity=".7"/><path d="M160 22 L182 70 L234 62 L198 98 L226 144 L174 124 L150 170 L138 120 L86 128 L118 90 L92 52 L142 66 Z" fill="${c.pri}" stroke="${c.fg}" stroke-width="5"/>${T(160, 108, 26, c.bg, f.d, "POW", 'text-anchor="middle" stroke="' + c.fg + '" stroke-width="1.5"')}`,
+    collage: (c, f) => `<rect x="30" y="30" width="120" height="140" fill="${c.mut}" transform="rotate(-6 90 100)"/><rect x="130" y="40" width="110" height="80" fill="${c.pri}" opacity=".85" transform="rotate(5 185 80)" style="mix-blend-mode:multiply"/><rect x="170" y="110" width="120" height="70" fill="${c.sec}" transform="rotate(-3 230 145)"/><rect x="112" y="30" width="44" height="12" fill="${c.bg}" opacity=".8" transform="rotate(-20 134 36)"/>${T(46, 120, 30, c.fg, f.d, "Say it")}${T(186, 150, 15, c.bg, f.t, "out loud")}`,
+    swatches: (c, f, p) => p.colors.slice(0, 5).map((col, i) => `<g transform="translate(${14 + i * 60},34)"><rect width="52" height="132" rx="3" fill="#FFFFFF" stroke="#00000022"/><rect width="52" height="94" rx="3" fill="${col.hex}"/>${T(5, 110, 7, "#222", f.d, esc(col.name.split(" ")[0]))}${T(5, 122, 7, "#555", f.t, col.hex)}</g>`).join(""),
+    tints: (c, f) => [100, 75, 50, 25].map((o, i) => `<rect x="${16 + i * 74}" y="30" width="66" height="66" fill="${c.pri}" opacity="${o / 100}"/>`).join("") + [100, 60].map((o, i) => `<rect x="${16 + i * 148}" y="110" width="140" height="70" fill="${c.sec}" opacity="${o / 100}"/>`).join("") + `<rect x="120" y="110" width="66" height="70" fill="${c.pri}" style="mix-blend-mode:multiply"/>`,
+    split: (c, f) => `<rect width="320" height="200" fill="${c.bg}"/><circle cx="244" cy="100" r="30" fill="${c.sec}"/>${T(18, 110, 40, c.fg, f.d, "Contrast", 'font-weight="800"')}`,
+    bands: (c, f) => [c.pri, c.acc, c.sec, c.bg].map((col, i) => `<rect y="${i * 50}" width="320" height="50" fill="${col}"/>`).join("") + T(18, 186, 16, c.fg, f.d, "slow change"),
+    steps: (c, f, p) => p.colors.map((col, i) => `<rect x="${16 + i * 58}" y="${150 - i * 26}" width="50" height="${34 + i * 26}" fill="${col.hex}"/>`).join("") + T(16, 30, 18, c.fg, f.d, "One hue, many values"),
+    blocks: (c, f) => `<rect width="190" height="120" fill="${c.pri}"/><rect x="190" width="130" height="80" fill="${c.acc}"/><rect x="190" y="80" width="130" height="120" fill="${c.sec}"/><rect y="120" width="190" height="80" fill="${c.bg}"/>${T(14, 60, 30, c.bg, f.d, "Agenda", 'font-weight="800"')}${T(14, 160, 13, c.fg, f.t, "01 Product   02 Team")}`,
+    specimen: (c, f) => `<path d="M160 180 C158 140 162 100 160 40" stroke="${c.pri}" stroke-width="2.5" fill="none"/>${[[-1, 130], [1, 112], [-1, 92], [1, 74]].map(([d, y]) => `<path d="M160 ${y} q ${d * 30} -24 ${d * 52} -8 q ${d * -22} 20 ${d * -52} 8z" fill="${c.pri}" opacity=".75"/>`).join("")}<circle cx="160" cy="36" r="10" fill="${c.acc}"/>${T(160, 196, 11, c.fg, f.d, "Camellia sinensis · Pl. 12", 'text-anchor="middle" font-style="italic"')}`,
+    blobs: (c, f) => `<path d="M210 30 C270 20 310 80 290 130 C270 180 190 190 160 150 C130 110 150 40 210 30Z" fill="${c.sur}"/><path d="M60 110 C80 70 150 80 150 130 C150 170 90 190 60 160 C40 140 48 126 60 110Z" fill="${c.sec}"/>${T(20, 58, 26, c.fg, f.d, "breathe")}`,
+    pattern: (c, f) => `<pattern id="fp" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="5" fill="${c.pri}"/><circle cx="30" cy="30" r="5" fill="${c.sec}"/><path d="M20 10 q6 -6 12 0 q-6 6 -12 0z M0 30 q6 -6 12 0 q-6 6 -12 0z" fill="${c.acc}"/></pattern><rect width="320" height="200" fill="${c.bg}"/><rect width="320" height="200" fill="url(#fp)"/><rect x="90" y="66" width="140" height="68" rx="34" fill="${c.bg}"/>${T(160, 108, 22, c.fg, f.d, "Rosarium", 'text-anchor="middle"')}`,
+    brush: (c, f) => `<path d="M40 150 C80 60 140 170 190 80 S280 70 290 120" stroke="${c.pri}" stroke-width="16" stroke-linecap="round" fill="none" opacity=".85"/><circle cx="246" cy="58" r="20" fill="${c.acc}"/>${T(24, 60, 38, c.fg, f.d, "Small batch")}`,
+    "relief-leaf": (c, f) => `<rect width="320" height="200" fill="${c.sec}"/>${[0, 1, 2].map((i) => `<path d="M${40 + i * 110} 200 C${20 + i * 110} 120 ${90 + i * 110} 80 ${110 + i * 110} 20" stroke="${c.pri}" stroke-width="3" fill="none" opacity=".35"/><ellipse cx="${80 + i * 110}" cy="110" rx="26" ry="10" transform="rotate(-50 ${80 + i * 110} 110)" fill="${c.pri}" opacity=".25"/>`).join("")}<rect x="96" y="70" width="128" height="60" fill="${c.bg}"/>${T(160, 106, 16, c.fg, f.d, "Sage & Salt", 'text-anchor="middle"')}`,
+    deboss: (c, f) => `<filter id="db"><feOffset dy="1"/><feGaussianBlur stdDeviation=".4"/><feComposite operator="out" in="SourceGraphic"/><feComponentTransfer><feFuncA type="linear" slope=".6"/></feComponentTransfer><feBlend in="SourceGraphic" mode="multiply"/></filter><rect width="320" height="200" fill="${c.bg}"/>${T(160, 86, 30, c.fg, f.d, "You are invited", 'text-anchor="middle" filter="url(#db)"')}<rect x="120" y="104" width="80" height="1" fill="${c.fg}"/>${T(160, 132, 12, c.fg, f.t, "Saturday, the ninth of May", 'text-anchor="middle" font-style="italic"')}`,
+    emboss: (c, f) => `<rect width="320" height="200" fill="${c.bg}"/><g font-family="${f.d}" font-size="64" text-anchor="middle"><text x="159" y="121" fill="#FFFFFF" opacity=".7">A</text><text x="161" y="123" fill="#000000" opacity=".22">A</text><text x="160" y="122" fill="${c.bg}">A</text></g><circle cx="160" cy="100" r="54" fill="none" stroke="#000" stroke-opacity=".12"/>`,
+    foil: (c, f) => `<linearGradient id="fg" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="${c.acc}"/><stop offset=".5" stop-color="${c.fg}"/><stop offset="1" stop-color="${c.acc}"/></linearGradient><rect width="320" height="200" fill="${c.bg}"/><rect x="104" y="40" width="112" height="120" fill="none" stroke="url(#fg)"/>${T(160, 118, 54, "url(#fg)", f.d, "M", 'text-anchor="middle"')}`,
+    sculpt: (c, f) => `<radialGradient id="sg" cx=".3" cy=".3"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".55"/><stop offset="1" stop-color="${c.sur}" stop-opacity="0"/></radialGradient><rect width="320" height="200" fill="${c.sur}"/>${[[90, 120, 70], [210, 80, 60], [250, 170, 50]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c.bg}"/><circle cx="${x}" cy="${y}" r="${r}" fill="url(#sg)"/><circle cx="${x + 6}" cy="${y + 8}" r="${r}" fill="${c.fg}" opacity=".08"/>`).join("")}${T(18, 34, 14, c.fg, f.d, "Stillness")}`,
+    label: (c, f) => `<rect width="320" height="200" fill="${c.pri}" opacity=".45"/><rect x="90" y="20" width="140" height="170" rx="6" fill="${c.pri}" opacity=".7"/><rect x="112" y="96" width="96" height="56" fill="${c.bg}"/>${T(120, 114, 10, c.fg, f.d, "NO. 04 / ROAST")}${T(120, 130, 9, c.fg, f.t, "250 g · whole bean")}${T(120, 144, 9, c.fg, f.t, "lot 2611")}`,
+    ma: (c, f) => `<rect width="320" height="200" fill="${c.bg}"/><circle cx="236" cy="132" r="9" fill="${c.pri}"/>${T(236, 162, 10, c.fg, f.d, "間", 'text-anchor="middle"')}<rect x="24" y="24" width="1" height="40" fill="${c.mut}"/>`,
+    planes: (c, f) => `<rect width="320" height="200" fill="${c.bg}"/><path d="M0 200 L150 60 L320 60 L320 200Z" fill="${c.sur}"/><path d="M150 60 L180 0 L320 0 L320 60Z" fill="${c.mut}"/><path d="M0 200 L150 60 L170 60 L40 200Z" fill="${c.fg}" opacity=".2"/>${T(16, 30, 10, c.fg, f.t, "SECTION A-A  1:200", 'letter-spacing="1.5"')}`,
+    columns: (c, f) => `${T(18, 50, 28, c.fg, f.d, "The long read")}${T(18, 70, 10, c.pri, f.t, "ESSAY · 12 MIN", 'letter-spacing="1"')}${L(7, 18, 86, 130, 9, 3, c.mut)}<rect x="168" y="86" width="136" height="74" fill="${c.sec}"/>${L(2, 168, 168, 136, 8, 3, c.mut)}`,
+    tiles: (c, f) => [0, 1, 2].map((i) => `<g transform="translate(${14 + i * 102},26)"><rect width="88" height="120" fill="${c.sur}"/><rect x="32" y="24" width="24" height="64" rx="5" fill="${c.pri}"/>${T(0, 140, 10, c.fg, f.d, ["Form 01", "Form 02", "Form 03"][i])}${T(0, 154, 9, c.mut, f.t, "€ 240")}</g>`).join(""),
+    exploded: (c, f) => [0, 1, 2, 3].map((i) => `<g transform="translate(110,${30 + i * 38})"><path d="M0 14 L50 0 L100 14 L50 28Z" fill="${i === 2 ? c.pri : c.sur}" stroke="${c.mut}"/></g><path d="M215 ${44 + i * 38} H260" stroke="${c.mut}"/><circle cx="268" cy="${44 + i * 38}" r="7" fill="none" stroke="${c.fg}"/>${T(265, 48 + i * 38, 9, c.fg, f.t, i + 1)}`).join(""),
+    isometric: (c, f) => [[90, 110], [160, 70], [230, 110], [160, 150]].map(([x, y], i) => `<path d="M${x} ${y} l30 -17 l30 17 l-30 17z" fill="${c.sur}"/><path d="M${x} ${y} v20 l30 17 v-20z" fill="${c.pri}" opacity="${i === 1 ? 1 : 0.55}"/><path d="M${x + 60} ${y} v20 l-30 17 v-20z" fill="${c.fg}" opacity=".35"/>`).join("") + `<path d="M150 104 L190 82" stroke="${c.acc}" stroke-width="2" stroke-dasharray="4 3"/>`,
+    spec: (c, f) => `<rect x="14" y="14" width="150" height="172" fill="${c.pri}"/><rect x="26" y="70" width="126" height="80" fill="${c.bg}" opacity=".15"/>${T(176, 46, 26, c.fg, f.d, "LINE 7")}${["Throughput  1,200/h", "Tolerance   ±0.02 mm", "Yield       98.6 %"].map((s, i) => T(176, 76 + i * 16, 9.5, c.fg, f.t, s.replace(/ /g, " "))).join("")}<rect x="176" y="130" width="40" height="4" fill="${c.acc}"/>`,
+    blueprint: (c, f) => Array.from({ length: 16 }, (_, i) => `<path d="M${i * 20} 0V200M0 ${i * 20}H320" stroke="${c.sec}" stroke-opacity=".18"/>`).join("") + `<rect x="80" y="50" width="120" height="80" fill="none" stroke="${c.fg}" stroke-width="1.5"/><circle cx="140" cy="90" r="22" fill="none" stroke="${c.fg}" stroke-dasharray="4 3"/><path d="M80 146 H200 M80 142 v8 M200 142 v8" stroke="${c.sec}"/>${T(126, 160, 9, c.sec, f.t, "120.0")}<circle cx="198" cy="52" r="12" fill="none" stroke="${c.acc}" stroke-width="2"/><rect x="226" y="150" width="84" height="40" fill="none" stroke="${c.fg}"/>${T(232, 166, 8, c.fg, f.t, "PART A-12")}${T(232, 180, 8, c.fg, f.t, "SCALE 1:2")}`,
+    stack: (c, f) => [0, 1, 2, 3].map((i) => `<path d="M60 ${150 - i * 30} L160 ${120 - i * 30} L260 ${150 - i * 30} L160 ${180 - i * 30}Z" fill="${c.pri}" opacity="${0.25 + i * 0.15}" stroke="${c.sec}" stroke-opacity=".5"/>`).join("") + `<path d="M160 160 V60" stroke="${c.acc}" stroke-width="2.5"/>${T(268, 66, 9, c.fg, f.t, "app")}${T(268, 156, 9, c.fg, f.t, "silicon")}`,
+    "frames-type": (c, f) => frames(c, f, (i) => T(44, 68, [14, 22, 32][i], i === 2 ? c.acc : c.fg, f.d, ["we", "move", "FAST"][i], 'text-anchor="middle"')),
+    "frames-morph": (c, f) => frames(c, f, (i) => i === 0 ? `<circle cx="44" cy="56" r="24" fill="${c.pri}"/>` : i === 1 ? `<rect x="20" y="32" width="48" height="48" rx="14" fill="${c.pri}"/>` : `<rect x="18" y="62" width="12" height="20" fill="${c.pri}"/><rect x="38" y="44" width="12" height="38" fill="${c.pri}"/><rect x="58" y="30" width="12" height="52" fill="${c.pri}"/>`),
+    "frames-scene": (c, f) => frames(c, f, (i) => [`<rect x="8" y="8" width="72" height="60" fill="${c.sec}"/>${T(8, 90, 13, c.fg, f.d, "Atelier")}`, `<rect x="30" y="20" width="50" height="40" fill="${c.sec}"/>${T(8, 20, 11, c.fg, f.d, "Atelier")}`, `<rect x="44" y="8" width="36" height="30" fill="${c.sec}"/>${T(8, 20, 11, c.fg, f.d, "Atelier")}${L(4, 8, 48, 70, 9, 3, c.mut)}`][i]),
+    "frames-camera": (c, f) => frames(c, f, (i) => { const s = [0.5, 0.9, 1.6][i]; return `<g transform="translate(44,56) scale(${s})"><rect x="-26" y="-18" width="52" height="36" fill="none" stroke="${c.pri}" stroke-width="${2 / s}"/><rect x="-8" y="-6" width="16" height="12" fill="${c.acc}"/></g>`; }),
+    "frames-scroll": (c, f) => frames(c, f, (i) => `<rect x="8" y="10" width="72" height="50" fill="${c.bg}" opacity=".6"/>${[0, 1, 2].map((b) => `<rect x="${16 + b * 22}" y="${54 - (b + 1) * 12}" width="14" height="${(b + 1) * 12}" fill="${b === i ? c.acc : c.mut}"/>`).join("")}<rect x="8" y="${96 - i * 14}" width="72" height="12" fill="${c.fg}" opacity=".8"/>`),
+    "frames-gear": (c, f) => frames(c, f, (i) => `<g transform="rotate(${i * 30} 34 56)"><circle cx="34" cy="56" r="20" fill="none" stroke="${c.fg}" stroke-width="2"/><path d="M34 36 V76 M14 56 H54" stroke="${c.fg}"/></g><g transform="rotate(${-i * 60} 66 56)"><circle cx="66" cy="56" r="10" fill="none" stroke="${c.acc}" stroke-width="2"/><path d="M66 46 V66" stroke="${c.acc}"/></g>`),
+    "frames-peel": (c, f) => frames(c, f, (i) => [0, 1, 2, 3].map((l) => `<rect x="${14 + (l < i ? 60 : 0)}" y="${30 + l * 14}" width="60" height="12" rx="4" fill="${[c.acc, c.pri, c.sec, c.fg][l]}" opacity="${l < i ? 0.35 : 1}"/>`).join("")),
+    "frames-flow": (c, f) => frames(c, f, (i) => `<circle cx="14" cy="56" r="7" fill="${c.mut}"/><circle cx="74" cy="56" r="7" fill="${c.mut}"/><path d="M21 56 H67" stroke="${c.mut}" stroke-dasharray="3 3"/><circle cx="${24 + i * 20}" cy="56" r="4" fill="${c.pri}"/>${i === 2 ? `<circle cx="74" cy="56" r="11" fill="none" stroke="${c.acc}"/>` : ""}`),
+    "frames-reveal": (c, f) => frames(c, f, (i) => `<rect x="30" y="${24}" width="28" height="60" rx="6" fill="${c.acc}" opacity="${[0.1, 0.5, 1][i]}" transform="rotate(${[30, 12, 0][i]} 44 54)"/>${i === 2 ? T(44, 100, 9, c.fg, f.t, "Edition", 'text-anchor="middle"') : ""}`),
+  };
+  let uid = 0;
+  function preview(style, palette) {
+    const c = roles(palette);
+    const fm = { d: FONTS[style.preview.display] || FONTS.grotesk, t: FONTS[style.preview.text] || FONTS.grotesk };
+    const draw = R[style.preview.renderer] || R.editorial;
+    // Gradient and pattern ids must be unique per preview, or url(#id) resolves to another card's colors.
+    const n = ++uid;
+    const art = draw(c, fm, palette).replace(/id="([\w-]+)"/g, `id="$1-${n}"`).replace(/url\(#([\w-]+)\)/g, `url(#$1-${n})`);
+    return `<svg viewBox="0 0 320 200" role="img" aria-label="Synthetic preview of ${esc(style.name)} using the ${esc(palette.name)} palette" preserveAspectRatio="xMidYMid slice"><rect width="320" height="200" fill="${c.bg}"/>${art}</svg>`;
+  }
+
+  // ---------- data ----------
+  async function load() {
+    try {
+      const [s, p, r] = await Promise.all(["styles.json", "palettes.json", "presets.json"].map((f) => fetch(f).then((x) => { if (!x.ok) throw new Error(f); return x.json(); })));
+      DB = { ...s, palettes: p.palettes, pcats: p.categories, presets: r.presets };
+      DB.pal = Object.fromEntries(DB.palettes.map((x) => [x.id, x]));
+      DB.sty = Object.fromEntries(DB.styles.map((x) => [x.id, x]));
+      DB.cat = Object.fromEntries(DB.categories.map((x) => [x.id, x]));
+      init();
+    } catch (e) {
+      $("#style-grid").innerHTML = `<div class="notice"><strong>Library data could not load.</strong> Browsers block reading local files, so serve this folder first:<br><code>cd skills/productivity/visual-style/library &amp;&amp; python3 -m http.server 8000</code><br>then open <code>http://localhost:8000/gallery.html</code>.</div>`;
+    }
+  }
+
+  function opts(sel, values, label) {
+    sel.innerHTML = `<option value="">${label}</option>` + values.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join("");
+  }
+  const uniq = (key) => [...new Set(DB.styles.flatMap((s) => s[key]))].sort();
+
+  function init() {
+    $("#counts").textContent = `${DB.styles.length} styles · ${DB.palettes.length} palettes · ${DB.presets.length} presets`;
+    opts($("#f-category"), DB.categories.map((c) => [c.id, c.name]), "All");
+    opts($("#f-color"), [...DB.pcats.map((c) => ["cat:" + c.id, c.name + " (family)"]), ...DB.palettes.map((p) => ["pal:" + p.id, p.name])], "Any");
+    opts($("#f-mood"), uniq("mood").map((v) => [v, v]), "Any");
+    opts($("#f-typography"), DB.vocabulary.typography_tags.map((v) => [v, v]), "Any");
+    opts($("#f-layout"), DB.vocabulary.layout_tags.map((v) => [v, v]), "Any");
+    opts($("#f-medium"), DB.vocabulary.medium.map((v) => [v, v]), "Any");
+    opts($("#f-use"), uniq("use_cases").map((v) => [v, v]), "Any");
+    opts($("#f-motion"), DB.vocabulary.motion_type.map((v) => [v, v]), "Any");
+    opts($("#p-category"), DB.pcats.map((c) => [c.id, c.name]), "All");
+    try { const saved = JSON.parse(localStorage.getItem("vsl-filters") || "{}"); for (const [k, v] of Object.entries(saved)) { const el = $("#" + k); if (el) el.value = v; } } catch (e) {}
+    document.querySelectorAll("#filters input, #filters select").forEach((el) => el.addEventListener("input", renderStyles));
+    $("#reset").addEventListener("click", () => { document.querySelectorAll("#filters input, #filters select").forEach((el) => (el.value = "")); renderStyles(); });
+    $("#p-text").addEventListener("input", renderPalettes);
+    $("#p-category").addEventListener("input", renderPalettes);
+    document.querySelectorAll("nav.tabs button").forEach((b) => b.addEventListener("click", () => setTab(b.dataset.tab)));
+    setupChecker();
+    renderStyles(); renderPalettes(); renderPresets();
+    const h = location.hash.slice(1);
+    if (["styles", "palettes", "presets"].includes(h)) setTab(h);
+    else if (DB.sty[h]) openStyle(h);
+  }
+
+  function setTab(t) {
+    state.tab = t;
+    document.querySelectorAll("nav.tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.tab === t)));
+    for (const v of ["styles", "palettes", "presets"]) $("#view-" + v).hidden = v !== t;
+  }
+
+  // ---------- styles ----------
+  function styleMatches(s) {
+    const v = (id) => $(id).value;
+    const q = v("#f-text").trim().toLowerCase();
+    if (q) { const blob = [s.id, s.name, s.summary, ...s.aliases, ...s.mood, ...s.use_cases].join(" ").toLowerCase(); if (!q.split(/\s+/).every((w) => blob.includes(w))) return false; }
+    if (v("#f-category") && s.category !== v("#f-category")) return false;
+    const col = v("#f-color");
+    if (col.startsWith("pal:") && !s.compatible_palettes.includes(col.slice(4))) return false;
+    if (col.startsWith("cat:") && !s.compatible_palettes.some((p) => DB.pal[p].category === col.slice(4))) return false;
+    for (const [id, key] of [["#f-mood", "mood"], ["#f-typography", "typography_tags"], ["#f-layout", "layout_tags"], ["#f-medium", "medium"], ["#f-use", "use_cases"], ["#f-motion", "motion_type"]]) {
+      if (v(id) && !s[key].includes(v(id))) return false;
+    }
+    return true;
+  }
+  function paletteFor(s) {
+    const col = $("#f-color").value;
+    if (state.paletteOverride[s.id]) return DB.pal[state.paletteOverride[s.id]];
+    if (col.startsWith("pal:")) return DB.pal[col.slice(4)];
+    if (col.startsWith("cat:")) { const m = s.compatible_palettes.find((p) => DB.pal[p].category === col.slice(4)); if (m) return DB.pal[m]; }
+    return DB.pal[s.preview.palette] || DB.pal[s.compatible_palettes[0]];
+  }
+  const swatchBar = (p) => `<div class="swatches" title="${esc(p.name)}">${p.colors.map((c) => `<span style="background:${c.hex};flex:${c.share}" title="${esc(c.name)} ${c.hex} (${c.role})"></span>`).join("")}</div>`;
+
+  function renderStyles() {
+    const keep = {};
+    document.querySelectorAll("#filters input, #filters select").forEach((el) => { if (el.value) keep[el.id] = el.value; });
+    try { localStorage.setItem("vsl-filters", JSON.stringify(keep)); } catch (e) {}
+    const list = DB.styles.filter(styleMatches);
+    $("#style-count").textContent = `${list.length} of ${DB.styles.length} styles`;
+    $("#style-grid").innerHTML = list.length ? list.map((s) => {
+      const p = paletteFor(s);
+      const fd = FONTS[s.preview.display] || FONTS.grotesk, ft = FONTS[s.preview.text] || FONTS.grotesk;
+      return `<article class="card">
+        <div class="thumb">${preview(s, p)}<span class="tag-synth">synthetic preview</span></div>
+        <div class="body">
+          <div class="eyebrow">${esc(DB.cat[s.category].name)}</div>
+          <h3>${esc(s.name)}</h3>
+          ${swatchBar(p)}
+          <div class="specimen"><span class="d" style="font-family:${fd}">Aa</span><span class="t" style="font-family:${ft}">${esc(s.typography_tags.join(" + "))}</span></div>
+          <p class="summary">${esc(s.summary)}</p>
+          <div class="chips">${s.mood.map((m) => `<span class="chip">${esc(m)}</span>`).join("")}</div>
+          <div class="actions"><button class="btn" data-detail="${s.id}">Details</button><button class="btn primary" data-use="${s.id}">Use this style</button></div>
+        </div></article>`;
+    }).join("") : `<p class="empty">No style matches every filter. Clear one filter, or search a single word.</p>`;
+  }
+  document.addEventListener("click", (e) => {
+    const d = e.target.closest("[data-detail]"); if (d) return openStyle(d.dataset.detail);
+    const u = e.target.closest("[data-use]"); if (u) return openUse(u.dataset.use);
+    const sp = e.target.closest("[data-style-link]"); if (sp) return openStyle(sp.dataset.styleLink);
+    const pp = e.target.closest("[data-preset]"); if (pp) return openPreset(pp.dataset.preset);
+    if (e.target.closest("[data-close]")) $("#dlg").close();
+  });
+
+  const profileCache = {};
+  async function profileSection(s) {
+    if (!(s.profile in profileCache)) {
+      try { profileCache[s.profile] = await fetch(s.profile).then((r) => (r.ok ? r.text() : "")); } catch (e) { profileCache[s.profile] = ""; }
+    }
+    const part = profileCache[s.profile].split(/^## /m).find((x) => x.split("\n")[0].trim() === s.id);
+    if (!part) return `<p class="summary">Profile text not available here. Read <code>${esc(s.profile)}</code>, section <code>${esc(s.id)}</code>.</p>`;
+    return part.split("\n").filter((l) => l.startsWith("**")).map((l) => {
+      const m = l.match(/^\*\*(.+?):\*\*\s*(.*)$/); if (!m) return "";
+      const body = esc(m[2]).replace(/`([^`]+)`/g, "<code>$1</code>");
+      return `<div><h4>${esc(m[1])}</h4><p>${body}</p></div>`;
+    }).join("");
+  }
+  function showDialog(html) { $("#dlg-body").innerHTML = html; const d = $("#dlg"); if (!d.open) d.showModal(); d.scrollTop = 0; }
+
+  async function openStyle(id) {
+    const s = DB.sty[id]; const p = paletteFor(s);
+    const refs = s.reference_images.length ? s.reference_images.map((r) => `${esc(r.kind)}: ${esc(r.path)} (${esc(r.source)})`).join("<br>") : "None yet. Preview above is synthetic.";
+    showDialog(`<header><div><div class="eyebrow">${esc(DB.cat[s.category].name)}</div><h2 id="dlg-title">${esc(s.name)}</h2></div><button class="btn" data-close>Close</button></header>
+      <div class="thumb" style="border:1px solid var(--rule);border-radius:8px;overflow:hidden">${preview(s, p)}<span class="tag-synth">synthetic preview · ${esc(p.name)}</span></div>
+      <p>${esc(s.summary)}</p>
+      <dl class="meta">
+        ${s.aliases.length ? `<dt>Also called</dt><dd>${esc(s.aliases.join(", "))}</dd>` : ""}
+        <dt>Palettes</dt><dd>${s.compatible_palettes.map((pid) => `<button class="linkish" data-swap="${s.id}|${pid}">${esc(DB.pal[pid].name)}</button>`).join(", ")}</dd>
+        <dt>Related</dt><dd>${s.related_styles.map((r) => `<button class="linkish" data-style-link="${r}">${esc(DB.sty[r].name)}</button>`).join(", ")}</dd>
+        <dt>Medium</dt><dd>${esc(s.medium.join(", "))}</dd>
+        <dt>Use cases</dt><dd>${esc(s.use_cases.join(", "))}</dd>
+        <dt>Motion</dt><dd>${esc(s.motion_type.join(", "))}</dd>
+        <dt>References</dt><dd>${refs}</dd>
+        ${s.reference_sources.length ? `<dt>Sources</dt><dd>${s.reference_sources.map(esc).join("<br>")}</dd>` : ""}
+        <dt>Id</dt><dd><code>${esc(s.id)}</code></dd>
+      </dl>
+      <div class="actions"><button class="btn primary" data-use="${s.id}">Use this style</button></div>
+      <div class="profile" id="profile">Loading profile…</div>`);
+    $("#profile").innerHTML = await profileSection(s);
+  }
+  document.addEventListener("click", (e) => {
+    const sw = e.target.closest("[data-swap]"); if (!sw) return;
+    const [sid, pid] = sw.dataset.swap.split("|"); state.paletteOverride[sid] = pid; renderStyles(); openStyle(sid);
+  });
+
+  function tokens(p) {
+    const used = {};
+    return p.colors.map((c) => { used[c.role] = (used[c.role] || 0) + 1; const n = used[c.role] > 1 ? `${c.role}-${used[c.role]}` : c.role; return `  --color-${n}: ${c.hex}; /* ${c.name} */`; }).join("\n");
+  }
+  function openUse(id) {
+    const s = DB.sty[id]; const current = paletteFor(s).id;
+    const others = DB.palettes.filter((p) => !s.compatible_palettes.includes(p.id));
+    showDialog(`<header><div><div class="eyebrow">Use this style</div><h2 id="dlg-title">${esc(s.name)}</h2></div><button class="btn" data-close>Close</button></header>
+      <div class="row"><label for="use-pal">Palette</label><select id="use-pal">
+        <optgroup label="Compatible">${s.compatible_palettes.map((pid) => `<option value="${pid}" ${pid === current ? "selected" : ""}>${esc(DB.pal[pid].name)}</option>`).join("")}</optgroup>
+        <optgroup label="Other (check fit)">${others.map((p) => `<option value="${p.id}" ${p.id === current ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</optgroup>
+      </select></div>
+      <div id="use-out"></div>`);
+    const draw = () => {
+      const p = DB.pal[$("#use-pal").value]; state.paletteOverride[s.id] = p.id;
+      const fits = s.compatible_palettes.includes(p.id);
+      const snippet = `/visual-style\nStyle: ${s.id}\nPalette: ${p.id}${fits ? "" : "  (outside the style's compatible list: confirm fit)"}\n\n:root {\n${tokens(p)}\n}`;
+      $("#use-out").innerHTML = `<div class="thumb" style="border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin-bottom:12px">${preview(s, p)}<span class="tag-synth">synthetic preview</span></div>
+        <pre class="snippet" id="snip">${esc(snippet)}</pre>
+        <div class="row" style="margin-top:10px"><button class="btn primary" id="copy">Copy selection</button><span class="copied" id="copied" aria-live="polite"></span></div>
+        <p class="summary">Paste this into a Claude Code session to start <code>/visual-style</code> with this pair, or use the tokens directly in CSS.</p>`;
+      $("#copy").addEventListener("click", () => copy(snippet));
+      renderStyles();
+    };
+    $("#use-pal").addEventListener("input", draw); draw();
+  }
+  function copy(text) {
+    const done = (m) => { const el = $("#copied"); if (el) el.textContent = m; };
+    try {
+      navigator.clipboard.writeText(text).then(() => done("Copied"), () => { selectSnippet(); done("Copy blocked here: text selected, press Ctrl or Cmd + C"); });
+    } catch (e) { selectSnippet(); done("Text selected, press Ctrl or Cmd + C"); }
+  }
+  function selectSnippet() { const el = $("#snip"); if (!el) return; const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+
+  // ---------- palettes ----------
+  const pairColor = (p, n) => p.colors.find((c) => c.name === n || c.role === n);
+  function renderPalettes() {
+    const q = $("#p-text").value.trim().toLowerCase(), cat = $("#p-category").value;
+    const list = DB.palettes.filter((p) => (!cat || p.category === cat) && (!q || [p.id, p.name, ...p.mood, ...p.colors.map((c) => c.name + " " + c.hex)].join(" ").toLowerCase().includes(q)));
+    $("#palette-count").textContent = `${list.length} of ${DB.palettes.length} palettes`;
+    $("#palette-grid").innerHTML = list.map((p) => {
+      const styles = DB.styles.filter((s) => s.compatible_palettes.includes(p.id));
+      const pairs = p.text_pairs.map((t) => { const fg = pairColor(p, t.fg), bg = pairColor(p, t.bg), r = ratio(fg.hex, bg.hex);
+        const warn = r < THRESH[t.use] ? `<span class="badge bad">below ${THRESH[t.use]}</span>` : badge(r, t.use);
+        return `<div class="pair"><span class="demo" style="background:${bg.hex};color:${fg.hex}">Aa</span><span>${esc(fg.name)} on ${esc(bg.name)} <span class="role">· ${t.use}</span></span>${warn}</div>`; }).join("");
+      const avoid = p.avoid_pairs.map((t) => { const fg = pairColor(p, t.fg), bg = pairColor(p, t.bg), r = ratio(fg.hex, bg.hex);
+        return `<div class="pair"><span class="demo" style="background:${bg.hex};color:${fg.hex}">Aa</span><span>Avoid: ${esc(fg.name)} on ${esc(bg.name)}</span><span class="badge bad">${r.toFixed(2)}</span></div>`; }).join("");
+      return `<article class="card pcard">
+        <div class="bar">${p.colors.map((c) => `<span style="background:${c.hex};flex:${c.share}" title="${esc(c.name)} ~${c.share}%"></span>`).join("")}</div>
+        <div class="body">
+          <div class="eyebrow">${esc(DB.pcats.find((c) => c.id === p.category).name)} · ${esc(p.source)}</div>
+          <h3>${esc(p.name)}</h3>
+          <div class="colors">${p.colors.map((c) => `<div><i style="background:${c.hex}"></i><code>${c.hex}</code><span>${esc(c.name)}</span><span class="role">${c.role} ~${c.share}%</span></div>`).join("")}</div>
+          <div class="eyebrow">Readable text</div><div class="pairs">${pairs}${avoid}</div>
+          <p class="summary">${esc(p.contrast_notes)}</p>
+          <p class="summary"><strong>Example.</strong> ${esc(p.example)}</p>
+          <div class="chips">${styles.map((s) => `<button class="chip linkish" data-style-link="${s.id}">${esc(s.name)}</button>`).join("")}</div>
+        </div></article>`;
+    }).join("");
+  }
+  function setupChecker() {
+    const fg = $("#c-fg"), bg = $("#c-bg"), fp = $("#c-fg-pick"), bp = $("#c-bg-pick");
+    const valid = (v) => /^#[0-9a-f]{6}$/i.test(v);
+    const upd = () => {
+      if (!valid(fg.value) || !valid(bg.value)) { $("#c-result").textContent = "Enter colors as #RRGGBB"; return; }
+      const r = ratio(fg.value, bg.value);
+      $("#c-sample").style.color = fg.value; $("#c-sample").style.background = bg.value;
+      $("#c-result").innerHTML = badge(r) + (r < 4.5 ? ` <span class="badge bad">Warning: not readable as body text</span>` : "");
+    };
+    fp.addEventListener("input", () => { fg.value = fp.value.toUpperCase(); upd(); });
+    bp.addEventListener("input", () => { bg.value = bp.value.toUpperCase(); upd(); });
+    fg.addEventListener("input", () => { if (valid(fg.value)) fp.value = fg.value; upd(); });
+    bg.addEventListener("input", () => { if (valid(bg.value)) bp.value = bg.value; upd(); });
+    upd();
+  }
+
+  // ---------- presets ----------
+  function renderPresets() {
+    $("#preset-grid").innerHTML = DB.presets.map((pr) => {
+      const s = DB.sty[pr.primary_style], p = DB.pal[pr.palette];
+      return `<article class="card">
+        <div class="thumb">${preview(s, p)}<span class="tag-synth">synthetic preview</span></div>
+        <div class="body">
+          <div class="eyebrow">Preset</div><h3>${esc(pr.name)}</h3>
+          ${swatchBar(p)}
+          <p class="summary">${esc(pr.summary)}</p>
+          <dl class="meta" style="display:grid;grid-template-columns:max-content 1fr;gap:2px 10px;font-size:13px;margin:0">
+            <dt class="role">primary</dt><dd style="margin:0"><button class="linkish" data-style-link="${s.id}">${esc(s.name)}</button></dd>
+            <dt class="role">secondary</dt><dd style="margin:0">${pr.secondary_styles.map((x) => `<button class="linkish" data-style-link="${x}">${esc(DB.sty[x].name)}</button>`).join(", ")}</dd>
+            <dt class="role">palette</dt><dd style="margin:0">${esc(p.name)} <span class="role">or ${esc(pr.alt_palettes.map((x) => DB.pal[x].name).join(", "))}</span></dd>
+          </dl>
+          <div class="actions"><button class="btn primary" data-preset="${pr.id}">Use preset</button></div>
+        </div></article>`;
+    }).join("");
+  }
+  function openPreset(id) {
+    const pr = DB.presets.find((x) => x.id === id), p = DB.pal[pr.palette];
+    const d = pr.direction;
+    const snippet = `/visual-style\nPreset: ${pr.id}\nStyle: ${pr.primary_style}${pr.secondary_styles.length ? " + " + pr.secondary_styles.join(", ") : ""}\nPalette: ${pr.palette}\nAdjust: ${pr.adjustable.join(", ")}\n\n:root {\n${tokens(p)}\n}`;
+    showDialog(`<header><div><div class="eyebrow">Preset</div><h2 id="dlg-title">${esc(pr.name)}</h2></div><button class="btn" data-close>Close</button></header>
+      <p>${esc(pr.summary)}</p><p class="summary">${esc(pr.secondary_role)}</p>
+      <div class="profile">${["typography", "composition", "image_treatment", "motion"].map((k) => `<div><h4>${k.replace("_", " ")}</h4><p>${esc(d[k])}</p></div>`).join("")}<div><h4>avoid</h4><p>${esc(d.avoid.join("; "))}</p></div></div>
+      <pre class="snippet" id="snip">${esc(snippet)}</pre>
+      <div class="row"><button class="btn primary" id="copy">Copy selection</button><span class="copied" id="copied" aria-live="polite"></span></div>`);
+    $("#copy").addEventListener("click", () => copy(snippet));
+  }
+
+  load();
+})();
+</script>
+</body>
+</html>

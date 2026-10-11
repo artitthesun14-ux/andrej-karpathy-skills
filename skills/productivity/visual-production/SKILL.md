@@ -26,7 +26,7 @@ Skip steps when the input already covers them. A small animation fix can start a
 |---|---|---|
 | BRIEF | Goal, audience, constraints, format, source data | none |
 | STORY | Core message, sequence, scenes or slides | `visual-storytelling` |
-| ART DIRECTION | Style, typography, color, mood. Never a stock template | `presentation-design`, `ui-design` for product UI |
+| ART DIRECTION | Style, typography, color, mood. Never a stock template. Style and palette can come from the `visual-style` library files (read them; do not run `/visual-style` from here) | `presentation-design`, `ui-design` for product UI |
 | VISUAL PLAN | The plan below | `motion-design`, `technical-visualization`, `dataviz` |
 | BUILD | Smallest tech that works: CSS, SVG, Canvas, Three.js | `animation-implementation`, `interaction-motion` |
 | REVIEW | Inspect the rendered result | `visual-review`, `animation-review` |
@@ -35,17 +35,7 @@ Skip steps when the input already covers them. A small animation fix can start a
 
 ## Visual plan (medium and large work)
 
-Show a short plan before coding:
-
-- Objective, audience, core message
-- Story structure (per slide: its single job. per scene: its job and transition. per interactive piece: states, user actions, results)
-- Art direction
-- Visual technique (text, chart, diagram, 2D, 3D) and why
-- Animation strategy
-- Implementation approach
-- Quality checks
-
-Keep it to what prevents wrong turns.
+Show a short plan before coding, using `references/visual-plan.md`. Keep it to what prevents wrong turns.
 
 ## Rules
 
@@ -56,6 +46,6 @@ Keep it to what prevents wrong turns.
 
 ## Workflow position
 
-Independent of the product workflow. Can follow `/ui-design` or `/prototype` when a product needs a visual explainer, and `/code-review` still applies to code.
+Independent of the product workflow. For presentations, `/create-presentation` is the simpler entry point. Can follow `/ui-design` or `/prototype` when a product needs a visual explainer, and `/code-review` still applies to code.
 
 See `README.md` for the full picture.

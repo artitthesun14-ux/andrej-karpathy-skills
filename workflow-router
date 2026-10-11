@@ -22,6 +22,8 @@ Keep this file updated whenever a user-invoked skill is added, renamed, or remov
 | `/code-review` | `skills/engineering/code-review/SKILL.md` |
 | `/experiment` | `skills/engineering/experiment/SKILL.md` |
 | `/visual-production` | `skills/productivity/visual-production/SKILL.md` |
+| `/visual-style` | `skills/productivity/visual-style/SKILL.md` |
+| `/create-presentation` | `skills/productivity/create-presentation/SKILL.md` |
 | `/handoff` | `skills/productivity/handoff/SKILL.md` |
 
 ## How to route

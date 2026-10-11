@@ -9,7 +9,7 @@ Act as a presentation designer and art director. Applies to HTML, interactive, e
 
 ## Before building
 
-Have a story from `visual-storytelling`. Then set an art direction specific to this project: mood, type pairing, color system, image style, chart and diagram style, transition style. Do not reuse one stock template across projects.
+Have a story from `visual-storytelling`. Then set an art direction specific to this project: mood, type pairing, color system, image style, chart and diagram style, transition style. Do not reuse one stock template across projects. For a named style or palette, read its entry in the `visual-style` skill's `library/` (style profile and palette roles) instead of improvising one.
 
 Read `references/presentation-principles.md` when setting art direction or layout and when designing charts, navigation, or responsive behavior.
 

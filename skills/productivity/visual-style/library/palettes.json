@@ -1,0 +1,610 @@
+{
+  "categories": [
+    { "id": "neutral", "name": "Neutral", "note": "Ink, paper, and greys. Let typography and layout carry the identity." },
+    { "id": "warm", "name": "Warm", "note": "Reds, creams, clays. Intimate, cultural, hospitable." },
+    { "id": "cool", "name": "Cool", "note": "Blues and blue greys. Calm, precise, distant." },
+    { "id": "earth", "name": "Earth", "note": "Soil, stone, rust. Grounded and material." },
+    { "id": "botanical", "name": "Botanical", "note": "Leaf greens with paper or ivory. Natural, tonal." },
+    { "id": "pastel", "name": "Pastel", "note": "High-lightness tints. Never usable as text color; pair with a deep ink." },
+    { "id": "vivid", "name": "Vivid", "note": "Saturated primaries and pops. Loud, graphic, short-form." },
+    { "id": "luxury", "name": "Luxury", "note": "Deep darks with metallic-like midtones. Restraint is the point." },
+    { "id": "corporate", "name": "Corporate", "note": "Trust-signalling blues and teals with clear status colors." },
+    { "id": "technical", "name": "Technical", "note": "Dark or blueprint grounds with signal colors for data." },
+    { "id": "experimental", "name": "Experimental", "note": "Deliberate clashes and print-process effects." }
+  ],
+  "palettes": [
+    {
+      "id": "ink-paper",
+      "name": "Ink and Paper",
+      "category": "neutral",
+      "mood": ["quiet", "precise", "literary"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F7F6F2", "name": "Paper", "role": "background", "share": 70 },
+        { "hex": "#141414", "name": "Ink", "role": "text", "share": 18 },
+        { "hex": "#5E5E5A", "name": "Graphite", "role": "text-muted", "share": 7 },
+        { "hex": "#D9D7D0", "name": "Rule", "role": "line", "share": 5 }
+      ],
+      "text_pairs": [
+        { "fg": "Ink", "bg": "Paper", "use": "body" },
+        { "fg": "Graphite", "bg": "Paper", "use": "body" },
+        { "fg": "Paper", "bg": "Ink", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Rule", "bg": "Paper" }],
+      "contrast_notes": "Rule is for hairlines and table borders only. Graphite is the lightest grey allowed for captions.",
+      "use_cases": ["editorial site", "report", "research deck", "documentation"],
+      "example": "A research report: Paper page, Ink headlines and body, Graphite for figure captions and footnotes, Rule for table lines."
+    },
+    {
+      "id": "swiss-signal",
+      "name": "Black, White, Signal Red",
+      "category": "neutral",
+      "mood": ["direct", "rational", "urgent"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#FFFFFF", "name": "White", "role": "background", "share": 62 },
+        { "hex": "#0A0A0A", "name": "Black", "role": "text", "share": 28 },
+        { "hex": "#E1251B", "name": "Signal Red", "role": "accent", "share": 6 },
+        { "hex": "#6B6B6B", "name": "Mid Grey", "role": "text-muted", "share": 4 }
+      ],
+      "text_pairs": [
+        { "fg": "Black", "bg": "White", "use": "body" },
+        { "fg": "Mid Grey", "bg": "White", "use": "body" },
+        { "fg": "Signal Red", "bg": "White", "use": "large" },
+        { "fg": "White", "bg": "Signal Red", "use": "large" },
+        { "fg": "White", "bg": "Black", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Signal Red", "bg": "Black" }],
+      "contrast_notes": "Signal Red passes for large headlines and UI marks on White, not for body text. Red on Black vibrates; avoid for text.",
+      "use_cases": ["technical presentation", "poster", "data story", "editorial website"],
+      "example": "A grid-based deck: White slides, Black type, one Signal Red bar or numeral per slide to mark the key figure."
+    },
+    {
+      "id": "muted-editorial",
+      "name": "Muted Editorial",
+      "category": "neutral",
+      "mood": ["considered", "soft", "intelligent"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F3F1EC", "name": "Off White", "role": "background", "share": 58 },
+        { "hex": "#23262B", "name": "Ink", "role": "text", "share": 20 },
+        { "hex": "#55697F", "name": "Dusty Blue", "role": "primary", "share": 10 },
+        { "hex": "#A9796C", "name": "Clay Rose", "role": "accent", "share": 6 },
+        { "hex": "#8A8C74", "name": "Olive Grey", "role": "secondary", "share": 6 }
+      ],
+      "text_pairs": [
+        { "fg": "Ink", "bg": "Off White", "use": "body" },
+        { "fg": "Dusty Blue", "bg": "Off White", "use": "body" },
+        { "fg": "Off White", "bg": "Dusty Blue", "use": "body" },
+        { "fg": "Clay Rose", "bg": "Off White", "use": "large" }
+      ],
+      "avoid_pairs": [{ "fg": "Olive Grey", "bg": "Off White" }],
+      "contrast_notes": "Olive Grey and Clay Rose are chart and fill colors. Use Dusty Blue for links and pull quotes.",
+      "use_cases": ["magazine website", "chart theme", "annual report", "culture deck"],
+      "example": "A chart theme: three series in Dusty Blue, Clay Rose, Olive Grey on Off White, direct labels in Ink."
+    },
+    {
+      "id": "mono-graphite",
+      "name": "Graphite Monochrome",
+      "category": "neutral",
+      "mood": ["austere", "architectural", "calm"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#EDEDEB", "name": "Concrete", "role": "background", "share": 50 },
+        { "hex": "#C4C4C0", "name": "Ash", "role": "surface", "share": 18 },
+        { "hex": "#7A7A76", "name": "Stone", "role": "secondary", "share": 12 },
+        { "hex": "#3B3B39", "name": "Graphite", "role": "primary", "share": 10 },
+        { "hex": "#151515", "name": "Carbon", "role": "text", "share": 10 }
+      ],
+      "text_pairs": [
+        { "fg": "Carbon", "bg": "Concrete", "use": "body" },
+        { "fg": "Graphite", "bg": "Concrete", "use": "body" },
+        { "fg": "Carbon", "bg": "Ash", "use": "body" },
+        { "fg": "Concrete", "bg": "Graphite", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Stone", "bg": "Ash" }],
+      "contrast_notes": "Tonal steps are close together by design. Keep text two or more steps away from its ground.",
+      "use_cases": ["architecture portfolio", "product showcase", "monochrome layout"],
+      "example": "An architecture site: Concrete page, Ash image mats, Carbon type, Stone for metadata labels only at large size."
+    },
+    {
+      "id": "burgundy-cream",
+      "name": "Burgundy and Cream",
+      "category": "warm",
+      "mood": ["cultured", "rich", "traditional"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F3EBDD", "name": "Cream", "role": "background", "share": 60 },
+        { "hex": "#6B1E2E", "name": "Burgundy", "role": "primary", "share": 22 },
+        { "hex": "#2A1A1D", "name": "Raisin Ink", "role": "text", "share": 10 },
+        { "hex": "#B08D57", "name": "Antique Gold", "role": "accent", "share": 5 },
+        { "hex": "#A4505E", "name": "Rosewood", "role": "secondary", "share": 3 }
+      ],
+      "text_pairs": [
+        { "fg": "Raisin Ink", "bg": "Cream", "use": "body" },
+        { "fg": "Burgundy", "bg": "Cream", "use": "body" },
+        { "fg": "Cream", "bg": "Burgundy", "use": "body" },
+        { "fg": "Rosewood", "bg": "Cream", "use": "large" }
+      ],
+      "avoid_pairs": [{ "fg": "Antique Gold", "bg": "Cream" }, { "fg": "Antique Gold", "bg": "Burgundy" }],
+      "contrast_notes": "Antique Gold is for rules, ornaments, and numerals only. It fails as text on Cream, and on Burgundy it reaches large-text contrast only.",
+      "use_cases": ["cultural institution", "neoclassical deck", "wine or hospitality brand", "invitation"],
+      "example": "A museum annual report: Cream pages, Burgundy section openers with Cream type, Antique Gold hairline frames."
+    },
+    {
+      "id": "sunbaked-clay",
+      "name": "Sunbaked Clay",
+      "category": "warm",
+      "mood": ["warm", "earthy", "hospitable"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#EAD9C0", "name": "Sand", "role": "background", "share": 55 },
+        { "hex": "#A5482A", "name": "Clay", "role": "primary", "share": 18 },
+        { "hex": "#3F271D", "name": "Umber", "role": "text", "share": 17 },
+        { "hex": "#D9A441", "name": "Ochre", "role": "accent", "share": 10 }
+      ],
+      "text_pairs": [
+        { "fg": "Umber", "bg": "Sand", "use": "body" },
+        { "fg": "Sand", "bg": "Umber", "use": "body" },
+        { "fg": "Clay", "bg": "Sand", "use": "large" },
+        { "fg": "Umber", "bg": "Ochre", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Ochre", "bg": "Sand" }],
+      "contrast_notes": "Clay is a headline and button color. Ochre works as a fill under Umber text, never as text on Sand.",
+      "use_cases": ["food brand", "travel", "hospitality website", "warm campaign"],
+      "example": "A restaurant site: Sand page, Umber body, Clay headlines and buttons, Ochre highlight bands behind menu prices."
+    },
+    {
+      "id": "fjord-mist",
+      "name": "Fjord and Mist",
+      "category": "cool",
+      "mood": ["calm", "clean", "northern"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#E6EDF0", "name": "Mist", "role": "background", "share": 55 },
+        { "hex": "#1F3A4D", "name": "Fjord", "role": "primary", "share": 20 },
+        { "hex": "#0E1E28", "name": "Deep Water", "role": "text", "share": 12 },
+        { "hex": "#4F6676", "name": "Steel", "role": "text-muted", "share": 8 },
+        { "hex": "#A9C6D3", "name": "Glacier", "role": "secondary", "share": 5 }
+      ],
+      "text_pairs": [
+        { "fg": "Deep Water", "bg": "Mist", "use": "body" },
+        { "fg": "Fjord", "bg": "Mist", "use": "body" },
+        { "fg": "Steel", "bg": "Mist", "use": "body" },
+        { "fg": "Mist", "bg": "Fjord", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Glacier", "bg": "Mist" }],
+      "contrast_notes": "Glacier is a fill for charts and background panels. Steel is the lightest text allowed.",
+      "use_cases": ["healthcare", "sustainability report", "calm SaaS website", "research"],
+      "example": "A sustainability report: Mist pages, Fjord headlines, Glacier area fills under Deep Water line charts."
+    },
+    {
+      "id": "cobalt-ice",
+      "name": "Cobalt and Ice",
+      "category": "cool",
+      "mood": ["confident", "crisp", "modern"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F2F6FB", "name": "Ice", "role": "background", "share": 58 },
+        { "hex": "#1F4FD8", "name": "Cobalt", "role": "primary", "share": 16 },
+        { "hex": "#1E2533", "name": "Slate", "role": "text", "share": 18 },
+        { "hex": "#C9D6EA", "name": "Frost", "role": "surface", "share": 8 }
+      ],
+      "text_pairs": [
+        { "fg": "Slate", "bg": "Ice", "use": "body" },
+        { "fg": "Cobalt", "bg": "Ice", "use": "body" },
+        { "fg": "Ice", "bg": "Cobalt", "use": "body" },
+        { "fg": "Slate", "bg": "Frost", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Frost", "bg": "Ice" }],
+      "contrast_notes": "Cobalt passes as body text and on buttons with Ice labels. Frost is for cards and table stripes.",
+      "use_cases": ["product website", "fintech", "dashboard light theme", "pitch deck"],
+      "example": "A product landing page: Ice page, Slate type, Cobalt buttons and links, Frost feature cards."
+    },
+    {
+      "id": "earth-tone",
+      "name": "Earth Tone",
+      "category": "earth",
+      "mood": ["grounded", "honest", "crafted"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#EFE7DA", "name": "Linen", "role": "background", "share": 55 },
+        { "hex": "#3E2F23", "name": "Loam", "role": "text", "share": 18 },
+        { "hex": "#8E5A3C", "name": "Fired Clay", "role": "primary", "share": 13 },
+        { "hex": "#6B6A3A", "name": "Olive", "role": "secondary", "share": 9 },
+        { "hex": "#C99A4B", "name": "Ochre", "role": "accent", "share": 5 }
+      ],
+      "text_pairs": [
+        { "fg": "Loam", "bg": "Linen", "use": "body" },
+        { "fg": "Fired Clay", "bg": "Linen", "use": "body" },
+        { "fg": "Olive", "bg": "Linen", "use": "body" },
+        { "fg": "Linen", "bg": "Loam", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Ochre", "bg": "Linen" }],
+      "contrast_notes": "Ochre is decorative only. Fired Clay and Olive both pass as body text on Linen.",
+      "use_cases": ["craft brand", "packaging", "outdoor", "ceramics", "editorial"],
+      "example": "A ceramics studio site: Linen ground, Loam body, Fired Clay headings, Olive tags, Ochre only in illustrations."
+    },
+    {
+      "id": "desert-stone",
+      "name": "Desert Stone",
+      "category": "earth",
+      "mood": ["arid", "monumental", "sun-bleached"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F4EEE3", "name": "Bone", "role": "background", "share": 50 },
+        { "hex": "#D8C3A5", "name": "Sandstone", "role": "surface", "share": 22 },
+        { "hex": "#2E2B28", "name": "Basalt", "role": "text", "share": 20 },
+        { "hex": "#A0462A", "name": "Rust", "role": "accent", "share": 8 }
+      ],
+      "text_pairs": [
+        { "fg": "Basalt", "bg": "Bone", "use": "body" },
+        { "fg": "Basalt", "bg": "Sandstone", "use": "body" },
+        { "fg": "Rust", "bg": "Bone", "use": "body" },
+        { "fg": "Bone", "bg": "Basalt", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Rust", "bg": "Sandstone" }],
+      "contrast_notes": "Rust passes on Bone but not on Sandstone panels. Put Rust labels on Bone or Basalt.",
+      "use_cases": ["architecture", "travel", "outdoor brand", "exhibition"],
+      "example": "An exhibition about desert architecture: Bone walls, Sandstone panels with Basalt wall text, Rust room numbers on Bone."
+    },
+    {
+      "id": "forest-sage-ivory",
+      "name": "Forest, Sage, Warm Ivory",
+      "category": "botanical",
+      "mood": ["natural", "restorative", "tonal"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F6F1E4", "name": "Warm Ivory", "role": "background", "share": 55 },
+        { "hex": "#1F3B2D", "name": "Forest", "role": "primary", "share": 20 },
+        { "hex": "#9CAF94", "name": "Sage", "role": "secondary", "share": 12 },
+        { "hex": "#4D6A44", "name": "Moss", "role": "accent", "share": 8 },
+        { "hex": "#3B3026", "name": "Bark", "role": "text", "share": 5 }
+      ],
+      "text_pairs": [
+        { "fg": "Forest", "bg": "Warm Ivory", "use": "body" },
+        { "fg": "Bark", "bg": "Warm Ivory", "use": "body" },
+        { "fg": "Moss", "bg": "Warm Ivory", "use": "body" },
+        { "fg": "Warm Ivory", "bg": "Forest", "use": "body" },
+        { "fg": "Forest", "bg": "Sage", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Sage", "bg": "Warm Ivory" }],
+      "contrast_notes": "Sage is a fill and illustration color. Text on Sage must be Forest.",
+      "use_cases": ["botanical packaging", "wellness brand", "garden or landscape studio", "nature editorial"],
+      "example": "A tea packaging line: Warm Ivory carton, Forest wordmark, Sage leaf illustration, Moss for flavor names."
+    },
+    {
+      "id": "herbarium",
+      "name": "Herbarium",
+      "category": "botanical",
+      "mood": ["scholarly", "archival", "delicate"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#EFE6D2", "name": "Parchment", "role": "background", "share": 60 },
+        { "hex": "#2B2620", "name": "Iron Gall", "role": "text", "share": 18 },
+        { "hex": "#56664A", "name": "Pressed Green", "role": "primary", "share": 14 },
+        { "hex": "#B9877F", "name": "Faded Rose", "role": "accent", "share": 8 }
+      ],
+      "text_pairs": [
+        { "fg": "Iron Gall", "bg": "Parchment", "use": "body" },
+        { "fg": "Pressed Green", "bg": "Parchment", "use": "body" },
+        { "fg": "Parchment", "bg": "Iron Gall", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Faded Rose", "bg": "Parchment" }],
+      "contrast_notes": "Faded Rose is for petals and specimen tags only.",
+      "use_cases": ["botanical illustration", "natural history", "archive website", "book cover"],
+      "example": "A natural history book cover: Parchment ground, Pressed Green specimen drawing, Iron Gall Latin names."
+    },
+    {
+      "id": "pastel-soft",
+      "name": "Soft Pastel",
+      "category": "pastel",
+      "mood": ["gentle", "friendly", "playful"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#FBF8F4", "name": "Cloud", "role": "background", "share": 40 },
+        { "hex": "#F4D6D2", "name": "Blush", "role": "surface", "share": 15 },
+        { "hex": "#D5E4C3", "name": "Pistachio", "role": "secondary", "share": 15 },
+        { "hex": "#CFE0EE", "name": "Powder", "role": "secondary", "share": 12 },
+        { "hex": "#3B2A3F", "name": "Plum Ink", "role": "text", "share": 18 }
+      ],
+      "text_pairs": [
+        { "fg": "Plum Ink", "bg": "Cloud", "use": "body" },
+        { "fg": "Plum Ink", "bg": "Blush", "use": "body" },
+        { "fg": "Plum Ink", "bg": "Pistachio", "use": "body" },
+        { "fg": "Plum Ink", "bg": "Powder", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Blush", "bg": "Cloud" }, { "fg": "Pistachio", "bg": "Cloud" }],
+      "contrast_notes": "Every pastel fails as text. All text is Plum Ink. Pastel shapes on Cloud need a Plum Ink outline or label to read as UI.",
+      "use_cases": ["children's education", "consumer app", "illustration", "lifestyle packaging"],
+      "example": "An onboarding flow: Cloud screens, each step on a different pastel card, Plum Ink for all copy and icons."
+    },
+    {
+      "id": "lilac-peach",
+      "name": "Lilac and Peach",
+      "category": "pastel",
+      "mood": ["dreamy", "soft", "contemporary"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#FAF6F3", "name": "Shell", "role": "background", "share": 45 },
+        { "hex": "#CDBFE3", "name": "Lilac", "role": "surface", "share": 20 },
+        { "hex": "#F6CDB4", "name": "Peach", "role": "secondary", "share": 15 },
+        { "hex": "#2D2A4A", "name": "Indigo Ink", "role": "text", "share": 20 }
+      ],
+      "text_pairs": [
+        { "fg": "Indigo Ink", "bg": "Shell", "use": "body" },
+        { "fg": "Indigo Ink", "bg": "Lilac", "use": "body" },
+        { "fg": "Indigo Ink", "bg": "Peach", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Lilac", "bg": "Shell" }],
+      "contrast_notes": "Use Indigo Ink for all text. Lilac and Peach are grounds and gradients.",
+      "use_cases": ["beauty brand", "event", "social campaign", "organic shapes"],
+      "example": "A skincare launch: Shell page, a Lilac to Peach organic blob behind the product, Indigo Ink headline."
+    },
+    {
+      "id": "primary-bold",
+      "name": "Vivid Primaries",
+      "category": "vivid",
+      "mood": ["bold", "constructive", "elementary"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F5F2EA", "name": "Off White", "role": "background", "share": 45 },
+        { "hex": "#111111", "name": "Black", "role": "text", "share": 20 },
+        { "hex": "#D7261E", "name": "Primary Red", "role": "primary", "share": 13 },
+        { "hex": "#1C49B0", "name": "Primary Blue", "role": "secondary", "share": 12 },
+        { "hex": "#F2C200", "name": "Primary Yellow", "role": "accent", "share": 10 }
+      ],
+      "text_pairs": [
+        { "fg": "Black", "bg": "Off White", "use": "body" },
+        { "fg": "Primary Blue", "bg": "Off White", "use": "body" },
+        { "fg": "Off White", "bg": "Primary Blue", "use": "body" },
+        { "fg": "Primary Red", "bg": "Off White", "use": "large" },
+        { "fg": "Black", "bg": "Primary Yellow", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Primary Yellow", "bg": "Off White" }, { "fg": "Primary Red", "bg": "Primary Blue" }],
+      "contrast_notes": "Yellow is a ground for Black text, never text itself. Red on Blue has low luminance contrast and vibrates.",
+      "use_cases": ["geometric composition", "education", "poster", "campaign"],
+      "example": "A design school open day poster: Off White sheet, Red circle, Blue square, Yellow triangle, Black grotesk type."
+    },
+    {
+      "id": "pop-electric",
+      "name": "Electric Pop",
+      "category": "vivid",
+      "mood": ["loud", "youthful", "energetic"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#FFFFFF", "name": "White", "role": "background", "share": 35 },
+        { "hex": "#141414", "name": "Ink", "role": "text", "share": 25 },
+        { "hex": "#D81B7F", "name": "Magenta", "role": "primary", "share": 15 },
+        { "hex": "#00A6D6", "name": "Cyan", "role": "secondary", "share": 13 },
+        { "hex": "#FFE14D", "name": "Lemon", "role": "accent", "share": 12 }
+      ],
+      "text_pairs": [
+        { "fg": "Ink", "bg": "White", "use": "body" },
+        { "fg": "Magenta", "bg": "White", "use": "body" },
+        { "fg": "Ink", "bg": "Lemon", "use": "body" },
+        { "fg": "Ink", "bg": "Cyan", "use": "body" },
+        { "fg": "White", "bg": "Magenta", "use": "large" }
+      ],
+      "avoid_pairs": [{ "fg": "Cyan", "bg": "White" }, { "fg": "Lemon", "bg": "White" }],
+      "contrast_notes": "Text on Cyan and Lemon must be Ink. Cyan text on White fails.",
+      "use_cases": ["pop graphic", "music or event", "youth campaign", "social media"],
+      "example": "A festival lineup: Lemon ground, Magenta halftone shapes, Ink condensed type, Cyan date stamp with Ink text."
+    },
+    {
+      "id": "charcoal-champagne",
+      "name": "Charcoal and Champagne",
+      "category": "luxury",
+      "mood": ["refined", "quiet", "expensive"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#FAF7F2", "name": "Warm White", "role": "background", "share": 55 },
+        { "hex": "#2B2A28", "name": "Charcoal", "role": "text", "share": 25 },
+        { "hex": "#C8B48C", "name": "Champagne", "role": "accent", "share": 8 },
+        { "hex": "#6F675D", "name": "Taupe", "role": "text-muted", "share": 12 }
+      ],
+      "text_pairs": [
+        { "fg": "Charcoal", "bg": "Warm White", "use": "body" },
+        { "fg": "Taupe", "bg": "Warm White", "use": "body" },
+        { "fg": "Warm White", "bg": "Charcoal", "use": "body" },
+        { "fg": "Champagne", "bg": "Charcoal", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Champagne", "bg": "Warm White" }],
+      "contrast_notes": "Champagne reads only on Charcoal. On Warm White use it for rules and fills, not text.",
+      "use_cases": ["luxury editorial", "jewelry or fashion brand", "executive deck", "real estate"],
+      "example": "A private bank pitch: Warm White content slides, Charcoal section breaks with Champagne numerals."
+    },
+    {
+      "id": "noir-gold",
+      "name": "Noir and Bronze Gold",
+      "category": "luxury",
+      "mood": ["dramatic", "nocturnal", "opulent"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#0E0D0C", "name": "Noir", "role": "background", "share": 60 },
+        { "hex": "#3A3734", "name": "Smoke", "role": "surface", "share": 12 },
+        { "hex": "#EFE9DD", "name": "Ivory", "role": "text", "share": 18 },
+        { "hex": "#B8945A", "name": "Bronze Gold", "role": "accent", "share": 10 }
+      ],
+      "text_pairs": [
+        { "fg": "Ivory", "bg": "Noir", "use": "body" },
+        { "fg": "Bronze Gold", "bg": "Noir", "use": "body" },
+        { "fg": "Ivory", "bg": "Smoke", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Bronze Gold", "bg": "Smoke" }],
+      "contrast_notes": "Flat gold is not foil; for metallic effect use a gradient from Bronze Gold to Ivory, and keep text solid.",
+      "use_cases": ["foil stamping", "premium product launch", "night event", "fragrance"],
+      "example": "A fragrance launch film end card: Noir ground, Bronze Gold monogram with a slow light sweep, Ivory tagline."
+    },
+    {
+      "id": "emerald-brass",
+      "name": "Emerald and Brass",
+      "category": "luxury",
+      "mood": ["stately", "classical", "deep"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F3EEE4", "name": "Alabaster", "role": "background", "share": 50 },
+        { "hex": "#0F4D3A", "name": "Emerald", "role": "primary", "share": 25 },
+        { "hex": "#121A17", "name": "Ink", "role": "text", "share": 15 },
+        { "hex": "#A88042", "name": "Brass", "role": "accent", "share": 10 }
+      ],
+      "text_pairs": [
+        { "fg": "Ink", "bg": "Alabaster", "use": "body" },
+        { "fg": "Emerald", "bg": "Alabaster", "use": "body" },
+        { "fg": "Alabaster", "bg": "Emerald", "use": "body" },
+        { "fg": "Brass", "bg": "Alabaster", "use": "large" }
+      ],
+      "avoid_pairs": [{ "fg": "Brass", "bg": "Emerald" }],
+      "contrast_notes": "Brass reads at display size on Alabaster only. On Emerald, Brass is for frames and ornaments.",
+      "use_cases": ["neoclassical editorial", "museum", "heritage brand", "law or finance"],
+      "example": "A heritage hotel brochure: Emerald cover with an Alabaster serif title, Brass keyline border, Alabaster inner pages."
+    },
+    {
+      "id": "navy-trust",
+      "name": "Navy Trust",
+      "category": "corporate",
+      "mood": ["reliable", "clear", "institutional"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F5F7FA", "name": "Cloud", "role": "background", "share": 55 },
+        { "hex": "#14284B", "name": "Navy", "role": "primary", "share": 20 },
+        { "hex": "#1C232E", "name": "Ink", "role": "text", "share": 12 },
+        { "hex": "#0F7471", "name": "Teal", "role": "secondary", "share": 6 },
+        { "hex": "#56606F", "name": "Steel Grey", "role": "text-muted", "share": 5 },
+        { "hex": "#E0A100", "name": "Amber", "role": "signal", "share": 2 }
+      ],
+      "text_pairs": [
+        { "fg": "Ink", "bg": "Cloud", "use": "body" },
+        { "fg": "Navy", "bg": "Cloud", "use": "body" },
+        { "fg": "Teal", "bg": "Cloud", "use": "body" },
+        { "fg": "Steel Grey", "bg": "Cloud", "use": "body" },
+        { "fg": "Cloud", "bg": "Navy", "use": "body" },
+        { "fg": "Amber", "bg": "Navy", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Amber", "bg": "Cloud" }],
+      "contrast_notes": "Amber is a status or highlight color: as text only on Navy, on Cloud only as a fill with Ink text.",
+      "use_cases": ["investor deck", "enterprise website", "annual report", "dashboard"],
+      "example": "An investor update: Cloud slides, Navy headlines, Teal for actuals, Steel Grey for prior year, Amber to flag one risk."
+    },
+    {
+      "id": "dark-technical",
+      "name": "Dark Technical",
+      "category": "technical",
+      "mood": ["focused", "precise", "engineered"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#0B0F14", "name": "Void", "role": "background", "share": 55 },
+        { "hex": "#161C24", "name": "Panel", "role": "surface", "share": 18 },
+        { "hex": "#2A3441", "name": "Grid Line", "role": "line", "share": 5 },
+        { "hex": "#E4E9EF", "name": "Signal White", "role": "text", "share": 12 },
+        { "hex": "#8995A3", "name": "Muted", "role": "text-muted", "share": 5 },
+        { "hex": "#3CC4F0", "name": "Cyan", "role": "primary", "share": 3 },
+        { "hex": "#F5A524", "name": "Amber", "role": "signal", "share": 2 }
+      ],
+      "text_pairs": [
+        { "fg": "Signal White", "bg": "Void", "use": "body" },
+        { "fg": "Signal White", "bg": "Panel", "use": "body" },
+        { "fg": "Muted", "bg": "Void", "use": "body" },
+        { "fg": "Muted", "bg": "Panel", "use": "body" },
+        { "fg": "Cyan", "bg": "Void", "use": "body" },
+        { "fg": "Amber", "bg": "Panel", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Grid Line", "bg": "Void" }],
+      "contrast_notes": "Grid Line is structural only. Keep Cyan for the active or primary data series, Amber for one warning.",
+      "use_cases": ["technical explainer", "dashboard dark theme", "semiconductor deck", "data flow animation"],
+      "example": "A chip architecture explainer: Void stage, Panel cards, Cyan data paths, one Amber bottleneck marker."
+    },
+    {
+      "id": "blueprint",
+      "name": "Blueprint",
+      "category": "technical",
+      "mood": ["engineered", "nostalgic", "explanatory"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#143A66", "name": "Blueprint Blue", "role": "background", "share": 70 },
+        { "hex": "#EAF2FB", "name": "Line White", "role": "text", "share": 18 },
+        { "hex": "#8DBDE8", "name": "Cyan Line", "role": "secondary", "share": 8 },
+        { "hex": "#F08A6C", "name": "Red Mark", "role": "signal", "share": 4 }
+      ],
+      "text_pairs": [
+        { "fg": "Line White", "bg": "Blueprint Blue", "use": "body" },
+        { "fg": "Cyan Line", "bg": "Blueprint Blue", "use": "body" },
+        { "fg": "Red Mark", "bg": "Blueprint Blue", "use": "large" }
+      ],
+      "avoid_pairs": [],
+      "contrast_notes": "Red Mark passes only at large size. Use it for callout circles and dimension highlights.",
+      "use_cases": ["engineering explainer", "product anatomy", "architecture plan", "manufacturing deck"],
+      "example": "A product anatomy slide: Blueprint Blue ground, Line White outlines and labels, Cyan Line for hidden edges, Red Mark circling the key part."
+    },
+    {
+      "id": "mono-indigo",
+      "name": "Indigo Monochrome",
+      "category": "cool",
+      "mood": ["deep", "focused", "harmonious"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F1F2FA", "name": "Indigo 50", "role": "background", "share": 45 },
+        { "hex": "#C9CCEB", "name": "Indigo 200", "role": "surface", "share": 20 },
+        { "hex": "#5A62B5", "name": "Indigo 500", "role": "secondary", "share": 12 },
+        { "hex": "#33397F", "name": "Indigo 700", "role": "primary", "share": 13 },
+        { "hex": "#1B1F4B", "name": "Indigo 900", "role": "text", "share": 10 }
+      ],
+      "text_pairs": [
+        { "fg": "Indigo 900", "bg": "Indigo 50", "use": "body" },
+        { "fg": "Indigo 700", "bg": "Indigo 50", "use": "body" },
+        { "fg": "Indigo 900", "bg": "Indigo 200", "use": "body" },
+        { "fg": "Indigo 50", "bg": "Indigo 700", "use": "body" },
+        { "fg": "Indigo 500", "bg": "Indigo 50", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Indigo 500", "bg": "Indigo 200" }],
+      "contrast_notes": "A single-hue ramp: keep text at least three steps from its ground. Add one neutral if a status color is needed.",
+      "use_cases": ["monochromatic system", "data story", "brand system", "chart theme"],
+      "example": "A sequential chart: Indigo 200 to Indigo 900 for low to high values, Indigo 900 labels on Indigo 50."
+    },
+    {
+      "id": "riso-overprint",
+      "name": "Riso Overprint",
+      "category": "experimental",
+      "mood": ["indie", "handmade", "zine"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F5F1E8", "name": "Newsprint", "role": "background", "share": 50 },
+        { "hex": "#FF5FAF", "name": "Fluoro Pink", "role": "primary", "share": 20 },
+        { "hex": "#1A5FA8", "name": "Overprint Blue", "role": "secondary", "share": 18 },
+        { "hex": "#3E2D6B", "name": "Overlap Violet", "role": "text", "share": 12 }
+      ],
+      "text_pairs": [
+        { "fg": "Overlap Violet", "bg": "Newsprint", "use": "body" },
+        { "fg": "Overprint Blue", "bg": "Newsprint", "use": "body" },
+        { "fg": "Newsprint", "bg": "Overprint Blue", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Fluoro Pink", "bg": "Newsprint" }, { "fg": "Fluoro Pink", "bg": "Overprint Blue" }],
+      "contrast_notes": "Inspired by risograph two-color printing; these are not official ink values. Simulate overprint with mix-blend-mode: multiply. Fluoro Pink is never text.",
+      "use_cases": ["zine", "collage editorial", "indie event", "experimental typography"],
+      "example": "A gig flyer: Newsprint ground, Fluoro Pink and Overprint Blue shapes overlapping with multiply, Overlap Violet type."
+    },
+    {
+      "id": "clash-tomato-mint",
+      "name": "Tomato and Mint Clash",
+      "category": "experimental",
+      "mood": ["provocative", "fresh", "irreverent"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#FF5A36", "name": "Tomato", "role": "background", "share": 40 },
+        { "hex": "#8FE3C8", "name": "Mint", "role": "secondary", "share": 25 },
+        { "hex": "#121212", "name": "Black", "role": "text", "share": 25 },
+        { "hex": "#5B34C9", "name": "Violet", "role": "accent", "share": 10 }
+      ],
+      "text_pairs": [
+        { "fg": "Black", "bg": "Tomato", "use": "body" },
+        { "fg": "Black", "bg": "Mint", "use": "body" },
+        { "fg": "Mint", "bg": "Black", "use": "body" },
+        { "fg": "Mint", "bg": "Violet", "use": "large" }
+      ],
+      "avoid_pairs": [{ "fg": "Mint", "bg": "Tomato" }, { "fg": "Violet", "bg": "Tomato" }],
+      "contrast_notes": "Near-complementary hues with similar lightness clash on purpose. Every text sits in Black or on a Black band.",
+      "use_cases": ["bold campaign", "experimental poster", "fashion drop", "social launch"],
+      "example": "A sneaker drop: Tomato full-bleed, Mint product silhouette, Black oversized type, Violet price sticker with Mint text."
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "note": "A preset is a starting point, not a template. It names a primary style, optional secondary styles that contribute one layer each, a default palette with alternatives, and only the decisions that the styles alone do not settle. Every field in `adjustable` may be changed per project.",
+  "presets": [
+    {
+      "id": "editorial-investor",
+      "name": "Editorial Investor Presentation",
+      "summary": "A narrative investor or board deck: editorial type, a strict grid, honest charts, and one restrained accent.",
+      "primary_style": "luxury-editorial",
+      "secondary_styles": ["swiss-international"],
+      "secondary_role": "swiss-international supplies the chart and data-slide grid only; luxury-editorial owns type, covers, and section openers.",
+      "palette": "navy-trust",
+      "alt_palettes": ["charcoal-champagne", "ink-paper", "muted-editorial"],
+      "direction": {
+        "typography": "Serif display for slide headlines written as full-sentence findings; grotesk with tabular figures for charts and tables.",
+        "composition": "One message per slide. Alternate claim slides (big headline, one visual) with evidence slides (chart on the grid).",
+        "image_treatment": "Few photos; charts are the main visuals. Highlight one series, mute the rest.",
+        "motion": "Slow fades between sections only; charts build in one step if at all.",
+        "avoid": ["decorative gradients", "more than one accent per slide", "3D charts", "projections styled like actuals"]
+      },
+      "adjustable": ["palette", "secondary_styles", "typography", "motion"]
+    },
+    {
+      "id": "technical-explainer",
+      "name": "Technical Explainer",
+      "summary": "Explain how a system or product works: layered diagrams, controlled camera moves, minimal labels, clear cause and effect.",
+      "primary_style": "layered-system",
+      "secondary_styles": ["exploded-cutaway", "camera-driven-storytelling"],
+      "secondary_role": "exploded-cutaway is used for the one physical-object scene; camera-driven-storytelling governs moves between chapters. layered-system owns the overall look.",
+      "palette": "dark-technical",
+      "alt_palettes": ["blueprint", "cobalt-ice", "ink-paper"],
+      "direction": {
+        "typography": "Grotesk labels, monospace for part names and values. Labels only for what the current step discusses.",
+        "composition": "Each chapter answers one question: what is it, what is inside, how does it move, why does it matter.",
+        "image_treatment": "Clean-shaded geometry; conceptual parts labelled as conceptual.",
+        "motion": "Every move shows a cause and its effect; hold after each move long enough to read the label.",
+        "avoid": ["decorative particles", "camera moves without a question to answer", "photoreal noise that hides edges"]
+      },
+      "adjustable": ["palette", "secondary_styles", "motion"]
+    },
+    {
+      "id": "luxury-brand",
+      "name": "Luxury Brand Presentation",
+      "summary": "A brand or collection presentation: elegant type, restrained palette, large images, editorial composition, slow purposeful transitions.",
+      "primary_style": "luxury-editorial",
+      "secondary_styles": ["editorial-scene-transitions"],
+      "secondary_role": "editorial-scene-transitions defines motion between chapters only.",
+      "palette": "charcoal-champagne",
+      "alt_palettes": ["noir-gold", "burgundy-cream", "emerald-brass"],
+      "direction": {
+        "typography": "High-contrast serif display, light weight; tracked uppercase labels.",
+        "composition": "Large single images with small text blocks; generous margins; alternate full-bleed and framed images.",
+        "image_treatment": "Detail crops of materials and craft; consistent warm grade.",
+        "motion": "Shared-element transitions between chapters, 800 ms or slower; nothing bounces.",
+        "avoid": ["stock photography", "more than two typefaces", "bright accent colors", "busy backgrounds behind text"]
+      },
+      "adjustable": ["palette", "typography", "image_treatment"]
+    },
+    {
+      "id": "botanical-packaging",
+      "name": "Botanical Packaging",
+      "summary": "Packaging with organic shapes, botanical illustration, a tonal palette, tactile texture, and restrained typography.",
+      "primary_style": "botanical-illustration",
+      "secondary_styles": ["tonal-botanical", "material-led-packaging"],
+      "secondary_role": "tonal-botanical supplies the background relief pattern; material-led-packaging sets the substrate and label approach. botanical-illustration is the hero specimen.",
+      "palette": "forest-sage-ivory",
+      "alt_palettes": ["herbarium", "earth-tone", "desert-stone"],
+      "direction": {
+        "typography": "One refined serif for the product name, small grotesk or serif for details; italic Latin names.",
+        "composition": "Hero specimen centered on the front panel; tonal relief wraps the sides; label block in one consistent place across the range.",
+        "image_treatment": "Line and wash illustration, licensed or commissioned, source recorded.",
+        "motion": "For digital mockups only: line draw-on and a slow light sweep over the relief.",
+        "avoid": ["photographic plants", "more than one illustration style", "text placed on busy pattern"]
+      },
+      "adjustable": ["palette", "secondary_styles", "typography"]
+    },
+    {
+      "id": "bold-campaign",
+      "name": "Bold Campaign",
+      "summary": "A launch or campaign: oversized type, high contrast, strong composition, distinctive color blocking, dynamic motion.",
+      "primary_style": "oversized-type",
+      "secondary_styles": ["color-blocking", "kinetic-typography"],
+      "secondary_role": "color-blocking structures supporting sections; kinetic-typography is the motion layer. oversized-type owns the hero.",
+      "palette": "clash-tomato-mint",
+      "alt_palettes": ["pop-electric", "swiss-signal", "primary-bold"],
+      "direction": {
+        "typography": "One ultra-bold or condensed family; giant hero word, small supporting text.",
+        "composition": "One message per frame; blocks of color for secondary information.",
+        "image_treatment": "Cut-out product or none.",
+        "motion": "Fast confident entrances, holds long enough to read, one move per frame.",
+        "avoid": ["more than one hero word per frame", "text on equal-lightness clashing colors", "motion without reduced-motion fallback"]
+      },
+      "adjustable": ["palette", "secondary_styles", "motion"]
+    },
+    {
+      "id": "research-data-story",
+      "name": "Research Data Story",
+      "summary": "A data-led report or article: Swiss grid, sequential color, scroll-driven charts, and plain-language findings.",
+      "primary_style": "swiss-international",
+      "secondary_styles": ["scroll-narrative"],
+      "secondary_role": "scroll-narrative is the interaction pattern for the web version; a deck version drops it.",
+      "palette": "mono-indigo",
+      "alt_palettes": ["fjord-mist", "ink-paper", "navy-trust"],
+      "direction": {
+        "typography": "One grotesk family; headlines state findings; tabular figures; source line under every chart.",
+        "composition": "Each step changes one thing in the chart; summary first, detail after.",
+        "image_treatment": "Charts and diagrams only; follow the `dataviz` skill for chart rules.",
+        "motion": "Step-triggered chart transitions of 300 to 600 ms; readable with motion off.",
+        "avoid": ["sequential ramp for unordered categories", "dual axes", "uncertainty hidden"]
+      },
+      "adjustable": ["palette", "secondary_styles"]
+    }
+  ]
+}
