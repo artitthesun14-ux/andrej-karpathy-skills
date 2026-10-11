@@ -26,6 +26,7 @@
     "./skills/productivity/visual-storytelling",
     "./skills/productivity/presentation-design",
     "./skills/productivity/technical-visualization",
-    "./skills/productivity/visual-review"
+    "./skills/productivity/visual-review",
+    "./skills/productivity/handoff"
   ]
 }
