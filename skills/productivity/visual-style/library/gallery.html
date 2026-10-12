@@ -215,7 +215,57 @@ details.more .facts { margin-top: 12px; }
 .pal-pick button { display: grid; gap: 6px; border: 1px solid var(--rule); background: transparent; border-radius: 10px; padding: 8px; cursor: pointer; width: 132px; text-align: left; font-size: 13px; }
 .pal-pick button[aria-pressed="true"] { border-color: var(--accent); background: var(--raise); }
 .pal-pick .pbar { height: 22px; border-radius: 4px; }
-.dlg-foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: flex-end; border-top: 1px solid var(--rule); padding-top: 16px; }
+.dlg-foot { position: sticky; bottom: 0; z-index: 2; background: var(--panel); margin: 0 -22px -26px; padding: 12px 22px calc(14px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+.foot-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-left: auto; }
+.mini-tray { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1 1 260px; font-size: 13px; }
+.mini-tray .mt-pal { display: flex; width: 34px; height: 34px; border-radius: 6px; overflow: hidden; flex-shrink: 0; background: var(--raise); }
+.mini-tray .mt-pal span { flex: 1; }
+.mini-tray .mt-txt { display: grid; min-width: 0; line-height: 1.3; }
+.mini-tray .mt-txt span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mini-tray .mt-txt .k { color: var(--muted); }
+/* bottom sheet on phones: keeps Close clear of the app bar and within thumb reach */
+@media (max-width: 600px) {
+  dialog#dlg { margin: auto 0 0; width: 100vw; max-width: 100vw; max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 88px); border-radius: 18px 18px 0 0; }
+  .dlg-head::before { content: ""; position: absolute; left: 50%; top: 8px; width: 40px; height: 4px; border-radius: 2px; background: var(--rule); transform: translateX(-50%); }
+  .dlg-head { padding-top: 26px; }
+  .foot-actions { width: 100%; margin-left: 0; }
+  .foot-actions .btn { flex: 1; }
+}
+/* swatch wall */
+.wall { display: grid; gap: 14px; margin-bottom: 18px; }
+.wall-row { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; align-items: start; }
+.wall-row .sub { padding-top: 12px; }
+.wall-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(48px, 1fr)); gap: 6px; }
+.wall .sw { min-height: 48px; border-radius: 10px; }
+@media (max-width: 600px) { .wall-row { grid-template-columns: 1fr; gap: 6px; } .wall-row .sub { padding-top: 0; } .wall-tiles { grid-template-columns: repeat(auto-fill, minmax(44px, 1fr)); } .wall .sw { min-height: 44px; } }
+.picked { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; align-items: center; background: var(--panel); border-radius: 12px; padding: 12px; margin-bottom: 18px; scroll-margin-top: 16px; }
+.picked .big { width: 72px; height: 72px; border-radius: 10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+.picked h3 { margin: 0; font: 600 18px var(--f-ui); }
+.picked p { margin: 0; color: var(--muted); font-size: 13px; }
+.own { margin-bottom: 18px; }
+.own .pick-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; margin-top: 12px; }
+/* palette sheet: columns with name and HEX under each, every column is a tap target */
+.cols { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 6px; }
+.col { border: 0; background: none; padding: 0; display: grid; gap: 4px; text-align: left; cursor: pointer; min-width: 0; color: var(--ink); }
+.col .chip { display: block; height: 104px; border-radius: 6px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); transition: transform .12s ease-out; }
+.col:hover .chip { transform: translateY(-2px); }
+.col .cn { font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.col .ch { font: 400 10.5px var(--f-mono); color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.col.hl .chip { box-shadow: 0 0 0 2px var(--panel), 0 0 0 4px var(--ink); }
+.cols.short .chip { height: 64px; }
+.sheet-thumb { position: relative; aspect-ratio: 16 / 10; max-width: 100%; border-radius: 8px; overflow: hidden; }
+.sheet-thumb svg { display: block; width: 100%; height: 100%; }
+/* compare grid: one style in many palettes, or one palette on many styles */
+.compare { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 168px), 1fr)); gap: 12px; }
+@media (max-width: 600px) { .compare { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
+.cmp { display: grid; gap: 6px; border: 0; background: none; padding: 0; text-align: left; cursor: pointer; color: var(--ink); min-width: 0; font-size: 13px; }
+.cmp .tb { position: relative; aspect-ratio: 16 / 10; max-width: 100%; border-radius: 8px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+.cmp .tb svg { display: block; width: 100%; height: 100%; }
+.cmp .nm { display: flex; justify-content: space-between; gap: 6px; align-items: center; min-width: 0; }
+.cmp .nm span:first-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cmp[aria-pressed="true"] .tb { box-shadow: 0 0 0 2px var(--accent); }
+.cmp .flag { position: absolute; left: 6px; top: 6px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; }
+.cmp .viewing { position: absolute; right: 6px; top: 6px; background: rgba(0,0,0,.55); color: #fff; font-size: 11px; padding: 1px 7px; border-radius: 999px; }
 pre.snippet { font: 400 12.5px/1.55 var(--f-mono); background: var(--bg); border-radius: 10px; padding: 14px; overflow: auto; max-height: 340px; margin: 0; white-space: pre; }
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 14px; }
 textarea.text-in { min-height: 72px; resize: vertical; }
@@ -223,7 +273,7 @@ textarea.text-in { min-height: 72px; resize: vertical; }
 /* filter drawer */
 dialog.drawer { margin: 0 0 0 auto; height: 100dvh; max-height: 100dvh; width: min(420px, 100vw); border-radius: 16px 0 0 16px; }
 dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
-@media (max-width: 600px) { dialog.drawer { margin: auto 0 0; height: auto; max-height: 86dvh; width: 100vw; max-width: 100vw; border-radius: 16px 16px 0 0; } }
+@media (max-width: 600px) { dialog.drawer { margin: auto 0 0; height: auto; max-height: calc(100dvh - env(safe-area-inset-top, 0px) - 88px); width: 100vw; max-width: 100vw; border-radius: 16px 16px 0 0; } }
 .drawer-fields { display: grid; gap: 14px; align-content: start; }
 .drawer-fields select { width: 100%; min-height: 42px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--rule); background: var(--bg); }
 .drawer-foot { position: sticky; bottom: 0; background: var(--panel); display: flex; gap: 10px; justify-content: space-between; padding-top: 12px; padding-bottom: env(safe-area-inset-bottom, 0px); }
@@ -301,34 +351,33 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
   <section id="view-colors" role="tabpanel" aria-labelledby="tab-colors" hidden>
     <p class="tab-note">Colors are palettes with roles and checked contrast. They are separate from styles, so pick them in any order.</p>
     <div class="seg" role="group" aria-label="Ways to choose colors" id="cmode">
-      <button type="button" data-cmode="browse" aria-pressed="true">Browse palettes</button>
-      <button type="button" data-cmode="pick" aria-pressed="false">Pick a color</button>
+      <button type="button" data-cmode="pick" aria-pressed="true">Pick a color</button>
+      <button type="button" data-cmode="browse" aria-pressed="false">Browse palettes</button>
       <button type="button" data-cmode="build" aria-pressed="false">Build my palette</button>
     </div>
 
-    <div id="cm-browse">
+    <div id="cm-browse" hidden>
       <p class="mode-intro">Ready-made palettes from the library. Every HEX value, name, and role below comes from the library data.</p>
       <div class="fam" id="fam" role="group" aria-label="Color family"></div>
       <p class="count" id="palette-count" aria-live="polite"></p>
       <div class="grid" id="palette-grid"></div>
     </div>
 
-    <div id="cm-pick" hidden>
-      <p class="mode-intro">Choose one color you like. The library palettes that contain it, or something close, show first. Generated palettes are built from your color and contrast-checked; they are not part of the library.</p>
-      <div class="pick-layout">
-        <div class="panel">
-          <h3>Your color</h3>
+    <div id="cm-pick">
+      <p class="mode-intro">Tap a color you like. Library palettes that use it, or a close color, appear below, then palettes generated from it.</p>
+      <div class="wall" id="pk-wall" role="group" aria-label="Colors from the library"></div>
+      <details class="more own" id="pk-own">
+        <summary>Enter your own color</summary>
+        <div class="pick-inputs">
           <div class="big-pick">
             <input type="color" id="pk-color" aria-label="Color picker" value="#2F6B4F">
             <div class="field"><label for="pk-hex">HEX</label><input class="text-in hexin" id="pk-hex" value="#2F6B4F" maxlength="7" spellcheck="false" autocomplete="off"></div>
           </div>
-          <div class="field"><label for="pk-name">Find by color name</label><input class="text-in" id="pk-name" type="search" placeholder="sage, burgundy, เขียว, gold" autocomplete="off"></div>
-          <div class="name-results" id="pk-names"></div>
-          <div id="pk-mine-wrap" hidden><p class="sub" style="margin-bottom:8px">From your selected palette</p><div class="swatch-grid" id="pk-mine"></div></div>
-          <div><p class="sub" style="margin-bottom:8px">Suggested from the library</p><div class="swatch-grid" id="pk-suggest"></div></div>
+          <div class="field"><label for="pk-name">Find by color name</label><input class="text-in" id="pk-name" type="search" placeholder="sage, burgundy, เขียว, gold" autocomplete="off"><div class="name-results" id="pk-names"></div></div>
         </div>
-        <div id="pk-results"></div>
-      </div>
+      </details>
+      <div id="pk-picked"></div>
+      <div id="pk-results"></div>
     </div>
 
     <div id="cm-build" hidden>
@@ -410,7 +459,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
   };
   const state = {
-    tab: "styles", cmode: "browse", q: "", groups: [],
+    tab: "styles", cmode: "pick", q: "", groups: [],
     filters: store.get("vsl2-filters", {}),
     fam: "",
     myColors: store.get("vsl2-mycolors", true),
@@ -771,22 +820,26 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
   function textPairVerdict(p) {
     const s6 = six(p); return verdict(ratio(s6.text, s6.background));
   }
+  // A palette as columns: color, name, HEX. Tapping a column looks for palettes that use that color.
+  function sheet(p, hl, short) {
+    return `<div class="cols ${short ? "short" : ""}">${p.colors.map((c) => `<button type="button" class="col ${hl && c.hex === hl ? "hl" : ""}" data-sw="${c.hex}" aria-label="Find palettes with ${esc(c.name)} ${c.hex}" title="${esc(c.name)} ${c.hex} · ${c.role}"><span class="chip" style="background:${c.hex}"></span><span class="cn">${esc(c.name)}</span><span class="ch">${c.hex}</span></button>`).join("")}</div>`;
+  }
+  const styleFor = (p) => selStyle() || DB.styles.find((s) => s.compatible_palettes[0] === p.id) || DB.styles.find((s) => s.compatible_palettes.includes(p.id)) || DB.styles[0];
   function renderPalettes() {
     $("#fam").innerHTML = [["", "All"], ...DB.pcats.map((c) => [c.id, c.name])].map(([v, t]) => `<button type="button" data-fam="${v}" aria-pressed="${state.fam === v}">${esc(t)}</button>`).join("");
     const base = DB.palettes.filter((p) => !state.fam || p.category === state.fam);
     const { list, all, best } = rank(base, (p) => IDX.p[p.id]);
     $("#n-colors").textContent = state.q ? list.length : "";
     const parts = state.groups.length;
-    $("#palette-count").textContent = `${list.length} of ${DB.palettes.length} palettes` + (parts > 1 && list.length ? (all ? ", matching every part of your search" : `, closest matches (${best} of ${parts} parts)`) : "");
+    $("#palette-count").textContent = `${list.length} of ${DB.palettes.length} palettes` + (parts > 1 && list.length ? (all ? ", matching every part of your search" : `, closest matches (${best} of ${parts} parts)`) : "") + ". Tap any color to find palettes that use it.";
     $("#palette-grid").innerHTML = list.length ? list.map((p) => {
       const on = state.sel.palette === p.id, v = textPairVerdict(p);
       return `<article class="card ${on ? "is-sel" : ""}">
-        <div class="pbar" role="img" aria-label="${esc(p.name)} colors">${p.colors.map((c) => `<span style="background:${c.hex};flex:${c.share}" title="${esc(c.name)} ${c.hex}"></span>`).join("")}</div>
+        ${sheet(p)}
         <div class="card-head"><div><div class="eyebrow">${esc(DB.pcatName[p.category])}</div><h3>${esc(p.name)}</h3></div></div>
-        <div class="clist">${p.colors.map((c) => `<div><i style="background:${c.hex}"></i><span>${esc(c.name)} <span style="color:var(--muted)">· ${c.role}</span></span><span class="hex">${c.hex}</span></div>`).join("")}</div>
         <p class="summary">${esc(p.mood.join(", "))}. For ${esc(p.use_cases.slice(0, 3).join(", "))}.</p>
         <div>${vHTML(v)}</div>
-        <div class="actions"><button class="btn small" type="button" data-pal-preview="${p.id}">Preview</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-pick-pal="${p.id}" aria-pressed="${on}">${on ? "Selected" : "Select palette"}</button></div>
+        <div class="actions"><button class="btn small" type="button" data-pal-preview="${p.id}">Compare on styles</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-pick-pal="${p.id}" aria-pressed="${on}">${on ? "Selected" : "Select palette"}</button></div>
       </article>`;
     }).join("") : `<p class="empty">No palette matches. Try a color word such as <em>green</em>, <em>cream</em>, or <em>แดง</em>, or choose <strong>Pick a color</strong> above.</p>`;
   }
@@ -799,23 +852,34 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     for (const p of DB.palettes) for (const c of p.colors) { const k = c.hex; if (!seen.has(k)) { seen.add(k); LIBCOLORS.push({ ...c, pal: p }); } }
     return LIBCOLORS;
   }
-  function suggestions() {
-    return libColors().filter((c) => ["primary", "accent", "secondary", "signal"].includes(c.role)).sort((a, b) => { const [h1, s1] = hsl(a.hex), [h2, s2] = hsl(b.hex); return (s1 < 0.1) - (s2 < 0.1) || h1 - h2; });
+  const FAMILIES = [
+    ["Reds and pinks", (h, s, l) => s >= 0.12 && l > 0.16 && l < 0.94 && (h >= 330 || h < 15)],
+    ["Oranges and browns", (h, s, l) => s >= 0.12 && l > 0.16 && l < 0.94 && h >= 15 && h < 45],
+    ["Yellows and golds", (h, s, l) => s >= 0.12 && l > 0.16 && l < 0.94 && h >= 45 && h < 70],
+    ["Greens", (h, s, l) => s >= 0.12 && l > 0.16 && l < 0.94 && h >= 70 && h < 170],
+    ["Blues and teals", (h, s, l) => s >= 0.12 && l > 0.16 && l < 0.94 && h >= 170 && h < 255],
+    ["Purples", (h, s, l) => s >= 0.12 && l > 0.16 && l < 0.94 && h >= 255 && h < 330],
+    ["Neutrals", () => true],
+  ];
+  function renderWall() {
+    const used = new Set(), mine = selColors();
+    const rows = FAMILIES.map(([name, test]) => {
+      const cs = libColors().filter((c) => !used.has(c.hex) && test(...hsl(c.hex))).sort((a, b) => hsl(a.hex)[2] - hsl(b.hex)[2]);
+      cs.forEach((c) => used.add(c.hex)); return [name, cs];
+    }).filter((r) => r[1].length);
+    const tile = (hex, label) => `<button class="sw" type="button" data-sw="${hex}" aria-pressed="${hex === state.pick}" style="background:${hex}" title="${esc(label)} ${hex}" aria-label="${esc(label)} ${hex}"></button>`;
+    $("#pk-wall").innerHTML = (mine ? `<div class="wall-row"><p class="sub">Your colors</p><div class="wall-tiles">${ROLES6.map(([r, t]) => tile(mine[r], t)).join("")}</div></div>` : "") +
+      rows.map(([name, cs]) => `<div class="wall-row"><p class="sub">${name}</p><div class="wall-tiles">${cs.map((c) => tile(c.hex, `${c.name}, ${c.pal.name}`)).join("")}</div></div>`).join("");
   }
   function setPick(hex, from) {
     const h = normHex(hex); if (!h) return;
-    state.pick = h;
+    state.pick = h; state.picked = true;
     if (from !== "picker") $("#pk-color").value = h.toLowerCase();
     if (from !== "hex") { $("#pk-hex").value = h; $("#pk-hex").removeAttribute("aria-invalid"); }
-    $$("#pk-suggest .sw, #pk-mine .sw").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.sw === h)));
+    $$("#pk-wall .sw").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.sw === h)));
     renderPickResults();
   }
-  function renderPickSide() {
-    $("#pk-suggest").innerHTML = suggestions().map((c) => `<button class="sw" type="button" data-sw="${c.hex}" aria-pressed="${c.hex === state.pick}" style="background:${c.hex}" title="${esc(c.name)} ${c.hex} (${esc(c.pal.name)})" aria-label="${esc(c.name)} ${c.hex}"></button>`).join("");
-    const mine = selColors();
-    $("#pk-mine-wrap").hidden = !mine;
-    if (mine) $("#pk-mine").innerHTML = ROLES6.map(([r, t]) => `<button class="sw" type="button" data-sw="${mine[r]}" aria-pressed="${mine[r] === state.pick}" style="background:${mine[r]}" title="${t} ${mine[r]}" aria-label="${t} ${mine[r]}"></button>`).join("");
-  }
+  function renderPickSide() { renderWall(); }
   function renderNameResults() {
     const q = $("#pk-name").value.trim().toLowerCase();
     if (!q) { $("#pk-names").innerHTML = ""; return; }
@@ -849,20 +913,26 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
   }
   let GEN = [];
   function renderPickResults() {
+    if (!state.picked) { $("#pk-picked").innerHTML = ""; $("#pk-results").innerHTML = ""; return; }
     const hex = state.pick;
+    const named = libColors().find((c) => c.hex === hex);
     const scored = DB.palettes.map((p) => { let m = null; for (const c of p.colors) { const d = dE(c.hex, hex); if (!m || d < m.d) m = { d, c }; } return { p, ...m }; }).sort((a, b) => a.d - b.d);
     const close = scored.filter((x) => x.d < 22), lib = (close.length ? close : scored).slice(0, 6);
     GEN = generate(hex);
     const vline = (c) => [verdict(ratio(c.text, c.background)), verdict(ratio(c.accent, c.background), "ui")];
+    $("#pk-picked").innerHTML = `<div class="picked" id="picked-anchor"><span class="big" style="background:${hex}"></span><div><h3>${named ? esc(named.name) : "Your color"} <span class="hex" style="color:var(--muted);font-weight:400">${hex}</span></h3><p>${close.length} library palette${close.length === 1 ? "" : "s"} use${close.length === 1 ? "s" : ""} this color or a close one${selStyle() ? `, shown on ${esc(selStyle().name)}` : ""}. Tap any color in a result to keep exploring.</p></div></div>`;
     $("#pk-results").innerHTML = `
-      <div class="result-head"><h3><span class="kind lib">Library</span> ${close.length ? "Palettes with this color or a close one" : "Nearest library palettes"}</h3><p>${close.length ? `${close.length} close` : "None close, showing the nearest"}. White underline marks the matching color.</p></div>
-      <div class="mini-grid">${lib.map((x) => { const on = state.sel.palette === x.p.id; return `<div class="mini card ${on ? "is-sel" : ""}"><div class="pbar">${x.p.colors.map((c) => `<span class="${c === x.c ? "matchmark" : ""}" style="background:${c.hex};flex:${c.share}" title="${esc(c.name)} ${c.hex}"></span>`).join("")}</div>
-        <div class="card-head"><div><h3 style="font-size:16px">${esc(x.p.name)}</h3><p class="summary" style="font-size:13px">${esc(x.c.name)} <span class="hex">${x.c.hex}</span>, ${x.d < 6 ? "same color" : x.d < 14 ? "very close" : x.d < 22 ? "close" : "distant"} (ΔE ${x.d.toFixed(0)})</p></div></div>
-        <div class="actions"><button class="btn small" type="button" data-pal-preview="${x.p.id}">Preview</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-pick-pal="${x.p.id}">${on ? "Selected" : "Select"}</button></div></div>`; }).join("")}</div>
+      <div class="result-head"><h3><span class="kind lib">Library</span> ${close.length ? "Palettes that go with it" : "Nearest library palettes"}</h3><p>${close.length ? "Outlined column is the matching color." : "None close, showing the nearest."}</p></div>
+      <div class="mini-grid">${lib.map((x) => { const on = state.sel.palette === x.p.id, st = styleFor(x.p); return `<div class="mini card ${on ? "is-sel" : ""}">
+        <div class="sheet-thumb">${preview(st, x.p)}<span class="tag-synth">${esc(st.name)}</span>${on ? `<span class="sel-flag">Selected</span>` : ""}</div>
+        ${sheet(x.p, x.c.hex, true)}
+        <div class="card-head"><div><h3 style="font-size:16px">${esc(x.p.name)}</h3><p class="summary" style="font-size:13px">${esc(x.c.name)}: ${x.d < 6 ? "same color" : x.d < 14 ? "very close" : x.d < 22 ? "close" : "distant"} (ΔE ${x.d.toFixed(0)})</p></div></div>
+        <div class="actions"><button class="btn small" type="button" data-pal-preview="${x.p.id}">Compare on styles</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-pick-pal="${x.p.id}">${on ? "Selected" : "Select palette"}</button></div></div>`; }).join("")}</div>
       <div class="result-head"><h3><span class="kind gen">Generated</span> Built from <span class="hex">${hex}</span></h3><p>Not in the library. Text is set to at least 7:1 on the background.</p></div>
-      <div class="mini-grid">${GEN.map((g, i) => { const [v1, v2] = vline(g.c); return `<div class="mini"><div class="pbar">${ROLES6.map(([r]) => `<span style="background:${g.c[r]};flex:1" title="${r} ${g.c[r]}"></span>`).join("")}</div>
+      <div class="mini-grid">${GEN.map((g, i) => { const [v1, v2] = vline(g.c); const st = selStyle(); return `<div class="mini">
+        ${st ? `<div class="sheet-thumb">${preview(st, palObj(g.c, g.name))}<span class="tag-synth">${esc(st.name)}</span></div>` : ""}
+        <div class="cols short">${ROLES6.map(([r, t]) => `<button type="button" class="col" data-sw="${g.c[r]}" aria-label="Find palettes with ${t} ${g.c[r]}"><span class="chip" style="background:${g.c[r]}"></span><span class="cn">${t}</span><span class="ch">${g.c[r]}</span></button>`).join("")}</div>
         <h3 style="font-size:16px;margin:0">${g.name}</h3><p class="summary" style="font-size:13px">${g.note}</p>
-        <div class="clist">${ROLES6.map(([r, t]) => `<div><i style="background:${g.c[r]}"></i><span>${t}</span><span class="hex">${g.c[r]}</span></div>`).join("")}</div>
         <div style="display:grid;gap:2px"><span style="font-size:12px;color:var(--muted)">Text on background</span>${vHTML(v1)}<span style="font-size:12px;color:var(--muted)">Accent on background</span>${vHTML(v2)}</div>
         ${g.fixes.length ? `<p class="summary" style="font-size:13px">Note: ${esc(g.fixes.join("; "))}.</p>` : ""}
         <div class="actions"><button class="btn small" type="button" data-gen-edit="${i}">Edit</button><button class="btn small primary" type="button" data-gen-use="${i}">Use these colors</button></div></div>`; }).join("")}</div>`;
@@ -947,42 +1017,56 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
   function toast(msg) { const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => (t.hidden = true), 2600); }
 
   // ---------- dialogs ----------
-  function showDialog(html) { $("#dlg-body").innerHTML = html; const d = $("#dlg"); if (!d.open) d.showModal(); d.scrollTop = 0; }
+  function showDialog(html, keepScroll) { const d = $("#dlg"), y = d.scrollTop; $("#dlg-body").innerHTML = html; if (!d.open) d.showModal(); d.scrollTop = keepScroll ? y : 0; }
   const closeBtn = `<button class="btn small" type="button" data-close>Close</button>`;
   const FACTS = ["Visual DNA", "Typography", "Layout", "Composition", "Image treatment", "Motion language", "Best for", "Avoid when"];
   const MORE = ["Design principles", "Color behavior", "Texture and material", "Differs from", "Prompt recipe", "Implementation notes"];
-  let detailPal = null;
-  function openStyle(id, palId) {
+  let detailPal = null, cmpAll = false;
+  // The selection stays in view inside dialogs, with Apply one tap away.
+  function miniTray() {
+    const s = selStyle(), c = selColors();
+    return `<div class="mini-tray"><span class="mt-pal">${c ? ["background", "primary", "accent", "text"].map((r) => `<span style="background:${c[r]}"></span>`).join("") : ""}</span><span class="mt-txt"><span><span class="k">Style</span> ${s ? esc(s.name) : "not chosen"}</span><span><span class="k">Colors</span> ${c ? esc(selPalName()) : "not chosen"}</span></span>${s || c ? `<button class="btn small" type="button" data-review>Apply</button>` : ""}</div>`;
+  }
+  const foot = (buttons) => `<div class="dlg-foot">${miniTray()}<div class="foot-actions">${buttons}</div></div>`;
+  const pdots = (p) => `<span class="dots" aria-hidden="true">${p.colors.slice(0, 5).map((c) => `<i style="background:${c.hex}"></i>`).join("")}</span>`;
+  function openStyle(id, palId, keepScroll) {
     const s = DB.sty[id];
     detailPal = palId || (state.myColors && selPalObj() ? "__sel" : s.preview.palette);
     const pObj = detailPal === "__sel" ? selPalObj() : DB.pal[detailPal];
     const on = state.sel.style === s.id;
     const prof = PROF[s.id];
     const fact = (l) => { const t = profField(s.id, l); return t ? `<div class="fact ${l === "Avoid when" ? "avoid" : ""}"><h4>${esc(l)}</h4><p>${md(t)}</p></div>` : ""; };
-    const palBtns = [...(selPalObj() ? [["__sel", selPalObj()]] : []), ...s.compatible_palettes.map((pid) => [pid, DB.pal[pid]])];
+    const ids = cmpAll ? DB.palettes.map((p) => p.id) : s.compatible_palettes;
+    const tiles = [...(selPalObj() ? [["__sel", selPalObj()]] : []), ...ids.map((pid) => [pid, DB.pal[pid]])];
+    const isSel = (pid) => (pid === "__sel" ? true : state.sel.palette === pid);
     showDialog(`<div class="dlg-head"><div><div class="eyebrow">${esc(DB.cat[s.category].name)}</div><h2 id="dlg-title">${esc(s.name)}</h2></div>${closeBtn}</div>
       <div class="thumb">${preview(s, pObj)}<span class="tag-synth">synthetic sketch · ${esc(pObj.name)}</span></div>
       <p style="margin:0;font-size:17px;max-width:68ch">${esc(s.summary)}</p>
       <div class="meta-line"><span>Mood <b>${esc(s.mood.join(", "))}</b></span><span>Use for <b>${esc(s.medium.map((m) => MEDIUM_LABEL[m] || m).join(", "))}</b></span>${s.aliases.length ? `<span>Also called <b>${esc(s.aliases.join(", "))}</b></span>` : ""}</div>
-      <div><p class="sub" style="margin-bottom:8px">Try it in</p><div class="pal-pick">${palBtns.map(([pid, p]) => `<button type="button" data-try-pal="${s.id}|${pid}" aria-pressed="${pid === detailPal}"><span class="pbar" style="display:flex">${p.colors.map((c) => `<span style="background:${c.hex};flex:${c.share}"></span>`).join("")}</span>${pid === "__sel" ? "Your colors" : esc(p.name)}</button>`).join("")}</div></div>
+      <div id="cmp-anchor"><div class="result-head"><p class="sub">Compare in ${cmpAll ? "every palette" : "its best palettes"}</p><button class="linkbtn" type="button" data-cmp-all="${s.id}">${cmpAll ? "Show best fits only" : `Show all ${DB.palettes.length} palettes`}</button></div>
+        <div class="compare">${tiles.map(([pid, p]) => `<button type="button" class="cmp" data-try-pal="${s.id}|${pid}" aria-pressed="${pid === detailPal}"><span class="tb">${preview(s, p)}${isSel(pid) && state.sel.palette ? `<span class="flag">Your pick</span>` : ""}${pid === detailPal ? `<span class="viewing">Viewing</span>` : ""}</span><span class="nm"><span>${pid === "__sel" ? "Your colors" : esc(p.name)}</span>${pdots(p)}</span></button>`).join("")}</div>
+        <p class="summary" style="font-size:13px;margin-top:8px">Tap one to view it large above, then select the pair below.</p></div>
       ${prof ? `<div class="facts">${FACTS.map(fact).join("")}</div><details class="more"><summary>More from the profile</summary><div class="facts">${MORE.map(fact).join("")}</div></details>` : `<p class="summary">Profile text is loading or not available here. It lives in <code>${esc(s.profile)}</code>, section <code>${esc(s.id)}</code>.</p>`}
       <p class="summary" style="font-size:13px">Use cases: ${esc(s.use_cases.join(", "))}. Typography: ${esc(s.typography_tags.join(", "))}. Layout: ${esc(s.layout_tags.join(", "))}. Motion: ${esc(s.motion_type.join(", "))}.${s.reference_sources.length ? ` Sources: ${esc(s.reference_sources.join("; "))}.` : ""} Id <code>${esc(s.id)}</code>.</p>
-      <div class="dlg-foot">${detailPal !== "__sel" && state.sel.palette !== detailPal ? `<button class="btn" type="button" data-pick-both="${s.id}|${detailPal}">Select style + ${esc(pObj.name)}</button>` : ""}<button class="btn ${on ? "selected" : "primary"}" type="button" data-pick-style="${s.id}" data-from-dialog="1">${on ? "Selected" : "Select style"}</button></div>`);
+      ${foot(`${detailPal !== "__sel" && !(on && state.sel.palette === detailPal) ? `<button class="btn ${on ? "primary" : ""}" type="button" data-pick-both="${s.id}|${detailPal}">Use with ${esc(pObj.name)}</button>` : ""}<button class="btn ${on ? "selected" : "primary"}" type="button" data-pick-style="${s.id}" data-from-dialog="1">${on ? "Style selected" : "Select style"}</button>`)}`, keepScroll);
   }
-  function openPalette(id, mode) {
+  function openPalette(id, mode, keepScroll) {
     const p = DB.pal[id], s = selStyle(), on = state.sel.palette === id;
     mode = mode || (s ? "combined" : "colors");
     const pair = (t, bad) => { const fg = p.colors.find((c) => c.name === t.fg || c.role === t.fg), bg = p.colors.find((c) => c.name === t.bg || c.role === t.bg); const r = ratio(fg.hex, bg.hex); const v = bad ? { c: "bad", t: "Avoid", d: `${r.toFixed(2)}:1` } : verdict(r, t.use === "body" ? "text" : "ui"); return `<div class="check"><span class="demo" style="background:${bg.hex};color:${fg.hex}">Aa</span><span>${esc(fg.name)} on ${esc(bg.name)} <span style="color:var(--muted)">· ${bad ? "do not use for text" : t.use}</span><br>${vHTML(v)}</span></div>`; };
     const m = mock(s, six(p), mode);
-    const styles = DB.styles.filter((x) => x.compatible_palettes.includes(p.id));
+    const fits = DB.styles.filter((x) => x.compatible_palettes.includes(p.id));
+    const onStyles = [...(s && !fits.includes(s) ? [s] : []), ...fits];
     showDialog(`<div class="dlg-head"><div><div class="eyebrow">${esc(DB.pcatName[p.category])} palette · ${esc(p.source)}</div><h2 id="dlg-title">${esc(p.name)}</h2></div>${closeBtn}</div>
+      ${sheet(p)}
       <div class="seg" role="radiogroup" aria-label="Preview mode">${modeSeg("pmode", mode).replace(/data-pmode="(\w+)"/g, `data-pmode="$1" data-pmode-pal="${p.id}"`)}</div>
       ${m.html}<p class="prev-caption">${esc(m.cap)}${s ? "" : " Select a style to see the combined view."}</p>
-      <div class="clist" style="font-size:14px">${p.colors.map((c) => `<div><i style="background:${c.hex}"></i><span>${esc(c.name)} <span style="color:var(--muted)">· ${c.role}, about ${c.share}% of the area</span></span><span class="hex">${c.hex}</span></div>`).join("")}</div>
+      <div><div class="result-head"><p class="sub">Compare on ${onStyles.length} styles</p></div>
+        <div class="compare">${onStyles.map((x) => `<button type="button" class="cmp" data-pal-style="${p.id}|${x.id}" aria-pressed="${state.sel.style === x.id}"><span class="tb">${preview(x, p)}${state.sel.style === x.id ? `<span class="flag">Your style</span>` : ""}</span><span class="nm"><span>${esc(x.name)}</span></span></button>`).join("")}</div>
+        <p class="summary" style="font-size:13px;margin-top:8px">Tap a style to select it with this palette.</p></div>
       <div><p class="sub" style="margin-bottom:8px">Readable pairs</p><div class="checks">${p.text_pairs.map((t) => pair(t)).join("")}${p.avoid_pairs.map((t) => pair(t, true)).join("")}</div></div>
       <p class="summary">${esc(p.contrast_notes)}</p><p class="summary"><strong style="color:var(--ink)">Example.</strong> ${esc(p.example)}</p>
-      ${styles.length ? `<p class="summary" style="font-size:13px">Listed as a fit for: ${styles.map((x) => `<button class="linkbtn" type="button" data-detail="${x.id}">${esc(x.name)}</button>`).join(", ")}</p>` : ""}
-      <div class="dlg-foot"><button class="btn" type="button" data-edit-pal="${p.id}">Edit these colors</button><button class="btn ${on ? "selected" : "primary"}" type="button" data-pick-pal="${p.id}" data-from-dialog="1">${on ? "Selected" : "Select palette"}</button></div>`);
+      ${foot(`<button class="btn" type="button" data-edit-pal="${p.id}">Edit colors</button><button class="btn ${on ? "selected" : "primary"}" type="button" data-pick-pal="${p.id}" data-from-dialog="1">${on ? "Palette selected" : "Select palette"}</button>`)}`, keepScroll);
   }
   function openPreset(id) {
     const pr = DB.presets.find((x) => x.id === id), s = DB.sty[pr.primary_style], p = DB.pal[pr.palette], d = pr.direction, on = state.sel.preset === pr.id;
@@ -993,7 +1077,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
       <p class="summary">${esc(pr.secondary_role)}</p>
       <div class="facts">${["typography", "composition", "image_treatment", "motion"].map((k) => `<div class="fact"><h4>${k.replace("_", " ")}</h4><p>${esc(d[k])}</p></div>`).join("")}<div class="fact avoid"><h4>Avoid</h4><p>${esc(d.avoid.join("; "))}</p></div></div>
       <p class="summary" style="font-size:13px">You can change after applying: ${esc(pr.adjustable.join(", ").replace(/_/g, " "))}.</p>
-      <div class="dlg-foot"><button class="btn ${on ? "selected" : "primary"}" type="button" data-preset="${pr.id}" data-from-dialog="1">${on ? "In use" : "Use preset"}</button></div>`);
+      ${foot(`<button class="btn ${on ? "selected" : "primary"}" type="button" data-preset="${pr.id}" data-from-dialog="1">${on ? "In use" : "Use preset"}</button>`)}`);
   }
 
   // ---------- review and apply ----------
@@ -1146,26 +1230,37 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     if (ds.hint) { $("#q").value = ds.hint; onSearch(); return; }
     if (ds.detail) return openStyle(ds.detail);
     if (ds.tryPal) { const [sid, pid] = ds.tryPal.split("|"); return openStyle(sid, pid); }
+    if (ds.cmpAll) { cmpAll = !cmpAll; openStyle(ds.cmpAll, detailPal, true); return; }
+    if (ds.palStyle) { const [pid, sid] = ds.palStyle.split("|"); Object.assign(state.sel, { style: sid, palette: pid, custom: null, base: null, genBase: null, preset: null }); saveSel(); renderAll(); toast(`${DB.sty[sid].name} with ${DB.pal[pid].name} selected`); return openPalette(pid, null, true); }
+    if ("review" in ds) return openReview();
     if (ds.pickStyle) {
       const on = state.sel.style === ds.pickStyle; state.sel.style = on ? null : ds.pickStyle; state.sel.preset = null; saveSel();
       renderStyles(); renderTray(); renderPresets(); if (state.cmode === "build") renderBuildLive();
       toast(on ? "Style removed from your selection" : `${DB.sty[ds.pickStyle].name} selected. Next: choose colors.`);
-      if (inDlg) openStyle(ds.pickStyle, detailPal); return;
+      if (inDlg) openStyle(ds.pickStyle, detailPal, true); return;
     }
-    if (ds.pickBoth) { const [sid, pid] = ds.pickBoth.split("|"); Object.assign(state.sel, { style: sid, palette: pid, custom: null, base: null, genBase: null, preset: null }); saveSel(); renderAll(); toast(`${DB.sty[sid].name} with ${DB.pal[pid].name} selected`); return openStyle(sid, pid); }
+    if (ds.pickBoth) { const [sid, pid] = ds.pickBoth.split("|"); Object.assign(state.sel, { style: sid, palette: pid, custom: null, base: null, genBase: null, preset: null }); saveSel(); renderAll(); toast(`${DB.sty[sid].name} with ${DB.pal[pid].name} selected`); return openStyle(sid, pid, true); }
     if (ds.palPreview) return openPalette(ds.palPreview);
     if (ds.pmode) return openPalette(ds.pmodePal, ds.pmode);
     if (ds.pickPal) {
       const on = state.sel.palette === ds.pickPal; Object.assign(state.sel, { palette: on ? null : ds.pickPal, custom: null, base: null, genBase: null, preset: null }); saveSel();
       renderAll(); toast(on ? "Palette removed from your selection" : `${DB.pal[ds.pickPal].name} selected`);
-      if (inDlg) openPalette(ds.pickPal); return;
+      if (inDlg) openPalette(ds.pickPal, null, true); return;
     }
     if (ds.editPal) { Object.assign(state.sel, { palette: ds.editPal, custom: null, base: null, genBase: null, preset: null }); saveSel(); $("#dlg").close(); setTab("colors"); setCmode("build"); renderAll(); return; }
     if (ds.genUse || ds.genEdit) {
       const g = GEN[+(ds.genUse || ds.genEdit)]; Object.assign(state.sel, { palette: "custom", custom: { ...g.c }, base: null, genBase: { ...g.c }, preset: null }); saveSel();
       renderAll(); if (ds.genEdit) setCmode("build"); else toast(`Generated ${g.name.toLowerCase()} palette selected`); return;
     }
-    if (ds.sw) { if (t.closest("#pk-names")) { $("#pk-name").value = ""; renderNameResults(); } return setPick(ds.sw); }
+    if (ds.sw) {
+      if (t.closest("#pk-names")) { $("#pk-name").value = ""; renderNameResults(); }
+      if (inDlg) $("#dlg").close();
+      if (state.tab !== "colors") setTab("colors");
+      if (state.cmode !== "pick") setCmode("pick");
+      setPick(ds.sw);
+      const a = $("#picked-anchor"); if (a) a.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+      return;
+    }
     if (ds.fam !== undefined && t.closest("#fam")) { state.fam = ds.fam; return renderPalettes(); }
     if (ds.bmode) { state.bmode = ds.bmode; $("#b-pmode").innerHTML = modeSeg("bmode", state.bmode); return renderBuildLive(); }
     if (ds.rmode) { rmode = ds.rmode; return openReview(); }
