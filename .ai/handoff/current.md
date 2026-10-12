@@ -83,10 +83,10 @@ Repo rules (`.claude/CLAUDE.md`): no em-dashes; Promotion Contract (README, `plu
 - OPEN: PR for the work branch (waiting on the user).
 - OPEN: keep or drop Bauhaus and Brutalism aliases.
 - RISK: viewers who saved a custom palette in the gallery before `25bce26` keep the old Rosewood surface in localStorage until they reselect.
-- RISK: `marketplace.json` has its own `version` (0.1.0); no script syncs or checks it.
+- FIXED: `marketplace.json` version is now synced by the `version` hook and checked by `check-plugin-version`.
 - RISK: `--mood` and `--use` in `library.mjs` are free text with no listed values.
-- RISK: `visual-production` description still lists presentations while the router sends them to `/create-presentation`.
-- RISK: `references/library-schema.md` and `SKILL.md` describe the gallery as "filters and synthetic previews"; still true but not updated for the new features.
+- FIXED: `visual-production` description, Purpose, and README row no longer claim presentations; they point to `/create-presentation`.
+- FIXED: `references/library-schema.md` and `visual-style/SKILL.md` describe the current gallery features.
 - UNKNOWN: whether `npx skills add` keeps sibling skill folders so `../visual-style/` resolves.
 
 ## 10. Next Actions, in priority order
