@@ -185,7 +185,7 @@ input[type="color"]::-moz-color-swatch { border: 0; border-radius: 10px; }
 .mock .m-eye { font: 600 11px var(--m-ft); letter-spacing: .12em; text-transform: uppercase; color: var(--m-pri); margin: 0; }
 .mock .m-h { font: 400 clamp(24px, 3vw, 32px)/1.08 var(--m-fd); margin: 0; text-wrap: balance; color: var(--m-tx); }
 .mock .m-b { font: 400 15px/1.55 var(--m-ft); margin: 0; color: var(--m-tx); opacity: .9; }
-.mock .m-card { background: var(--m-sur); color: var(--m-tx); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; font: 400 14px/1.45 var(--m-ft); }
+.mock .m-card { background: var(--m-sur); color: var(--m-tx); border: 1px solid color-mix(in srgb, var(--m-tx) 16%, transparent); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; font: 400 14px/1.45 var(--m-ft); }
 .mock .m-card b { font-weight: 600; }
 .mock .m-rule { display: block; width: 36px; height: 3px; background: var(--m-acc); }
 .mock .m-link { color: var(--m-acc); text-decoration: underline; text-underline-offset: 3px; }
@@ -603,7 +603,8 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     return { bg: by("background"), fg: by("text"), pri: by("primary", "accent", "text"), acc: by("accent", "signal", "primary"),
       sec: by("secondary", "surface", "line", "text-muted"), sur: by("surface", "secondary", "line"), mut: by("text-muted", "line", "secondary", "surface") };
   }
-  function six(p) { const r = roles(p); return { primary: r.pri, secondary: r.sec, accent: r.acc, background: r.bg, surface: r.sur, text: r.fg }; }
+  // Surface falls back to the background, never to secondary: a secondary color can fail as a ground for text (Raisin Ink on Rosewood is 3.08:1).
+  function six(p) { const r = roles(p), sur = p.colors.find((x) => x.role === "surface"); return { primary: r.pri, secondary: r.sec, accent: r.acc, background: r.bg, surface: sur ? sur.hex : r.bg, text: r.fg }; }
   function palObj(c, name = "your") {
     return { id: "custom", name, colors: [["background", 40], ["surface", 15], ["text", 15], ["primary", 12], ["secondary", 10], ["accent", 8]].map(([role, share]) => ({ hex: c[role], role, share, name: role[0].toUpperCase() + role.slice(1) })) };
   }
