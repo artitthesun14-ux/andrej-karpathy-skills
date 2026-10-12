@@ -125,9 +125,18 @@ Apply the checks that fit the job; skip the rest.
 - Implementation: the deck opens and navigates in its target format; the rendered result was inspected with `visual-review` when a browser is available; responsive behavior matches the target.
 - Direction: compare against the brief with `style-direction.md` > Review against the direction.
 
+## Add to the gallery
+
+When the person gives the link of their published Visual Style Library gallery (or the brief records one as `gallery_url`) and the session can publish artifacts, add the finished deck to it as a work. Skip this otherwise; never publish a deck the person has not seen.
+
+1. Read the gallery's current `works.json` first (it may not exist yet). Keep every existing entry.
+2. Publish to that same gallery link: the deck as `works/<id>/index.html` (a full HTML page with its own doctype), a cover screenshot of the first slide as `works/<id>/cover.jpg` when a browser is available, and `works.json` with the new entry added. Leave every other file of the gallery as it is.
+3. Use the entry format in `../visual-style/references/library-schema.md` > works.json. The style and palette are the ones in the brief.
+4. Give the deck a small link back to the gallery (`../../`).
+
 ## Report
 
-End with: what was made or changed (files), the route taken, style and palette used, what was verified and how, and what was not verified. Suggest the next command when one fits (for example `/code-review` for code, `/handoff` to pause).
+End with: what was made or changed (files, and the gallery link when the deck was added to it), the route taken, style and palette used, what was verified and how, and what was not verified. Suggest the next command when one fits (for example `/code-review` for code, `/handoff` to pause).
 
 ## Rules
 

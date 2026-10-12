@@ -62,6 +62,13 @@ nav.tabs button { padding: 10px 14px 12px; border: 0; background: transparent; c
 nav.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
 nav.tabs .n { font-weight: 400; color: var(--muted); font-size: 13px; margin-left: 6px; font-variant-numeric: tabular-nums; }
 .tab-note { color: var(--muted); font-size: 13px; margin: -6px 0 14px; }
+nav.tabs #tab-works { margin-left: auto; border-left: 1px solid var(--rule); padding-left: 18px; }
+
+/* works: things already made with the library */
+.work-cover { display: block; width: 100%; height: 100%; object-fit: cover; }
+.thumb a.open { position: absolute; inset: 0; border-radius: 10px; }
+.thumb a.open:focus-visible { outline-offset: -3px; }
+.meta-line .when { font-variant-numeric: tabular-nums; }
 
 /* toolbar, filters */
 .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
@@ -71,6 +78,7 @@ nav.tabs .n { font-weight: 400; color: var(--muted); font-size: 13px; margin-lef
 .pill-select select.on { border-color: var(--accent); }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--rule); background: transparent; color: var(--ink); cursor: pointer; font-weight: 600; font-size: 14px; white-space: nowrap; }
 .btn:hover { border-color: var(--muted); }
+a.btn { text-decoration: none; }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 .btn.primary:hover { filter: brightness(1.06); }
 .btn.selected { background: transparent; border-color: var(--accent); color: var(--accent); }
@@ -332,6 +340,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     <button role="tab" id="tab-styles" aria-controls="view-styles" aria-selected="true" data-tab="styles">Styles<span class="n" id="n-styles"></span></button>
     <button role="tab" id="tab-colors" aria-controls="view-colors" aria-selected="false" tabindex="-1" data-tab="colors">Colors<span class="n" id="n-colors"></span></button>
     <button role="tab" id="tab-presets" aria-controls="view-presets" aria-selected="false" tabindex="-1" data-tab="presets">Presets<span class="n" id="n-presets"></span></button>
+    <button role="tab" id="tab-works" aria-controls="view-works" aria-selected="false" tabindex="-1" data-tab="works" hidden>Works<span class="n" id="n-works"></span></button>
   </nav>
 
   <section id="view-styles" role="tabpanel" aria-labelledby="tab-styles">
@@ -405,6 +414,12 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     <p class="tab-note">Presets pair a style, a palette, and a few rules for a common job. Using one fills your selection; you can still change the colors.</p>
     <p class="count" id="preset-count"></p>
     <div class="grid" id="preset-grid"></div>
+  </section>
+
+  <section id="view-works" role="tabpanel" aria-labelledby="tab-works" hidden>
+    <p class="tab-note">Work already made with this library, newest first. Open one to view it, or reuse its style and colors for the next job.</p>
+    <p class="count" id="work-count"></p>
+    <div class="grid" id="work-grid"></div>
   </section>
 </div>
 
@@ -729,6 +744,8 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     if (state.sel.style && !DB.sty[state.sel.style]) state.sel.style = null;
     if (state.sel.palette && state.sel.palette !== "custom" && !DB.pal[state.sel.palette]) state.sel.palette = null;
     if (state.sel.palette === "custom" && !state.sel.custom) state.sel.palette = null;
+    try { const w = await fetch("works.json").then((x) => (x.ok ? x.json() : { works: [] })); DB.works = (w.works || []).filter((x) => x.id && x.path && DB.sty[x.style]); } catch (e) { DB.works = []; }
+    DB.works.sort((a, b) => String(b.created).localeCompare(String(a.created)));
     buildIndex();
     init();
     loadProfiles();
@@ -1002,6 +1019,33 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     saveSel(); renderAll(); toast(`${pr.name} applied. Change colors any time in Colors.`);
   }
 
+  // ---------- works: optional works.json next to this page ----------
+  const workPal = (w) => (w.custom ? palObj(w.custom, "custom colors") : DB.pal[w.palette] || DB.pal[DB.sty[w.style].preview.palette]);
+  function renderWorks() {
+    const list = DB.works;
+    $("#n-works").textContent = list.length;
+    $("#work-count").textContent = `${list.length} ${list.length === 1 ? "work" : "works"}`;
+    $("#work-grid").innerHTML = list.map((w) => {
+      const s = DB.sty[w.style], p = workPal(w), href = esc(w.path);
+      const cover = w.cover ? `<img class="work-cover" src="${esc(w.cover)}" alt="" loading="lazy">` : `${preview(s, p)}<span class="tag-synth">sketch</span>`;
+      return `<article class="card">
+        <div class="thumb">${cover}<a class="open" href="${href}" aria-label="Open ${esc(w.title)}"></a></div>
+        <div class="card-head"><div><div class="eyebrow">${esc(w.kind || "work")}${w.slides ? ` · ${w.slides} slides` : ""}</div><h3>${esc(w.title)}</h3></div>${dots(six(p))}</div>
+        ${w.summary ? `<p class="summary clamp">${esc(w.summary)}</p>` : ""}
+        <div class="meta-line"><span>Style <b>${esc(s.name)}</b></span><span>Palette <b>${esc(w.custom ? "custom" : p.name)}</b></span>${w.created ? `<span class="when">${esc(w.created)}</span>` : ""}</div>
+        <div class="actions"><a class="btn small primary" href="${href}">Open</a><button class="btn small" type="button" data-reuse="${esc(w.id)}">Use this style again</button></div>
+      </article>`;
+    }).join("");
+  }
+  function reuseWork(id) {
+    const w = DB.works.find((x) => x.id === id);
+    if (w.custom) Object.assign(state.sel, { style: w.style, palette: "custom", custom: { ...w.custom }, base: null, genBase: null, preset: null });
+    else Object.assign(state.sel, { style: w.style, palette: DB.pal[w.palette] ? w.palette : null, custom: null, base: null, genBase: null, preset: null });
+    if (w.kind === "presentation") state.sel.use = "presentation";
+    saveSel(); renderAll(); setTab("styles"); scrollTo({ top: 0 });
+    toast(`${DB.sty[w.style].name} from “${w.title}” selected`);
+  }
+
   // ---------- tray ----------
   function renderTray() {
     const s = selStyle(), pn = selPalName(), c = selColors();
@@ -1160,10 +1204,11 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
   }
 
   // ---------- navigation ----------
+  const TABS = () => ["styles", "colors", "presets", ...(DB && DB.works.length ? ["works"] : [])];
   function setTab(t, focus) {
     state.tab = t;
     $$("nav.tabs button").forEach((b) => { const on = b.dataset.tab === t; b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1; if (on && focus) b.focus(); });
-    for (const v of ["styles", "colors", "presets"]) $("#view-" + v).hidden = v !== t;
+    for (const v of ["styles", "colors", "presets", "works"]) $("#view-" + v).hidden = v !== t;
     store.set("vsl2-tab", t);
     if (DB && t === "styles") renderStyles();
     if (DB && t === "colors" && state.cmode === "browse") renderPalettes();
@@ -1176,7 +1221,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     if (m === "build") renderBuild();
   }
   function renderAll() {
-    syncQuick(); renderStyles(); renderPalettes(); renderPresets(); renderTray();
+    syncQuick(); renderStyles(); renderPalettes(); renderPresets(); renderWorks(); renderTray();
     if (state.cmode === "pick") { renderPickSide(); renderPickResults(); }
     if (state.cmode === "build") renderBuild();
   }
@@ -1202,7 +1247,8 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     let qt; $("#q").addEventListener("input", () => { clearTimeout(qt); qt = setTimeout(onSearch, 120); });
     $("#help-btn").addEventListener("click", openHelp);
     $$("nav.tabs button").forEach((b) => b.addEventListener("click", () => setTab(b.dataset.tab)));
-    $("nav.tabs").addEventListener("keydown", (e) => { const order = ["styles", "colors", "presets"], i = order.indexOf(state.tab); if (e.key === "ArrowRight") setTab(order[(i + 1) % 3], true); else if (e.key === "ArrowLeft") setTab(order[(i + 2) % 3], true); else return; e.preventDefault(); });
+    $("#tab-works").hidden = !DB.works.length;
+    $("nav.tabs").addEventListener("keydown", (e) => { const order = TABS(), n = order.length, i = order.indexOf(state.tab); if (e.key === "ArrowRight") setTab(order[(i + 1) % n], true); else if (e.key === "ArrowLeft") setTab(order[(i + n - 1) % n], true); else return; e.preventDefault(); });
     $$("#cmode button").forEach((b) => b.addEventListener("click", () => setCmode(b.dataset.cmode)));
     $("#pk-color").addEventListener("input", (e) => setPick(e.target.value, "picker"));
     $("#pk-hex").addEventListener("input", (e) => { const h = normHex(e.target.value); if (h) setPick(h, "hex"); else e.target.setAttribute("aria-invalid", "true"); });
@@ -1218,10 +1264,10 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
 
     renderAll();
     const h = location.hash.slice(1), saved = store.get("vsl2-tab", "styles");
-    if (["styles", "colors", "presets"].includes(h)) setTab(h);
+    if (TABS().includes(h)) setTab(h);
     else if (h === "palettes") setTab("colors");
     else if (DB.sty[h]) { setTab("styles"); openStyle(h); }
-    else setTab(["styles", "colors", "presets"].includes(saved) ? saved : "styles");
+    else setTab(TABS().includes(saved) ? saved : "styles");
   }
 
   document.addEventListener("click", (e) => {
@@ -1267,6 +1313,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     if (ds.rmode) { rmode = ds.rmode; return openReview(); }
     if (ds.rfmt) { rfmt = ds.rfmt; return openReview(); }
     if (ds.roleReset) return setRole(ds.roleReset, buildBase()[ds.roleReset]);
+    if (ds.reuse) return reuseWork(ds.reuse);
     if (ds.presetDetail) return openPreset(ds.presetDetail);
     if (ds.preset) { usePreset(ds.preset); if (inDlg) openPreset(ds.preset); return; }
     if (ds.goto) { $("#dlg").close(); if (ds.goto === "build") { setTab("colors"); setCmode("build"); } else setTab(ds.goto); scrollTo({ top: 0 }); return; }

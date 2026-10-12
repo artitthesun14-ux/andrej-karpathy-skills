@@ -16,6 +16,7 @@ technical_constraints: format (HTML deck, single file, PDF export), devices, off
 preserve: content, data, layouts, and features that must not change (routes C and D)
 change_scope: exactly what may change (routes C and D)
 deliverables: files to produce or edit, with paths
+gallery_url: link of the published Visual Style Library gallery to add the deck to, or "none"
 validation_criteria: how this job is judged done (renders at which widths, navigation, contrast, reviewed slides)
 ```
 
