@@ -6,172 +6,382 @@
 <title>Visual Style Library</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;800&family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@400;600&family=Poiret+One&family=Zilla+Slab:wght@500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;800&family=Bodoni+Moda:ital,wght@0,400;0,700;1,400&family=Caveat:wght@500&family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&family=Jost:wght@400;600&family=Poiret+One&family=Zilla+Slab:wght@500;700&display=swap">
 <style>
-/* Layout: a working index, filter rail above a dense card grid; specimens carry the color, the chrome stays quiet. */
+/* Layout: dark editorial workbench. Search leads, previews carry the color, a selection tray follows you; the chrome stays quiet. */
 :root {
-  --bg: #F4F3EF;
-  --panel: #FFFFFF;
-  --ink: #1B1C1F;
-  --muted: #5D5F66;
-  --rule: #DAD8D1;
-  --accent: #23408E;
-  --ok: #1F6B3A;
-  --warn: #8A5300;
-  --bad: #A3241A;
-  --chip: #ECEAE4;
+  --bg: #17171A;
+  --panel: #1F1F24;
+  --raise: #292930;
+  --ink: #EEECE6;
+  --muted: #A9A7A0;
+  --rule: #34343C;
+  --accent: #A9BDF5;
+  --on-accent: #111318;
+  --ok: #7ACB93;
+  --warn: #E7B45C;
+  --bad: #F08A80;
+  --scrim: rgba(8, 8, 10, .62);
   --f-ui: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
   --f-display: 'Bodoni Moda', 'Didot', 'Bodoni 72', Georgia, serif;
   --f-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #131417; --panel: #1C1D22; --ink: #ECEBE6; --muted: #A3A4AB; --rule: #33353C;
-    --accent: #9DB4F2; --ok: #7ACB93; --warn: #E7B45C; --bad: #F08A80; --chip: #26282E; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #131417; --panel: #1C1D22; --ink: #ECEBE6; --muted: #A3A4AB; --rule: #33353C;
-  --accent: #9DB4F2; --ok: #7ACB93; --warn: #E7B45C; --bad: #F08A80; --chip: #26282E; color-scheme: dark;
+  --tray-h: 76px;
+  color-scheme: dark;
 }
 * { box-sizing: border-box; }
+html { background: var(--bg); }
 body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-ui); }
-.wrap { max-width: 1320px; margin: 0 auto; padding-inline: max(16px, 3vw); padding-block: 28px 64px; }
-header.top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; border-bottom: 1px solid var(--rule); padding-bottom: 16px; }
-h1 { font: italic 400 clamp(30px, 4vw, 44px)/1.05 var(--f-display); margin: 0; letter-spacing: -0.01em; }
-.lede { color: var(--muted); margin: 6px 0 0; max-width: 62ch; }
-.counts { font: 500 12px/1.4 var(--f-mono); color: var(--muted); }
-nav.tabs { display: flex; gap: 4px; margin: 20px 0 12px; flex-wrap: wrap; }
-nav.tabs button { font: 600 13px var(--f-ui); letter-spacing: 0.04em; text-transform: uppercase; padding: 8px 14px; border: 1px solid var(--rule); background: transparent; color: var(--muted); border-radius: 999px; cursor: pointer; }
-nav.tabs button[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-.filters { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 8px; margin-bottom: 8px; }
-.filters label { display: grid; gap: 2px; font: 600 11px var(--f-ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); min-width: 0; }
-.filters input, .filters select { font: 400 14px var(--f-ui); padding: 7px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--panel); color: var(--ink); width: 100%; min-width: 0; }
-.filters .search { grid-column: span 2; }
-@media (max-width: 420px) { .filters .search { grid-column: auto; } }
-.status { font: 500 12px var(--f-mono); color: var(--muted); margin: 8px 0 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
-.status button { font: 500 12px var(--f-mono); background: none; border: 0; color: var(--accent); cursor: pointer; padding: 0; text-decoration: underline; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 16px; }
-.card { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
-.thumb { position: relative; aspect-ratio: 16 / 10; max-width: 100%; border-bottom: 1px solid var(--rule); }
+button, input, select, textarea { font: inherit; color: inherit; }
+.wrap { max-width: 1280px; margin: 0 auto; padding-inline: max(16px, 3vw); padding-block: 20px calc(var(--tray-h) + 48px); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* header */
+header.top { display: grid; gap: 14px; }
+.title-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; }
+h1 { font: italic 400 clamp(28px, 4vw, 40px)/1.05 var(--f-display); margin: 0; letter-spacing: -0.01em; }
+.lede { color: var(--muted); margin: 0; flex: 1 1 320px; min-width: 0; }
+.counts { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.icon-btn { display: inline-grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--rule); background: transparent; cursor: pointer; color: var(--muted); font: 600 15px var(--f-display); font-style: italic; }
+.icon-btn:hover { color: var(--ink); border-color: var(--muted); }
+.search { position: relative; }
+.search input { width: 100%; font-size: 17px; padding: 14px 44px 14px 16px; border-radius: 12px; border: 1px solid var(--rule); background: var(--panel); color: var(--ink); }
+.search input::placeholder { color: var(--muted); }
+.search input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent); }
+.search .clear { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); }
+.hints { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
+@media (max-width: 600px) { .hints { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; } .hints button { white-space: nowrap; } }
+.hints button { border: 1px dashed var(--rule); background: transparent; border-radius: 999px; padding: 4px 10px; cursor: pointer; color: var(--muted); font-size: 13px; }
+.hints button:hover { color: var(--ink); border-color: var(--muted); }
+.understood { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 13px; color: var(--muted); }
+.understood b { font-weight: 500; color: var(--ink); background: var(--raise); padding: 2px 8px; border-radius: 6px; }
+
+/* tabs */
+nav.tabs { display: flex; gap: 2px; margin: 22px 0 14px; border-bottom: 1px solid var(--rule); overflow-x: auto; }
+nav.tabs button { padding: 10px 14px 12px; border: 0; background: transparent; color: var(--muted); cursor: pointer; font-weight: 600; font-size: 15px; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
+nav.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+nav.tabs .n { font-weight: 400; color: var(--muted); font-size: 13px; margin-left: 6px; font-variant-numeric: tabular-nums; }
+.tab-note { color: var(--muted); font-size: 13px; margin: -6px 0 14px; }
+
+/* toolbar, filters */
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+.pill-select { position: relative; display: inline-flex; align-items: center; }
+.pill-select select { appearance: none; -webkit-appearance: none; border: 1px solid var(--rule); background: var(--panel); border-radius: 999px; padding: 8px 30px 8px 14px; min-height: 40px; cursor: pointer; max-width: 210px; text-overflow: ellipsis; }
+.pill-select::after { content: ""; position: absolute; right: 13px; top: 50%; width: 6px; height: 6px; border-right: 1.5px solid var(--muted); border-bottom: 1.5px solid var(--muted); transform: translateY(-70%) rotate(45deg); pointer-events: none; }
+.pill-select select.on { border-color: var(--accent); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 40px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--rule); background: transparent; color: var(--ink); cursor: pointer; font-weight: 600; font-size: 14px; white-space: nowrap; }
+.btn:hover { border-color: var(--muted); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn.primary:hover { filter: brightness(1.06); }
+.btn.selected { background: transparent; border-color: var(--accent); color: var(--accent); }
+.btn.small { min-height: 34px; padding: 5px 12px; font-size: 13px; }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.btn .badge-n { background: var(--accent); color: var(--on-accent); border-radius: 999px; padding: 0 7px; font-size: 12px; }
+.switch { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); cursor: pointer; min-height: 40px; }
+.switch input { width: 18px; height: 18px; accent-color: var(--accent); }
+.switch.off { opacity: .5; cursor: not-allowed; }
+.active-chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 12px; }
+.fchip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 6px 4px 10px; border-radius: 999px; background: var(--raise); font-size: 13px; }
+.fchip span { color: var(--muted); }
+.fchip button { border: 0; background: transparent; cursor: pointer; color: var(--muted); width: 24px; height: 24px; border-radius: 50%; font-size: 16px; line-height: 1; }
+.fchip button:hover { color: var(--ink); background: var(--rule); }
+.linkbtn { border: 0; background: none; color: var(--accent); cursor: pointer; padding: 4px; text-decoration: underline; text-underline-offset: 3px; font-size: 13px; }
+.count { color: var(--muted); font-size: 13px; margin: 0 0 14px; font-variant-numeric: tabular-nums; }
+
+/* cards */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 28px 20px; }
+.card { display: flex; flex-direction: column; min-width: 0; gap: 10px; }
+.thumb { position: relative; aspect-ratio: 16 / 10; max-width: 100%; border-radius: 10px; overflow: hidden; background: var(--panel); }
 .thumb svg { display: block; width: 100%; height: 100%; }
-.tag-synth { position: absolute; right: 6px; top: 6px; font: 500 10px var(--f-mono); padding: 2px 6px; border-radius: 4px; background: rgba(0,0,0,.55); color: #fff; letter-spacing: 0.02em; }
-.body { padding: 12px 14px 14px; display: grid; gap: 8px; flex: 1; align-content: start; }
-.eyebrow { font: 600 11px var(--f-ui); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.card h3 { margin: 0; font: 600 18px/1.2 var(--f-ui); text-wrap: balance; }
+.thumb button.open { position: absolute; inset: 0; border: 0; background: transparent; cursor: pointer; border-radius: 10px; }
+.thumb button.open:focus-visible { outline-offset: -3px; }
+.card.is-sel .thumb { box-shadow: 0 0 0 2px var(--accent); }
+.sel-flag { position: absolute; left: 8px; top: 8px; background: var(--accent); color: var(--on-accent); font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; pointer-events: none; }
+.tag-synth { position: absolute; right: 8px; bottom: 8px; font-size: 11px; padding: 1px 6px; border-radius: 4px; background: rgba(0,0,0,.45); color: rgba(255,255,255,.85); pointer-events: none; }
+.card-head { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
+.card h3 { margin: 0; font: 600 18px/1.25 var(--f-ui); text-wrap: balance; }
+.eyebrow { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
 .summary { margin: 0; color: var(--muted); font-size: 14px; }
-.swatches { display: flex; height: 18px; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); }
-.swatches span { display: block; height: 100%; }
-.specimen { display: flex; align-items: baseline; gap: 10px; min-width: 0; overflow: hidden; white-space: nowrap; }
-.specimen .d { font-size: 26px; line-height: 1; }
-.specimen .t { font-size: 13px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
-.actions { display: flex; gap: 8px; margin-top: 4px; flex-wrap: wrap; }
-.btn { font: 600 13px var(--f-ui); padding: 7px 12px; border-radius: 6px; border: 1px solid var(--rule); background: transparent; color: var(--ink); cursor: pointer; }
-.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--panel); }
-.btn:focus-visible, nav.tabs button:focus-visible, .filters :focus-visible, .linkish:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.chips { display: flex; gap: 4px; flex-wrap: wrap; }
-.chip { font: 500 11px var(--f-mono); padding: 2px 6px; border-radius: 4px; background: var(--chip); color: var(--muted); }
-.empty { padding: 40px 0; color: var(--muted); }
-.notice { background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--warn); padding: 16px; border-radius: 6px; }
-.notice code { font-family: var(--f-mono); }
-/* palettes */
-.pcard .bar { display: flex; height: 64px; }
-.pcard .bar span { display: block; height: 100%; }
-.colors { display: grid; gap: 4px; font-size: 13px; }
-.colors div { display: grid; grid-template-columns: 14px 76px 1fr auto; gap: 8px; align-items: center; }
-.colors i { width: 14px; height: 14px; border-radius: 3px; border: 1px solid var(--rule); display: block; }
-.colors code, .pairs code { font: 500 12px var(--f-mono); }
-.colors .role { color: var(--muted); font: 500 11px var(--f-mono); }
-.pairs { display: grid; gap: 4px; font-size: 13px; }
-.pair { display: grid; grid-template-columns: 34px 1fr auto; gap: 8px; align-items: center; }
-.pair .demo { font: 700 13px var(--f-ui); text-align: center; border-radius: 4px; padding: 2px 0; }
-.badge { font: 600 11px var(--f-mono); padding: 1px 6px; border-radius: 4px; white-space: nowrap; }
-.badge.ok { color: var(--ok); border: 1px solid currentColor; }
-.badge.warn { color: var(--warn); border: 1px solid currentColor; }
-.badge.bad { color: var(--bad); border: 1px solid currentColor; }
-.checker { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 14px; margin-bottom: 16px; display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
-.checker label { display: grid; gap: 2px; font: 600 11px var(--f-ui); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
-.checker input[type="text"] { font: 500 14px var(--f-mono); width: 110px; padding: 6px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); color: var(--ink); }
-.checker input[type="color"] { width: 40px; height: 34px; border: 1px solid var(--rule); border-radius: 6px; padding: 2px; background: var(--bg); }
-.checker .sample { padding: 8px 14px; border-radius: 6px; font-weight: 600; border: 1px solid var(--rule); }
-.checker .result { font: 500 14px var(--f-mono); }
-/* dialog */
-dialog { border: 1px solid var(--rule); border-radius: 12px; padding: 0; width: min(760px, calc(100vw - 32px)); max-height: calc(100vh - 48px); background: var(--panel); color: var(--ink); }
-dialog::backdrop { background: rgba(10, 10, 12, .5); }
-.dlg { padding: 20px 22px 24px; display: grid; gap: 14px; }
-.dlg header { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
-.dlg h2 { margin: 0; font: 400 30px/1.1 var(--f-display); }
-.dlg .meta { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; font-size: 13px; }
-.dlg .meta dt { color: var(--muted); font: 600 11px var(--f-ui); letter-spacing: 0.06em; text-transform: uppercase; padding-top: 2px; }
-.dlg .meta dd { margin: 0; min-width: 0; }
-.profile { display: grid; gap: 10px; }
-.profile div h4 { margin: 0 0 2px; font: 600 11px var(--f-ui); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
-.profile div p { margin: 0; max-width: 72ch; }
-.linkish { font: inherit; background: none; border: 0; padding: 0; color: var(--accent); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
-pre.snippet { font: 500 12.5px/1.5 var(--f-mono); background: var(--bg); border: 1px solid var(--rule); border-radius: 8px; padding: 12px; overflow-x: auto; margin: 0; white-space: pre; }
-.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
-.row select { font: 400 14px var(--f-ui); padding: 7px 8px; border: 1px solid var(--rule); border-radius: 6px; background: var(--bg); color: var(--ink); max-width: 100%; }
-.copied { font: 500 12px var(--f-mono); color: var(--ok); }
-@media (prefers-reduced-motion: no-preference) { .card { transition: border-color .15s; } .card:hover { border-color: var(--muted); } }
+.clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.dots { display: flex; flex-shrink: 0; padding-top: 3px; }
+.dots i { width: 16px; height: 16px; border-radius: 50%; margin-left: -4px; box-shadow: 0 0 0 2px var(--bg); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.empty { padding: 32px 0; color: var(--muted); max-width: 60ch; }
+.notice { background: var(--panel); border-left: 3px solid var(--warn); padding: 16px; border-radius: 8px; }
+code, .hex { font-family: var(--f-mono); font-size: 0.86em; }
+
+/* colors */
+.seg { display: inline-flex; padding: 3px; border-radius: 999px; background: var(--panel); border: 1px solid var(--rule); max-width: 100%; overflow-x: auto; }
+.seg button { border: 0; background: transparent; padding: 8px 14px; min-height: 38px; border-radius: 999px; cursor: pointer; color: var(--muted); font-weight: 600; font-size: 14px; white-space: nowrap; }
+.seg button[aria-pressed="true"], .seg button[aria-checked="true"] { background: var(--ink); color: var(--bg); }
+.mode-intro { color: var(--muted); font-size: 14px; margin: 10px 0 16px; max-width: 70ch; }
+.fam { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 14px; }
+.fam button { border: 1px solid var(--rule); background: transparent; border-radius: 999px; padding: 6px 12px; min-height: 36px; cursor: pointer; color: var(--muted); white-space: nowrap; font-size: 14px; }
+.fam button[aria-pressed="true"] { border-color: var(--accent); color: var(--ink); background: var(--raise); }
+.pbar { display: flex; height: 92px; border-radius: 10px; overflow: hidden; }
+.pbar span { display: block; height: 100%; min-width: 10px; }
+.card.is-sel .pbar { box-shadow: 0 0 0 2px var(--accent); }
+.clist { display: grid; gap: 2px; font-size: 13px; }
+.clist div { display: grid; grid-template-columns: 12px minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.clist i { width: 12px; height: 12px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); }
+.clist .hex { color: var(--muted); font-variant-numeric: tabular-nums; }
+.verdict { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; }
+.verdict::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.verdict.ok { color: var(--ok); } .verdict.warn { color: var(--warn); } .verdict.bad { color: var(--bad); }
+.verdict small { color: var(--muted); font-size: 12px; }
+.pick-layout { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 28px; align-items: start; }
+@media (max-width: 820px) { .pick-layout { grid-template-columns: 1fr; } }
+.panel { background: var(--panel); border-radius: 12px; padding: 16px; display: grid; gap: 14px; min-width: 0; }
+.panel h3, .sub { margin: 0; font: 600 13px var(--f-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.big-pick { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 12px; align-items: center; }
+input[type="color"] { -webkit-appearance: none; appearance: none; border: 0; padding: 0; background: none; cursor: pointer; }
+input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+input[type="color"]::-webkit-color-swatch { border: 0; border-radius: 10px; }
+input[type="color"]::-moz-color-swatch { border: 0; border-radius: 10px; }
+.big-pick input[type="color"] { width: 88px; height: 88px; border-radius: 12px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+.text-in { width: 100%; min-width: 0; padding: 9px 12px; min-height: 40px; border-radius: 8px; border: 1px solid var(--rule); background: var(--bg); color: var(--ink); }
+.text-in.hexin { font-family: var(--f-mono); text-transform: uppercase; }
+.text-in[aria-invalid="true"] { border-color: var(--bad); }
+.field { display: grid; gap: 4px; font-size: 13px; color: var(--muted); }
+.swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(36px, 1fr)); gap: 6px; max-height: 210px; overflow-y: auto; padding: 2px; }
+.sw { aspect-ratio: 1; max-width: 100%; border-radius: 8px; border: 0; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); min-height: 36px; }
+.sw[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--ink); }
+.name-results { display: grid; gap: 4px; max-height: 200px; overflow-y: auto; }
+.name-results button { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 8px; align-items: center; text-align: left; border: 0; background: transparent; padding: 6px; border-radius: 6px; cursor: pointer; font-size: 14px; }
+.name-results button:hover { background: var(--raise); }
+.name-results i { width: 22px; height: 22px; border-radius: 5px; }
+.name-results small { color: var(--muted); }
+.result-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 12px; margin: 0 0 10px; }
+.result-head h3 { margin: 0; font: 600 17px var(--f-ui); }
+.result-head p { margin: 0; color: var(--muted); font-size: 13px; }
+.kind { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; }
+.kind.lib { background: var(--raise); color: var(--muted); }
+.kind.gen { background: color-mix(in srgb, var(--warn) 18%, transparent); color: var(--warn); }
+.mini-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 18px; margin-bottom: 28px; }
+.mini { display: grid; gap: 8px; min-width: 0; }
+.mini .pbar { height: 56px; }
+.matchmark { box-shadow: inset 0 -5px 0 rgba(255,255,255,.85); }
+.build-layout { display: grid; grid-template-columns: minmax(0, 420px) minmax(0, 1fr); gap: 28px; align-items: start; }
+@media (max-width: 900px) { .build-layout { grid-template-columns: 1fr; } }
+.role-row { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.role-row input[type="color"] { width: 52px; height: 52px; border-radius: 10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+.role-row .rl { display: grid; gap: 3px; min-width: 0; }
+.role-row .rl label { font-weight: 600; font-size: 14px; }
+.role-row .rl small { color: var(--muted); font-size: 12px; }
+.checks { display: grid; gap: 8px; }
+.check { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 14px; }
+.check .demo { border-radius: 6px; text-align: center; font-weight: 700; padding: 6px 0; }
+.check .num { font-family: var(--f-mono); font-size: 13px; font-variant-numeric: tabular-nums; }
+.sticky-prev { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 12px); display: grid; gap: 12px; }
+
+/* combined preview */
+.mock { border-radius: 12px; overflow: hidden; background: var(--m-bg); color: var(--m-tx); display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+@media (max-width: 640px) { .mock { grid-template-columns: 1fr; } }
+.mock .art { position: relative; min-width: 0; display: flex; align-items: center; background: var(--m-bg); }
+.mock .art svg { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; max-width: 100%; }
+.mock .copy { padding: 22px 22px 24px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.mock .m-eye { font: 600 11px var(--m-ft); letter-spacing: .12em; text-transform: uppercase; color: var(--m-pri); margin: 0; }
+.mock .m-h { font: 400 clamp(24px, 3vw, 32px)/1.08 var(--m-fd); margin: 0; text-wrap: balance; color: var(--m-tx); }
+.mock .m-b { font: 400 15px/1.55 var(--m-ft); margin: 0; color: var(--m-tx); opacity: .9; }
+.mock .m-card { background: var(--m-sur); color: var(--m-tx); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; font: 400 14px/1.45 var(--m-ft); }
+.mock .m-card b { font-weight: 600; }
+.mock .m-rule { display: block; width: 36px; height: 3px; background: var(--m-acc); }
+.mock .m-link { color: var(--m-acc); text-decoration: underline; text-underline-offset: 3px; }
+.mock .m-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.mock .m-btn { display: inline-block; background: var(--m-pri); color: var(--m-on); border-radius: 6px; padding: 9px 16px; font: 600 14px var(--m-ft); }
+.mock .m-btn2 { display: inline-block; border: 1.5px solid var(--m-sec); color: var(--m-tx); border-radius: 6px; padding: 8px 14px; font: 600 14px var(--m-ft); }
+.prev-caption { color: var(--muted); font-size: 13px; margin: 0; }
+
+/* dialogs */
+dialog { border: 0; padding: 0; background: var(--panel); color: var(--ink); border-radius: 16px; width: min(900px, calc(100vw - 24px)); max-height: calc(100dvh - 32px); }
+dialog::backdrop { background: var(--scrim); }
+.dlg { padding: 22px 22px 26px; display: grid; gap: 18px; min-width: 0; }
+.dlg > * { min-width: 0; }
+dialog { overflow-x: hidden; }
+.dlg-head { display: flex; justify-content: space-between; gap: 12px; align-items: start; position: sticky; top: 0; background: var(--panel); padding: 22px 22px 12px; margin: -22px -22px 0; z-index: 2; }
+.dlg-head h2 { margin: 0; font: 400 clamp(26px, 4vw, 34px)/1.08 var(--f-display); text-wrap: balance; }
+.dlg .thumb { border-radius: 12px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 18px 28px; }
+.fact h4 { margin: 0 0 4px; font: 600 12px var(--f-ui); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.fact p { margin: 0; max-width: 68ch; }
+.fact.avoid h4 { color: var(--warn); }
+details.more summary { cursor: pointer; color: var(--accent); font-weight: 600; padding: 6px 0; }
+details.more .facts { margin-top: 12px; }
+.meta-line { display: flex; flex-wrap: wrap; gap: 6px 18px; color: var(--muted); font-size: 14px; }
+.meta-line b { color: var(--ink); font-weight: 500; }
+.pal-pick { display: flex; flex-wrap: wrap; gap: 8px; }
+.pal-pick button { display: grid; gap: 6px; border: 1px solid var(--rule); background: transparent; border-radius: 10px; padding: 8px; cursor: pointer; width: 132px; text-align: left; font-size: 13px; }
+.pal-pick button[aria-pressed="true"] { border-color: var(--accent); background: var(--raise); }
+.pal-pick .pbar { height: 22px; border-radius: 4px; }
+.dlg-foot { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: flex-end; border-top: 1px solid var(--rule); padding-top: 16px; }
+pre.snippet { font: 400 12.5px/1.55 var(--f-mono); background: var(--bg); border-radius: 10px; padding: 14px; overflow: auto; max-height: 340px; margin: 0; white-space: pre; }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 14px; }
+textarea.text-in { min-height: 72px; resize: vertical; }
+.status-msg { font-size: 13px; color: var(--ok); }
+/* filter drawer */
+dialog.drawer { margin: 0 0 0 auto; height: 100dvh; max-height: 100dvh; width: min(420px, 100vw); border-radius: 16px 0 0 16px; }
+dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
+@media (max-width: 600px) { dialog.drawer { margin: auto 0 0; height: auto; max-height: 86dvh; width: 100vw; max-width: 100vw; border-radius: 16px 16px 0 0; } }
+.drawer-fields { display: grid; gap: 14px; align-content: start; }
+.drawer-fields select { width: 100%; min-height: 42px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--rule); background: var(--bg); }
+.drawer-foot { position: sticky; bottom: 0; background: var(--panel); display: flex; gap: 10px; justify-content: space-between; padding-top: 12px; padding-bottom: env(safe-area-inset-bottom, 0px); }
+
+/* tray */
+.tray { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: color-mix(in srgb, var(--panel) 94%, transparent); backdrop-filter: blur(8px); border-top: 1px solid var(--rule); padding: 10px max(16px, 3vw) calc(10px + env(safe-area-inset-bottom, 0px)); }
+.tray-in { max-width: 1280px; margin: 0 auto; display: flex; gap: 10px; align-items: center; }
+.slot { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto; column-gap: 10px; align-items: center; text-align: left; border: 1px solid var(--rule); background: transparent; border-radius: 10px; padding: 6px 10px; cursor: pointer; min-width: 0; flex: 1 1 0; max-width: 300px; min-height: 52px; }
+.slot:hover { border-color: var(--muted); }
+.slot .vis { grid-row: span 2; width: 38px; height: 38px; border-radius: 6px; overflow: hidden; display: flex; background: var(--raise); }
+.slot .vis span { flex: 1; }
+.slot .vis svg { width: 100%; height: 100%; display: block; }
+.slot .k { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.slot .v { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.slot.empty-slot .v { color: var(--muted); font-weight: 400; }
+.tray .short { display: none; }
+@media (max-width: 600px) { .tray .short { display: inline; } }
+.tray-n { color: var(--muted); font-size: 13px; margin-left: auto; white-space: nowrap; font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) {
+  .tray-n { display: none; }
+  .slot { padding: 5px 8px; column-gap: 8px; min-height: 48px; }
+  .slot .vis { width: 32px; height: 32px; }
+  .slot.empty-slot, #slot-style { grid-template-columns: minmax(0, 1fr); }
+  #slot-style .vis { display: none; }
+  .tray .long { display: none; }
+  .seg button { padding: 8px 10px; }
+  .slot.empty-slot .vis { display: none; }
+  .slot .v { font-size: 13px; }
+  .tray .btn.primary { padding-inline: 14px; }
+}
+.toast { position: fixed; left: 50%; bottom: calc(var(--tray-h) + 16px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--bg); padding: 10px 16px; border-radius: 12px; font-size: 14px; font-weight: 600; z-index: 30; max-width: calc(100vw - 32px); text-align: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .thumb svg { transition: transform .25s ease-out; }
+  .card:hover .thumb svg { transform: scale(1.015); }
+}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <div>
+    <div class="title-row">
       <h1>Visual Style Library</h1>
-      <p class="lede">Styles and palettes are separate systems. Filter, open a profile, then pick a style and a palette for the work. Previews are synthetic sketches drawn from each style's layout pattern and palette, not reference images.</p>
+      <p class="lede">Find a visual style, choose your colors, and apply them to your next project.</p>
+      <span class="counts" id="counts"></span>
+      <button class="icon-btn" id="help-btn" type="button" aria-label="How this library works">i</button>
     </div>
-    <div class="counts" id="counts"></div>
+    <div class="search" role="search">
+      <label class="sr" for="q">Search styles, colors, and presets</label>
+      <input id="q" type="search" autocomplete="off" placeholder="Search by style, mood, color, or job">
+    </div>
+    <div class="hints" id="hints"></div>
+    <div class="understood" id="understood" hidden></div>
   </header>
 
   <nav class="tabs" role="tablist" aria-label="Library sections">
-    <button role="tab" id="tab-styles" aria-selected="true" data-tab="styles">Styles</button>
-    <button role="tab" id="tab-palettes" aria-selected="false" data-tab="palettes">Palettes</button>
-    <button role="tab" id="tab-presets" aria-selected="false" data-tab="presets">Presets</button>
+    <button role="tab" id="tab-styles" aria-controls="view-styles" aria-selected="true" data-tab="styles">Styles<span class="n" id="n-styles"></span></button>
+    <button role="tab" id="tab-colors" aria-controls="view-colors" aria-selected="false" tabindex="-1" data-tab="colors">Colors<span class="n" id="n-colors"></span></button>
+    <button role="tab" id="tab-presets" aria-controls="view-presets" aria-selected="false" tabindex="-1" data-tab="presets">Presets<span class="n" id="n-presets"></span></button>
   </nav>
 
-  <section id="view-styles">
-    <div class="filters" id="filters">
-      <label class="search">Style<input id="f-text" type="search" placeholder="Name, alias, mood, use case"></label>
-      <label>Category<select id="f-category"></select></label>
-      <label>Color<select id="f-color"></select></label>
-      <label>Mood<select id="f-mood"></select></label>
-      <label>Typography<select id="f-typography"></select></label>
-      <label>Layout<select id="f-layout"></select></label>
-      <label>Medium<select id="f-medium"></select></label>
-      <label>Use case<select id="f-use"></select></label>
-      <label>Motion<select id="f-motion"></select></label>
+  <section id="view-styles" role="tabpanel" aria-labelledby="tab-styles">
+    <p class="tab-note">Styles are the look and the rules: type, layout, composition, image, motion. Any palette can go on any style.</p>
+    <div class="toolbar">
+      <span class="pill-select"><select id="f-mood" aria-label="Mood"></select></span>
+      <span class="pill-select"><select id="f-color" aria-label="Color"></select></span>
+      <span class="pill-select"><select id="f-medium" aria-label="Use for"></select></span>
+      <button class="btn" type="button" id="all-filters">All filters <span class="badge-n" id="adv-n" hidden></span></button>
+      <label class="switch" id="mycolors-wrap" style="margin-left:auto"><input type="checkbox" id="mycolors"> Show in my colors</label>
     </div>
-    <div class="status"><span id="style-count"></span><button type="button" id="reset">Clear filters</button></div>
+    <div class="active-chips" id="active-chips" hidden></div>
+    <p class="count" id="style-count" aria-live="polite"></p>
     <div class="grid" id="style-grid"></div>
   </section>
 
-  <section id="view-palettes" hidden>
-    <div class="checker" aria-label="Contrast checker">
-      <label>Text<span class="row"><input type="color" id="c-fg-pick" value="#1B1C1F" aria-label="Text color picker"><input type="text" id="c-fg" value="#1B1C1F" aria-label="Text color HEX"></span></label>
-      <label>Background<span class="row"><input type="color" id="c-bg-pick" value="#F6F1E4" aria-label="Background color picker"><input type="text" id="c-bg" value="#F6F1E4" aria-label="Background color HEX"></span></label>
-      <div class="sample" id="c-sample">Sample text Aa</div>
-      <div class="result" id="c-result" aria-live="polite"></div>
+  <section id="view-colors" role="tabpanel" aria-labelledby="tab-colors" hidden>
+    <p class="tab-note">Colors are palettes with roles and checked contrast. They are separate from styles, so pick them in any order.</p>
+    <div class="seg" role="group" aria-label="Ways to choose colors" id="cmode">
+      <button type="button" data-cmode="browse" aria-pressed="true">Browse palettes</button>
+      <button type="button" data-cmode="pick" aria-pressed="false">Pick a color</button>
+      <button type="button" data-cmode="build" aria-pressed="false">Build my palette</button>
     </div>
-    <div class="filters">
-      <label class="search">Palette<input id="p-text" type="search" placeholder="Name, color, mood"></label>
-      <label>Category<select id="p-category"></select></label>
+
+    <div id="cm-browse">
+      <p class="mode-intro">Ready-made palettes from the library. Every HEX value, name, and role below comes from the library data.</p>
+      <div class="fam" id="fam" role="group" aria-label="Color family"></div>
+      <p class="count" id="palette-count" aria-live="polite"></p>
+      <div class="grid" id="palette-grid"></div>
     </div>
-    <div class="status"><span id="palette-count"></span></div>
-    <div class="grid" id="palette-grid"></div>
+
+    <div id="cm-pick" hidden>
+      <p class="mode-intro">Choose one color you like. The library palettes that contain it, or something close, show first. Generated palettes are built from your color and contrast-checked; they are not part of the library.</p>
+      <div class="pick-layout">
+        <div class="panel">
+          <h3>Your color</h3>
+          <div class="big-pick">
+            <input type="color" id="pk-color" aria-label="Color picker" value="#2F6B4F">
+            <div class="field"><label for="pk-hex">HEX</label><input class="text-in hexin" id="pk-hex" value="#2F6B4F" maxlength="7" spellcheck="false" autocomplete="off"></div>
+          </div>
+          <div class="field"><label for="pk-name">Find by color name</label><input class="text-in" id="pk-name" type="search" placeholder="sage, burgundy, เขียว, gold" autocomplete="off"></div>
+          <div class="name-results" id="pk-names"></div>
+          <div id="pk-mine-wrap" hidden><p class="sub" style="margin-bottom:8px">From your selected palette</p><div class="swatch-grid" id="pk-mine"></div></div>
+          <div><p class="sub" style="margin-bottom:8px">Suggested from the library</p><div class="swatch-grid" id="pk-suggest"></div></div>
+        </div>
+        <div id="pk-results"></div>
+      </div>
+    </div>
+
+    <div id="cm-build" hidden>
+      <p class="mode-intro">Set each color role. Swatch, picker, and HEX share one value, and the preview updates as you type. Your edits become the selected palette.</p>
+      <div class="build-layout">
+        <div class="panel">
+          <div class="field"><label for="b-start">Start from</label>
+            <span class="pill-select" style="display:flex"><select id="b-start" style="max-width:none;width:100%"></select></span>
+          </div>
+          <div id="b-roles" style="display:grid;gap:12px"></div>
+          <div class="actions"><button class="btn small" type="button" id="b-reset-all">Reset all</button></div>
+          <h3>Readability</h3>
+          <div class="checks" id="b-checks" aria-live="polite"></div>
+        </div>
+        <div class="sticky-prev">
+          <div class="seg" role="radiogroup" aria-label="Preview mode" id="b-pmode"></div>
+          <div id="b-preview"></div>
+          <p class="prev-caption" id="b-caption"></p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section id="view-presets" hidden>
+  <section id="view-presets" role="tabpanel" aria-labelledby="tab-presets" hidden>
+    <p class="tab-note">Presets pair a style, a palette, and a few rules for a common job. Using one fills your selection; you can still change the colors.</p>
+    <p class="count" id="preset-count"></p>
     <div class="grid" id="preset-grid"></div>
   </section>
 </div>
 
+<div class="tray" id="tray" aria-label="Your selection">
+  <div class="tray-in">
+    <button class="slot" type="button" id="slot-style" aria-label="Change style"></button>
+    <button class="slot" type="button" id="slot-pal" aria-label="Change colors"></button>
+    <span class="tray-n" id="tray-n"></span>
+    <button class="btn primary" type="button" id="apply-btn"><span class="long">Review &amp; apply</span><span class="short">Apply</span></button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
 <dialog id="dlg" aria-labelledby="dlg-title"><div class="dlg" id="dlg-body"></div></dialog>
+<dialog id="drawer" class="drawer" aria-labelledby="drawer-title">
+  <form class="dlg" id="drawer-form" method="dialog">
+    <div class="dlg-head"><h2 id="drawer-title" style="font-size:26px">All filters</h2><button class="btn small" type="button" data-close-drawer>Close</button></div>
+    <div class="drawer-fields" id="drawer-fields"></div>
+    <div class="drawer-foot"><button class="btn" type="button" id="drawer-reset">Reset</button><button class="btn primary" type="submit" id="drawer-apply">Show results</button></div>
+  </form>
+</dialog>
 
 <script>
 (() => {
-  const $ = (s) => document.querySelector(s);
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const FONTS = {
     didone: "'Bodoni Moda', Didot, 'Bodoni 72', serif",
@@ -184,29 +394,178 @@ pre.snippet { font: 500 12.5px/1.5 var(--f-mono); background: var(--bg); border:
     hand: "'Caveat', 'Bradley Hand', cursive",
     deco: "'Poiret One', Futura, sans-serif",
   };
-  const THRESH = { body: 4.5, large: 3, ui: 3 };
+  const ROLES6 = [
+    ["primary", "Primary", "Buttons, key shapes, main brand color"],
+    ["secondary", "Secondary", "Supporting shapes, outlines, second series"],
+    ["accent", "Accent", "Links, highlights, one word or number"],
+    ["background", "Background", "The page or slide ground"],
+    ["surface", "Surface", "Cards, panels, table rows"],
+    ["text", "Text", "Headings and body copy"],
+  ];
+  const MEDIUM_LABEL = { motion: "animation (motion)", "3d": "3D" };
   let DB = null;
-  const state = { tab: "styles", paletteOverride: {} };
+  const PROF = {};
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  };
+  const state = {
+    tab: "styles", cmode: "browse", q: "", groups: [],
+    filters: store.get("vsl2-filters", {}),
+    fam: "",
+    myColors: store.get("vsl2-mycolors", true),
+    pick: "#2F6B4F",
+    bmode: "combined",
+    sel: Object.assign({ style: null, palette: null, custom: null, base: null, preset: null, use: "", constraints: "" }, store.get("vsl2-sel", {})),
+  };
+  const saveSel = () => store.set("vsl2-sel", state.sel);
 
-  // ---------- color ----------
-  function lum(hex) {
-    const h = hex.replace("#", "");
-    const f = h.length === 3 ? [...h].map((c) => c + c).join("") : h;
-    const [r, g, b] = [0, 2, 4].map((i) => { const c = parseInt(f.slice(i, i + 2), 16) / 255; return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; });
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-  }
+  // ---------- color math (WCAG 2.x relative luminance) ----------
+  const isHex = (v) => /^#[0-9a-f]{6}$/i.test(v);
+  const normHex = (v) => { v = String(v).trim(); if (!v.startsWith("#")) v = "#" + v; if (/^#[0-9a-f]{3}$/i.test(v)) v = "#" + [...v.slice(1)].map((c) => c + c).join(""); return isHex(v) ? v.toUpperCase() : null; };
+  const rgb = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  function lum(hex) { const [r, g, b] = rgb(hex).map((v) => { const c = v / 255; return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; }); return 0.2126 * r + 0.7152 * g + 0.0722 * b; }
   function ratio(a, b) { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); }
-  function badge(r, use) {
-    if (r >= THRESH[use || "body"] && r >= 7) return `<span class="badge ok">${r.toFixed(2)} AAA</span>`;
-    if (r >= 4.5) return `<span class="badge ok">${r.toFixed(2)} AA</span>`;
-    if (r >= 3) return `<span class="badge warn">${r.toFixed(2)} large only</span>`;
-    return `<span class="badge bad">${r.toFixed(2)} fails</span>`;
+  function hsl(hex) {
+    const [r, g, b] = rgb(hex).map((v) => v / 255); const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2; let h = 0, s = 0;
+    if (mx !== mn) { const d = mx - mn; s = l > 0.5 ? d / (2 - mx - mn) : d / (mx + mn); h = mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h *= 60; }
+    return [h, s, l];
   }
+  function fromHsl(h, s, l) {
+    h = ((h % 360) + 360) % 360; s = Math.max(0, Math.min(1, s)); l = Math.max(0, Math.min(1, l));
+    const k = (n) => (n + h / 30) % 12, a = s * Math.min(l, 1 - l), f = (n) => l - a * Math.max(-1, Math.min(k(n) - 3, Math.min(9 - k(n), 1)));
+    return "#" + [f(0), f(8), f(4)].map((x) => Math.round(x * 255).toString(16).padStart(2, "0")).join("").toUpperCase();
+  }
+  function lab(hex) {
+    const [r, g, b] = rgb(hex).map((v) => { const c = v / 255; return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; });
+    const X = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.95047, Y = r * 0.2126 + g * 0.7152 + b * 0.0722, Z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.08883;
+    const f = (t) => (t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116);
+    return [116 * f(Y) - 16, 500 * (f(X) - f(Y)), 200 * (f(Y) - f(Z))];
+  }
+  const dE = (a, b) => { const [p, q] = [lab(a), lab(b)]; return Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]); };
+  const onColor = (hex) => (ratio(hex, "#111111") >= ratio(hex, "#FFFFFF") ? "#111111" : "#FFFFFF");
+  // Plain-language verdicts. Thresholds: WCAG 2.2 SC 1.4.3 (4.5 body, 3 large) and SC 1.4.11 (3 for UI parts).
+  function verdict(r, kind = "text") {
+    const n = r.toFixed(2);
+    if (kind === "ui") return r >= 3 ? { c: "ok", t: "Clear", d: `${n}:1, passes 3:1 for UI and large text` } : { c: "bad", t: "Low contrast", d: `${n}:1, below 3:1` };
+    if (r >= 7) return { c: "ok", t: "Easy to read", d: `${n}:1, AAA` };
+    if (r >= 4.5) return { c: "ok", t: "Easy to read", d: `${n}:1, AA for body text` };
+    if (r >= 3) return { c: "warn", t: "Use with care", d: `${n}:1, large text only (AA large)` };
+    return { c: "bad", t: "Low contrast", d: `${n}:1, fails for text` };
+  }
+  const vHTML = (v) => `<span class="verdict ${v.c}">${v.t} <small>${v.d}</small></span>`;
+
+  // Color words for search and name lookup: [hue from, hue to, sat min, sat max, light min, light max].
+  const CW = {
+    red: [345, 15, .35, 1, .2, .62], burgundy: [320, 15, .2, 1, .08, .36], pink: [300, 350, .25, 1, .6, .93], orange: [15, 40, .5, 1, .4, .7],
+    yellow: [45, 66, .5, 1, .45, .92], gold: [30, 55, .3, .9, .35, .74], brown: [8, 42, .15, .85, .1, .42], beige: [25, 55, .12, .6, .68, .9],
+    cream: [28, 70, .15, 1, .85, .97], green: [70, 170, .12, 1, .12, .78], sage: [70, 150, .06, .38, .4, .8], forest: [90, 170, .12, 1, .06, .34],
+    olive: [48, 90, .15, 1, .16, .52], teal: [165, 200, .25, 1, .18, .6], blue: [195, 250, .2, 1, .12, .8], navy: [205, 250, .2, 1, .06, .3],
+    purple: [255, 300, .18, 1, .12, .75], lilac: [245, 300, .15, 1, .62, .9], white: [0, 360, 0, 1, .94, 1], black: [0, 360, 0, 1, 0, .12], grey: [0, 360, 0, .12, .14, .86],
+  };
+  const CW_ALIAS = { gray: "grey", ivory: "cream", maroon: "burgundy", wine: "burgundy", violet: "purple", lavender: "lilac", golden: "gold", tan: "beige", sand: "beige", emerald: "green", mint: "green", crimson: "red", scarlet: "red", tomato: "red", indigo: "blue", cobalt: "blue", charcoal: "grey", khaki: "olive" };
+  function colorIs(hex, word) {
+    const r = CW[word]; if (!r) return false; const [h, s, l] = hsl(hex);
+    const hueOk = r[0] <= r[1] ? h >= r[0] && h <= r[1] : h >= r[0] || h <= r[1];
+    return hueOk && s >= r[2] && s <= r[3] && l >= r[4] && l <= r[5];
+  }
+
+  // ---------- search: library fields plus a small Thai and English keyword map ----------
+  const C = (w) => ["color:" + w, w];
+  const SYN = [
+    ["ไม่เยอะ", ["minimal", "restrained", "quiet", "calm", "simple"]], ["ไม่หวือหวา", ["restrained", "quiet", "calm", "minimal"]], ["เรียบง่าย", ["minimal", "simple", "restrained", "quiet"]], ["เรียบหรู", ["refined", "luxury", "restrained", "minimal"]],
+    ["มินิมอล", ["minimal", "restrained", "quiet"]], ["เรียบ", ["minimal", "simple", "restrained"]], ["หรูหรา", ["luxury", "premium", "refined", "elegant", "sophisticated"]], ["หรู", ["luxury", "premium", "refined", "elegant"]],
+    ["ธรรมชาติ", ["natural", "organic", "botanical", "earth"]], ["ต้นไม้", ["botanical", "organic", "leaf"]], ["พรีเซนเทชั่น", ["presentation", "deck", "slide"]], ["พรีเซนเทชัน", ["presentation", "deck", "slide"]], ["พรีเซนต์", ["presentation", "deck"]],
+    ["นำเสนอ", ["presentation", "deck", "pitch"]], ["สไลด์", ["presentation", "slide", "deck"]], ["บริษัท", ["corporate", "business", "company", "executive", "investor", "board", "annual report"]], ["องค์กร", ["corporate", "institutional", "executive", "annual report"]], ["ธุรกิจ", ["business", "corporate", "executive", "investor"]],
+    ["เทคโนโลยี", ["technology", "tech stack", "technical", "software", "data"]], ["เทค", ["tech", "technical", "technology"]], ["นิตยสาร", ["magazine", "editorial"]], ["ตัวอักษร", ["typography", "type", "serif", "grotesk", "lettering"]], ["ฟอนต์", ["typography", "type"]],
+    ["เว็บไซต์", ["website", "web", "landing"]], ["เว็บ", ["website", "web"]], ["แอนิเมชัน", ["motion", "animation", "animated", "kinetic"]], ["แอนิเมชั่น", ["motion", "animation", "animated"]], ["อนิเมชั่น", ["motion", "animation", "animated"]], ["เคลื่อนไหว", ["motion", "animation", "kinetic"]],
+    ["สามมิติ", ["3d", "isometric", "exploded"]], ["3มิติ", ["3d", "isometric", "exploded"]], ["โปสเตอร์", ["poster", "bold", "graphic"]], ["สนุก", ["playful", "fun", "energetic"]], ["อบอุ่น", ["warm", "intimate", "hospitable"]], ["สงบ", ["calm", "quiet", "serene"]],
+    ["ทันสมัย", ["modern", "contemporary"]], ["คลาสสิก", ["classic", "classical", "neoclassical", "timeless"]], ["แบรนด์", ["brand", "identity"]], ["อาหาร", ["food", "restaurant", "menu"]], ["แฟชั่น", ["fashion", "magazine"]], ["ข้อมูล", ["data", "infographic", "chart"]],
+    ["รายงาน", ["report", "annual"]], ["ญี่ปุ่น", ["japanese"]], ["สวิส", ["swiss"]], ["ศิลปะ", ["art", "museum", "gallery"]], ["พิพิธภัณฑ์", ["museum"]], ["ผลิตภัณฑ์", ["product"]], ["สินค้า", ["product", "packaging"]], ["บรรจุภัณฑ์", ["packaging"]],
+    ["แดงเลือดหมู", C("burgundy")], ["เขียวเข้ม", C("forest")], ["เขียวมะกอก", C("olive")], ["เขียวอมฟ้า", C("teal")], ["ม่วงอ่อน", C("lilac")], ["กรมท่า", C("navy")], ["น้ำเงิน", [...C("blue"), "navy"]], ["น้ำตาล", C("brown")], ["งาช้าง", C("cream")],
+    ["แดง", C("red")], ["ชมพู", C("pink")], ["ส้ม", C("orange")], ["เหลือง", C("yellow")], ["ทอง", C("gold")], ["เบจ", C("beige")], ["ครีม", C("cream")], ["เขียว", C("green")], ["ฟ้า", C("blue")], ["ม่วง", C("purple")], ["ขาว", C("white")], ["ดำ", C("black")], ["เทา", C("grey")],
+  ].sort((a, b) => b[0].length - a[0].length);
+  const EN = {
+    luxury: ["luxury", "luxurious", "premium", "refined"], luxurious: ["luxury", "premium", "refined"], premium: ["premium", "luxury", "refined"], elegant: ["elegant", "refined", "luxury"],
+    minimal: ["minimal", "restrained", "quiet"], minimalist: ["minimal", "restrained", "quiet"], quiet: ["quiet", "calm", "restrained"], tech: ["tech", "technical", "technology"], technology: ["technology", "technical", "tech stack", "software"], company: ["corporate", "business", "company", "executive", "investor"],
+    magazine: ["magazine", "editorial"], animation: ["motion", "animation", "animated"], animated: ["motion", "animation", "animated"], deck: ["presentation", "deck", "slide"], slides: ["presentation", "slide", "deck"], web: ["website", "web"], site: ["website", "web"],
+    natural: ["natural", "organic", "botanical"], nature: ["natural", "organic", "botanical"], corporate: ["corporate", "business", "executive", "investor"], typography: ["typography", "type", "serif", "grotesk", "lettering"], fonts: ["typography", "type"],
+  };
+  const STOP = new Set(["สี", "กับ", "และ", "แต่", "แบบ", "ที่", "ของ", "สำหรับ", "งาน", "a", "an", "and", "or", "but", "with", "for", "the", "of", "in", "style", "colors", "colour", "colours", "color", "palette", "&", "+"]);
+  function parseQuery(raw) {
+    let q = raw.toLowerCase().trim(); const groups = [];
+    if (!q) return groups;
+    for (const [k, v] of SYN) if (q.includes(k)) { groups.push({ label: k, terms: v }); q = q.split(k).join(" "); }
+    for (let w of q.split(/[\s,./;:!?()"“”'‘’]+/u)) {
+      if (!w || STOP.has(w)) continue;
+      const hx = normHex(w); if (hx && /^#?[0-9a-f]{3,6}$/i.test(w)) { groups.push({ label: hx, terms: ["hex:" + hx] }); continue; }
+      const cw = CW[w] ? w : CW_ALIAS[w] || (w.endsWith("s") && CW[w.slice(0, -1)] ? w.slice(0, -1) : null);
+      if (cw) { groups.push({ label: w, terms: [...C(cw), w] }); continue; }
+      const base = w.length > 4 && /[^su]s$/.test(w) && !EN[w] ? w.slice(0, -1) : w;
+      groups.push({ label: w, terms: EN[w] || EN[base] ? [base, ...(EN[w] || EN[base])] : [base] });
+    }
+    return groups;
+  }
+  // Terms match at the start of a word, so "tech" finds "technical" but not "biotech".
+  const RX = {};
+  function textHas(text, term) {
+    const rx = RX[term] || (RX[term] = new RegExp(`(^|[^a-z0-9\u0E00-\u0E7F])${term.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`));
+    return rx.test(text);
+  }
+  function scoreItem(idx, groups) {
+    let matched = 0, score = 0;
+    for (const g of groups) {
+      let best = 0;
+      for (const t of g.terms) {
+        if (t.startsWith("color:")) { const w = t.slice(6); if (idx.colors.some((h) => colorIs(h, w))) best = Math.max(best, idx.cw); }
+        else if (t.startsWith("hex:")) { const h = t.slice(4); if (idx.colors.some((x) => dE(x, h) < 12)) best = Math.max(best, idx.cw + 2); }
+        else for (const [w, txt] of idx.f) if (w > best && textHas(txt, t)) best = w;
+      }
+      // A hit only in long profile text adds to the score but does not count as matching that part of the query.
+      if (best) { score += best; if (best > 1) matched++; }
+    }
+    return { matched, score };
+  }
+  function rank(items, idxOf) {
+    if (!state.groups.length) return { list: items, all: true, best: 0 };
+    const scored = items.map((it) => ({ it, ...scoreItem(idxOf(it), state.groups) })).filter((x) => x.score);
+    const best = Math.max(0, ...scored.map((x) => x.matched));
+    const list = scored.filter((x) => x.matched === best && (best || scored.every((y) => !y.matched))).sort((a, b) => b.score - a.score).map((x) => x.it);
+    return { list, all: best === state.groups.length, best };
+  }
+  const low = (a) => [].concat(a).join(" ").toLowerCase().replace(/-/g, " ");
+  const IDX = { s: {}, p: {}, r: {} };
+  function buildIndex() {
+    for (const p of DB.palettes) IDX.p[p.id] = { cw: 5, colors: p.colors.map((c) => c.hex), f: [[6, low(p.name + " " + p.id)], [5, low(p.colors.map((c) => c.name))], [4, low(p.mood)], [3, low([...p.use_cases, DB.pcatName[p.category]])], [1, low([p.example, p.contrast_notes])]] };
+    for (const s of DB.styles) {
+      const pals = s.compatible_palettes.slice(0, 2).map((id) => DB.pal[id]);
+      const prof = PROF[s.id] ? PROF[s.id].map((x) => x[1]).join(" ") : "";
+      IDX.s[s.id] = { cw: 2, colors: pals.flatMap((p) => p.colors.map((c) => c.hex)), f: [[6, low([s.name, s.id, ...s.aliases])], [4, low(s.mood)], [3, low([...s.use_cases, ...s.medium, ...s.typography_tags, ...s.layout_tags, ...s.motion_type])], [2, low([s.summary, DB.cat[s.category].name])], [1.5, low(pals.flatMap((p) => [p.name, ...p.colors.map((c) => c.name)]))], [1, low(prof)]] };
+    }
+    for (const r of DB.presets) {
+      const s = DB.sty[r.primary_style], p = DB.pal[r.palette];
+      IDX.r[r.id] = { cw: 3, colors: p.colors.map((c) => c.hex), f: [[6, low(r.name)], [3, low([r.summary, s.name, ...r.secondary_styles.map((x) => DB.sty[x].name), p.name, ...s.mood, ...s.use_cases, ...s.medium])], [2, low(Object.values(r.direction).flat())]] };
+    }
+  }
+
+  // ---------- palettes as six roles ----------
   function roles(p) {
     const by = (...rs) => { for (const r of rs) { const c = p.colors.find((x) => x.role === r); if (c) return c.hex; } return p.colors[0].hex; };
     return { bg: by("background"), fg: by("text"), pri: by("primary", "accent", "text"), acc: by("accent", "signal", "primary"),
       sec: by("secondary", "surface", "line", "text-muted"), sur: by("surface", "secondary", "line"), mut: by("text-muted", "line", "secondary", "surface") };
   }
+  function six(p) { const r = roles(p); return { primary: r.pri, secondary: r.sec, accent: r.acc, background: r.bg, surface: r.sur, text: r.fg }; }
+  function palObj(c, name = "your") {
+    return { id: "custom", name, colors: [["background", 40], ["surface", 15], ["text", 15], ["primary", 12], ["secondary", 10], ["accent", 8]].map(([role, share]) => ({ hex: c[role], role, share, name: role[0].toUpperCase() + role.slice(1) })) };
+  }
+  const selStyle = () => (state.sel.style && DB.sty[state.sel.style]) || null;
+  function selColors() {
+    if (state.sel.palette === "custom" && state.sel.custom) return state.sel.custom;
+    if (state.sel.palette && DB.pal[state.sel.palette]) return six(DB.pal[state.sel.palette]);
+    return null;
+  }
+  const selPalName = () => state.sel.palette === "custom" ? (state.sel.base && DB.pal[state.sel.base] ? `Custom (from ${DB.pal[state.sel.base].name})` : "Custom palette") : state.sel.palette && DB.pal[state.sel.palette] ? DB.pal[state.sel.palette].name : null;
+  const selPalObj = () => { const c = selColors(); if (!c) return null; return state.sel.palette === "custom" ? palObj(c, selPalName()) : DB.pal[state.sel.palette]; };
 
   // ---------- synthetic previews (320 x 200) ----------
   const T = (x, y, s, fill, fam, txt, extra = "") => `<text x="${x}" y="${y}" font-size="${s}" fill="${fill}" font-family="${fam}" ${extra}>${txt}</text>`;
@@ -278,6 +637,32 @@ pre.snippet { font: 500 12.5px/1.5 var(--f-mono); background: var(--bg); border:
     return `<svg viewBox="0 0 320 200" role="img" aria-label="Synthetic preview of ${esc(style.name)} using the ${esc(palette.name)} palette" preserveAspectRatio="xMidYMid slice"><rect width="320" height="200" fill="${c.bg}"/>${art}</svg>`;
   }
 
+  function colorsArt(c) {
+    const bars = [0.55, 0.8, 0.42, 0.95, 0.68];
+    return `<svg viewBox="0 0 320 200" role="img" aria-label="Neutral diagram drawn in the selected colors" preserveAspectRatio="xMidYMid slice"><rect width="320" height="200" fill="${c.background}"/><rect x="20" y="20" width="280" height="160" rx="8" fill="${c.surface}"/>${bars.map((h, i) => `<rect x="${46 + i * 48}" y="${160 - h * 110}" width="30" height="${h * 110}" fill="${i === 3 ? c.accent : i % 2 ? c.secondary : c.primary}"/>`).join("")}<rect x="36" y="160" width="248" height="1.5" fill="${c.text}"/><text x="36" y="44" font-size="12" fill="${c.text}" font-family="${FONTS.grotesk}">Neutral layout, your colors</text></svg>`;
+  }
+  // mode: "style" = style with its own default palette, "colors" = colors on a neutral layout, "combined" = both.
+  function mock(style, colors, mode) {
+    if (mode === "style" && !style) mode = "colors";
+    if (mode === "colors" && !colors) mode = "style";
+    if (mode === "combined" && (!style || !colors)) mode = style ? "style" : "colors";
+    const dflt = style ? DB.pal[style.preview.palette] || DB.pal[style.compatible_palettes[0]] : null;
+    const c = mode === "style" ? six(dflt) : colors;
+    const fd = mode === "colors" ? FONTS.grotesk : FONTS[style.preview.display] || FONTS.grotesk;
+    const ft = mode === "colors" ? FONTS.grotesk : FONTS[style.preview.text] || FONTS.grotesk;
+    const art = mode === "colors" ? colorsArt(c) : preview(style, mode === "style" ? dflt : (selPalObjFor(colors)));
+    const head = style && mode !== "colors" ? style.name : "Your palette, in use";
+    const body = mode === "colors" ? "Body text on the background. Headings, cards, links, and buttons below all take their color from the roles you set." : style.summary;
+    const vars = `--m-bg:${c.background};--m-sur:${c.surface};--m-tx:${c.text};--m-pri:${c.primary};--m-sec:${c.secondary};--m-acc:${c.accent};--m-on:${onColor(c.primary)};--m-fd:${fd};--m-ft:${ft}`;
+    const cap = mode === "style" ? `Style only: ${style.name} in its default palette, ${dflt.name}.` : mode === "colors" ? "Colors only: a neutral layout and typeface, so you judge the colors alone." : `Combined: ${style.name} with ${colorsName(colors)}.`;
+    return { html: `<div class="mock" style="${vars}"><div class="art">${art}</div><div class="copy"><p class="m-eye">Section 02</p><h4 class="m-h">${esc(head)}</h4><p class="m-b">${esc(body)}</p><div class="m-card"><span class="m-rule"></span><b>Card or panel</b><span>Surface color with text on top. <span class="m-link">Accent link</span></span></div><div class="m-row"><span class="m-btn">Primary action</span><span class="m-btn2">Secondary</span></div></div></div>`, cap: cap + " Synthetic sketch, not a reference image." };
+  }
+  function selPalObjFor(colors) { const sc = selColors(); if (sc && JSON.stringify(sc) === JSON.stringify(colors)) return selPalObj(); const lib = DB.palettes.find((p) => JSON.stringify(six(p)) === JSON.stringify(colors)); return lib || palObj(colors); }
+  function colorsName(colors) { const o = selPalObjFor(colors); return o.id === "custom" ? (selPalName() || "your colors") : o.name; }
+  function modeSeg(name, current) {
+    return [["style", "Style only"], ["colors", "Colors only"], ["combined", "Combined"]].map(([v, t]) => `<button type="button" role="radio" aria-checked="${v === current}" data-${name}="${v}">${t}</button>`).join("");
+  }
+
   // ---------- data ----------
   async function load() {
     try {
@@ -286,247 +671,510 @@ pre.snippet { font: 500 12.5px/1.5 var(--f-mono); background: var(--bg); border:
       DB.pal = Object.fromEntries(DB.palettes.map((x) => [x.id, x]));
       DB.sty = Object.fromEntries(DB.styles.map((x) => [x.id, x]));
       DB.cat = Object.fromEntries(DB.categories.map((x) => [x.id, x]));
-      init();
+      DB.pcatName = Object.fromEntries(DB.pcats.map((x) => [x.id, x.name]));
     } catch (e) {
       $("#style-grid").innerHTML = `<div class="notice"><strong>Library data could not load.</strong> Browsers block reading local files, so serve this folder first:<br><code>cd skills/productivity/visual-style/library &amp;&amp; python3 -m http.server 8000</code><br>then open <code>http://localhost:8000/gallery.html</code>.</div>`;
+      return;
     }
+    if (state.sel.style && !DB.sty[state.sel.style]) state.sel.style = null;
+    if (state.sel.palette && state.sel.palette !== "custom" && !DB.pal[state.sel.palette]) state.sel.palette = null;
+    if (state.sel.palette === "custom" && !state.sel.custom) state.sel.palette = null;
+    buildIndex();
+    init();
+    loadProfiles();
   }
+  async function loadProfiles() {
+    const files = [...new Set(DB.styles.map((s) => s.profile))];
+    await Promise.all(files.map(async (f) => {
+      let txt = ""; try { txt = await fetch(f).then((r) => (r.ok ? r.text() : "")); } catch (e) {}
+      for (const part of txt.split(/^## /m).slice(1)) {
+        const id = part.split("\n")[0].trim();
+        PROF[id] = part.split("\n").map((l) => l.match(/^\*\*(.+?):\*\*\s*(.*)$/)).filter(Boolean).map((m) => [m[1], m[2]]);
+      }
+    }));
+    buildIndex();
+    if (state.q) renderAll();
+  }
+  const profField = (id, label) => { const f = (PROF[id] || []).find((x) => x[0].toLowerCase() === label.toLowerCase()); return f ? f[1] : ""; };
+  const md = (t) => esc(t).replace(/`([^`]+)`/g, "<code>$1</code>");
 
-  function opts(sel, values, label) {
-    sel.innerHTML = `<option value="">${label}</option>` + values.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join("");
-  }
+  // ---------- filters ----------
   const uniq = (key) => [...new Set(DB.styles.flatMap((s) => s[key]))].sort();
-
-  function init() {
-    $("#counts").textContent = `${DB.styles.length} styles · ${DB.palettes.length} palettes · ${DB.presets.length} presets`;
-    opts($("#f-category"), DB.categories.map((c) => [c.id, c.name]), "All");
-    opts($("#f-color"), [...DB.pcats.map((c) => ["cat:" + c.id, c.name + " (family)"]), ...DB.palettes.map((p) => ["pal:" + p.id, p.name])], "Any");
-    opts($("#f-mood"), uniq("mood").map((v) => [v, v]), "Any");
-    opts($("#f-typography"), DB.vocabulary.typography_tags.map((v) => [v, v]), "Any");
-    opts($("#f-layout"), DB.vocabulary.layout_tags.map((v) => [v, v]), "Any");
-    opts($("#f-medium"), DB.vocabulary.medium.map((v) => [v, v]), "Any");
-    opts($("#f-use"), uniq("use_cases").map((v) => [v, v]), "Any");
-    opts($("#f-motion"), DB.vocabulary.motion_type.map((v) => [v, v]), "Any");
-    opts($("#p-category"), DB.pcats.map((c) => [c.id, c.name]), "All");
-    try { const saved = JSON.parse(localStorage.getItem("vsl-filters") || "{}"); for (const [k, v] of Object.entries(saved)) { const el = $("#" + k); if (el) el.value = v; } } catch (e) {}
-    document.querySelectorAll("#filters input, #filters select").forEach((el) => el.addEventListener("input", renderStyles));
-    $("#reset").addEventListener("click", () => { document.querySelectorAll("#filters input, #filters select").forEach((el) => (el.value = "")); renderStyles(); });
-    $("#p-text").addEventListener("input", renderPalettes);
-    $("#p-category").addEventListener("input", renderPalettes);
-    document.querySelectorAll("nav.tabs button").forEach((b) => b.addEventListener("click", () => setTab(b.dataset.tab)));
-    setupChecker();
-    renderStyles(); renderPalettes(); renderPresets();
-    const h = location.hash.slice(1);
-    if (["styles", "palettes", "presets"].includes(h)) setTab(h);
-    else if (DB.sty[h]) openStyle(h);
+  let FDEF = [];
+  function filterDefs() {
+    FDEF = [
+      { k: "mood", label: "Mood", any: "Any mood", quick: true, opts: uniq("mood").map((v) => [v, v]), test: (s, v) => s.mood.includes(v) },
+      { k: "color", label: "Color", any: "Any color", quick: true, opts: [...DB.pcats.map((c) => ["cat:" + c.id, c.name + " colors"]), ...DB.palettes.map((p) => ["pal:" + p.id, "Palette: " + p.name])],
+        test: (s, v) => v.startsWith("pal:") ? s.compatible_palettes.includes(v.slice(4)) : s.compatible_palettes.some((p) => DB.pal[p].category === v.slice(4)) },
+      { k: "medium", label: "Use for", any: "Use for: anything", quick: true, opts: DB.vocabulary.medium.map((v) => [v, MEDIUM_LABEL[v] || v]), test: (s, v) => s.medium.includes(v) },
+      { k: "category", label: "Category", any: "All categories", opts: DB.categories.map((c) => [c.id, c.name]), test: (s, v) => s.category === v },
+      { k: "use", label: "Use case", any: "Any use case", opts: uniq("use_cases").map((v) => [v, v]), test: (s, v) => s.use_cases.includes(v) },
+      { k: "typography", label: "Typography", any: "Any typography", opts: DB.vocabulary.typography_tags.map((v) => [v, v]), test: (s, v) => s.typography_tags.includes(v) },
+      { k: "layout", label: "Layout", any: "Any layout", opts: DB.vocabulary.layout_tags.map((v) => [v, v]), test: (s, v) => s.layout_tags.includes(v) },
+      { k: "motion", label: "Motion", any: "Any motion", opts: DB.vocabulary.motion_type.map((v) => [v, v]), test: (s, v) => s.motion_type.includes(v) },
+    ];
+    for (const d of FDEF) if (state.filters[d.k] && !d.opts.some((o) => o[0] === state.filters[d.k])) delete state.filters[d.k];
   }
-
-  function setTab(t) {
-    state.tab = t;
-    document.querySelectorAll("nav.tabs button").forEach((b) => b.setAttribute("aria-selected", String(b.dataset.tab === t)));
-    for (const v of ["styles", "palettes", "presets"]) $("#view-" + v).hidden = v !== t;
+  const optHTML = (d, val) => `<option value="">${esc(d.any)}</option>` + d.opts.map(([v, t]) => `<option value="${esc(v)}" ${v === val ? "selected" : ""}>${esc(t)}</option>`).join("");
+  function syncQuick() {
+    for (const d of FDEF.filter((x) => x.quick)) { const el = $("#f-" + d.k); el.innerHTML = optHTML(d, state.filters[d.k] || ""); el.classList.toggle("on", !!state.filters[d.k]); }
+    const adv = FDEF.filter((d) => !d.quick && state.filters[d.k]).length;
+    $("#adv-n").hidden = !adv; $("#adv-n").textContent = adv;
+    const act = FDEF.filter((d) => state.filters[d.k]);
+    $("#active-chips").hidden = !act.length;
+    $("#active-chips").innerHTML = act.map((d) => `<span class="fchip"><span>${esc(d.label)}:</span> ${esc(d.opts.find((o) => o[0] === state.filters[d.k])[1])}<button type="button" data-unfilter="${d.k}" aria-label="Remove ${esc(d.label)} filter">×</button></span>`).join("") + (act.length ? `<button class="linkbtn" type="button" id="clear-all">Clear all</button>` : "");
+    store.set("vsl2-filters", state.filters);
   }
-
-  // ---------- styles ----------
-  function styleMatches(s) {
-    const v = (id) => $(id).value;
-    const q = v("#f-text").trim().toLowerCase();
-    if (q) { const blob = [s.id, s.name, s.summary, ...s.aliases, ...s.mood, ...s.use_cases].join(" ").toLowerCase(); if (!q.split(/\s+/).every((w) => blob.includes(w))) return false; }
-    if (v("#f-category") && s.category !== v("#f-category")) return false;
-    const col = v("#f-color");
-    if (col.startsWith("pal:") && !s.compatible_palettes.includes(col.slice(4))) return false;
-    if (col.startsWith("cat:") && !s.compatible_palettes.some((p) => DB.pal[p].category === col.slice(4))) return false;
-    for (const [id, key] of [["#f-mood", "mood"], ["#f-typography", "typography_tags"], ["#f-layout", "layout_tags"], ["#f-medium", "medium"], ["#f-use", "use_cases"], ["#f-motion", "motion_type"]]) {
-      if (v(id) && !s[key].includes(v(id))) return false;
-    }
-    return true;
+  function setFilter(k, v) { if (v) state.filters[k] = v; else delete state.filters[k]; syncQuick(); renderStyles(); }
+  function openDrawer() {
+    $("#drawer-fields").innerHTML = FDEF.map((d) => `<div class="field"><label for="d-${d.k}">${esc(d.label)}</label><select id="d-${d.k}" data-dk="${d.k}">${optHTML(d, state.filters[d.k] || "")}</select></div>`).join("") +
+      `<p class="count" id="drawer-count" style="margin:0"></p>`;
+    const upd = () => { const draft = drawerDraft(); const n = DB.styles.filter((s) => passFilters(s, draft)).length; $("#drawer-count").textContent = `${n} of ${DB.styles.length} styles match these filters`; $("#drawer-apply").textContent = `Show ${n} styles`; };
+    $$("#drawer-fields select").forEach((el) => el.addEventListener("input", upd)); upd();
+    $("#drawer").showModal();
   }
-  function paletteFor(s) {
-    const col = $("#f-color").value;
-    if (state.paletteOverride[s.id]) return DB.pal[state.paletteOverride[s.id]];
+  const drawerDraft = () => Object.fromEntries($$("#drawer-fields select").filter((el) => el.value).map((el) => [el.dataset.dk, el.value]));
+  const passFilters = (s, f = state.filters) => FDEF.every((d) => !f[d.k] || d.test(s, f[d.k]));
+
+  // ---------- render: styles ----------
+  const dots = (c) => `<span class="dots" aria-hidden="true">${["background", "primary", "secondary", "accent", "text"].map((r) => `<i style="background:${c[r]}"></i>`).join("")}</span>`;
+  function cardPalette(s) {
+    if (state.myColors && selPalObj()) return selPalObj();
+    const col = state.filters.color || "";
     if (col.startsWith("pal:")) return DB.pal[col.slice(4)];
     if (col.startsWith("cat:")) { const m = s.compatible_palettes.find((p) => DB.pal[p].category === col.slice(4)); if (m) return DB.pal[m]; }
     return DB.pal[s.preview.palette] || DB.pal[s.compatible_palettes[0]];
   }
-  const swatchBar = (p) => `<div class="swatches" title="${esc(p.name)}">${p.colors.map((c) => `<span style="background:${c.hex};flex:${c.share}" title="${esc(c.name)} ${c.hex} (${c.role})"></span>`).join("")}</div>`;
-
   function renderStyles() {
-    const keep = {};
-    document.querySelectorAll("#filters input, #filters select").forEach((el) => { if (el.value) keep[el.id] = el.value; });
-    try { localStorage.setItem("vsl-filters", JSON.stringify(keep)); } catch (e) {}
-    const list = DB.styles.filter(styleMatches);
-    $("#style-count").textContent = `${list.length} of ${DB.styles.length} styles`;
+    const base = DB.styles.filter((s) => passFilters(s));
+    const { list, all, best } = rank(base, (s) => IDX.s[s.id]);
+    $("#n-styles").textContent = state.q ? list.length : "";
+    const parts = state.groups.length;
+    $("#style-count").textContent = `${list.length} of ${DB.styles.length} styles` + (parts > 1 && list.length ? (all ? `, matching every part of your search` : `, closest matches (${best} of ${parts} parts)`) : "");
+    const has = !!selPalObj();
+    $("#mycolors").checked = state.myColors && has; $("#mycolors").disabled = !has;
+    $("#mycolors-wrap").classList.toggle("off", !has); $("#mycolors-wrap").title = has ? "" : "Select a palette first";
     $("#style-grid").innerHTML = list.length ? list.map((s) => {
-      const p = paletteFor(s);
-      const fd = FONTS[s.preview.display] || FONTS.grotesk, ft = FONTS[s.preview.text] || FONTS.grotesk;
-      return `<article class="card">
-        <div class="thumb">${preview(s, p)}<span class="tag-synth">synthetic preview</span></div>
-        <div class="body">
-          <div class="eyebrow">${esc(DB.cat[s.category].name)}</div>
-          <h3>${esc(s.name)}</h3>
-          ${swatchBar(p)}
-          <div class="specimen"><span class="d" style="font-family:${fd}">Aa</span><span class="t" style="font-family:${ft}">${esc(s.typography_tags.join(" + "))}</span></div>
-          <p class="summary">${esc(s.summary)}</p>
-          <div class="chips">${s.mood.map((m) => `<span class="chip">${esc(m)}</span>`).join("")}</div>
-          <div class="actions"><button class="btn" data-detail="${s.id}">Details</button><button class="btn primary" data-use="${s.id}">Use this style</button></div>
-        </div></article>`;
-    }).join("") : `<p class="empty">No style matches every filter. Clear one filter, or search a single word.</p>`;
+      const p = cardPalette(s), on = state.sel.style === s.id;
+      const tags = [...s.mood.slice(0, 2), s.medium[0]].filter(Boolean);
+      return `<article class="card ${on ? "is-sel" : ""}">
+        <div class="thumb">${preview(s, p)}<span class="tag-synth">sketch</span>${on ? `<span class="sel-flag">Selected</span>` : ""}<button class="open" type="button" data-detail="${s.id}" aria-label="Open ${esc(s.name)} details"></button></div>
+        <div class="card-head"><div><div class="eyebrow">${esc(DB.cat[s.category].name)}</div><h3>${esc(s.name)}</h3></div>${dots(six(p))}</div>
+        <p class="summary clamp">${esc(s.summary)}</p>
+        <div class="tags">${tags.map((t) => `<span class="tag">${esc(MEDIUM_LABEL[t] || t)}</span>`).join("")}</div>
+        <div class="actions"><button class="btn small" type="button" data-detail="${s.id}">Details</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-pick-style="${s.id}" aria-pressed="${on}">${on ? "Selected" : "Select style"}</button></div>
+      </article>`;
+    }).join("") : `<p class="empty">No style matches${state.q ? " this search" : ""}${Object.keys(state.filters).length ? " with these filters" : ""}. Remove a filter or try a single word such as <em>calm</em>, <em>poster</em>, or <em>green</em>.</p>`;
   }
-  document.addEventListener("click", (e) => {
-    const d = e.target.closest("[data-detail]"); if (d) return openStyle(d.dataset.detail);
-    const u = e.target.closest("[data-use]"); if (u) return openUse(u.dataset.use);
-    const sp = e.target.closest("[data-style-link]"); if (sp) return openStyle(sp.dataset.styleLink);
-    const pp = e.target.closest("[data-preset]"); if (pp) return openPreset(pp.dataset.preset);
-    if (e.target.closest("[data-close]")) $("#dlg").close();
-  });
 
-  const profileCache = {};
-  async function profileSection(s) {
-    if (!(s.profile in profileCache)) {
-      try { profileCache[s.profile] = await fetch(s.profile).then((r) => (r.ok ? r.text() : "")); } catch (e) { profileCache[s.profile] = ""; }
-    }
-    const part = profileCache[s.profile].split(/^## /m).find((x) => x.split("\n")[0].trim() === s.id);
-    if (!part) return `<p class="summary">Profile text not available here. Read <code>${esc(s.profile)}</code>, section <code>${esc(s.id)}</code>.</p>`;
-    return part.split("\n").filter((l) => l.startsWith("**")).map((l) => {
-      const m = l.match(/^\*\*(.+?):\*\*\s*(.*)$/); if (!m) return "";
-      const body = esc(m[2]).replace(/`([^`]+)`/g, "<code>$1</code>");
-      return `<div><h4>${esc(m[1])}</h4><p>${body}</p></div>`;
-    }).join("");
+  // ---------- render: palettes ----------
+  function textPairVerdict(p) {
+    const s6 = six(p); return verdict(ratio(s6.text, s6.background));
   }
-  function showDialog(html) { $("#dlg-body").innerHTML = html; const d = $("#dlg"); if (!d.open) d.showModal(); d.scrollTop = 0; }
-
-  async function openStyle(id) {
-    const s = DB.sty[id]; const p = paletteFor(s);
-    const refs = s.reference_images.length ? s.reference_images.map((r) => `${esc(r.kind)}: ${esc(r.path)} (${esc(r.source)})`).join("<br>") : "None yet. Preview above is synthetic.";
-    showDialog(`<header><div><div class="eyebrow">${esc(DB.cat[s.category].name)}</div><h2 id="dlg-title">${esc(s.name)}</h2></div><button class="btn" data-close>Close</button></header>
-      <div class="thumb" style="border:1px solid var(--rule);border-radius:8px;overflow:hidden">${preview(s, p)}<span class="tag-synth">synthetic preview · ${esc(p.name)}</span></div>
-      <p>${esc(s.summary)}</p>
-      <dl class="meta">
-        ${s.aliases.length ? `<dt>Also called</dt><dd>${esc(s.aliases.join(", "))}</dd>` : ""}
-        <dt>Palettes</dt><dd>${s.compatible_palettes.map((pid) => `<button class="linkish" data-swap="${s.id}|${pid}">${esc(DB.pal[pid].name)}</button>`).join(", ")}</dd>
-        <dt>Related</dt><dd>${s.related_styles.map((r) => `<button class="linkish" data-style-link="${r}">${esc(DB.sty[r].name)}</button>`).join(", ")}</dd>
-        <dt>Medium</dt><dd>${esc(s.medium.join(", "))}</dd>
-        <dt>Use cases</dt><dd>${esc(s.use_cases.join(", "))}</dd>
-        <dt>Motion</dt><dd>${esc(s.motion_type.join(", "))}</dd>
-        <dt>References</dt><dd>${refs}</dd>
-        ${s.reference_sources.length ? `<dt>Sources</dt><dd>${s.reference_sources.map(esc).join("<br>")}</dd>` : ""}
-        <dt>Id</dt><dd><code>${esc(s.id)}</code></dd>
-      </dl>
-      <div class="actions"><button class="btn primary" data-use="${s.id}">Use this style</button></div>
-      <div class="profile" id="profile">Loading profile…</div>`);
-    $("#profile").innerHTML = await profileSection(s);
-  }
-  document.addEventListener("click", (e) => {
-    const sw = e.target.closest("[data-swap]"); if (!sw) return;
-    const [sid, pid] = sw.dataset.swap.split("|"); state.paletteOverride[sid] = pid; renderStyles(); openStyle(sid);
-  });
-
-  function tokens(p) {
-    const used = {};
-    return p.colors.map((c) => { used[c.role] = (used[c.role] || 0) + 1; const n = used[c.role] > 1 ? `${c.role}-${used[c.role]}` : c.role; return `  --color-${n}: ${c.hex}; /* ${c.name} */`; }).join("\n");
-  }
-  function openUse(id) {
-    const s = DB.sty[id]; const current = paletteFor(s).id;
-    const others = DB.palettes.filter((p) => !s.compatible_palettes.includes(p.id));
-    showDialog(`<header><div><div class="eyebrow">Use this style</div><h2 id="dlg-title">${esc(s.name)}</h2></div><button class="btn" data-close>Close</button></header>
-      <div class="row"><label for="use-pal">Palette</label><select id="use-pal">
-        <optgroup label="Compatible">${s.compatible_palettes.map((pid) => `<option value="${pid}" ${pid === current ? "selected" : ""}>${esc(DB.pal[pid].name)}</option>`).join("")}</optgroup>
-        <optgroup label="Other (check fit)">${others.map((p) => `<option value="${p.id}" ${p.id === current ? "selected" : ""}>${esc(p.name)}</option>`).join("")}</optgroup>
-      </select></div>
-      <div id="use-out"></div>`);
-    const draw = () => {
-      const p = DB.pal[$("#use-pal").value]; state.paletteOverride[s.id] = p.id;
-      const fits = s.compatible_palettes.includes(p.id);
-      const snippet = `/visual-style\nStyle: ${s.id}\nPalette: ${p.id}${fits ? "" : "  (outside the style's compatible list: confirm fit)"}\n\n:root {\n${tokens(p)}\n}`;
-      $("#use-out").innerHTML = `<div class="thumb" style="border:1px solid var(--rule);border-radius:8px;overflow:hidden;margin-bottom:12px">${preview(s, p)}<span class="tag-synth">synthetic preview</span></div>
-        <pre class="snippet" id="snip">${esc(snippet)}</pre>
-        <div class="row" style="margin-top:10px"><button class="btn primary" id="copy">Copy selection</button><span class="copied" id="copied" aria-live="polite"></span></div>
-        <p class="summary">Paste this into a Claude Code session to start <code>/visual-style</code> with this pair, or use the tokens directly in CSS.</p>`;
-      $("#copy").addEventListener("click", () => copy(snippet));
-      renderStyles();
-    };
-    $("#use-pal").addEventListener("input", draw); draw();
-  }
-  function copy(text) {
-    const done = (m) => { const el = $("#copied"); if (el) el.textContent = m; };
-    try {
-      navigator.clipboard.writeText(text).then(() => done("Copied"), () => { selectSnippet(); done("Copy blocked here: text selected, press Ctrl or Cmd + C"); });
-    } catch (e) { selectSnippet(); done("Text selected, press Ctrl or Cmd + C"); }
-  }
-  function selectSnippet() { const el = $("#snip"); if (!el) return; const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
-
-  // ---------- palettes ----------
-  const pairColor = (p, n) => p.colors.find((c) => c.name === n || c.role === n);
   function renderPalettes() {
-    const q = $("#p-text").value.trim().toLowerCase(), cat = $("#p-category").value;
-    const list = DB.palettes.filter((p) => (!cat || p.category === cat) && (!q || [p.id, p.name, ...p.mood, ...p.colors.map((c) => c.name + " " + c.hex)].join(" ").toLowerCase().includes(q)));
-    $("#palette-count").textContent = `${list.length} of ${DB.palettes.length} palettes`;
-    $("#palette-grid").innerHTML = list.map((p) => {
-      const styles = DB.styles.filter((s) => s.compatible_palettes.includes(p.id));
-      const pairs = p.text_pairs.map((t) => { const fg = pairColor(p, t.fg), bg = pairColor(p, t.bg), r = ratio(fg.hex, bg.hex);
-        const warn = r < THRESH[t.use] ? `<span class="badge bad">below ${THRESH[t.use]}</span>` : badge(r, t.use);
-        return `<div class="pair"><span class="demo" style="background:${bg.hex};color:${fg.hex}">Aa</span><span>${esc(fg.name)} on ${esc(bg.name)} <span class="role">· ${t.use}</span></span>${warn}</div>`; }).join("");
-      const avoid = p.avoid_pairs.map((t) => { const fg = pairColor(p, t.fg), bg = pairColor(p, t.bg), r = ratio(fg.hex, bg.hex);
-        return `<div class="pair"><span class="demo" style="background:${bg.hex};color:${fg.hex}">Aa</span><span>Avoid: ${esc(fg.name)} on ${esc(bg.name)}</span><span class="badge bad">${r.toFixed(2)}</span></div>`; }).join("");
-      return `<article class="card pcard">
-        <div class="bar">${p.colors.map((c) => `<span style="background:${c.hex};flex:${c.share}" title="${esc(c.name)} ~${c.share}%"></span>`).join("")}</div>
-        <div class="body">
-          <div class="eyebrow">${esc(DB.pcats.find((c) => c.id === p.category).name)} · ${esc(p.source)}</div>
-          <h3>${esc(p.name)}</h3>
-          <div class="colors">${p.colors.map((c) => `<div><i style="background:${c.hex}"></i><code>${c.hex}</code><span>${esc(c.name)}</span><span class="role">${c.role} ~${c.share}%</span></div>`).join("")}</div>
-          <div class="eyebrow">Readable text</div><div class="pairs">${pairs}${avoid}</div>
-          <p class="summary">${esc(p.contrast_notes)}</p>
-          <p class="summary"><strong>Example.</strong> ${esc(p.example)}</p>
-          <div class="chips">${styles.map((s) => `<button class="chip linkish" data-style-link="${s.id}">${esc(s.name)}</button>`).join("")}</div>
-        </div></article>`;
-    }).join("");
+    $("#fam").innerHTML = [["", "All"], ...DB.pcats.map((c) => [c.id, c.name])].map(([v, t]) => `<button type="button" data-fam="${v}" aria-pressed="${state.fam === v}">${esc(t)}</button>`).join("");
+    const base = DB.palettes.filter((p) => !state.fam || p.category === state.fam);
+    const { list, all, best } = rank(base, (p) => IDX.p[p.id]);
+    $("#n-colors").textContent = state.q ? list.length : "";
+    const parts = state.groups.length;
+    $("#palette-count").textContent = `${list.length} of ${DB.palettes.length} palettes` + (parts > 1 && list.length ? (all ? ", matching every part of your search" : `, closest matches (${best} of ${parts} parts)`) : "");
+    $("#palette-grid").innerHTML = list.length ? list.map((p) => {
+      const on = state.sel.palette === p.id, v = textPairVerdict(p);
+      return `<article class="card ${on ? "is-sel" : ""}">
+        <div class="pbar" role="img" aria-label="${esc(p.name)} colors">${p.colors.map((c) => `<span style="background:${c.hex};flex:${c.share}" title="${esc(c.name)} ${c.hex}"></span>`).join("")}</div>
+        <div class="card-head"><div><div class="eyebrow">${esc(DB.pcatName[p.category])}</div><h3>${esc(p.name)}</h3></div></div>
+        <div class="clist">${p.colors.map((c) => `<div><i style="background:${c.hex}"></i><span>${esc(c.name)} <span style="color:var(--muted)">· ${c.role}</span></span><span class="hex">${c.hex}</span></div>`).join("")}</div>
+        <p class="summary">${esc(p.mood.join(", "))}. For ${esc(p.use_cases.slice(0, 3).join(", "))}.</p>
+        <div>${vHTML(v)}</div>
+        <div class="actions"><button class="btn small" type="button" data-pal-preview="${p.id}">Preview</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-pick-pal="${p.id}" aria-pressed="${on}">${on ? "Selected" : "Select palette"}</button></div>
+      </article>`;
+    }).join("") : `<p class="empty">No palette matches. Try a color word such as <em>green</em>, <em>cream</em>, or <em>แดง</em>, or choose <strong>Pick a color</strong> above.</p>`;
   }
-  function setupChecker() {
-    const fg = $("#c-fg"), bg = $("#c-bg"), fp = $("#c-fg-pick"), bp = $("#c-bg-pick");
-    const valid = (v) => /^#[0-9a-f]{6}$/i.test(v);
-    const upd = () => {
-      if (!valid(fg.value) || !valid(bg.value)) { $("#c-result").textContent = "Enter colors as #RRGGBB"; return; }
-      const r = ratio(fg.value, bg.value);
-      $("#c-sample").style.color = fg.value; $("#c-sample").style.background = bg.value;
-      $("#c-result").innerHTML = badge(r) + (r < 4.5 ? ` <span class="badge bad">Warning: not readable as body text</span>` : "");
-    };
-    fp.addEventListener("input", () => { fg.value = fp.value.toUpperCase(); upd(); });
-    bp.addEventListener("input", () => { bg.value = bp.value.toUpperCase(); upd(); });
-    fg.addEventListener("input", () => { if (valid(fg.value)) fp.value = fg.value; upd(); });
-    bg.addEventListener("input", () => { if (valid(bg.value)) bp.value = bg.value; upd(); });
-    upd();
+
+  // ---------- pick a color ----------
+  let LIBCOLORS = [];
+  function libColors() {
+    if (LIBCOLORS.length) return LIBCOLORS;
+    const seen = new Set();
+    for (const p of DB.palettes) for (const c of p.colors) { const k = c.hex; if (!seen.has(k)) { seen.add(k); LIBCOLORS.push({ ...c, pal: p }); } }
+    return LIBCOLORS;
+  }
+  function suggestions() {
+    return libColors().filter((c) => ["primary", "accent", "secondary", "signal"].includes(c.role)).sort((a, b) => { const [h1, s1] = hsl(a.hex), [h2, s2] = hsl(b.hex); return (s1 < 0.1) - (s2 < 0.1) || h1 - h2; });
+  }
+  function setPick(hex, from) {
+    const h = normHex(hex); if (!h) return;
+    state.pick = h;
+    if (from !== "picker") $("#pk-color").value = h.toLowerCase();
+    if (from !== "hex") { $("#pk-hex").value = h; $("#pk-hex").removeAttribute("aria-invalid"); }
+    $$("#pk-suggest .sw, #pk-mine .sw").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.sw === h)));
+    renderPickResults();
+  }
+  function renderPickSide() {
+    $("#pk-suggest").innerHTML = suggestions().map((c) => `<button class="sw" type="button" data-sw="${c.hex}" aria-pressed="${c.hex === state.pick}" style="background:${c.hex}" title="${esc(c.name)} ${c.hex} (${esc(c.pal.name)})" aria-label="${esc(c.name)} ${c.hex}"></button>`).join("");
+    const mine = selColors();
+    $("#pk-mine-wrap").hidden = !mine;
+    if (mine) $("#pk-mine").innerHTML = ROLES6.map(([r, t]) => `<button class="sw" type="button" data-sw="${mine[r]}" aria-pressed="${mine[r] === state.pick}" style="background:${mine[r]}" title="${t} ${mine[r]}" aria-label="${t} ${mine[r]}"></button>`).join("");
+  }
+  function renderNameResults() {
+    const q = $("#pk-name").value.trim().toLowerCase();
+    if (!q) { $("#pk-names").innerHTML = ""; return; }
+    const groups = parseQuery(q); const words = groups.flatMap((g) => g.terms.filter((t) => t.startsWith("color:")).map((t) => t.slice(6)));
+    const plain = groups.flatMap((g) => g.terms.filter((t) => !t.includes(":")));
+    const hits = libColors().filter((c) => plain.some((t) => c.name.toLowerCase().includes(t)) || words.some((w) => colorIs(c.hex, w))).slice(0, 24);
+    $("#pk-names").innerHTML = hits.length ? hits.map((c) => `<button type="button" data-sw="${c.hex}"><i style="background:${c.hex}"></i><span>${esc(c.name)} <small>${esc(c.pal.name)}</small></span><span class="hex" style="color:var(--muted)">${c.hex}</span></button>`).join("")
+      : `<p class="summary" style="font-size:13px">No library color with that name. Try a basic word: red, green, blue, cream, gold, grey, or the Thai name.</p>`;
+  }
+  // Generated palettes: derived from the picked color, then contrast-fixed against WCAG thresholds before they are offered.
+  function fixContrast(fg, bg, target) {
+    let [h, s, l] = hsl(fg); const dir = lum(bg) > 0.18 ? -1 : 1; let out = fg, n = 0;
+    while (ratio(out, bg) < target && n < 60) { l += dir * 0.015; out = fromHsl(h, s, l); n++; }
+    return { hex: out, moved: n > 0 };
+  }
+  function generate(hex) {
+    const [h, s] = hsl(hex), sat = Math.max(s, 0.25);
+    const raw = [
+      { name: "Light ground", note: "Pale tinted background, your color as primary, a complementary accent.", c: { background: fromHsl(h, Math.min(sat, .35) * .45, .97), surface: fromHsl(h, Math.min(sat, .35) * .55, .92), text: fromHsl(h, Math.min(sat, .4) * .5, .13), primary: hex, secondary: fromHsl(h + 30, sat * .5, .55), accent: fromHsl(h + 180, Math.min(Math.max(sat, .55), .8), .42) } },
+      { name: "Dark ground", note: "Deep tinted background for screens and stages, a split-complement accent.", c: { background: fromHsl(h, Math.min(sat, .3) * .6, .09), surface: fromHsl(h, Math.min(sat, .3) * .6, .15), text: fromHsl(h, .12, .93), primary: hex, secondary: fromHsl(h - 30, sat * .45, .5), accent: fromHsl(h + 150, Math.min(Math.max(sat, .5), .75), .62) } },
+      { name: "Tonal", note: "One hue in many values, with a neighbouring hue for the accent.", c: { background: fromHsl(h, Math.min(sat, .4) * .35, .96), surface: fromHsl(h, Math.min(sat, .4) * .45, .88), text: fromHsl(h, sat * .5, .14), primary: hex, secondary: fromHsl(h, sat * .6, .66), accent: fromHsl(h + 24, Math.min(sat + .1, .9), .38) } },
+    ];
+    return raw.map((g) => {
+      const c = { ...g.c }, fixes = [];
+      let r = fixContrast(c.text, c.background, 7); c.text = r.hex;
+      r = fixContrast(c.text, c.surface, 4.5); if (r.moved) { c.text = r.hex; }
+      r = fixContrast(c.accent, c.background, 3); if (r.moved) { c.accent = r.hex; fixes.push("accent adjusted to reach 3:1 on the background"); }
+      r = fixContrast(c.primary, c.background, 3); if (r.moved) { fixes.push(`your color reaches only ${ratio(c.primary, c.background).toFixed(2)}:1 on this background, so use it for large shapes, not thin lines`); }
+      return { ...g, c, fixes };
+    });
+  }
+  let GEN = [];
+  function renderPickResults() {
+    const hex = state.pick;
+    const scored = DB.palettes.map((p) => { let m = null; for (const c of p.colors) { const d = dE(c.hex, hex); if (!m || d < m.d) m = { d, c }; } return { p, ...m }; }).sort((a, b) => a.d - b.d);
+    const close = scored.filter((x) => x.d < 22), lib = (close.length ? close : scored).slice(0, 6);
+    GEN = generate(hex);
+    const vline = (c) => [verdict(ratio(c.text, c.background)), verdict(ratio(c.accent, c.background), "ui")];
+    $("#pk-results").innerHTML = `
+      <div class="result-head"><h3><span class="kind lib">Library</span> ${close.length ? "Palettes with this color or a close one" : "Nearest library palettes"}</h3><p>${close.length ? `${close.length} close` : "None close, showing the nearest"}. White underline marks the matching color.</p></div>
+      <div class="mini-grid">${lib.map((x) => { const on = state.sel.palette === x.p.id; return `<div class="mini card ${on ? "is-sel" : ""}"><div class="pbar">${x.p.colors.map((c) => `<span class="${c === x.c ? "matchmark" : ""}" style="background:${c.hex};flex:${c.share}" title="${esc(c.name)} ${c.hex}"></span>`).join("")}</div>
+        <div class="card-head"><div><h3 style="font-size:16px">${esc(x.p.name)}</h3><p class="summary" style="font-size:13px">${esc(x.c.name)} <span class="hex">${x.c.hex}</span>, ${x.d < 6 ? "same color" : x.d < 14 ? "very close" : x.d < 22 ? "close" : "distant"} (ΔE ${x.d.toFixed(0)})</p></div></div>
+        <div class="actions"><button class="btn small" type="button" data-pal-preview="${x.p.id}">Preview</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-pick-pal="${x.p.id}">${on ? "Selected" : "Select"}</button></div></div>`; }).join("")}</div>
+      <div class="result-head"><h3><span class="kind gen">Generated</span> Built from <span class="hex">${hex}</span></h3><p>Not in the library. Text is set to at least 7:1 on the background.</p></div>
+      <div class="mini-grid">${GEN.map((g, i) => { const [v1, v2] = vline(g.c); return `<div class="mini"><div class="pbar">${ROLES6.map(([r]) => `<span style="background:${g.c[r]};flex:1" title="${r} ${g.c[r]}"></span>`).join("")}</div>
+        <h3 style="font-size:16px;margin:0">${g.name}</h3><p class="summary" style="font-size:13px">${g.note}</p>
+        <div class="clist">${ROLES6.map(([r, t]) => `<div><i style="background:${g.c[r]}"></i><span>${t}</span><span class="hex">${g.c[r]}</span></div>`).join("")}</div>
+        <div style="display:grid;gap:2px"><span style="font-size:12px;color:var(--muted)">Text on background</span>${vHTML(v1)}<span style="font-size:12px;color:var(--muted)">Accent on background</span>${vHTML(v2)}</div>
+        ${g.fixes.length ? `<p class="summary" style="font-size:13px">Note: ${esc(g.fixes.join("; "))}.</p>` : ""}
+        <div class="actions"><button class="btn small" type="button" data-gen-edit="${i}">Edit</button><button class="btn small primary" type="button" data-gen-use="${i}">Use these colors</button></div></div>`; }).join("")}</div>`;
+  }
+
+  // ---------- build my palette ----------
+  function buildBase() {
+    if (state.sel.palette === "custom" && state.sel.base && DB.pal[state.sel.base]) return six(DB.pal[state.sel.base]);
+    if (state.sel.palette === "custom" && state.sel.genBase) return state.sel.genBase;
+    if (state.sel.palette && DB.pal[state.sel.palette]) return six(DB.pal[state.sel.palette]);
+    const s = selStyle(); return six(s ? DB.pal[s.preview.palette] || DB.pal[s.compatible_palettes[0]] : DB.palettes[0]);
+  }
+  const buildColors = () => selColors() || buildBase();
+  function renderBuild() {
+    const cur = buildColors(), base = buildBase();
+    const startVal = state.sel.palette === "custom" ? (state.sel.base || "") : (state.sel.palette || "");
+    $("#b-start").innerHTML = `<option value="" ${startVal ? "" : "selected"}>${state.sel.palette === "custom" && !state.sel.base ? "Generated colors (current)" : "Choose a library palette"}</option>` + DB.palettes.map((p) => `<option value="${p.id}" ${p.id === startVal ? "selected" : ""}>${esc(p.name)}</option>`).join("");
+    $("#b-roles").innerHTML = ROLES6.map(([r, t, d]) => `<div class="role-row">
+      <input type="color" id="bc-${r}" data-role="${r}" value="${cur[r].toLowerCase()}" aria-label="${t} color picker">
+      <div class="rl"><label for="bh-${r}">${t}</label><input class="text-in hexin" id="bh-${r}" data-role-hex="${r}" value="${cur[r]}" maxlength="7" spellcheck="false" autocomplete="off" aria-describedby="bd-${r}"><small id="bd-${r}">${d}</small></div>
+      <button class="btn small" type="button" data-role-reset="${r}" ${cur[r] === base[r] ? "disabled" : ""} aria-label="Reset ${t}">Reset</button></div>`).join("");
+    $("#b-pmode").innerHTML = modeSeg("bmode", state.bmode);
+    renderBuildLive();
+  }
+  function renderBuildLive() {
+    const c = buildColors(), base = buildBase();
+    const checks = [["Text", "Background", c.text, c.background, "text"], ["Text", "Surface", c.text, c.surface, "text"], ["Accent", "Background", c.accent, c.background, "ui"]];
+    $("#b-checks").innerHTML = checks.map(([a, b, fg, bg, k]) => { const v = verdict(ratio(fg, bg), k); return `<div class="check"><span class="demo" style="background:${bg};color:${fg}">Aa</span><span>${a} on ${b.toLowerCase()}<br>${vHTML(v)}</span></div>`; }).join("") +
+      `<p class="summary" style="font-size:12px">Ratios use the WCAG 2.2 formula. Body text needs 4.5:1, large text and UI parts need 3:1. Low contrast can be a deliberate choice for decoration; keep it off text people must read.</p>`;
+    ROLES6.forEach(([r]) => { const b = $(`[data-role-reset="${r}"]`); if (b) b.disabled = c[r] === base[r]; });
+    const m = mock(selStyle(), c, state.bmode);
+    $("#b-preview").innerHTML = m.html; $("#b-caption").textContent = m.cap;
+  }
+  function setRole(role, hex, from) {
+    const h = normHex(hex); const hexEl = $("#bh-" + role);
+    if (!h) { if (hexEl) hexEl.setAttribute("aria-invalid", "true"); return; }
+    if (hexEl) hexEl.removeAttribute("aria-invalid");
+    const cur = { ...buildColors() };
+    if (state.sel.palette !== "custom") { state.sel.base = state.sel.palette && DB.pal[state.sel.palette] ? state.sel.palette : (selStyle() ? (selStyle().preview.palette) : DB.palettes[0].id); state.sel.genBase = null; }
+    cur[role] = h; state.sel.custom = cur; state.sel.palette = "custom"; state.sel.preset = null; saveSel();
+    if (from !== "picker") $("#bc-" + role).value = h.toLowerCase();
+    if (from !== "hex") hexEl.value = h;
+    renderBuildLive(); renderTray();
   }
 
   // ---------- presets ----------
   function renderPresets() {
-    $("#preset-grid").innerHTML = DB.presets.map((pr) => {
-      const s = DB.sty[pr.primary_style], p = DB.pal[pr.palette];
-      return `<article class="card">
-        <div class="thumb">${preview(s, p)}<span class="tag-synth">synthetic preview</span></div>
-        <div class="body">
-          <div class="eyebrow">Preset</div><h3>${esc(pr.name)}</h3>
-          ${swatchBar(p)}
-          <p class="summary">${esc(pr.summary)}</p>
-          <dl class="meta" style="display:grid;grid-template-columns:max-content 1fr;gap:2px 10px;font-size:13px;margin:0">
-            <dt class="role">primary</dt><dd style="margin:0"><button class="linkish" data-style-link="${s.id}">${esc(s.name)}</button></dd>
-            <dt class="role">secondary</dt><dd style="margin:0">${pr.secondary_styles.map((x) => `<button class="linkish" data-style-link="${x}">${esc(DB.sty[x].name)}</button>`).join(", ")}</dd>
-            <dt class="role">palette</dt><dd style="margin:0">${esc(p.name)} <span class="role">or ${esc(pr.alt_palettes.map((x) => DB.pal[x].name).join(", "))}</span></dd>
-          </dl>
-          <div class="actions"><button class="btn primary" data-preset="${pr.id}">Use preset</button></div>
-        </div></article>`;
-    }).join("");
+    const { list } = rank(DB.presets, (r) => IDX.r[r.id]);
+    $("#n-presets").textContent = state.q ? list.length : "";
+    $("#preset-count").textContent = `${list.length} of ${DB.presets.length} presets`;
+    $("#preset-grid").innerHTML = list.length ? list.map((pr) => {
+      const s = DB.sty[pr.primary_style], p = DB.pal[pr.palette], on = state.sel.preset === pr.id;
+      return `<article class="card ${on ? "is-sel" : ""}">
+        <div class="thumb">${preview(s, p)}<span class="tag-synth">sketch</span>${on ? `<span class="sel-flag">In use</span>` : ""}<button class="open" type="button" data-preset-detail="${pr.id}" aria-label="Open ${esc(pr.name)} details"></button></div>
+        <div class="card-head"><div><div class="eyebrow">Preset</div><h3>${esc(pr.name)}</h3></div>${dots(six(p))}</div>
+        <p class="summary">${esc(pr.summary)}</p>
+        <div class="meta-line"><span>Style <b>${esc(s.name)}</b>${pr.secondary_styles.length ? ` + ${esc(pr.secondary_styles.map((x) => DB.sty[x].name).join(", "))}` : ""}</span><span>Palette <b>${esc(p.name)}</b></span></div>
+        <div class="tags">${s.medium.slice(0, 3).map((t) => `<span class="tag">${esc(MEDIUM_LABEL[t] || t)}</span>`).join("")}</div>
+        <div class="actions"><button class="btn small" type="button" data-preset-detail="${pr.id}">Details</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-preset="${pr.id}">${on ? "In use" : "Use preset"}</button></div>
+      </article>`;
+    }).join("") : `<p class="empty">No preset matches this search.</p>`;
+  }
+  function usePreset(id) {
+    const pr = DB.presets.find((x) => x.id === id);
+    Object.assign(state.sel, { style: pr.primary_style, palette: pr.palette, custom: null, base: null, genBase: null, preset: pr.id });
+    saveSel(); renderAll(); toast(`${pr.name} applied. Change colors any time in Colors.`);
+  }
+
+  // ---------- tray ----------
+  function renderTray() {
+    const s = selStyle(), pn = selPalName(), c = selColors();
+    $("#slot-style").classList.toggle("empty-slot", !s);
+    $("#slot-style").innerHTML = `<span class="vis">${s ? preview(s, c ? selPalObj() : DB.pal[s.preview.palette] || DB.pal[s.compatible_palettes[0]]) : ""}</span><span class="k">Style</span><span class="v">${s ? esc(s.name) : "Not chosen"}</span>`;
+    $("#slot-pal").classList.toggle("empty-slot", !c);
+    $("#slot-pal").innerHTML = `<span class="vis">${c ? ["background", "primary", "accent", "text"].map((r) => `<span style="background:${c[r]}"></span>`).join("") : ""}</span><span class="k">Colors</span><span class="v">${c ? esc(pn) : "Not chosen"}</span>`;
+    const n = (s ? 1 : 0) + (c ? 1 : 0);
+    $("#tray-n").textContent = `${n} of 2 chosen` + (state.sel.preset ? " · preset" : "");
+    $("#apply-btn").disabled = !n;
+    $("#apply-btn").title = n ? "" : "Select a style or a palette first";
+  }
+  let toastT;
+  function toast(msg) { const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => (t.hidden = true), 2600); }
+
+  // ---------- dialogs ----------
+  function showDialog(html) { $("#dlg-body").innerHTML = html; const d = $("#dlg"); if (!d.open) d.showModal(); d.scrollTop = 0; }
+  const closeBtn = `<button class="btn small" type="button" data-close>Close</button>`;
+  const FACTS = ["Visual DNA", "Typography", "Layout", "Composition", "Image treatment", "Motion language", "Best for", "Avoid when"];
+  const MORE = ["Design principles", "Color behavior", "Texture and material", "Differs from", "Prompt recipe", "Implementation notes"];
+  let detailPal = null;
+  function openStyle(id, palId) {
+    const s = DB.sty[id];
+    detailPal = palId || (state.myColors && selPalObj() ? "__sel" : s.preview.palette);
+    const pObj = detailPal === "__sel" ? selPalObj() : DB.pal[detailPal];
+    const on = state.sel.style === s.id;
+    const prof = PROF[s.id];
+    const fact = (l) => { const t = profField(s.id, l); return t ? `<div class="fact ${l === "Avoid when" ? "avoid" : ""}"><h4>${esc(l)}</h4><p>${md(t)}</p></div>` : ""; };
+    const palBtns = [...(selPalObj() ? [["__sel", selPalObj()]] : []), ...s.compatible_palettes.map((pid) => [pid, DB.pal[pid]])];
+    showDialog(`<div class="dlg-head"><div><div class="eyebrow">${esc(DB.cat[s.category].name)}</div><h2 id="dlg-title">${esc(s.name)}</h2></div>${closeBtn}</div>
+      <div class="thumb">${preview(s, pObj)}<span class="tag-synth">synthetic sketch · ${esc(pObj.name)}</span></div>
+      <p style="margin:0;font-size:17px;max-width:68ch">${esc(s.summary)}</p>
+      <div class="meta-line"><span>Mood <b>${esc(s.mood.join(", "))}</b></span><span>Use for <b>${esc(s.medium.map((m) => MEDIUM_LABEL[m] || m).join(", "))}</b></span>${s.aliases.length ? `<span>Also called <b>${esc(s.aliases.join(", "))}</b></span>` : ""}</div>
+      <div><p class="sub" style="margin-bottom:8px">Try it in</p><div class="pal-pick">${palBtns.map(([pid, p]) => `<button type="button" data-try-pal="${s.id}|${pid}" aria-pressed="${pid === detailPal}"><span class="pbar" style="display:flex">${p.colors.map((c) => `<span style="background:${c.hex};flex:${c.share}"></span>`).join("")}</span>${pid === "__sel" ? "Your colors" : esc(p.name)}</button>`).join("")}</div></div>
+      ${prof ? `<div class="facts">${FACTS.map(fact).join("")}</div><details class="more"><summary>More from the profile</summary><div class="facts">${MORE.map(fact).join("")}</div></details>` : `<p class="summary">Profile text is loading or not available here. It lives in <code>${esc(s.profile)}</code>, section <code>${esc(s.id)}</code>.</p>`}
+      <p class="summary" style="font-size:13px">Use cases: ${esc(s.use_cases.join(", "))}. Typography: ${esc(s.typography_tags.join(", "))}. Layout: ${esc(s.layout_tags.join(", "))}. Motion: ${esc(s.motion_type.join(", "))}.${s.reference_sources.length ? ` Sources: ${esc(s.reference_sources.join("; "))}.` : ""} Id <code>${esc(s.id)}</code>.</p>
+      <div class="dlg-foot">${detailPal !== "__sel" && state.sel.palette !== detailPal ? `<button class="btn" type="button" data-pick-both="${s.id}|${detailPal}">Select style + ${esc(pObj.name)}</button>` : ""}<button class="btn ${on ? "selected" : "primary"}" type="button" data-pick-style="${s.id}" data-from-dialog="1">${on ? "Selected" : "Select style"}</button></div>`);
+  }
+  function openPalette(id, mode) {
+    const p = DB.pal[id], s = selStyle(), on = state.sel.palette === id;
+    mode = mode || (s ? "combined" : "colors");
+    const pair = (t, bad) => { const fg = p.colors.find((c) => c.name === t.fg || c.role === t.fg), bg = p.colors.find((c) => c.name === t.bg || c.role === t.bg); const r = ratio(fg.hex, bg.hex); const v = bad ? { c: "bad", t: "Avoid", d: `${r.toFixed(2)}:1` } : verdict(r, t.use === "body" ? "text" : "ui"); return `<div class="check"><span class="demo" style="background:${bg.hex};color:${fg.hex}">Aa</span><span>${esc(fg.name)} on ${esc(bg.name)} <span style="color:var(--muted)">· ${bad ? "do not use for text" : t.use}</span><br>${vHTML(v)}</span></div>`; };
+    const m = mock(s, six(p), mode);
+    const styles = DB.styles.filter((x) => x.compatible_palettes.includes(p.id));
+    showDialog(`<div class="dlg-head"><div><div class="eyebrow">${esc(DB.pcatName[p.category])} palette · ${esc(p.source)}</div><h2 id="dlg-title">${esc(p.name)}</h2></div>${closeBtn}</div>
+      <div class="seg" role="radiogroup" aria-label="Preview mode">${modeSeg("pmode", mode).replace(/data-pmode="(\w+)"/g, `data-pmode="$1" data-pmode-pal="${p.id}"`)}</div>
+      ${m.html}<p class="prev-caption">${esc(m.cap)}${s ? "" : " Select a style to see the combined view."}</p>
+      <div class="clist" style="font-size:14px">${p.colors.map((c) => `<div><i style="background:${c.hex}"></i><span>${esc(c.name)} <span style="color:var(--muted)">· ${c.role}, about ${c.share}% of the area</span></span><span class="hex">${c.hex}</span></div>`).join("")}</div>
+      <div><p class="sub" style="margin-bottom:8px">Readable pairs</p><div class="checks">${p.text_pairs.map((t) => pair(t)).join("")}${p.avoid_pairs.map((t) => pair(t, true)).join("")}</div></div>
+      <p class="summary">${esc(p.contrast_notes)}</p><p class="summary"><strong style="color:var(--ink)">Example.</strong> ${esc(p.example)}</p>
+      ${styles.length ? `<p class="summary" style="font-size:13px">Listed as a fit for: ${styles.map((x) => `<button class="linkbtn" type="button" data-detail="${x.id}">${esc(x.name)}</button>`).join(", ")}</p>` : ""}
+      <div class="dlg-foot"><button class="btn" type="button" data-edit-pal="${p.id}">Edit these colors</button><button class="btn ${on ? "selected" : "primary"}" type="button" data-pick-pal="${p.id}" data-from-dialog="1">${on ? "Selected" : "Select palette"}</button></div>`);
   }
   function openPreset(id) {
-    const pr = DB.presets.find((x) => x.id === id), p = DB.pal[pr.palette];
-    const d = pr.direction;
-    const snippet = `/visual-style\nPreset: ${pr.id}\nStyle: ${pr.primary_style}${pr.secondary_styles.length ? " + " + pr.secondary_styles.join(", ") : ""}\nPalette: ${pr.palette}\nAdjust: ${pr.adjustable.join(", ")}\n\n:root {\n${tokens(p)}\n}`;
-    showDialog(`<header><div><div class="eyebrow">Preset</div><h2 id="dlg-title">${esc(pr.name)}</h2></div><button class="btn" data-close>Close</button></header>
-      <p>${esc(pr.summary)}</p><p class="summary">${esc(pr.secondary_role)}</p>
-      <div class="profile">${["typography", "composition", "image_treatment", "motion"].map((k) => `<div><h4>${k.replace("_", " ")}</h4><p>${esc(d[k])}</p></div>`).join("")}<div><h4>avoid</h4><p>${esc(d.avoid.join("; "))}</p></div></div>
-      <pre class="snippet" id="snip">${esc(snippet)}</pre>
-      <div class="row"><button class="btn primary" id="copy">Copy selection</button><span class="copied" id="copied" aria-live="polite"></span></div>`);
-    $("#copy").addEventListener("click", () => copy(snippet));
+    const pr = DB.presets.find((x) => x.id === id), s = DB.sty[pr.primary_style], p = DB.pal[pr.palette], d = pr.direction, on = state.sel.preset === pr.id;
+    showDialog(`<div class="dlg-head"><div><div class="eyebrow">Preset</div><h2 id="dlg-title">${esc(pr.name)}</h2></div>${closeBtn}</div>
+      ${mock(s, six(p), "combined").html}
+      <p style="margin:0;font-size:17px;max-width:68ch">${esc(pr.summary)}</p>
+      <div class="meta-line"><span>Style <button class="linkbtn" type="button" data-detail="${s.id}">${esc(s.name)}</button></span><span>Palette <b>${esc(p.name)}</b>, or ${pr.alt_palettes.map((x) => `<button class="linkbtn" type="button" data-pal-preview="${x}">${esc(DB.pal[x].name)}</button>`).join(", ")}</span></div>
+      <p class="summary">${esc(pr.secondary_role)}</p>
+      <div class="facts">${["typography", "composition", "image_treatment", "motion"].map((k) => `<div class="fact"><h4>${k.replace("_", " ")}</h4><p>${esc(d[k])}</p></div>`).join("")}<div class="fact avoid"><h4>Avoid</h4><p>${esc(d.avoid.join("; "))}</p></div></div>
+      <p class="summary" style="font-size:13px">You can change after applying: ${esc(pr.adjustable.join(", ").replace(/_/g, " "))}.</p>
+      <div class="dlg-foot"><button class="btn ${on ? "selected" : "primary"}" type="button" data-preset="${pr.id}" data-from-dialog="1">${on ? "In use" : "Use preset"}</button></div>`);
   }
+
+  // ---------- review and apply ----------
+  let rmode = "combined", rfmt = "prompt";
+  function tokens(c, names) { return ROLES6.map(([r]) => `  --color-${r}: ${c[r]};${names && names[r] ? ` /* ${names[r]} */` : ""}`).join("\n"); }
+  function handoff() {
+    const s = selStyle(), c = selColors(), sel = state.sel;
+    const lib = sel.palette && sel.palette !== "custom" ? DB.pal[sel.palette] : null;
+    const pr = sel.preset ? DB.presets.find((x) => x.id === sel.preset) : null;
+    const use = sel.use || "";
+    const cmd = use === "presentation" ? "/create-presentation" : "/visual-style";
+    const direction = [];
+    if (s) {
+      direction.push(["Summary", s.summary]);
+      for (const l of ["Visual DNA", "Typography", "Layout", "Composition", "Motion language"]) { const t = profField(s.id, l); if (t) direction.push([l, t]); }
+    }
+    if (pr) for (const k of ["typography", "composition", "image_treatment", "motion"]) direction.push(["Preset " + k.replace("_", " "), pr.direction[k]]);
+    const cons = [];
+    if (pr) cons.push("Avoid: " + pr.direction.avoid.join("; "));
+    if (s) { const a = profField(s.id, "Avoid when"); if (a) cons.push("Style avoid when: " + a); }
+    if (lib) { cons.push("Color: " + lib.contrast_notes); for (const t of lib.avoid_pairs) cons.push(`Do not set ${t.fg} text on ${t.bg}`); }
+    if (c && !lib) for (const [a, b, k] of [["text", "background", "text"], ["text", "surface", "text"], ["accent", "background", "ui"]]) { const v = verdict(ratio(c[a], c[b]), k); if (v.c !== "ok") cons.push(`${a} on ${b}: ${v.t.toLowerCase()} (${v.d}); fix before using for ${k === "ui" ? "UI parts" : "text"}`); }
+    if (s && sel.palette && sel.palette !== "custom" && !s.compatible_palettes.includes(sel.palette)) cons.push(`${lib.name} is outside ${s.name}'s compatible palettes: confirm fit`);
+    if (sel.constraints.trim()) cons.push(...sel.constraints.trim().split(/\n+/));
+    const names = lib ? Object.fromEntries(ROLES6.map(([r]) => [r, (lib.colors.find((x) => x.hex === c[r]) || {}).name])) : null;
+    const json = {
+      command: cmd, intended_use: use || null, preset: pr ? pr.id : null,
+      style: s ? { id: s.id, name: s.name } : null,
+      palette: c ? { id: lib ? lib.id : "custom", name: selPalName(), based_on: sel.palette === "custom" ? sel.base || "generated" : undefined, colors: c } : null,
+      direction: Object.fromEntries(direction), constraints: cons,
+    };
+    const lines = [cmd, `Use for: ${use ? MEDIUM_LABEL[use] || use : "not set"}`];
+    if (pr) lines.push(`Preset: ${pr.id} (${pr.name})`);
+    lines.push(`Style: ${s ? `${s.id} (${s.name})` : "not chosen: shortlist 3 styles that fit these colors"}`);
+    lines.push(`Palette: ${lib ? `${lib.id} (${lib.name})` : c ? `custom${sel.base ? `, edited from ${sel.base}` : ", generated in the gallery"}` : "not chosen: pick from the style's compatible palettes"}`);
+    if (direction.length) { lines.push("", "Design direction:"); for (const [k, v] of direction) lines.push(`- ${k}: ${v}`); }
+    if (cons.length) { lines.push("", "Constraints:"); for (const v of cons) lines.push(`- ${v}`); }
+    if (c) lines.push("", "Color tokens:", ":root {", tokens(c, names), "}");
+    return { prompt: lines.join("\n"), json: JSON.stringify(json, null, 2) };
+  }
+  function openReview() {
+    const s = selStyle(), c = selColors();
+    if (!s && !c) return;
+    const m = mock(s, c, rmode);
+    const useOpts = DB.vocabulary.medium.map((v) => `<option value="${v}" ${state.sel.use === v ? "selected" : ""}>${esc(MEDIUM_LABEL[v] || v)}</option>`).join("");
+    showDialog(`<div class="dlg-head"><div><div class="eyebrow">Review and apply</div><h2 id="dlg-title">${esc(s ? s.name : "No style yet")} <span style="color:var(--muted)">+</span> ${esc(c ? selPalName() : "no colors yet")}</h2></div>${closeBtn}</div>
+      <div class="seg" role="radiogroup" aria-label="Preview mode">${modeSeg("rmode", rmode)}</div>
+      <div id="r-prev">${m.html}</div><p class="prev-caption" id="r-cap">${esc(m.cap)}</p>
+      <div class="actions"><button class="btn small" type="button" data-goto="styles">${s ? "Change style" : "Choose a style"}</button><button class="btn small" type="button" data-goto="colors">${c ? "Change colors" : "Choose colors"}</button>${c ? `<button class="btn small" type="button" data-goto="build">Fine-tune colors</button>` : ""}</div>
+      <div class="form-grid">
+        <div class="field"><label for="r-use">Use it for</label><span class="pill-select" style="display:flex"><select id="r-use" style="max-width:none;width:100%"><option value="">Not set</option>${useOpts}</select></span></div>
+        <div class="field"><label for="r-cons">Constraints (one per line, optional)</label><textarea class="text-in" id="r-cons" placeholder="Brand font is Sarabun&#10;Must work on a projector">${esc(state.sel.constraints)}</textarea></div>
+      </div>
+      <div><div class="result-head"><p class="sub">Handoff</p><div class="seg" role="radiogroup" aria-label="Format"><button type="button" role="radio" aria-checked="${rfmt === "prompt"}" data-rfmt="prompt">Prompt</button><button type="button" role="radio" aria-checked="${rfmt === "json"}" data-rfmt="json">JSON</button></div></div>
+      <pre class="snippet" id="snip" tabindex="0"></pre>
+      <p class="summary" style="font-size:13px;margin-top:8px">Paste this into a Claude Code session with this repo's skills. It names the command, the style and palette ids, the color values, the direction, and the constraints. ${s && !PROF[s.id] ? "Profile text has not loaded, so direction holds the summary only." : ""}</p></div>
+      <div class="dlg-foot"><span class="status-msg" id="copied" aria-live="polite"></span><button class="btn primary" type="button" id="copy">Copy ${rfmt === "json" ? "JSON" : "prompt"}</button></div>`);
+    const upd = () => { const h = handoff(); $("#snip").textContent = rfmt === "json" ? h.json : h.prompt; };
+    $("#r-use").addEventListener("input", (e) => { state.sel.use = e.target.value; saveSel(); upd(); });
+    $("#r-cons").addEventListener("input", (e) => { state.sel.constraints = e.target.value; saveSel(); upd(); });
+    $("#copy").addEventListener("click", () => copy($("#snip").textContent));
+    upd();
+  }
+  function copy(text) {
+    const done = (m) => { const el = $("#copied"); if (el) el.textContent = m; };
+    const fallback = () => { const el = $("#snip"); const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); done("Copy is blocked here. The text is selected: press Ctrl or Cmd + C."); };
+    try { navigator.clipboard.writeText(text).then(() => done("Copied"), fallback); } catch (e) { fallback(); }
+  }
+  function openHelp() {
+    showDialog(`<div class="dlg-head"><h2 id="dlg-title">How this library works</h2>${closeBtn}</div>
+      <div class="facts">
+        <div class="fact"><h4>Styles, colors, presets</h4><p>A style is the look and its rules. A palette is a set of colors with roles. They are separate, so any palette can go on any style. A preset fills both for a common job, and you can still change the colors.</p></div>
+        <div class="fact"><h4>Previews are sketches</h4><p>Every preview is drawn in the browser from the style's layout pattern and the palette. They show character and color, not reference images or real work.</p></div>
+        <div class="fact"><h4>What search reads</h4><p>Names, aliases, mood, use cases, typography, layout, medium, motion, summaries, profile text, palette and color names, and color families by hue (so “green” finds green palettes even when no color is named green). A small keyword list maps common Thai words to these terms. It does not use AI; when no result matches every word, it shows the closest matches and says so.</p></div>
+        <div class="fact"><h4>Contrast</h4><p>Ratios use the WCAG 2.2 relative luminance formula. Body text needs 4.5:1 (AA), large text and UI parts need 3:1. Generated palettes are adjusted to meet these before they are shown, and are always labelled as generated.</p></div>
+        <div class="fact"><h4>Applying a selection</h4><p>Review &amp; apply builds a handoff with the command, ids, color values, direction, and constraints. Copy it into Claude Code. Presentations go to <code>/create-presentation</code>; other work goes to <code>/visual-style</code>.</p></div>
+        <div class="fact"><h4>What is saved</h4><p>Your selection and filters stay in this browser only. ${DB ? `${DB.styles.length} styles, ${DB.palettes.length} palettes, ${DB.presets.length} presets.` : ""}</p></div>
+      </div>`);
+  }
+
+  // ---------- navigation ----------
+  function setTab(t, focus) {
+    state.tab = t;
+    $$("nav.tabs button").forEach((b) => { const on = b.dataset.tab === t; b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1; if (on && focus) b.focus(); });
+    for (const v of ["styles", "colors", "presets"]) $("#view-" + v).hidden = v !== t;
+    store.set("vsl2-tab", t);
+    if (DB && t === "styles") renderStyles();
+    if (DB && t === "colors" && state.cmode === "browse") renderPalettes();
+  }
+  function setCmode(m) {
+    state.cmode = m;
+    $$("#cmode button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.cmode === m)));
+    for (const v of ["browse", "pick", "build"]) $("#cm-" + v).hidden = v !== m;
+    if (m === "pick") { renderPickSide(); renderPickResults(); }
+    if (m === "build") renderBuild();
+  }
+  function renderAll() {
+    syncQuick(); renderStyles(); renderPalettes(); renderPresets(); renderTray();
+    if (state.cmode === "pick") { renderPickSide(); renderPickResults(); }
+    if (state.cmode === "build") renderBuild();
+  }
+  function onSearch() {
+    state.q = $("#q").value; state.groups = parseQuery(state.q);
+    const u = $("#understood");
+    u.hidden = !state.groups.length;
+    u.innerHTML = state.groups.length ? `Searching for ${state.groups.map((g) => `<b>${esc(g.terms.find((t) => !t.includes(":")) || g.label)}</b>`).join(" + ")}` : "";
+    $("#hints").hidden = !!state.q;
+    renderStyles(); renderPalettes(); renderPresets();
+  }
+
+  function init() {
+    $("#counts").textContent = `${DB.styles.length} styles · ${DB.palettes.length} palettes · ${DB.presets.length} presets`;
+    filterDefs();
+    $("#hints").innerHTML = `<span>Try</span>` + ["หรูหราแต่ไม่เยอะ", "เขียวธรรมชาติ", "พรีเซนเทชั่นบริษัทเทคโนโลยี", "red and cream", "magazine typography", "3D technical animation"].map((q) => `<button type="button" data-hint="${esc(q)}">${esc(q)}</button>`).join("");
+    for (const d of FDEF.filter((x) => x.quick)) $("#f-" + d.k).addEventListener("input", (e) => setFilter(d.k, e.target.value));
+    $("#all-filters").addEventListener("click", openDrawer);
+    $("#drawer-form").addEventListener("submit", (e) => { e.preventDefault(); state.filters = drawerDraft(); $("#drawer").close(); syncQuick(); renderStyles(); });
+    $("#drawer-reset").addEventListener("click", () => { $$("#drawer-fields select").forEach((el) => (el.value = "")); $$("#drawer-fields select")[0].dispatchEvent(new Event("input")); });
+    $("#drawer").addEventListener("click", (e) => { if (e.target.closest("[data-close-drawer]") || e.target === $("#drawer")) $("#drawer").close(); });
+    $("#mycolors").addEventListener("input", (e) => { state.myColors = e.target.checked; store.set("vsl2-mycolors", state.myColors); renderStyles(); });
+    let qt; $("#q").addEventListener("input", () => { clearTimeout(qt); qt = setTimeout(onSearch, 120); });
+    $("#help-btn").addEventListener("click", openHelp);
+    $$("nav.tabs button").forEach((b) => b.addEventListener("click", () => setTab(b.dataset.tab)));
+    $("nav.tabs").addEventListener("keydown", (e) => { const order = ["styles", "colors", "presets"], i = order.indexOf(state.tab); if (e.key === "ArrowRight") setTab(order[(i + 1) % 3], true); else if (e.key === "ArrowLeft") setTab(order[(i + 2) % 3], true); else return; e.preventDefault(); });
+    $$("#cmode button").forEach((b) => b.addEventListener("click", () => setCmode(b.dataset.cmode)));
+    $("#pk-color").addEventListener("input", (e) => setPick(e.target.value, "picker"));
+    $("#pk-hex").addEventListener("input", (e) => { const h = normHex(e.target.value); if (h) setPick(h, "hex"); else e.target.setAttribute("aria-invalid", "true"); });
+    $("#pk-name").addEventListener("input", renderNameResults);
+    $("#b-start").addEventListener("input", (e) => { const id = e.target.value; if (!id) return; Object.assign(state.sel, { palette: id, custom: null, base: null, genBase: null, preset: null }); saveSel(); renderBuild(); renderTray(); renderPalettes(); renderStyles(); });
+    $("#b-roles").addEventListener("input", (e) => { const t = e.target; if (t.dataset.role) setRole(t.dataset.role, t.value, "picker"); else if (t.dataset.roleHex) setRole(t.dataset.roleHex, t.value, "hex"); });
+    $("#b-reset-all").addEventListener("click", () => { const b = buildBase(); if (state.sel.palette === "custom") { if (state.sel.base) { state.sel.palette = state.sel.base; state.sel.custom = null; state.sel.base = null; } else state.sel.custom = { ...b }; saveSel(); } renderBuild(); renderTray(); renderStyles(); renderPalettes(); });
+    $("#slot-style").addEventListener("click", () => { setTab("styles"); scrollTo({ top: 0 }); });
+    $("#slot-pal").addEventListener("click", () => { setTab("colors"); scrollTo({ top: 0 }); });
+    $("#apply-btn").addEventListener("click", openReview);
+    $("#active-chips").addEventListener("click", (e) => { const u = e.target.closest("[data-unfilter]"); if (u) setFilter(u.dataset.unfilter, ""); if (e.target.id === "clear-all") { state.filters = {}; syncQuick(); renderStyles(); } });
+    $("#dlg").addEventListener("click", (e) => { if (e.target === $("#dlg")) $("#dlg").close(); });
+
+    renderAll();
+    const h = location.hash.slice(1), saved = store.get("vsl2-tab", "styles");
+    if (["styles", "colors", "presets"].includes(h)) setTab(h);
+    else if (h === "palettes") setTab("colors");
+    else if (DB.sty[h]) { setTab("styles"); openStyle(h); }
+    else setTab(["styles", "colors", "presets"].includes(saved) ? saved : "styles");
+  }
+
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest("button"); if (!t) return;
+    const ds = t.dataset, inDlg = !!t.closest("#dlg");
+    if ("close" in ds) return $("#dlg").close();
+    if (ds.hint) { $("#q").value = ds.hint; onSearch(); return; }
+    if (ds.detail) return openStyle(ds.detail);
+    if (ds.tryPal) { const [sid, pid] = ds.tryPal.split("|"); return openStyle(sid, pid); }
+    if (ds.pickStyle) {
+      const on = state.sel.style === ds.pickStyle; state.sel.style = on ? null : ds.pickStyle; state.sel.preset = null; saveSel();
+      renderStyles(); renderTray(); renderPresets(); if (state.cmode === "build") renderBuildLive();
+      toast(on ? "Style removed from your selection" : `${DB.sty[ds.pickStyle].name} selected. Next: choose colors.`);
+      if (inDlg) openStyle(ds.pickStyle, detailPal); return;
+    }
+    if (ds.pickBoth) { const [sid, pid] = ds.pickBoth.split("|"); Object.assign(state.sel, { style: sid, palette: pid, custom: null, base: null, genBase: null, preset: null }); saveSel(); renderAll(); toast(`${DB.sty[sid].name} with ${DB.pal[pid].name} selected`); return openStyle(sid, pid); }
+    if (ds.palPreview) return openPalette(ds.palPreview);
+    if (ds.pmode) return openPalette(ds.pmodePal, ds.pmode);
+    if (ds.pickPal) {
+      const on = state.sel.palette === ds.pickPal; Object.assign(state.sel, { palette: on ? null : ds.pickPal, custom: null, base: null, genBase: null, preset: null }); saveSel();
+      renderAll(); toast(on ? "Palette removed from your selection" : `${DB.pal[ds.pickPal].name} selected`);
+      if (inDlg) openPalette(ds.pickPal); return;
+    }
+    if (ds.editPal) { Object.assign(state.sel, { palette: ds.editPal, custom: null, base: null, genBase: null, preset: null }); saveSel(); $("#dlg").close(); setTab("colors"); setCmode("build"); renderAll(); return; }
+    if (ds.genUse || ds.genEdit) {
+      const g = GEN[+(ds.genUse || ds.genEdit)]; Object.assign(state.sel, { palette: "custom", custom: { ...g.c }, base: null, genBase: { ...g.c }, preset: null }); saveSel();
+      renderAll(); if (ds.genEdit) setCmode("build"); else toast(`Generated ${g.name.toLowerCase()} palette selected`); return;
+    }
+    if (ds.sw) { if (t.closest("#pk-names")) { $("#pk-name").value = ""; renderNameResults(); } return setPick(ds.sw); }
+    if (ds.fam !== undefined && t.closest("#fam")) { state.fam = ds.fam; return renderPalettes(); }
+    if (ds.bmode) { state.bmode = ds.bmode; $("#b-pmode").innerHTML = modeSeg("bmode", state.bmode); return renderBuildLive(); }
+    if (ds.rmode) { rmode = ds.rmode; return openReview(); }
+    if (ds.rfmt) { rfmt = ds.rfmt; return openReview(); }
+    if (ds.roleReset) return setRole(ds.roleReset, buildBase()[ds.roleReset]);
+    if (ds.presetDetail) return openPreset(ds.presetDetail);
+    if (ds.preset) { usePreset(ds.preset); if (inDlg) openPreset(ds.preset); return; }
+    if (ds.goto) { $("#dlg").close(); if (ds.goto === "build") { setTab("colors"); setCmode("build"); } else setTab(ds.goto); scrollTo({ top: 0 }); return; }
+  });
 
   load();
 })();
