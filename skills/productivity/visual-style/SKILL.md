@@ -1,6 +1,6 @@
 ---
 name: visual-style
-description: Pick, combine, and apply a visual style and a color palette from the built-in style library (editorial, Swiss, neoclassical, poster, botanical, tactile, minimal, industrial, motion) to real work, then review the result against the style profile.
+description: Pick, combine, and apply a visual style and a color palette from the built-in style library (editorial, Swiss, neoclassical, poster, botanical, tactile, minimal, industrial, motion, illustration) to real work, then review the result against the style profile.
 disable-model-invocation: true
 ---
 

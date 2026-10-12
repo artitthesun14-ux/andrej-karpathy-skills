@@ -605,6 +605,58 @@
       "contrast_notes": "Near-complementary hues with similar lightness clash on purpose. Every text sits in Black or on a Black band.",
       "use_cases": ["bold campaign", "experimental poster", "fashion drop", "social launch"],
       "example": "A sneaker drop: Tomato full-bleed, Mint product silhouette, Black oversized type, Violet price sticker with Mint text."
+    },
+    {
+      "id": "inkwell",
+      "name": "Inkwell Sepia",
+      "category": "warm",
+      "mood": ["nostalgic", "inky", "warm"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#EEE4CC", "name": "Aged Paper", "role": "background", "share": 55 },
+        { "hex": "#1A1612", "name": "Ink", "role": "text", "share": 28 },
+        { "hex": "#6B5D4B", "name": "Sepia", "role": "secondary", "share": 8 },
+        { "hex": "#C9B994", "name": "Faded Tone", "role": "surface", "share": 6 },
+        { "hex": "#B3362B", "name": "Cartoon Red", "role": "accent", "share": 3 }
+      ],
+      "text_pairs": [
+        { "fg": "Ink", "bg": "Aged Paper", "use": "body" },
+        { "fg": "Ink", "bg": "Faded Tone", "use": "body" },
+        { "fg": "Sepia", "bg": "Aged Paper", "use": "body" },
+        { "fg": "Cartoon Red", "bg": "Aged Paper", "use": "body" },
+        { "fg": "Aged Paper", "bg": "Ink", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Faded Tone", "bg": "Aged Paper" }, { "fg": "Cartoon Red", "bg": "Ink" }],
+      "contrast_notes": "Faded Tone is for shading and panels only, never text on Aged Paper. Cartoon Red is a spot color (a bow, a nose, a title word), not a text color on Ink.",
+      "use_cases": ["vintage cartoon", "mascot", "retro packaging", "event poster"],
+      "example": "A coffee brand mascot sheet: Aged Paper ground, Ink line art with pie-cut eyes, Faded Tone shadows, Cartoon Red only on the mug."
+    },
+    {
+      "id": "chrome-noir",
+      "name": "Chrome Noir",
+      "category": "luxury",
+      "mood": ["cold", "sleek", "nocturnal"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#07090D", "name": "Void", "role": "background", "share": 55 },
+        { "hex": "#1A2029", "name": "Gunmetal", "role": "surface", "share": 15 },
+        { "hex": "#D3DBE4", "name": "Chrome", "role": "text", "share": 16 },
+        { "hex": "#7D8B9C", "name": "Steel", "role": "secondary", "share": 7 },
+        { "hex": "#8FE6FF", "name": "Ice Glint", "role": "accent", "share": 5 },
+        { "hex": "#E5322D", "name": "Signal Red", "role": "signal", "share": 2 }
+      ],
+      "text_pairs": [
+        { "fg": "Chrome", "bg": "Void", "use": "body" },
+        { "fg": "Chrome", "bg": "Gunmetal", "use": "body" },
+        { "fg": "Ice Glint", "bg": "Void", "use": "body" },
+        { "fg": "Steel", "bg": "Void", "use": "body" },
+        { "fg": "Signal Red", "bg": "Void", "use": "body" },
+        { "fg": "Steel", "bg": "Gunmetal", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Ice Glint", "bg": "Chrome" }, { "fg": "Signal Red", "bg": "Steel" }],
+      "contrast_notes": "Flat Chrome is not metal: build the chrome look from a hard-stop gradient Void, Steel, Chrome, Ice Glint, keep text solid. Signal Red is one detail per image (an eye, a visor line).",
+      "use_cases": ["album cover", "game key art", "streetwear", "tech launch"],
+      "example": "A single cover: Void ground, a chrome figure lit from the top left with two star glints in Ice Glint, one Signal Red eye, title in condensed Chrome type."
     }
   ]
 }
