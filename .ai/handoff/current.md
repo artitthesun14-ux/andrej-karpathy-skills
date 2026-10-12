@@ -1,114 +1,113 @@
 # Handoff: ai-product-workflow-skills
 
-Updated: 2026-10-11. Repo: artitthesun14-ux/andrej-karpathy-skills. Branch for work: `claude/setup-workflow-xd5lho`.
+Updated: 2026-10-12. Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. This file is self-contained; history before 2026-10-11 is in `sessions/2026-10-11.md`.
 
 ## 1. Goal and Success Criteria
 
-- Goal: maintain the `ai-product-workflow-skills` collection (Claude Code and Codex). This session added a visual style and color library (`/visual-style`) and a single entry point for presentations (`/create-presentation`).
-- Success for this round: both skills meet the Promotion Contract, validation passes, PR #6 is merged. Reached.
-- Session 2026-10-11 (second): branch reset to `main` (`a8ed227`), changeset decision applied, `/create-presentation` route A tested end to end. Not pushed as a PR; user has not asked for one.
+- Goal: maintain `ai-product-workflow-skills` (24 skills for Claude Code and Codex). Current round: settle versioning, then test `/create-presentation` on all four routes and fix what breaks.
+- Success for this round: all four routes run end to end with rendered checks, fixes pushed to the work branch, validation passes. REACHED.
+- Next milestone: PR from the work branch into `main`, only when the user asks.
 
 ## 2. Current Status
 
-- CONFIRMED: PR #6 squash-merged into `main` on request. `main` is at `f09c91b` ("Add /visual-style library and /create-presentation entry point (#6)"). `git diff origin/main HEAD` is empty: the branch tree equals `main`.
-- CONFIRMED: this handoff was merged to `main` in a follow-up PR after #6. The work branch is not a fast-forward of `main` after a squash merge, so restart it from `main` before new work (section 11).
-- CONFIRMED (on `d30a3d5`, same tree as `main`): 24 skills; both `claude plugin validate --strict` commands pass; `npm run check-plugin-version` passes (0.1.0); `library.mjs check` 0 errors, 0 warnings. No CI workflows in the repo.
+- CONFIRMED: `main` at `a8ed227` (PR #6 `/visual-style` and `/create-presentation`, then handoff PR #7).
+- CONFIRMED: work branch `claude/setup-workflow-xd5lho` at `53a07f4`, pushed, 8 commits ahead of `main` (includes one `-s ours` merge `a0602a1` with no tree change). No PR open. User said: do not open a PR or merge until told.
+- CONFIRMED: this rewrite of `current.md` is not committed (the handoff skill does not commit without an explicit request).
+- CONFIRMED on `67ef3c2`: `library.mjs check` 53 styles, 25 palettes, 6 presets, 0 errors, 0 warnings; `scripts/list-skills.sh` 24; `npm run check-plugin-version` OK at 0.1.0. Plugin validate last run on `a8ed227` (both `claude plugin validate . --strict` and `.claude-plugin/plugin.json --strict` pass); no manifest changed since.
+- No CI workflows in the repo.
 
-## 3. Completed
+## 3. Completed (this round, on the work branch)
 
-- `/visual-style` (user-invoked, `skills/productivity/visual-style/`), commit `8292995`:
-  - `library/styles.json` (53 styles, 10 categories, controlled vocabulary) plus `library/styles/<category>.md` (one `## <id>` profile per style, 14 prose fields). Near-duplicate names from the user's brief merged as aliases (for example International Typographic Style is an alias of `swiss-international`). Palette families from brief category E moved to the color library.
-  - `library/palettes.json`: 25 palettes, 11 categories, roles, shares, `text_pairs`, `avoid_pairs`, all `source: authored`.
-  - `library/presets.json`: 6 presets referencing style and palette ids.
-  - `scripts/library.mjs`: `find`, `palettes`, `style`, `palette`, `preset`, `contrast`, `check` (schema, cross-refs, vocabulary, WCAG 2.2 contrast, em-dash scan).
-  - `library/gallery.html`: filters on 8 axes, synthetic SVG previews, contrast checker, copyable selection with CSS tokens. Needs a local server (`python3 -m http.server`) because of `fetch`.
-  - `references/library-schema.md`, `library/references/README.md`.
-- `/create-presentation` (user-invoked, `skills/productivity/create-presentation/`), commit `dd3ac2e`: routes A new, B new in a given style, C transform, D continue; specialist table of model-invoked helpers; `references/presentation-brief.md` handoff template (14 fields); quality gate; report.
-- Refactor so nothing is copied: style selection procedure moved to `visual-style/references/style-direction.md` (with the CLI commands); visual plan moved to `visual-production/references/visual-plan.md`. Both original skills point to them.
-- Integration: README rows and counts, `plugin.json`, `openai.yaml`, `workflow-router`, `docs/productivity/visual-style.md` and `create-presentation.md`, `.agents/invocation.md` (new rule plus routing), `.claude/skills/` symlinks, one-line pointers in `visual-production` and `presentation-design`.
-- Gallery published as a private artifact: https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT (copy built from the repo gallery, Version 1).
+| Commit | Change |
+|---|---|
+| `4141454` | No changesets (user decision). `package.json`: removed `@changesets/cli` and `changeset` script; `version` script is now the npm hook `node scripts/sync-plugin-version.js`. `.claude/CLAUDE.md`: bump with `npm version <patch\|minor\|major> --no-git-tag-version`; changeset step removed from Change Workflow. `sync-plugin-version.js` comment updated. |
+| `0a0a5f6` | `library.mjs`: unknown options now error with the allowed list (exit 1). `presentation-principles.md`: check headline breaks for Thai, Chinese, Japanese. |
+| `95f0390` | `create-presentation/SKILL.md` route D: update hard-coded slide counts and numbers, report moved deep links, review at every target width. |
+| `67ef3c2` | `library.mjs contrast`: rejects non-hex input. `styles.json`: aliases `Bauhaus`, `Bauhaus Geometric` on `geometric-composition`; `Brutalism`, `Web Brutalism` on `brutalist-editorial`. `presentation-principles.md`: confirm the drawn font, embed fonts for offline decks. Route C step 4: compare final renders with the baseline. |
+| `0ce75b3`, `53a07f4` | Handoff and session log updates, including the test record. |
 
-## 4. Issues and Fixes
+## 4. Test Record: `/create-presentation`
+
+Method (repeatable): each deck is one HTML file in the scratchpad. A Node Playwright script (Chromium preinstalled at `/opt/pw-browsers`) opens each slide by `#n`, waits past transitions, screenshots at 1440x900 and 390x844, and reports page errors, slide overflow (`scrollHeight > clientHeight`), document `scrollWidth` against the viewport, and elements past the right edge; then presses Home and ArrowRight and checks the hash. Font check: CDP `CSS.getPlatformFontsForNode` on the heading and body. Em-dash scan on every file. Thai fonts came from `npm pack @fontsource/noto-sans-thai@5.0.13` and `@fontsource/noto-serif-thai@5.0.13`.
+
+| Route | Input | Result | Defects and fixes |
+|---|---|---|---|
+| A new | 7-slide Thai deck introducing this repo; facts from README and library counts | Auto pick `swiss-international` + `swiss-signal` via `find --medium presentation --use "technical presentation"`; passes both widths | Thai headlines broke mid-word (nowrap spans, principle line). `find --help` returned unfiltered results with exit 0 (unknown options now rejected). |
+| D continue | Same deck and brief; add a slide after slide 5 (route A in 4 stages) | Reused the flow pattern; HTML diff only the planned changes | Slide count hard-coded in 8 places (computed in script); deep link `#6` moved; reused pattern overflowed at 390px (modifier beat the mobile rule). First draft said 5 stages, which did not match `SKILL.md`; corrected to 4. |
+| B options | 4-slide release notes of this branch | Shortlist: brutalist-editorial + clash-tomato-mint, oversized-type + dark-technical, japanese-minimalism + earth-tone. User picked Japanese Minimalism. Passes both widths | Serif headline never drew; embedded a 10 KB Thai serif subset as a data URI. One-word widow fixed. |
+| B named | `--text` bauhaus, brutalism, blueprint, japanese, "swiss minimalism" | Last three resolved | Bauhaus and Brutalism found nothing (aliases added). |
+| B own colors | `contrast "#1B4D3E" "#F4D35E"` = 6.58; short hex works | Works | `contrast green "#fff"` printed NaN with exit 0 (now exit 1). |
+| C motion only | Route D deck; flow steps enter in order (12px along the flow axis, 250ms ease-out, 60ms stagger) | Baseline renders first; final frames compared pixel by pixel: 13 of 16 identical, 3 differ by one pixel at one brightness level; reduced motion shows all; re-entry replays | Added baseline comparison to route C. |
+
+Earlier (2026-10-11, PR #6): route C color-only change tested; "Actuals in teal" leftover found and a rule added.
+
+All test decks lived in the scratchpad and are gone. The final 8-slide deck was published as a private artifact and deleted at the user's request.
+
+## 5. Issues and Fixes
 
 | Issue | Status | Cause | Resolution | Evidence |
 |---|---|---|---|---|
-| Merge conflict in `.ai/handoff/current.md` when merging `origin/main` | FIXED | CONFIRMED: branch had a newer handoff than main | Kept the branch version (`--ours`) | merge commit `019e6e7` |
-| Two palette text pairs below 4.5 (Dusty Blue 4.33, Steel 4.03) | FIXED | Authored colors too light | Darkened to `#55697F` and `#4F6676` | contrast 5.01 and 5.08 |
-| Literal em-dash in `library.mjs` (the escape sequence for U+2014 was written as the character) | FIXED | Write tool output | Replaced with the escape via Python | `grep` finds none |
-| Gallery previews showed other cards' colors | FIXED | CONFIRMED: SVG gradient and pattern ids repeated across 53 cards | Suffix ids per preview (`uid`) | Chromium render |
-| "synthetic preview" tag covered preview text | FIXED | Bottom-left placement | Moved top-right | render |
-| Test slide overlapped on phone (fixed 16:9 box) | FIXED (test file only) | `aspect-ratio` with content | Stacked layout below 700px, chart scrolls in its container | render at 390px |
-| Color-only restyle left "Actuals in teal" | FIXED | Text named the old color | Changed word; added route C rule to `create-presentation/SKILL.md` | diff showed only color values changed otherwise |
-| Contrast note overstated Antique Gold on Burgundy as failing (3.67 passes large) | FIXED | Wording | Note rewritten | `palette burgundy-cream` |
+| Unknown CLI flags silently ignored | FIXED | `args()` accepted any `--x` | Per-command allowlist, exit 1 | `find --bogus x` exits 1 |
+| `contrast` accepted non-colors | FIXED | No input check; `luminance` returned NaN | Hex regex before computing | `contrast green "#fff"` exits 1 |
+| Common style names not found | FIXED | Missing aliases | Aliases added | `find --text bauhaus` hits |
+| Thai mid-word headline breaks | FIXED in decks, guidance added | Line breaking in Chromium | nowrap spans | renders |
+| Fonts fell back silently | FIXED in route B deck, guidance added | CONFIRMED: Chromium ignored woff2 files in `~/.fonts`; Thai drew in system Loma | Embed font as data URI | CDP font report |
+| Hard-coded slide count | FIXED in deck, guidance added | Labels written per slide | Computed in script | aria labels "N of 8" |
+| Reused pattern lost mobile rule | FIXED in deck, guidance added | `.flow.f4` more specific than mobile `.flow` | Mobile rule covers both | 390px render |
 
-## 5. Attempts That Failed or Were Rejected
+## 6. Attempts That Failed or Were Rejected
 
-- Python `str.replace` edits failed when the anchor text wrapped differently than expected (`invocation.md` line starts with `  command; the skill...`). Read the exact lines before scripting edits.
-- `grep -P` with a U+2014 code point fails in this shell ("code point too large"). Use bash ANSI-C quoting with the u2014 escape instead.
-- Rejected design: `/create-presentation` calling `/visual-production` or `/visual-style`. Forbidden by `.agents/invocation.md`.
+- Installing fonts into `~/.fonts` as woff2 for Chromium: does not work (CONFIRMED). Embed the font or use Google Fonts where allowed.
+- Splitting route A into 5 stages on a slide: rejected, `SKILL.md` defines 4.
+- Force push: denied in an earlier session. Use `git merge -s ours origin/<branch>` instead.
+- `grep -P` with the U+2014 code point fails in this shell. Use `grep -c $'\u2014' <file>`.
+- Rejected design (earlier): `/create-presentation` calling `/visual-production` or `/visual-style` (forbidden by `.agents/invocation.md`).
 
-## 6. Decisions and Constraints
+## 7. Decisions and Constraints
 
 User decisions:
-- Build the library per the user's long brief, then build `/create-presentation` per the second brief (orchestrator, no copied logic).
-- Open PR #6 (asked). Merge not yet requested.
+- No changesets; bump with `npm version`.
+- Test content: a deck introducing this repo. Route B style: Japanese Minimalism.
+- Do not open a PR or merge until told. Artifacts deleted when asked.
 
-Agent decisions (accepted implicitly, not explicitly confirmed):
-- Both new skills live in `productivity/` (not `engineering/`, which is the 11-step product workflow).
-- Reading another skill's `references/`, `library/`, or `scripts/` is allowed and is not invocation; this rule is now written in `.agents/invocation.md`. The user was told and may reject it.
-- Library data lives inside the `visual-style` skill folder so it ships with the plugin; `create-presentation` reaches it by relative path `../visual-style/`.
-- Palette-to-style fit is stored once (style `compatible_palettes`); palettes derive their styles.
-- No reference images and no URLs added; `reference_sources` only lists books or standards known to exist.
+Agent decisions (user may reject):
+- Bauhaus and Brutalism aliases.
+- Test decks kept out of the repo.
+- Reading another skill's `references/`, `library/`, `scripts/` is not invocation (written in `.agents/invocation.md`, from PR #6).
 
-Repo rules (from `.claude/CLAUDE.md`): no em-dashes; Promotion Contract; user-invoked skills need `disable-model-invocation: true`, `openai.yaml`, and a `workflow-router` row, and never call each other; run `scripts/link-skills.sh` after adding skills.
+Repo rules (`.claude/CLAUDE.md`): no em-dashes; Promotion Contract (README, `plugin.json`, `docs/<bucket>/<skill>.md`); user-invoked skills need `disable-model-invocation: true`, `openai.yaml`, a `workflow-router` row, and never call each other.
 
-## 7. Files Changed (in PR #6)
+## 8. Files Changed (work branch against `main`)
 
-New: `skills/productivity/visual-style/**`, `skills/productivity/create-presentation/**`, `skills/productivity/visual-production/references/visual-plan.md`, `docs/productivity/visual-style.md`, `docs/productivity/create-presentation.md`, `.claude/skills/visual-style`, `.claude/skills/create-presentation`.
-Modified: `.agents/invocation.md`, `.claude-plugin/plugin.json`, `README.md`, `openai.yaml`, `workflow-router`, `skills/productivity/visual-production/SKILL.md`, `skills/productivity/presentation-design/SKILL.md`, `.ai/handoff/*` (earlier session update carried in the PR).
-
-## 8. Validation and Evidence
-
-- Plugin validation (both commands), version check, `library.mjs check`, skill count 24, em-dash scan: all passed on `dd3ac2e`.
-- `library.mjs check` negative test: four injected faults (bad contrast, unknown palette, missing profile field, off-vocabulary tag) all reported, exit 1.
-- Gallery: Chromium at 1440px and 390px, no page errors, no horizontal overflow; detail dialog, use panel, filters (6 of 53 for Forest Sage palette plus packaging), palettes and presets tabs exercised. Google Fonts were blocked, so fallback fonts were seen.
-- Dry run of `/visual-style` steps on one investor slide (preset `editorial-investor`), rendered and fixed at 390px.
-- Dry run of `/create-presentation` route C (color-only change to `burgundy-cream`) on the same slide: `diff` with colors masked was identical; rendered and reviewed.
-- Test slide files were in the scratchpad only; not in the repo.
+`.claude/CLAUDE.md`, `package.json`, `scripts/sync-plugin-version.js`, `skills/productivity/create-presentation/SKILL.md`, `skills/productivity/presentation-design/references/presentation-principles.md`, `skills/productivity/visual-style/library/styles.json`, `skills/productivity/visual-style/scripts/library.mjs`, `.ai/handoff/current.md`, `.ai/handoff/sessions/2026-10-11.md`. No manifest, README, or docs page changed, so the Promotion Contract is unaffected.
 
 ## 9. Open Questions and Risks
 
-- DECIDED (user): no changesets. `package.json` keeps only `version` (npm hook that runs `sync-plugin-version.js`) and `check-plugin-version`; `.claude/CLAUDE.md` says to bump with `npm version <patch|minor|major> --no-git-tag-version`. Commit `4141454`. Verified in a scratch copy: 0.1.0 to 0.1.1 synced both files.
-- RISK: `.claude-plugin/marketplace.json` also holds `version` 0.1.0 and is not synced or checked by the scripts.
-- CONFIRMED: route A run end to end (7-slide Thai deck introducing this repo, `swiss-international` plus `swiss-signal`, brief and deck in the scratchpad only). Rendered at 1440x900 and 390x844: no page errors, no horizontal overflow, keys, buttons and hash navigation work. Fixes from it in commit `0a0a5f6`: `library.mjs` rejects unknown options (before, `find --help` printed unfiltered results with exit 0); `presentation-principles.md` notes mid-word headline breaks in Thai and similar scripts.
-- CONFIRMED: route D run on the same deck: one slide inserted after slide 5 (route A in 4 stages), brief updated to `continue`. Found and fixed in the deck: slide count hard-coded in 8 places (now computed in script); reused flow pattern overflowed at 390px (modifier beat the mobile rule). Deep link `#6` now opens the new slide. Route D in `create-presentation/SKILL.md` now covers renumbering, moved deep links, and review at every target width. The container had no Thai font; Noto Sans Thai was installed into `~/.fonts` for rendering only.
-- CONFIRMED: route B run both ways. Shortlist of 3 (brutalist-editorial, oversized-type, japanese-minimalism) shown to the user, who picked Japanese Minimalism; 4-slide release-notes deck with `earth-tone`, rendered at both widths, reviewed against the direction. Named-style mapping: `bauhaus` and `brutalism` found nothing, now aliases of `geometric-composition` and `brutalist-editorial` (agent decision, user may reject). Own-colors path: `contrast green "#fff"` printed NaN with exit 0, now an error with exit 1.
-- CONFIRMED: Chromium ignored fonts installed as woff2 in `~/.fonts` and drew Thai in system Loma; the route A deck never showed Noto Sans Thai. The route B deck embeds a 10 KB Thai serif subset; `presentation-principles.md` now says to confirm the drawn face and embed fonts for offline decks.
-- CONFIRMED: route C run as a motion-only change (flow steps enter in order) on the route D deck. Final frames match the baseline (3 of 16 shots differ by one pixel at one brightness level, anti-aliasing). Reduced motion shows everything at once; re-entry replays. Route C step 4 now says to compare final renders with the baseline.
-- All four routes of `/create-presentation` have now been run end to end; full test record with method and defects is in `sessions/2026-10-11.md`. Test decks were scratchpad only and are gone. The final deck was published as an artifact and then deleted at the user's request.
-- RISK: `--mood` and `--use` values are free text with no listed vocabulary, so `find` needs guessing (`--use explainer` matched nothing; `--use "technical presentation"` worked).
-- UNKNOWN: whether `npx skills add` keeps sibling skill folders so `../visual-style/` resolves. Plugin installs keep the whole repo.
-- UNKNOWN: the published gallery artifact was not opened after publishing; Google Fonts were not seen rendering.
-- RISK: `visual-production` still lists presentations in its description; the router now sends presentations to `/create-presentation`. Overlap is intentional but may confuse.
-- RISK: model-invoked helpers may not load automatically in some clients; users may need to name them.
+- OPEN: PR for the work branch (waiting on the user).
+- OPEN: keep or drop the Bauhaus and Brutalism aliases.
+- RISK: `.claude-plugin/marketplace.json` has its own `version` (0.1.0); neither script syncs or checks it.
+- RISK: `--mood` and `--use` are free text with no listed values (`--use explainer` matched nothing).
+- RISK: `visual-production` still lists presentations in its description while the router sends presentations to `/create-presentation`.
+- UNKNOWN: whether `npx skills add` keeps sibling skill folders so `../visual-style/` resolves.
+- UNKNOWN: deleted artifacts were never opened after publishing; Google Fonts were never seen rendering (blocked in the container).
 
 ## 10. Next Actions, in priority order
 
-1. Ask the user whether to open a PR for the branch (changeset decision plus fixes from testing all four routes).
-2. Decide whether to keep the Bauhaus and Brutalism aliases.
-3. Consider listing `mood` and `use_cases` values (for example a `library.mjs vocab` command) and syncing `marketplace.json` version.
-4. Optionally add real reference images per style (`library/references/<style-id>/`, registered in `styles.json`), then run `check`.
+1. Ask the user whether to open a PR from `claude/setup-workflow-xd5lho` into `main` (body: changeset decision plus fixes from the four-route test).
+2. Ask whether to keep the Bauhaus and Brutalism aliases.
+3. If wanted: add a way to list `mood` and `use_cases` values (for example `library.mjs vocab`), and sync or check the `marketplace.json` version.
+4. Optional: real reference images per style under `library/references/<style-id>/`, registered in `styles.json`, then `check`.
 
 ## 11. Exact First Step for the Next Session
 
-Run `git fetch origin main && git checkout -B claude/setup-workflow-xd5lho origin/main`, then `claude plugin validate . --strict`, `scripts/list-skills.sh | wc -l`, and `node skills/productivity/visual-style/scripts/library.mjs check`. Success check: validation passes, count is 24, check reports 0 errors. To push the reset branch, do not force push: merge the old remote branch with `git merge -s ours origin/claude/setup-workflow-xd5lho` first (force push was denied in an earlier session).
+Do NOT reset the branch to `main`: it holds unmerged work. Run `git fetch origin main claude/setup-workflow-xd5lho && git checkout claude/setup-workflow-xd5lho && git status -sb && git log --oneline origin/main..HEAD`. Success check: branch matches its remote at `53a07f4` or later and shows the commits in section 3. Then run `node skills/productivity/visual-style/scripts/library.mjs check` (0 errors) and `scripts/list-skills.sh | wc -l` (24). If the PR has since been merged, restart the branch from `origin/main` and push with `git merge -s ours origin/claude/setup-workflow-xd5lho` first (no force push).
 
 ## 12. Ready-to-paste Continuation Prompt
 
 ```
-อ่าน .ai/handoff/current.md ก่อน แล้วทำต่อ: repo ai-product-workflow-skills มี 24 skills และ PR #6 merge เข้า main แล้ว
-(/visual-style: คลัง 53 สไตล์, 25 palettes, 6 presets, CLI library.mjs, gallery และ /create-presentation: orchestrator 4 เส้นทาง).
-เริ่มจาก reset branch claude/setup-workflow-xd5lho ให้ตรงกับ origin/main แล้วรัน validate, list-skills และ library.mjs check.
-จากนั้นถามฉันว่าจะทดสอบ /create-presentation สร้าง deck ใหม่ด้วยเนื้อหาอะไร และจะจัดการ changeset อย่างไร.
+อ่าน .ai/handoff/current.md ก่อน แล้วทำต่อ: branch claude/setup-workflow-xd5lho มีงานที่ยังไม่เข้า main
+(ไม่ใช้ changeset, แก้ library.mjs, aliases Bauhaus/Brutalism, คำแนะนำ presentation และ route C/D จากการทดสอบ /create-presentation ครบ 4 route).
+ห้าม reset branch ไป main. เช็ก git log origin/main..HEAD แล้วรัน library.mjs check และ list-skills.
+จากนั้นถามฉันว่าจะเปิด PR หรือไม่ และจะเก็บ aliases Bauhaus/Brutalism ไหม.
 ทำตาม .claude/CLAUDE.md (ไม่มี em-dash, Promotion Contract) และอย่าเปิด PR หรือ merge จนกว่าฉันจะสั่ง.
 ```
