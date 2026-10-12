@@ -127,7 +127,9 @@ Apply the checks that fit the job; skip the rest.
 
 ## Add to the gallery
 
-When the person gives the link of their published Visual Style Library gallery (or the brief records one as `gallery_url`) and the session can publish artifacts, add the finished deck to it as a work. Skip this otherwise; never publish a deck the person has not seen.
+When the session can publish artifacts, add the finished deck to the person's published Visual Style Library gallery as a work. Never publish a deck the person has not seen.
+
+Find the gallery in this order: a link the person gave, then `gallery_url` in the brief, then the person's own artifacts listed by title "Visual Style Library". One match: use it and record it as `gallery_url`. Several: ask which one. None, or the person says not to: skip this step.
 
 1. Read the gallery's current `works.json` first (it may not exist yet). Keep every existing entry.
 2. Publish to that same gallery link: the deck as `works/<id>/index.html` (a full HTML page with its own doctype), a cover screenshot of the first slide as `works/<id>/cover.jpg` when a browser is available, and `works.json` with the new entry added. Leave every other file of the gallery as it is.
