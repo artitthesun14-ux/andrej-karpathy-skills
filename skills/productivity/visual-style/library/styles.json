@@ -1040,7 +1040,7 @@
       "motion_type": ["cut", "flow"],
       "compatible_palettes": ["inkwell", "ink-paper", "mono-graphite", "burgundy-cream", "primary-bold"],
       "related_styles": ["pop-graphic", "handcrafted-illustration", "historical-poster"],
-      "reference_images": [],
+      "reference_images": [{ "path": "references/vintage-rubber-hose/example-01.webp", "source": "Original illustration made for this library, 2026-10-12. Drawn from the style profile; the user-supplied reference images that informed it are not stored", "license": "Same terms as this repository", "kind": "generated" }],
       "reference_sources": [],
       "preview": { "renderer": "rubberhose", "display": "slab", "text": "garalde", "palette": "inkwell" },
       "profile": "styles/illustration-character.md"
@@ -1059,7 +1059,7 @@
       "motion_type": ["reveal", "camera"],
       "compatible_palettes": ["chrome-noir", "dark-technical", "mono-graphite", "cobalt-ice"],
       "related_styles": ["product-render", "foil-stamping", "pop-graphic"],
-      "reference_images": [],
+      "reference_images": [{ "path": "references/chrome-anime/example-01.webp", "source": "Original illustration made for this library, 2026-10-12. Drawn from the style profile; the user-supplied reference images that informed it are not stored", "license": "Same terms as this repository", "kind": "generated" }],
       "reference_sources": [],
       "preview": { "renderer": "chrome", "display": "condensed", "text": "mono", "palette": "chrome-noir" },
       "profile": "styles/illustration-character.md"

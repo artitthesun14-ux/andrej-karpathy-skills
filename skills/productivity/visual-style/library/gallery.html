@@ -105,6 +105,9 @@ a.btn { text-decoration: none; }
 .thumb button.open:focus-visible { outline-offset: -3px; }
 .card.is-sel .thumb { box-shadow: 0 0 0 2px var(--accent); }
 .sel-flag { position: absolute; left: 8px; top: 8px; background: var(--accent); color: var(--on-accent); font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; pointer-events: none; }
+.example { margin: 0; display: grid; gap: 6px; }
+.example img { display: block; width: 100%; height: auto; border-radius: 10px; }
+.example figcaption { color: var(--muted); font-size: 12px; }
 .tag-synth { position: absolute; right: 8px; bottom: 8px; font-size: 11px; padding: 1px 6px; border-radius: 4px; background: rgba(0,0,0,.45); color: rgba(255,255,255,.85); pointer-events: none; }
 .card-head { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
 .card h3 { margin: 0; font: 600 18px/1.25 var(--f-ui); text-wrap: balance; }
@@ -826,6 +829,14 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     if (col.startsWith("cat:")) { const m = s.compatible_palettes.find((p) => DB.pal[p].category === col.slice(4)); if (m) return DB.pal[m]; }
     return DB.pal[s.preview.palette] || DB.pal[s.compatible_palettes[0]];
   }
+  // A style's first reference image stands in for the sketch, unless the card is showing the viewer's own colors.
+  const exampleOf = (s) => (s.reference_images || [])[0] || null;
+  const KIND_LABEL = { generated: "illustration", "user-supplied": "reference", licensed: "reference", "public-domain": "reference" };
+  function cardThumb(s, p) {
+    const ex = exampleOf(s), recolored = (state.myColors && selPalObj()) || state.filters.color;
+    if (ex && !recolored) return `<img class="work-cover" src="${esc(ex.path)}" alt="${esc(s.name)} example" loading="lazy"><span class="tag-synth">${KIND_LABEL[ex.kind] || "reference"}</span>`;
+    return `${preview(s, p)}<span class="tag-synth">sketch</span>`;
+  }
   function renderStyles() {
     const base = DB.styles.filter((s) => passFilters(s));
     const { list, all, best } = rank(base, (s) => IDX.s[s.id]);
@@ -839,7 +850,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
       const p = cardPalette(s), on = state.sel.style === s.id;
       const tags = [...s.mood.slice(0, 2), s.medium[0]].filter(Boolean);
       return `<article class="card ${on ? "is-sel" : ""}">
-        <div class="thumb">${preview(s, p)}<span class="tag-synth">sketch</span>${on ? `<span class="sel-flag">Selected</span>` : ""}<button class="open" type="button" data-detail="${s.id}" aria-label="Open ${esc(s.name)} details"></button></div>
+        <div class="thumb">${cardThumb(s, p)}${on ? `<span class="sel-flag">Selected</span>` : ""}<button class="open" type="button" data-detail="${s.id}" aria-label="Open ${esc(s.name)} details"></button></div>
         <div class="card-head"><div><div class="eyebrow">${esc(DB.cat[s.category].name)}</div><h3>${esc(s.name)}</h3></div>${dots(six(p))}</div>
         <p class="summary clamp">${esc(s.summary)}</p>
         <div class="tags">${tags.map((t) => `<span class="tag">${esc(MEDIUM_LABEL[t] || t)}</span>`).join("")}</div>
@@ -1101,6 +1112,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     showDialog(`<div class="dlg-head"><div><div class="eyebrow">${esc(DB.cat[s.category].name)}</div><h2 id="dlg-title">${esc(s.name)}</h2></div>${closeBtn}</div>
       <div class="thumb">${preview(s, pObj)}<span class="tag-synth">synthetic sketch · ${esc(pObj.name)}</span></div>
       <p style="margin:0;font-size:17px;max-width:68ch">${esc(s.summary)}</p>
+      ${(s.reference_images || []).map((im) => `<figure class="example"><img src="${esc(im.path)}" alt="${esc(s.name)} example" loading="lazy"><figcaption>${im.kind === "generated" ? "Illustration made for this library" : `Reference · ${esc(im.source)}`}</figcaption></figure>`).join("")}
       <div class="meta-line"><span>Mood <b>${esc(s.mood.join(", "))}</b></span><span>Use for <b>${esc(s.medium.map((m) => MEDIUM_LABEL[m] || m).join(", "))}</b></span>${s.aliases.length ? `<span>Also called <b>${esc(s.aliases.join(", "))}</b></span>` : ""}</div>
       <div id="cmp-anchor"><div class="result-head"><p class="sub">Compare in ${cmpAll ? "every palette" : "its best palettes"}</p><button class="linkbtn" type="button" data-cmp-all="${s.id}">${cmpAll ? "Show best fits only" : `Show all ${DB.palettes.length} palettes`}</button></div>
         <div class="compare">${tiles.map(([pid, p]) => `<button type="button" class="cmp" data-try-pal="${s.id}|${pid}" aria-pressed="${pid === detailPal}"><span class="tb">${preview(s, p)}${isSel(pid) && state.sel.palette ? `<span class="flag">Your pick</span>` : ""}${pid === detailPal ? `<span class="viewing">Viewing</span>` : ""}</span><span class="nm"><span>${pid === "__sel" ? "Your colors" : esc(p.name)}</span>${pdots(p)}</span></button>`).join("")}</div>
