@@ -4,11 +4,7 @@
   "private": true,
   "description": "Skills for a disciplined product/website workflow: research, spec, design, prototype, tickets, implement, test, review, experiment.",
   "scripts": {
-    "changeset": "changeset",
-    "version": "changeset version && node scripts/sync-plugin-version.js",
+    "version": "node scripts/sync-plugin-version.js",
     "check-plugin-version": "node scripts/check-plugin-version.js"
-  },
-  "devDependencies": {
-    "@changesets/cli": "^2.27.0"
   }
 }

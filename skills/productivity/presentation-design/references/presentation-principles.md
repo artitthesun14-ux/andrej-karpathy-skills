@@ -6,6 +6,7 @@ Read when setting art direction, layout, charts, navigation, or responsive behav
 
 - Mood in three words (for example: calm, precise, warm).
 - Type: one display face and one text face, with a size scale of at most 5 steps. Headline carries the message as a sentence.
+- Confirm in the render that the chosen faces are the ones drawn; missing fonts fall back silently. For an offline or single-file deck, embed the font (subset it to the scripts used).
 - Color: one neutral base, one accent, one signal color for emphasis or warning. Check contrast.
 - Imagery: one consistent treatment (photo, illustration, or abstract) and crop rules.
 - Chart style: shared axis, label, and color rules across the deck.
@@ -31,6 +32,7 @@ Mix roles across the deck: opener, section break, claim with one visual, evidenc
 
 - Arrow keys, click, swipe. Progress indicator. Escape or overview for orientation.
 - Scale type with viewport. Below tablet width, stack layouts and keep one idea per screen.
+- Scripts without spaces between words (Thai, Chinese, Japanese) can break mid-word in headlines. Check breaks in the render and keep words together with `white-space: nowrap` spans or `<wbr>` hints.
 
 ## Investor audience (beginners)
 

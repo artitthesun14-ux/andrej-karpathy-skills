@@ -82,7 +82,7 @@ Visual production (bucket `productivity/`): เริ่มที่ `/visual-pr
 
 | Skill | การเรียก | หน้าที่ | เอกสาร |
 |---|---|---|---|
-| Visual Production | `/visual-production` | workflow งาน presentation, animation, data story และ technical visualization | [docs/productivity/visual-production.md](docs/productivity/visual-production.md) |
+| Visual Production | `/visual-production` | workflow งาน animation, data story และ technical visualization (presentation ใช้ `/create-presentation`) | [docs/productivity/visual-production.md](docs/productivity/visual-production.md) |
 | Create a Presentation | `/create-presentation` | จุดเริ่มต้นเดียวสำหรับงาน presentation: สร้างใหม่ เลือกสไตล์ ปรับงานเดิม หรือทำต่อ เลือก workflow และ helper ให้เอง | [docs/productivity/create-presentation.md](docs/productivity/create-presentation.md) |
 | Visual Style | `/visual-style` | คลังสไตล์และคลังสีแยกกัน เลือก ผสม และนำไปใช้กับงานจริง พร้อมตรวจ contrast และ gallery | [docs/productivity/visual-style.md](docs/productivity/visual-style.md) |
 | Visual Storytelling | model-invoked | เปลี่ยนเนื้อหาซับซ้อนให้เป็นเรื่องราวที่เข้าใจง่าย | [docs/productivity/visual-storytelling.md](docs/productivity/visual-storytelling.md) |

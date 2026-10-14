@@ -1,6 +1,6 @@
 ---
 name: visual-style
-description: Pick, combine, and apply a visual style and a color palette from the built-in style library (editorial, Swiss, neoclassical, poster, botanical, tactile, minimal, industrial, motion) to real work, then review the result against the style profile.
+description: Pick, combine, and apply a visual style and a color palette from the built-in style library (editorial, Swiss, neoclassical, poster, botanical, tactile, minimal, industrial, motion, illustration) to real work, then review the result against the style profile.
 disable-model-invocation: true
 ---
 
@@ -22,7 +22,7 @@ Everything lives in this skill's folder. Load only what the task needs.
 | `library/styles/<category>.md` | Full profile per style, one `## <id>` section each |
 | `library/palettes.json` | Palettes: HEX, names, roles, shares, readable text pairs, pairs to avoid, notes |
 | `library/presets.json` | Ready combinations for common jobs, all adjustable |
-| `library/gallery.html` | Browsable gallery with filters and synthetic previews (serve the folder, see `references/library-schema.md`) |
+| `library/gallery.html` | Gallery: search, filters, color picking and palette building, style vs palette compare, a copyable handoff, and an optional Works tab (serve the folder, see `references/library-schema.md`) |
 | `references/style-direction.md` | Search, shortlist, combine, design direction, and review procedure |
 | `references/library-schema.md` | Field definitions, merged names, rules for adding entries |
 

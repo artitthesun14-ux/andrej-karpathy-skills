@@ -275,6 +275,15 @@ function check() {
 
 const [cmd, ...rest] = process.argv.slice(2);
 const { opts, pos } = args(rest);
+const FLAGS = {
+  find: ["text", "category", "mood", "medium", "use", "motion", "typography", "layout", "palette"],
+  palettes: ["text", "category", "mood", "style", "use"],
+};
+const unknown = Object.keys(opts).filter((k) => !(FLAGS[cmd] || []).includes(k));
+if (unknown.length) {
+  console.log(`Unknown option --${unknown[0]} for ${cmd}. Allowed: ${(FLAGS[cmd] || []).map((f) => "--" + f).join(" ") || "none"}`);
+  process.exit(1);
+}
 switch (cmd) {
   case "find": find(opts); break;
   case "palettes": palettes(opts); break;
@@ -282,6 +291,11 @@ switch (cmd) {
   case "palette": showPalette(pos[0]); break;
   case "preset": showPreset(pos[0]); break;
   case "contrast": {
+    const bad = [pos[0], pos[1]].filter((c) => !/^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.test(c ?? ""));
+    if (bad.length) {
+      console.log(`Not a hex color: ${bad.map((c) => c ?? "(missing)").join(", ")}. Use #RGB or #RRGGBB.`);
+      process.exit(1);
+    }
     const r = contrast(pos[0], pos[1]);
     console.log(`${r.toFixed(2)}: ${verdict(r)}`);
     if (r < 4.5) console.log("WARNING: not readable as body text (WCAG 2.2 needs 4.5).");

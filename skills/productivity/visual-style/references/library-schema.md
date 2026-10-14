@@ -82,3 +82,25 @@ cd skills/productivity/visual-style/library && python3 -m http.server 8000
 ```
 
 Then open http://localhost:8000/gallery.html. Previews are synthetic (drawn from the palette and the style's layout pattern), not reference images.
+
+What it offers:
+
+- Search over all fields (keyword matching with a small Thai/English map, not AI), quick filters (mood, color, use) and an all-filters drawer.
+- Tabs for styles, colors, and presets. Colors: a swatch wall of every library color (tap to see palettes that use it), palette browsing, and a 6-role palette builder with live WCAG checks. Generated palettes are labelled and contrast-fixed.
+- Compare grids: one style across its palettes or all palettes, one palette across its styles.
+- A selection tray and a Review & apply dialog that copies a handoff (prompt or JSON) for `/create-presentation` when the use is a presentation, otherwise `/visual-style`. A palette with no surface role uses its background as the surface.
+- A Works tab, shown only when a `works.json` sits next to the page and lists at least one work.
+
+### works.json
+
+Optional, and only in a published copy of the gallery (finished work stays out of the repo). Each work's files sit beside it under `works/<id>/`.
+
+```json
+{ "works": [ {
+  "id": "q3-board-update", "title": "Q3 Board Update", "kind": "presentation", "slides": 12, "created": "2026-10-12",
+  "style": "neoclassical-editorial", "palette": "burgundy-cream",
+  "summary": "One line on what it is", "path": "works/q3-board-update/index.html", "cover": "works/q3-board-update/cover.jpg"
+} ] }
+```
+
+`style` must be a library style id. Use `palette` for a library palette, or `custom` with the six roles (`primary`, `secondary`, `accent`, `background`, `surface`, `text`) as HEX. `cover` is optional; without it the card shows a synthetic sketch. Works are listed newest first by `created`. "Use this style again" puts the work's style and colors into the selection.

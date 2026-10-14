@@ -1,6 +1,6 @@
 ---
 name: visual-production
-description: Run a visual production workflow (brief, story, art direction, visual plan, build, review, refine, final) for presentations, animations, data stories, and technical visualizations.
+description: Run a visual production workflow (brief, story, art direction, visual plan, build, review, refine, final) for animations, data stories, and technical visualizations. Presentations go to /create-presentation.
 disable-model-invocation: true
 ---
 
@@ -14,7 +14,7 @@ Coordinate visual work end to end by choosing only the helper skills the task ne
 
 ## When to use
 
-Presentations, animated explainers, data stories, 3D or technical visualizations, and visual refinement of existing work. Not for ordinary product pages (use the product workflow in `README.md`).
+Animated explainers, data stories, 3D or technical visualizations, and visual refinement of existing work. Not for slide decks (use `/create-presentation`) or ordinary product pages (use the product workflow in `README.md`).
 
 ## Workflow
 
@@ -46,6 +46,6 @@ Show a short plan before coding, using `references/visual-plan.md`. Keep it to w
 
 ## Workflow position
 
-Independent of the product workflow. For presentations, `/create-presentation` is the simpler entry point. Can follow `/ui-design` or `/prototype` when a product needs a visual explainer, and `/code-review` still applies to code.
+Independent of the product workflow. For presentations, use `/create-presentation`. Can follow `/ui-design` or `/prototype` when a product needs a visual explainer, and `/code-review` still applies to code.
 
 See `README.md` for the full picture.

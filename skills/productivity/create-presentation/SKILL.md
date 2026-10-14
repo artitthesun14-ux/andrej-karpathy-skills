@@ -86,7 +86,7 @@ INSPECT EXISTING WORK → IDENTIFY CHANGE SCOPE → APPLY STYLE OR MOTION → RE
 2. Set `change_scope` to exactly what was asked. "Change the colors" changes color tokens only, not layout, type, or motion. Widen the scope only with the person's agreement or when the request cannot work otherwise, and say which.
 3. Apply: a new look uses `style-direction.md` and the library, mapped onto the existing structure; motion uses the motion specialists.
    A color change also covers colors hard-coded in SVG, charts, and images, and any text that names a color (legends, "actuals in teal").
-4. Review, then list the changes that matter (before and after where useful).
+4. Review: compare final-state renders with the step 1 renders; only the requested scope may differ. Then list the changes that matter (before and after where useful).
 
 Do not rebuild the deck from scratch unless the person asks or the existing structure cannot carry the change; explain why if so.
 
@@ -95,7 +95,8 @@ Do not rebuild the deck from scratch unless the person asks or the existing stru
 1. Read the brief file if one exists (see Handoff), then inspect the deck: what is done, what is missing or broken.
 2. Keep the existing design system: tokens, type, layouts, motion. New slides reuse existing slide patterns before inventing new ones.
 3. Change only the slides concerned. Never create a second version of the deck alongside the first.
-4. Review the changed slides and their neighbors, update the brief.
+   Adding or removing a slide shifts numbering: update hard-coded slide counts and numbers, and tell the person which deep links now point elsewhere.
+4. Review the changed slides and their neighbors at every target width (a reused pattern can lose its responsive rules), then update the brief.
 
 ## Handoff
 
@@ -124,9 +125,20 @@ Apply the checks that fit the job; skip the rest.
 - Implementation: the deck opens and navigates in its target format; the rendered result was inspected with `visual-review` when a browser is available; responsive behavior matches the target.
 - Direction: compare against the brief with `style-direction.md` > Review against the direction.
 
+## Add to the gallery
+
+When the session can publish artifacts, add the finished deck to the person's published Visual Style Library gallery as a work. Never publish a deck the person has not seen.
+
+Find the gallery in this order: a link the person gave, then `gallery_url` in the brief, then the person's own artifacts listed by title "Visual Style Library". One match: use it and record it as `gallery_url`. Several: ask which one. None, or the person says not to: skip this step.
+
+1. Read the gallery's current `works.json` first (it may not exist yet). Keep every existing entry.
+2. Publish to that same gallery link: the deck as `works/<id>/index.html` (a full HTML page with its own doctype), a cover screenshot of the first slide as `works/<id>/cover.jpg` when a browser is available, and `works.json` with the new entry added. Leave every other file of the gallery as it is.
+3. Use the entry format in `../visual-style/references/library-schema.md` > works.json. The style and palette are the ones in the brief.
+4. Give the deck a small link back to the gallery (`../../`).
+
 ## Report
 
-End with: what was made or changed (files), the route taken, style and palette used, what was verified and how, and what was not verified. Suggest the next command when one fits (for example `/code-review` for code, `/handoff` to pause).
+End with: what was made or changed (files, and the gallery link when the deck was added to it), the route taken, style and palette used, what was verified and how, and what was not verified. Suggest the next command when one fits (for example `/code-review` for code, `/handoff` to pause).
 
 ## Rules
 

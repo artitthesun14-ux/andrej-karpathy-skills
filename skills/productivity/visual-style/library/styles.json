@@ -15,7 +15,8 @@
     { "id": "material-tactile", "name": "Material and Tactile", "profile": "styles/material-tactile.md" },
     { "id": "minimal-contemporary", "name": "Minimal and Contemporary", "profile": "styles/minimal-contemporary.md" },
     { "id": "product-industrial", "name": "Product and Industrial Visualization", "profile": "styles/product-industrial.md" },
-    { "id": "motion", "name": "Motion and Animated Visuals", "profile": "styles/motion.md" }
+    { "id": "motion", "name": "Motion and Animated Visuals", "profile": "styles/motion.md" },
+    { "id": "illustration-character", "name": "Illustration and Character", "profile": "styles/illustration-character.md" }
   ],
   "styles": [
     {
@@ -155,7 +156,7 @@
       "id": "brutalist-editorial",
       "name": "Brutalist Editorial",
       "category": "modernist-swiss",
-      "aliases": [],
+      "aliases": ["Brutalism", "Web Brutalism"],
       "summary": "Exposed structure: default-looking type, visible borders, raw tables, and density over polish.",
       "mood": ["raw", "honest", "contrarian"],
       "typography_tags": ["monospace", "grotesk"],
@@ -174,7 +175,7 @@
       "id": "geometric-composition",
       "name": "Geometric Composition",
       "category": "modernist-swiss",
-      "aliases": [],
+      "aliases": ["Bauhaus", "Bauhaus Geometric"],
       "summary": "Circle, square, and triangle as the main actors, in primary colors, balanced like a construction kit.",
       "mood": ["playful", "rational", "elementary"],
       "typography_tags": ["geometric-sans"],
@@ -1024,6 +1025,44 @@
       "reference_sources": [],
       "preview": { "renderer": "frames-reveal", "display": "grotesk", "text": "grotesk", "palette": "noir-gold" },
       "profile": "styles/motion.md"
+    },
+    {
+      "id": "vintage-rubber-hose",
+      "name": "Vintage Rubber Hose",
+      "category": "illustration-character",
+      "aliases": ["Rubber Hose", "Rubber House", "Vintage Rubber House", "1930s cartoon"],
+      "summary": "Early American cartoon drawing: jointless noodle limbs, pie-cut eyes, white gloves, and black ink on aged paper, moving in a looping bounce.",
+      "mood": ["playful", "nostalgic", "mischievous"],
+      "typography_tags": ["display-decorative", "slab", "hand-lettered"],
+      "layout_tags": ["centered", "symmetric", "single-focus"],
+      "medium": ["motion", "social", "brand", "packaging", "print"],
+      "use_cases": ["mascot", "animated explainer", "merchandise", "music or event poster", "game title card"],
+      "motion_type": ["cut", "flow"],
+      "compatible_palettes": ["inkwell", "ink-paper", "mono-graphite", "burgundy-cream", "primary-bold"],
+      "related_styles": ["pop-graphic", "handcrafted-illustration", "historical-poster"],
+      "reference_images": [{ "path": "references/vintage-rubber-hose/example-01.webp", "source": "Original illustration made for this library, 2026-10-12. Drawn from the style profile; the user-supplied reference images that informed it are not stored", "license": "Same terms as this repository", "kind": "generated" }],
+      "reference_sources": [],
+      "preview": { "renderer": "rubberhose", "display": "slab", "text": "garalde", "palette": "inkwell" },
+      "profile": "styles/illustration-character.md"
+    },
+    {
+      "id": "chrome-anime",
+      "name": "Chrome Anime",
+      "category": "illustration-character",
+      "aliases": ["Liquid Metal Anime", "Metallic Anime"],
+      "summary": "Anime figures rendered as polished chrome: hard specular highlights, star glints, mirror reflections, and cold blue light against near-black.",
+      "mood": ["menacing", "sleek", "futuristic", "dramatic"],
+      "typography_tags": ["condensed", "variable-experimental", "monospace"],
+      "layout_tags": ["single-focus", "full-bleed", "diagonal"],
+      "medium": ["social", "motion", "brand", "3d", "print"],
+      "use_cases": ["album or single cover", "game key art", "streetwear graphic", "event poster", "character reveal"],
+      "motion_type": ["reveal", "camera"],
+      "compatible_palettes": ["chrome-noir", "dark-technical", "mono-graphite", "cobalt-ice"],
+      "related_styles": ["product-render", "foil-stamping", "pop-graphic"],
+      "reference_images": [{ "path": "references/chrome-anime/example-01.webp", "source": "Original illustration made for this library, 2026-10-12. Drawn from the style profile; the user-supplied reference images that informed it are not stored", "license": "Same terms as this repository", "kind": "generated" }],
+      "reference_sources": [],
+      "preview": { "renderer": "chrome", "display": "condensed", "text": "mono", "palette": "chrome-noir" },
+      "profile": "styles/illustration-character.md"
     }
   ]
 }
