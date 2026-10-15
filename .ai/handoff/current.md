@@ -1,103 +1,111 @@
 # Handoff: ai-product-workflow-skills
 
-Updated: 2026-10-14 (second session of the day). Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. Single self-contained file (user asked for one file). Earlier history: `sessions/2026-10-11.md`; previous versions of this file in git (`8cbe20b`, `1ac7392`, `f9cca0a`).
+Updated: 2026-10-15. Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. Single self-contained file (user asked for one file). Earlier history: `sessions/2026-10-11.md`; previous versions of this file in git (`c95ea66`, `8cbe20b`, `1ac7392`, `f9cca0a`).
 
 ## 1. Goal and Success Criteria
 
-- Goal: maintain `ai-product-workflow-skills` (24 skills for Claude Code and Codex) and make presentations with `/create-presentation`.
-- Done this session: class deck "How to Motivate Employees" from the user's Word outline, added to the gallery, published as its own artifact for sharing.
-- Next milestone: none requested. Open repo follow-ups from PR #8 still wait on the user (section 9).
+- Goal: maintain `ai-product-workflow-skills` (24 skills) and the private Visual Style Library gallery artifact; make presentations with `/create-presentation`.
+- This session: `/research` on visual styles (luxury, minimal, and beyond), grid, motion, fonts, design systems. Delivered as data files, then merged into the gallery artifact. Fixed a scroll jump in the gallery's color picker.
+- User said the research is for reference data only ("ไม่ได้จะสร้างโปรดัก"), not a product build. Do not push it into the `/grill-with-docs` workflow unless asked.
+- Next milestone: none requested.
 
 ## 2. Current Status
 
-- CONFIRMED: branch = `main` (`a3f3f40`) + `8cbe20b` (previous handoff commit), in sync with origin. No repo files changed this session except this file (not committed).
-- CONFIRMED: `library.mjs check` 55 styles, 27 palettes, 6 presets, 0 errors; `list-skills.sh` 24.
-- CONFIRMED: Gallery artifact https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT at version 11, 27 files, Works tab has 4 works (new one first).
-- CONFIRMED: standalone deck artifact https://claude.ai/artifact/NFagUhWkbnoefD4trdcpCc (version 1, private). User must set Share > "Anyone with the link" to send it.
-- REPORTED by user: Works "Open" and "‹ Gallery" links work in the Claude app.
+- CONFIRMED: branch in sync with origin at `c95ea66`. No repo files changed this session except this file (uncommitted).
+- CONFIRMED: Gallery artifact https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT at version 13, 29 files: 77 styles, 30 palettes, 9 presets, new Guide tab, Works tab still 4 works.
+- CONFIRMED: the repo library (`skills/productivity/visual-style/library/`) is unchanged: 55 styles, 27 palettes, 6 presets. The 22 new styles, 3 palettes, 3 presets exist ONLY in the gallery artifact, so `/create-presentation` does not know them.
+- REPORTED by user (from a phone screen recording): Pick a color jumped up on every tap. Fix published in v13; not yet confirmed by the user on a real phone.
 
 ## 3. Completed
 
-Deck "How to Motivate Employees" (Thai, 13 slides, route B):
-- Source: user's Word outline (class talk, about 10 minutes). No facts added beyond it.
-- Style `luxury-editorial`, palette `primary-bold` (user's choice from the gallery handoff; outside the style's compatible palettes, kept as chosen). Color roles: Off White about 80 percent, Red only on numerals, rules and large type, Blue for labels and diagrams, Yellow only as a ground for Black text.
-- Step animations explaining each idea: engaged vs burnout bars (2), SMART letters and arrow to target (4), recognition loop with travelling dot and rewards (5), uniform tiles turning varied (6), one-way commands turning two-way with a Trust ground (7), tilted scale balancing then a learning staircase (8), coin shrinking and three pillars holding "meaningful work" (10), Valued + Trust + Autonomy (11), cage opening into an environment, Win-Win (12).
-- Controls: arrows, space, click, swipe; N speaker notes (script from the outline); F fullscreen; hash deep links; reduced motion; print CSS.
-- Single offline HTML with embedded fonts (Playfair Display, Noto Serif Thai, Noto Sans Thai, Inter), PDF 13 pages, cover.jpg. HTML and PDF sent to the user.
-- Gallery: `works/motivate-employees/index.html`, `cover.jpg`, `works.json` entry added; gallery `index.html` republished byte-identical (sha256 `a1c6d882...`).
+Research (no repo change):
+- Notes in chat: luxury/minimal palettes from the library, 8pt grid, 12/8/4 columns, productive vs expressive motion (Carbon), M3 easing curves, DTCG 2025.10 tokens, Latin and Thai font pairs.
+- Files sent to the user (scratchpad, expect gone): `style-research.html` (visual, swatches) and `style-reference.md` (data file the user preferred). The user re-uploaded `style-reference.md`; it has 55 library styles with Thai one-liners, 22 outside styles, 27 palettes, foundations, job table, sources.
 
-Answered, no action: Supabase cannot serve HTML pages (Storage returns HTML as plain text); free plan allows 2 active projects (user has 1: `jd-work-handoff`). User then dropped the website idea.
+Gallery v12 (merged the research):
+- `summary_th` (Thai summary) on all 55 existing styles; cards show Thai, dialog shows both; Thai text indexed in search.
+- 2 new categories with profile files: `design-movements` (art-deco, art-nouveau, mid-century-modern, memphis, maximalism, retro-70s, y2k, vaporwave, cyberpunk, retro-futurism, scandinavian) and `digital-ui` (glassmorphism, neumorphism, claymorphism, neo-brutalism, bento-grid, flat-material, skeuomorphism, aurora-gradient, dark-tech-saas, flat-illustration-people, dopamine-design). 22 new SVG preview renderers in `index.html` (`R` object).
+- New field `research: "verified" | "unverified"`; 8 unverified styles show a dashed "ยังไม่ตรวจแหล่ง" tag and a notice in the dialog: retro-futurism, scandinavian, neumorphism, claymorphism, skeuomorphism, aurora-gradient, flat-illustration-people, dopamine-design. (The user was told 9 in chat; the data has 8.)
+- New medium `app` (label "app UI") in vocabulary.
+- 3 palettes: `mid-century` (warm), `neon-noir` (experimental), `aurora` (pastel). Text pairs checked by script (body >= 4.5:1, large >= 3:1); shares sum to 100.
+- 3 presets: `saas-product-site`, `youth-event-pop`, `app-interface-glass`.
+- Guide tab (คู่มือ, Thai): pick by job (12 jobs, chips open styles/palettes), spacing scale and column demo, easing demo (play 600/1200 ms, respects reduced motion), 11 Latin + Thai font pairs (Google Fonts loaded lazily on first open), color rules, DTCG token example, unverified list, 21 sources.
+- More Thai search words (เรโทร, กระจก, นีออน, ไล่สี, แอป, แดชบอร์ด, วัยรุ่น, เกม, ...). Help dialog mentions the Guide.
+
+Gallery v13: Pick a color no longer scrolls when tapping a color while already in Pick mode (keeps `scrollY`, shows a toast "<name> <hex> picked. Results updated"). Taps from dialogs or other tabs still navigate and scroll to the result.
 
 ## 4. Issues and Fixes
 
 | Issue | Status | Cause | Resolution | Evidence |
 |---|---|---|---|---|
-| Thai headlines broke badly (orphan "และ", "คือ") | FIXED | `nowrap` spans grouped the wrong words | Group connective words with the following phrase | Playwright renders 1440x900 |
-| "ชีวิต" label overlapped the grown circle (slide 8) | FIXED | label too low for scale | Label y 174, scale 1.6 | render |
-| Diagram labels small on phone (about 11px) | OPEN, accepted | SVG scales down at 390px | Deck is meant for projection | 390x844 renders |
-| `desert-stone` palette note wrong (Rust on Basalt 2.28:1) | OPEN | from before | PR #8 follow-up, not fixed | `library.mjs contrast "#A0462A" "#2E2B28"` |
+| Pick a color jumps up on every color tap (phone) | FIXED, not confirmed by user | Click handler for `data-sw` always ran `#picked-anchor.scrollIntoView` | When already on Colors > Pick and not in a dialog, restore `scrollY` and toast instead | Playwright 390x844 touch: scrollY before = after on 3 taps, no page errors |
+| Thai text in style data | FIXED | Library summaries English only | `summary_th` field | v12 render |
+| `desert-stone` note wrong (Rust on Basalt 2.28:1) | OPEN | from before | PR #8 follow-up, not fixed; listed in Guide | `library.mjs contrast "#A0462A" "#2E2B28"` |
+| Diagram labels small on phone in Motivate deck | OPEN, accepted | SVG scales down | deck is for projection | earlier renders |
 
 ## 5. Attempts That Failed or Were Rejected
 
-- `rm -f shots/*` after `cd` was blocked by the safety check; use a fresh output folder per run instead.
-- Rejected by the user: hosting the gallery as a website with Supabase (asked, then said not needed).
-- Rejected earlier: auto-calling `/visual-production` or `/visual-style` from `/create-presentation`; brand photos or logos in decks; moving rules into shared references.
+- Rejected by user: a product-style workflow for the research (wanted data only).
+- First file format (HTML page) was not what the user wanted; they asked for a plain data file, then for it to go into the gallery.
+- `pkill -f "http.server 8765"` returns exit code 144 in this sandbox but still stops the server; harmless.
+- Earlier sessions: `rm -f shots/*` after `cd` blocked by safety check (use a fresh folder); Supabase hosting rejected; auto-calling user-invoked skills rejected.
 
 ## 6. Decisions and Constraints
 
 User decisions:
-- Decks stay out of the repo; they live only in artifacts.
-- `/create-presentation` adds finished decks to the gallery (only after the user has seen them).
-- No auto-calling of user-invoked skills.
-- Chrome Anime user image only in the private gallery.
+- Research goes into the gallery: add what is missing, skip what exists, extra improvements allowed.
+- Decks stay out of the repo; artifacts only. `/create-presentation` adds finished decks to the gallery after the user has seen them.
+- No auto-calling of user-invoked skills. Chrome Anime user image only in the private gallery.
 
 Agent decisions (user may reject):
-- Shareable link is a separate artifact holding only the deck, so the gallery (third-party image, other works) is not exposed.
-- Title tag of the deck is Thai ("สร้างแรงจูงใจพนักงาน"), so the artifact shows that name.
+- New styles kept in the gallery only (not the repo library), because the repo needs validation and the user did not ask for repo changes.
+- New profiles written in English to match existing profile files; Thai in `summary_th` and the Guide.
+- Unverified styles are labelled instead of omitted.
 
 Gallery artifact differs from the repo (IMPORTANT):
-- `styles.json` `chrome-anime` uses `references/chrome-anime/user-01.webp` (user-supplied). Repo uses `example-01.webp`.
-- `works.json` and `works/` (4 decks) exist only in the artifact. Never overwrite from the repo.
-- To add files: read the artifact without `path` and Read every line of the saved HTML (counts as viewed), read `works.json`, keep all entries, publish `index.html` unchanged plus only new or changed files.
+- Gallery has: user Chrome Anime image (`references/chrome-anime/user-01.webp`), `works.json` + `works/` (4 decks), 22 extra styles, 3 palettes, 3 presets, 2 extra profile md files, `summary_th`, Guide tab, `research` field, `app` medium, and the scroll fix. Never republish the gallery from repo files.
+- To change the gallery: `Artifact read` the URL (no path), Read every line of the saved HTML, read changed data files by `path`, edit, publish `index.html` plus only new or changed files (other files are kept).
+- Build sources from this session were in scratchpad `gal/` (`new-data.mjs`, `gen.mjs`, `contrast.mjs`, `out/`). Expect them gone; read the live files from the artifact instead.
 
 Repo rules (`.claude/CLAUDE.md`): no em-dashes; Promotion Contract; user-invoked skills need `disable-model-invocation: true`, `openai.yaml`, a `workflow-router` row, and never call each other.
 
 ## 7. Files Changed
 
 - Repo: `.ai/handoff/current.md` only (uncommitted).
-- Gallery artifact v11: added `works/motivate-employees/index.html`, `cover.jpg`; updated `works.json`.
-- New artifact NFagUhWkbnoefD4trdcpCc (the deck).
-- Deck source and build scripts were in the old session scratchpad (`.../00d8425a-.../scratchpad/build/`: `src.html`, `build.mjs`, `shoot.mjs`, `pdf.mjs`, `out/presentation-brief.md`). Expect them gone; read the deck back from either artifact (`works/motivate-employees/index.html`). Fonts are base64-embedded in that file.
+- Gallery v12: `index.html`, `styles.json`, `palettes.json`, `presets.json` changed; `styles/design-movements.md`, `styles/digital-ui.md` added. v13: `index.html` only.
 
 ## 8. Validation and Evidence
 
-- Playwright 1.56.1 (`/opt/pw-browsers/chromium-1194/chrome-linux/chrome`): every step of every slide at 1440x900 and 390x844, no page errors, all six font faces loaded.
-- PDF: `pdfinfo` 13 pages, final states inspected.
-- Gallery file list after publish: 27 files, all previous ones present.
-- NOT verified: projector; real phone; standalone artifact with public sharing on (user has not switched it yet).
+- Data generator checks: every style tag in vocabulary, every palette/related style/preset reference exists, text-pair contrast thresholds, shares = 100, no em-dash in new data files.
+- Playwright (local server) 1440x900 and 390x844: no page errors, no horizontal overflow, new category grids, glass dialog, Guide tab rendered. 404s only for gallery files not copied locally (other profiles, images).
+- Published file list after v12: 29 files, all 27 previous files present.
+- NOT verified: the gallery inside the Claude phone app after v12/v13; Thai rendering of fonts other than Playfair, Inter, Noto Serif Thai, Noto Sans Thai in real work; M3 and Carbon duration numbers (secondary sources).
 
 ## 9. Open Questions and Risks
 
+- Ask the user: add the 22 styles, 3 palettes, 3 presets to the repo library so `/create-presentation` can use them? Needs `library.mjs check`, gallery.html parity, docs if any, and a PR only if asked.
 - OPEN (PR #8 follow-up): fix `desert-stone` note in `skills/productivity/visual-style/library/palettes.json`; keep or drop Bauhaus and Brutalism aliases (agent recommends keep).
 - RISK: Chrome Anime user image is third-party art; credit or remove before sharing the gallery link.
-- RISK: republishing the gallery from repo files would drop the user image and all Works.
-- RISK (older): free-text `--mood`/`--use`; `npx skills add` may not keep sibling folders.
+- RISK: republishing the gallery from repo files would drop all gallery-only content above.
+- Shareable deck link https://claude.ai/artifact/NFagUhWkbnoefD4trdcpCc (Motivate Employees) is still private until the user changes Share.
 
 ## 10. Next Actions, in priority order
 
-1. Only if asked: edit the deck (rename title, change slides) by reading it from the artifact, editing, re-rendering with Playwright, and republishing both the standalone artifact (NFagUhWkbnoefD4trdcpCc) and the gallery work.
-2. Ask the user: fix the `desert-stone` note? keep the aliases? If yes, edit, run `library.mjs check`, commit, push, new PR only if asked.
+1. If the user reports the color picker still jumps: get a new recording, extract frames with `ffmpeg -vf "fps=1,scale=360:-1,tile=6x2"`, and check the `ds.sw` branch of the document click handler in the gallery `index.html`.
+2. Only if asked: port the new styles/palettes/presets into the repo library (read gallery `styles.json`, `palettes.json`, `presets.json`, both new md files by `path`; keep repo-only differences such as `example-01.webp`), run `library.mjs check` and `scripts/list-skills.sh`.
+3. Ask the user about the `desert-stone` note and the aliases.
 
 ## 11. Exact First Step for the Next Session
 
-Run `git fetch origin main claude/setup-workflow-xd5lho && git checkout claude/setup-workflow-xd5lho && git status -sb && git log -3 --oneline`. Success check: `8cbe20b` on top of `a3f3f40` (or this handoff committed after it). If PR work starts and `main` moved, restart the branch from `origin/main`. Then wait for the user's request.
+Run `git fetch origin main claude/setup-workflow-xd5lho && git checkout claude/setup-workflow-xd5lho && git status -sb && git log -3 --oneline`. Success check: `c95ea66` on top (or this handoff committed after it). Then wait for the user's request; for any gallery work, start with `Artifact read` of TEgWtaAsxAdNuhwVjhX1QT.
 
 ## 12. Ready-to-paste Continuation Prompt
 
 ```
 อ่าน .ai/handoff/current.md ก่อน แล้วทำต่อ
-เด็ค "How to Motivate Employees" อยู่ใน gallery artifact TEgWtaAsxAdNuhwVjhX1QT (v11, works/motivate-employees/) และลิงก์แยก NFagUhWkbnoefD4trdcpCc
-ห้ามเขียนทับ gallery จาก repo (มี works 4 งานและรูป Chrome Anime ของฉัน)
-งานค้าง: ถามฉันเรื่องแก้ note palette desert-stone และ aliases Bauhaus/Brutalism
+gallery artifact TEgWtaAsxAdNuhwVjhX1QT อยู่ที่ v13: 77 สไตล์ 30 พาเลตต์ 9 presets มีแท็บ Guide และแก้ Pick a color ไม่ให้เด้งแล้ว
+สไตล์ใหม่ 22 ตัวอยู่ใน gallery เท่านั้น ยังไม่อยู่ใน repo
+ห้ามเขียนทับ gallery จาก repo (มี works 4 งาน รูป Chrome Anime ของฉัน และข้อมูลใหม่)
+งานค้าง: ถามฉันเรื่องย้ายสไตล์ใหม่เข้า repo, note palette desert-stone และ aliases Bauhaus/Brutalism
 ทำตาม .claude/CLAUDE.md (ไม่มี em-dash)
 ```
