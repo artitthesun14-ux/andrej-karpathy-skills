@@ -403,12 +403,13 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     <p class="tab-note">Styles are the look and the rules: type, layout, composition, image, motion. Any palette can go on any style. Choose a style and colors in any order; one of the two is enough to apply.</p>
     <div class="toolbar">
       <span class="pill-select"><select id="f-mood" aria-label="Mood"></select></span>
-      <span class="pill-select"><select id="f-color" aria-label="Color"></select></span>
+      <span class="pill-select"><select id="f-color" aria-label="Styles that work with these colors"></select></span>
       <span class="pill-select"><select id="f-medium" aria-label="Use for"></select></span>
       <button class="btn" type="button" id="all-filters">All filters <span class="badge-n" id="adv-n" hidden></span></button>
       <label class="switch" id="mycolors-wrap" style="margin-left:auto"><input type="checkbox" id="mycolors"> Show in my colors</label>
     </div>
     <div class="active-chips" id="active-chips" hidden></div>
+    <p class="notice" id="color-note" style="font-size:13px;margin:0 0 12px;padding:10px 14px" hidden></p>
     <p class="count" id="style-count" aria-live="polite"></p>
     <div class="grid" id="style-grid"></div>
   </section>
@@ -926,7 +927,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
   function filterDefs() {
     FDEF = [
       { k: "mood", label: "Mood", any: "Any mood", quick: true, opts: uniq("mood").map((v) => [v, v]), test: (s, v) => s.mood.includes(v) },
-      { k: "color", label: "Color", any: "Any color", quick: true, opts: [...DB.pcats.map((c) => ["cat:" + c.id, c.name + " colors"]), ...DB.palettes.map((p) => ["pal:" + p.id, "Palette: " + p.name])],
+      { k: "color", label: "Colors", any: "Works with any colors", quick: true, opts: [...DB.pcats.map((c) => ["cat:" + c.id, "Works with " + c.name.toLowerCase() + " palettes"]), ...DB.palettes.map((p) => ["pal:" + p.id, "Works with " + p.name])],
         test: (s, v) => v.startsWith("pal:") ? s.compatible_palettes.includes(v.slice(4)) : s.compatible_palettes.some((p) => DB.pal[p].category === v.slice(4)) },
       { k: "medium", label: "Use for", any: "Use for: anything", quick: true, opts: DB.vocabulary.medium.map((v) => [v, MEDIUM_LABEL[v] || v]), test: (s, v) => s.medium.includes(v) },
       { k: "category", label: "Category", any: "All categories", opts: DB.categories.map((c) => [c.id, c.name]), test: (s, v) => s.category === v },
@@ -973,13 +974,17 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
   function cardThumb(s, p) {
     const ex = exampleOf(s), recolored = (state.myColors && selPalObj()) || state.filters.color;
     if (ex && !recolored) return `<img class="work-cover" src="${esc(ex.path)}" alt="${esc(s.name)} example" loading="lazy"><span class="tag-synth">${KIND_LABEL[ex.kind] || "reference"}</span>`;
-    return `${preview(s, p)}<span class="tag-synth">sketch</span>`;
+    return `${preview(s, p)}<span class="tag-synth">sketch · ${esc(p.name)}</span>`;
   }
   function renderStyles() {
     const base = DB.styles.filter((s) => passFilters(s));
     const { list, all, best } = rank(base, (s) => IDX.s[s.id]);
     $("#n-styles").textContent = state.q ? list.length : "";
     const parts = state.groups.length;
+    // The color filter narrows the list; say so, since it also recolors the cards and can look like a selection.
+    const fc = state.filters.color || "", fp = fc.startsWith("pal:") ? DB.pal[fc.slice(4)] : null, recolor = fc && !(state.myColors && selPalObj());
+    $("#color-note").hidden = !fc;
+    $("#color-note").innerHTML = fc ? `This filter only narrows the list${recolor ? " and previews the cards in these colors" : ""}. It does not choose your colors.${fp ? (state.sel.palette === fp.id ? ` ${esc(fp.name)} is already your palette.` : ` <button class="btn small primary" type="button" data-pick-pal="${fp.id}">Select ${esc(fp.name)}</button>`) : ` To choose colors, open <button class="linkbtn" type="button" data-goto="colors">Colors</button>.`}` : "";
     $("#style-count").textContent = `${list.length} of ${DB.styles.length} styles` + (parts > 1 && list.length ? (all ? `, matching every part of your search` : `, closest matches (${best} of ${parts} parts)`) : "");
     const has = !!selPalObj();
     $("#mycolors").checked = state.myColors && has; $("#mycolors").disabled = !has;
