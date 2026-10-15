@@ -90,7 +90,8 @@ What it offers:
 - Search over all fields (keyword matching with a small Thai/English map, not AI), quick filters (mood, color, use) and an all-filters drawer.
 - Tabs for styles, colors, presets, and a Thai guide (pick by job, spacing and columns, easing, font pairs, color rules, tokens, sources). Colors: a swatch wall of every library color (tap to see palettes that use it), palette browsing, and a 6-role palette builder with live WCAG checks. Generated palettes are labelled and contrast-fixed.
 - Compare grids: one style across its palettes or all palettes, one palette across its styles.
-- A selection tray and a Review & apply dialog that copies a handoff (prompt or JSON) for `/create-presentation` when the use is a presentation, otherwise `/visual-style`. A palette with no surface role uses its background as the surface.
+- A selection tray and a Review & apply dialog that copies a one-line command (see `style-direction.md` > Gallery command), or a full handoff (prompt or JSON) for other tools, for `/create-presentation` when the use is a presentation, otherwise `/visual-style`. A palette with no surface role uses its background as the surface.
+- A language button (ไทย / EN) that switches the interface to Thai. Library data (names, profiles) stays as written.
 - A Works tab, shown only when a `works.json` sits next to the page and lists at least one work.
 
 ### works.json

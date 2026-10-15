@@ -20,6 +20,27 @@ Without Node, `grep` the JSON files and read only the matching `## <id>` section
 
 Run `find` with two or three filters taken from the task (work type, audience, medium, constraints), and `palettes` for the candidates. Read full profiles only for the styles you will propose. Never load all profile files.
 
+## Gallery command
+
+The gallery's Apply dialog copies one line, for example:
+
+```
+/create-presentation style=art-deco palette=noir-gold
+Brand font is Sarabun
+```
+
+Read it as follows. Lines after the first are the person's constraints.
+
+| Key | Meaning | Load |
+|---|---|---|
+| `preset=<id>` | Style, palette, and direction from the preset | `preset <id>` |
+| `style=<id>` | Chosen style | `style <id>` |
+| `palette=<id>` | Chosen library palette | `palette <id>` |
+| `colors=<6 HEX>` | Custom colors without `#`, in role order primary, secondary, accent, background, surface, text | Run `contrast` for text on background, text on surface, and accent on background |
+| `use=<medium>` | Intended medium (`/visual-style` only) | |
+
+Always load every id before working; never act on the id alone. The loaded data replaces the long handoff: write the design direction from it. If only a style or only colors are given, complete the missing half with the shortlist below (palettes from the style's `compatible_palettes`, or 3 styles whose palettes fit the colors). If an id is not found, say so and offer the closest match from `find --text`. If the style has `research: unverified`, tell the person once that its profile has no checked source.
+
 ## Present a shortlist
 
 If the person has not chosen a style, offer 3 options that differ in Visual DNA, not only in color. For each, in a few lines:

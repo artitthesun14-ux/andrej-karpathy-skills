@@ -278,6 +278,7 @@ details.more .facts { margin-top: 12px; }
 .cmp .flag { position: absolute; left: 6px; top: 6px; background: var(--accent); color: var(--on-accent); font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 999px; }
 .cmp .viewing { position: absolute; right: 6px; top: 6px; background: rgba(0,0,0,.55); color: #fff; font-size: 11px; padding: 1px 7px; border-radius: 999px; }
 pre.snippet { font: 400 12.5px/1.55 var(--f-mono); background: var(--bg); border-radius: 10px; padding: 14px; overflow: auto; max-height: 340px; margin: 0; white-space: pre; }
+pre.snippet.cmd { font-size: 15px; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink); border: 1px solid var(--accent); }
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 14px; }
 textarea.text-in { min-height: 72px; resize: vertical; }
 .status-msg { font-size: 13px; color: var(--ok); }
@@ -372,6 +373,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
 .g-src { font-size: 13px; color: var(--muted); columns: 2 320px; column-gap: 28px; padding-left: 18px; }
 .g-src li { break-inside: avoid; margin-bottom: 6px; }
 .g-src a { color: var(--accent); }
+html[lang="th"] #tab-guide .n { display: none; }
 </head>
 <body>
 </style>
@@ -381,6 +383,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
       <h1>Visual Style Library</h1>
       <p class="lede">Find a visual style, choose your colors, and apply them to your next project.</p>
       <span class="counts" id="counts"></span>
+      <button class="btn small" id="lang-btn" type="button" data-no-tr>ไทย</button>
       <button class="icon-btn" id="help-btn" type="button" aria-label="How this library works">i</button>
     </div>
     <div class="search" role="search">
@@ -545,6 +548,152 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     sel: Object.assign({ style: null, palette: null, custom: null, base: null, preset: null, use: "", constraints: "" }, store.get("vsl2-sel", {})),
   };
   const saveSel = () => store.set("vsl2-sel", state.sel);
+
+  // ---------- language: interface text in English or Thai; library data (names, profiles) stays as written ----------
+  let LANG = store.get("vsl2-lang", /^th/i.test(navigator.language || "") ? "th" : "en");
+  const TH = {
+    "Find a visual style, choose your colors, and apply them to your next project.": "ค้นหาสไตล์ภาพ เลือกสี แล้วนำไปใช้กับงานถัดไป",
+    "Search styles, colors, and presets": "ค้นหาสไตล์ สี และพรีเซ็ต", "Search by style, mood, color, or job": "ค้นด้วยสไตล์ อารมณ์ สี หรืองาน",
+    "How this library works": "วิธีใช้คลังนี้", "Library sections": "ส่วนของคลัง", "Try": "ลอง",
+    "Styles": "สไตล์", "Colors": "สี", "Presets": "พรีเซ็ต", "Guide": "คู่มือ", "Works": "ผลงาน",
+    "Styles are the look and the rules: type, layout, composition, image, motion. Any palette can go on any style. Choose a style and colors in any order; one of the two is enough to apply.": "สไตล์คือหน้าตาและกฎของงาน: ตัวอักษร เลย์เอาต์ การจัดวาง ภาพ และการเคลื่อนไหว ใช้พาเลตต์ไหนกับสไตล์ไหนก็ได้ เลือกสไตล์กับสีลำดับไหนก็ได้ และเลือกอย่างเดียวก็กดใช้ได้",
+    "Colors are palettes with roles and checked contrast. They are separate from styles, so pick them in any order.": "สีคือพาเลตต์ที่กำหนดบทบาทและตรวจคอนทราสต์แล้ว แยกจากสไตล์ จึงเลือกก่อนหรือหลังก็ได้",
+    "Presets pair a style, a palette, and a few rules for a common job. Using one fills your selection; you can still change the colors.": "พรีเซ็ตคือชุดสไตล์ พาเลตต์ และกฎสำหรับงานที่พบบ่อย กดใช้แล้วจะเติมการเลือกให้ ยังเปลี่ยนสีภายหลังได้",
+    "Work already made with this library, newest first. Open one to view it, or reuse its style and colors for the next job.": "ผลงานที่ทำจากคลังนี้ ใหม่สุดก่อน เปิดดูได้ หรือนำสไตล์และสีไปใช้กับงานถัดไป",
+    "Mood": "อารมณ์", "Styles that work with these colors": "สไตล์ที่เข้ากับสีเหล่านี้", "Use for": "ใช้กับ", "All filters": "ตัวกรองทั้งหมด", "Show in my colors": "แสดงด้วยสีของฉัน", "Select a palette first": "เลือกพาเลตต์ก่อน",
+    "Any mood": "ทุกอารมณ์", "Works with any colors": "เข้ากับทุกสี", "Use for: anything": "ใช้กับ: ทุกงาน", "All categories": "ทุกหมวด", "Any use case": "ทุกประเภทงาน", "Any typography": "ตัวอักษรแบบใดก็ได้", "Any layout": "เลย์เอาต์แบบใดก็ได้", "Any motion": "การเคลื่อนไหวแบบใดก็ได้",
+    "Category": "หมวด", "Use case": "ประเภทงาน", "Typography": "ตัวอักษร", "Layout": "เลย์เอาต์", "Motion": "การเคลื่อนไหว", "Close": "ปิด", "Reset": "รีเซ็ต", "Show results": "แสดงผล", "Clear all": "ล้างทั้งหมด",
+    "animation (motion)": "แอนิเมชัน", "app UI": "หน้าจอแอป",
+    "Details": "รายละเอียด", "Select style": "เลือกสไตล์", "Selected": "เลือกแล้ว", "sketch": "ภาพร่าง", "illustration": "ภาพประกอบ", "reference": "ภาพอ้างอิง", "In use": "กำลังใช้", "Use preset": "ใช้พรีเซ็ต", "Preset": "พรีเซ็ต",
+    "No source was found for this style in the research round; the description is general knowledge.": "รอบค้นคว้าไม่พบแหล่งอ้างอิงของสไตล์นี้ คำอธิบายมาจากความรู้ทั่วไป",
+    "Ways to choose colors": "วิธีเลือกสี", "Pick a color": "เลือกจากสี", "Browse palettes": "ดูพาเลตต์", "Build my palette": "สร้างพาเลตต์เอง",
+    "Ready-made palettes from the library. Every HEX value, name, and role below comes from the library data.": "พาเลตต์สำเร็จรูปจากคลัง ค่า HEX ชื่อ และบทบาททุกสีมาจากข้อมูลในคลัง",
+    "Color family": "กลุ่มสี", "All": "ทั้งหมด", "Compare on styles": "เทียบบนสไตล์", "Select palette": "เลือกพาเลตต์",
+    "Tap a color to search with it. Library palettes that use it, or a close color, appear below, then palettes generated from it. Tapping only searches: your selected colors change when you press": "แตะสีเพื่อค้นหา พาเลตต์ในคลังที่มีสีนี้หรือสีใกล้เคียงจะขึ้นด้านล่าง ตามด้วยพาเลตต์ที่สร้างจากสีนี้ การแตะเป็นแค่การค้นหา สีที่คุณเลือกไว้จะเปลี่ยนเมื่อกด",
+    "or": "หรือ", "Use these colors": "ใช้สีชุดนี้", "Colors from the library": "สีจากคลัง", "Search with your colors": "ค้นด้วยสีของฉัน",
+    "Reds and pinks": "แดงและชมพู", "Oranges and browns": "ส้มและน้ำตาล", "Yellows and golds": "เหลืองและทอง", "Greens": "เขียว", "Blues and teals": "น้ำเงินและเขียวอมฟ้า", "Purples": "ม่วง", "Neutrals": "สีกลาง",
+    "Enter your own color": "ใส่สีเอง", "Color picker": "ตัวเลือกสี", "Find by color name": "ค้นจากชื่อสี", "Your color": "สีของคุณ",
+    "Library": "คลัง", "Palettes that go with it": "พาเลตต์ที่เข้ากัน", "Nearest library palettes": "พาเลตต์ในคลังที่ใกล้ที่สุด", "Outlined column is the matching color.": "คอลัมน์ที่มีกรอบคือสีที่ตรงกัน", "None close, showing the nearest.": "ไม่มีที่ใกล้ แสดงที่ใกล้ที่สุดแทน",
+    "Generated": "สร้างให้", "Built from": "สร้างจาก", "Not in the library. Text is set to at least 7:1 on the background.": "ไม่อยู่ในคลัง ตัวอักษรตั้งให้ได้อย่างน้อย 7:1 บนพื้นหลัง",
+    "Light ground": "พื้นสว่าง", "Dark ground": "พื้นมืด", "Tonal": "โทนเดียว",
+    "Pale tinted background, your color as primary, a complementary accent.": "พื้นหลังอ่อนอมสี ใช้สีของคุณเป็นสีหลัก และสีเน้นแบบตรงข้าม",
+    "Deep tinted background for screens and stages, a split-complement accent.": "พื้นหลังเข้มสำหรับจอและเวที สีเน้นแบบตรงข้ามแยก",
+    "One hue in many values, with a neighbouring hue for the accent.": "สีเดียวหลายระดับ สีเน้นใช้สีข้างเคียง",
+    "Text on background": "ตัวอักษรบนพื้นหลัง", "Text on surface": "ตัวอักษรบนพื้นผิว", "Accent on background": "สีเน้นบนพื้นหลัง", "Edit": "แก้", "Edit colors": "แก้สี",
+    "No library color with that name. Try a basic word: red, green, blue, cream, gold, grey, or the Thai name.": "ไม่มีสีในคลังชื่อนี้ ลองคำง่ายๆ เช่น แดง เขียว ฟ้า ครีม ทอง เทา",
+    "Set each color role. Swatch, picker, and HEX share one value, and the preview updates as you type. Your edits become the selected palette.": "กำหนดสีทีละบทบาท ช่องสี ตัวเลือกสี และ HEX ใช้ค่าเดียวกัน ตัวอย่างเปลี่ยนตามทันที สีที่แก้จะกลายเป็นพาเลตต์ที่เลือก",
+    "Start from": "เริ่มจาก", "Choose a library palette": "เลือกพาเลตต์จากคลัง", "Generated colors (current)": "สีที่สร้างให้ (ปัจจุบัน)", "Reset all": "รีเซ็ตทั้งหมด", "Readability": "การอ่าน",
+    "Primary": "สีหลัก", "Secondary": "สีรอง", "Accent": "สีเน้น", "Background": "พื้นหลัง", "Surface": "พื้นผิว", "Text": "ตัวอักษร",
+    "Buttons, key shapes, main brand color": "ปุ่ม รูปทรงหลัก สีหลักของแบรนด์", "Supporting shapes, outlines, second series": "รูปทรงรอง เส้นขอบ ชุดข้อมูลที่สอง", "Links, highlights, one word or number": "ลิงก์ จุดเด่น คำหรือตัวเลขเดียว",
+    "The page or slide ground": "พื้นของหน้าหรือสไลด์", "Cards, panels, table rows": "การ์ด แผง แถวตาราง", "Headings and body copy": "หัวข้อและเนื้อหา",
+    "Ratios use the WCAG 2.2 formula. Body text needs 4.5:1, large text and UI parts need 3:1. Low contrast can be a deliberate choice for decoration; keep it off text people must read.": "อัตราส่วนคำนวณตาม WCAG 2.2 เนื้อหาต้องได้ 4.5:1 ตัวอักษรใหญ่และชิ้นส่วน UI ต้องได้ 3:1 คอนทราสต์ต่ำใช้ตกแต่งได้ แต่อย่าใช้กับข้อความที่ต้องอ่าน",
+    "Preview mode": "โหมดตัวอย่าง", "Style only": "สไตล์อย่างเดียว", "Colors only": "สีอย่างเดียว", "Combined": "รวมกัน",
+    "Section 02": "ส่วนที่ 02", "Your palette, in use": "พาเลตต์ของคุณในงานจริง", "Card or panel": "การ์ดหรือแผง", "Surface color with text on top.": "สีพื้นผิวกับตัวอักษรด้านบน", "Accent link": "ลิงก์สีเน้น", "Primary action": "ปุ่มหลัก",
+    "Body text on the background. Headings, cards, links, and buttons below all take their color from the roles you set.": "เนื้อหาบนพื้นหลัง หัวข้อ การ์ด ลิงก์ และปุ่มด้านล่างใช้สีจากบทบาทที่คุณตั้ง",
+    "Easy to read": "อ่านง่าย", "Use with care": "ใช้อย่างระวัง", "Low contrast": "คอนทราสต์ต่ำ", "Clear": "ชัด",
+    "Your selection": "สิ่งที่เลือก", "Change style": "เปลี่ยนสไตล์", "Change colors": "เปลี่ยนสี", "Review & apply": "ตรวจและใช้", "Apply": "ใช้",
+    "Style": "สไตล์", "Palette": "พาเลตต์", "Not chosen": "ยังไม่เลือก", "not chosen": "ยังไม่เลือก", "Optional": "ไม่บังคับ", "Select a style or a palette first": "เลือกสไตล์หรือพาเลตต์ก่อน",
+"Also called": "ชื่ออื่น", "Show best fits only": "แสดงเฉพาะที่เข้ากันที่สุด", "Compare in its best palettes": "เทียบในพาเลตต์ที่เข้ากันที่สุด", "Compare in every palette": "เทียบในทุกพาเลตต์",
+    "Tap one to view it large above, then select the pair below.": "แตะเพื่อดูภาพใหญ่ด้านบน แล้วเลือกคู่นี้ด้านล่าง", "Your pick": "ที่คุณเลือก", "Viewing": "กำลังดู", "Your colors": "สีของคุณ", "Your style": "สไตล์ของคุณ",
+    "Visual DNA": "ลักษณะเด่น", "Composition": "การจัดวาง", "Image treatment": "การใช้ภาพ", "Motion language": "การเคลื่อนไหว", "Best for": "เหมาะกับ", "Avoid when": "ไม่ควรใช้เมื่อ",
+    "More from the profile": "รายละเอียดเพิ่มเติม", "Design principles": "หลักการออกแบบ", "Color behavior": "การใช้สี", "Texture and material": "พื้นผิวและวัสดุ", "Differs from": "ต่างจาก", "Prompt recipe": "สูตร prompt", "Implementation notes": "หมายเหตุการสร้างงาน",
+    "Illustration made for this library": "ภาพประกอบที่ทำขึ้นสำหรับคลังนี้", "Style selected": "เลือกสไตล์แล้ว", "Palette selected": "เลือกพาเลตต์แล้ว",
+    "Tap a style to select it with this palette.": "แตะสไตล์เพื่อเลือกคู่กับพาเลตต์นี้", "Readable pairs": "คู่สีที่อ่านได้", "Avoid": "หลีกเลี่ยง", "Example.": "ตัวอย่าง", "do not use for text": "ห้ามใช้กับตัวอักษร",
+    "typography": "ตัวอักษร", "composition": "การจัดวาง", "image treatment": "การใช้ภาพ", "motion": "การเคลื่อนไหว",
+    "Review and apply": "ตรวจและใช้", "No style yet": "ยังไม่มีสไตล์", "no colors yet": "ยังไม่มีสี", "Choose a style": "เลือกสไตล์", "Choose colors": "เลือกสี", "Fine-tune colors": "ปรับสีละเอียด",
+    "Use it for": "ใช้ทำ", "Not set": "ยังไม่ระบุ", "Constraints (one per line, optional)": "ข้อกำหนด (บรรทัดละข้อ ไม่ใส่ก็ได้)", "Handoff": "ส่งต่อ", "Format": "รูปแบบ", "Command": "คำสั่ง", "Full prompt": "ฉบับเต็ม",
+    "Paste this into Claude Code with this repo open. The skill reads the full style profile, palette roles, and contrast notes from the library by id. Use Full prompt for other tools.": "วางใน Claude Code ที่เปิด repo นี้อยู่ skill จะอ่านรายละเอียดสไตล์ บทบาทสี และหมายเหตุคอนทราสต์จากคลังเองตาม id ถ้าใช้กับเครื่องมืออื่น ให้ใช้ฉบับเต็ม",
+    "Copy command": "คัดลอกคำสั่ง", "Copy prompt": "คัดลอก prompt", "Copy JSON": "คัดลอก JSON", "Copied": "คัดลอกแล้ว", "Copy is blocked here. The text is selected: press Ctrl or Cmd + C.": "คัดลอกอัตโนมัติไม่ได้ ข้อความถูกเลือกไว้แล้ว: กดค้างแล้วเลือกคัดลอก หรือกด Ctrl/Cmd + C",
+    "No colors yet: the handoff asks for a palette from the style's compatible palettes. You can apply now, or choose it first.": "ยังไม่มีสี: skill จะเสนอพาเลตต์ที่เข้ากับสไตล์ให้ กดใช้เลยได้ หรือเลือกสีก่อนก็ได้",
+    "No style yet: the handoff asks for 3 styles that fit these colors. You can apply now, or choose it first.": "ยังไม่มีสไตล์: skill จะเสนอ 3 สไตล์ที่เข้ากับสีนี้ให้ กดใช้เลยได้ หรือเลือกสไตล์ก่อนก็ได้",
+    "Style removed from your selection": "เอาสไตล์ออกจากที่เลือกแล้ว", "Palette removed from your selection": "เอาพาเลตต์ออกจากที่เลือกแล้ว",
+    "Open": "เปิด", "Use this style again": "ใช้สไตล์นี้อีกครั้ง", "This filter only narrows the list. It does not choose your colors.": "ตัวกรองนี้แค่คัดรายการ ไม่ได้เลือกสีให้",
+    "This filter only narrows the list and previews the cards in these colors. It does not choose your colors.": "ตัวกรองนี้แค่คัดรายการและแสดงการ์ดด้วยสีเหล่านี้ ไม่ได้เลือกสีให้",
+    "This filter only narrows the list. It does not choose your colors. To choose colors, open": "ตัวกรองนี้แค่คัดรายการ ไม่ได้เลือกสีให้ ถ้าจะเลือกสี ไปที่",
+    "This filter only narrows the list and previews the cards in these colors. It does not choose your colors. To choose colors, open": "ตัวกรองนี้แค่คัดรายการและแสดงการ์ดด้วยสีเหล่านี้ ไม่ได้เลือกสีให้ ถ้าจะเลือกสี ไปที่",
+    "; it changes only when you select a palette below.": " จะเปลี่ยนก็ต่อเมื่อคุณเลือกพาเลตต์ด้านล่าง",
+    "Colors:": "สี:", "Mood:": "อารมณ์:", "Use for:": "ใช้กับ:", "Category:": "หมวด:", "Use case:": "ประเภทงาน:", "Typography:": "ตัวอักษร:", "Layout:": "เลย์เอาต์:", "Motion:": "การเคลื่อนไหว:",
+    "· body": "· เนื้อหา", "· large": "· ตัวใหญ่", "· ui": "· UI", "· do not use for text": "· ห้ามใช้กับตัวอักษร", ", or": ", หรือ", "Searching for": "กำลังค้นหา",
+    "Brand font is Sarabun\nMust work on a projector": "ฟอนต์แบรนด์คือ Sarabun\nต้องดูชัดบนโปรเจกเตอร์",
+  };
+  const TH_RX = [
+    [/^(\d+) styles · (\d+) palettes · (\d+) presets$/, "$1 สไตล์ · $2 พาเลตต์ · $3 พรีเซ็ต"],
+    [/^(\d+) of (\d+) styles(.*)$/, (m, a, b, r) => `${a} จาก ${b} สไตล์` + r.replace(", matching every part of your search", " ตรงทุกคำที่ค้น").replace(/, closest matches \((\d+) of (\d+) parts\)/, " ใกล้เคียงที่สุด (ตรง $1 จาก $2 คำ)").replace(" match these filters", " ตรงกับตัวกรองนี้")],
+    [/^(\d+) of (\d+) palettes(.*)\. Tap any color to find palettes that use it\.$/, (m, a, b, r) => `${a} จาก ${b} พาเลตต์` + r.replace(", matching every part of your search", " ตรงทุกคำที่ค้น").replace(/, closest matches \((\d+) of (\d+) parts\)/, " ใกล้เคียงที่สุด (ตรง $1 จาก $2 คำ)") + " แตะสีใดก็ได้เพื่อหาพาเลตต์ที่ใช้สีนั้น"],
+    [/^(\d+) of (\d+) presets$/, "$1 จาก $2 พรีเซ็ต"], [/^(\d+) works?$/, "$1 ผลงาน"],
+    [/^Show (\d+) styles$/, "แสดง $1 สไตล์"], [/^Show all (\d+) palettes$/, "แสดงทั้ง $1 พาเลตต์"],
+    [/^(\d+) of 2 chosen(, enough to apply)?( · preset)?$/, (m, n, e, p) => `เลือกแล้ว ${n} จาก 2` + (e ? " กดใช้ได้แล้ว" : "") + (p ? " · พรีเซ็ต" : "")],
+    [/^Works with (\w+) palettes$/, "เข้ากับพาเลตต์กลุ่ม $1"], [/^Works with (.+)$/, "เข้ากับ $1"],
+    [/^sketch · (.+)$/, "ภาพร่าง · $1"], [/^synthetic sketch · (.+)$/, "ภาพร่าง · $1"],
+    [/^Open (.+) details$/, "เปิดรายละเอียด $1"], [/^Remove (.+) filter$/, "เอาตัวกรอง $1 ออก"], [/^Find palettes with (.+)$/, "หาพาเลตต์ที่มี $1"], [/^Reset (.+)$/, "รีเซ็ต $1"],
+    [/^Use with (.+)$/, "ใช้กับ $1"], [/^Select (.+)$/, "เลือก $1"], [/^Compare on (\d+) styles$/, "เทียบบน $1 สไตล์"],
+    [/^(.+) is already your palette\.$/, "$1 เป็นพาเลตต์ของคุณแล้ว"],
+    [/^This filter only narrows the list(?: and previews the cards in these colors)?\. It does not choose your colors\. (.+) is already your palette\.$/, "ตัวกรองนี้แค่คัดรายการ ไม่ได้เลือกสีให้ $1 เป็นพาเลตต์ของคุณแล้ว"],
+    [/^(\d+) library palettes? uses? this color or a close one(?:, shown on (.+?))?\. Tap any color in a result to keep exploring\.( Your selection is still)?$/,
+      (m, n, s, y) => `พาเลตต์ในคลัง ${n} ชุดใช้สีนี้หรือสีใกล้เคียง` + (s ? ` แสดงบน ${s}` : "") + " แตะสีในผลลัพธ์เพื่อค้นต่อ" + (y ? " ตอนนี้คุณยังใช้" : "")],
+    [/^(.+): (same color|very close|close|distant) \(ΔE (\d+)\)$/, (m, c, d, n) => `${c}: ${{ "same color": "สีเดียวกัน", "very close": "ใกล้มาก", close: "ใกล้", distant: "ห่าง" }[d]} (ΔE ${n})`],
+    [/^([\d.]+):1, (AAA|AA for body text|large text only \(AA large\)|fails for text|passes 3:1 for UI and large text|below 3:1)$/, (m, r, d) => `${r}:1, ` + { AAA: "AAA", "AA for body text": "AA สำหรับเนื้อหา", "large text only (AA large)": "เฉพาะตัวใหญ่ (AA large)", "fails for text": "ไม่ผ่านสำหรับตัวอักษร", "passes 3:1 for UI and large text": "ผ่าน 3:1 สำหรับ UI และตัวใหญ่", "below 3:1": "ต่ำกว่า 3:1" }[d]],
+    [/^(Text|Accent) on (background|surface)$/, (m, a, b) => `${a === "Text" ? "ตัวอักษร" : "สีเน้น"}บน${b === "background" ? "พื้นหลัง" : "พื้นผิว"}`],
+    [/^(.+) selected\. Next: choose colors\.$/, "เลือก $1 แล้ว ต่อไปเลือกสี"], [/^(.+) with (.+) selected$/, "เลือก $1 กับ $2 แล้ว"], [/^Generated (.+) palette selected$/, "เลือกพาเลตต์ที่สร้างให้แล้ว"],
+    [/^(.+) applied\. Change colors any time in Colors\.$/, "ใช้ $1 แล้ว เปลี่ยนสีได้ทุกเมื่อในแท็บสี"], [/^(.+) from “(.+)” selected$/, "เลือก $1 จาก “$2” แล้ว"],
+    [/^Showing palettes with (.+?)(\. Your selected colors did not change)?$/, (m, c, k) => `แสดงพาเลตต์ที่มี ${c}` + (k ? " สีที่คุณเลือกไว้ไม่เปลี่ยน" : "")],
+    [/^(.+) selected$/, "เลือก $1 แล้ว"],
+    [/^Style only: (.+) in its default palette, (.+)\. Synthetic sketch, not a reference image\.$/, "สไตล์อย่างเดียว: $1 ในพาเลตต์ตั้งต้น $2 เป็นภาพร่าง ไม่ใช่ภาพอ้างอิง"],
+    [/^Colors only: a neutral layout and typeface, so you judge the colors alone\. Synthetic sketch, not a reference image\.(.*)$/, (m, r) => "สีอย่างเดียว: ใช้เลย์เอาต์และฟอนต์กลางๆ เพื่อดูสีอย่างเดียว เป็นภาพร่าง" + (r ? " เลือกสไตล์เพื่อดูแบบรวมกัน" : "")],
+    [/^Combined: (.+) with (.+)\. Synthetic sketch, not a reference image\.$/, "รวมกัน: $1 กับ $2 เป็นภาพร่าง ไม่ใช่ภาพอ้างอิง"],
+    [/^You can change after applying: (.+)\.$/, "เปลี่ยนได้หลังกดใช้: $1"],
+    [/^Synthetic preview of (.+) using the (.+) palette$/, "ภาพร่างของ $1 ด้วยพาเลตต์ $2"], [/^(.+) color picker$/, (m, r) => `ตัวเลือกสี ${th(r)}`],
+    [/^Use cases: /, (m) => m, (k) => k.replace("Use cases:", "ประเภทงาน:").replace(". Typography:", " · ตัวอักษร:").replace(". Layout:", " · เลย์เอาต์:").replace(". Motion:", " · การเคลื่อนไหว:").replace(" Sources:", " แหล่งอ้างอิง:").replace(/ Id$/, " id")],
+    [/^([A-Z][\w ]{0,30}) on ([A-Z][\w ]{0,30})$/, "$1 บน $2"], [/^([a-z, -]+)\. For (.+)\.$/, "$1 ใช้กับ $2"],
+  ];
+  function th(en) {
+    const k = en.trim(); if (!k || !/[A-Za-z]/.test(k)) return en;
+    let v = TH[k];
+    if (v === undefined) for (const [rx, to, whole] of TH_RX) if (rx.test(k)) { v = whole ? whole(k) : k.replace(rx, to); break; }
+    return v === undefined ? en : en.replace(k, () => v);
+  }
+  // Text inside these stays as written: drawings, code, the copied command, the Thai guide, and library profile text.
+  const NO_TR = "svg, pre, code, script, style, textarea, #guide-body, .hex, .ch, .fact p, [data-no-tr]";
+  const TR_ATTR = ["placeholder", "aria-label", "title"];
+  const ORIG = new WeakMap();
+  function trText(n) {
+    const el = n.parentElement; if (!el || el.closest(NO_TR)) return;
+    if (!ORIG.has(n)) ORIG.set(n, n.nodeValue);
+    const want = LANG === "th" ? th(ORIG.get(n)) : ORIG.get(n);
+    if (n.nodeValue !== want) n.nodeValue = want;
+  }
+  function trAttrs(el) {
+    if (el.closest(NO_TR)) return;
+    for (const a of TR_ATTR) {
+      if (!el.hasAttribute(a)) continue;
+      const key = "en" + a.replace(/-./, (x) => x[1].toUpperCase()), cur = el.getAttribute(a), en = el.dataset[key];
+      if (en === undefined || (cur !== en && cur !== th(en))) el.dataset[key] = cur;
+      const want = LANG === "th" ? th(el.dataset[key]) : el.dataset[key];
+      if (cur !== want) el.setAttribute(a, want);
+    }
+  }
+  function trTree(root) {
+    if (root.nodeType === 3) return trText(root);
+    if (root.nodeType !== 1) return;
+    trAttrs(root);
+    const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
+    while (w.nextNode()) { const n = w.currentNode; if (n.nodeType === 3) trText(n); else trAttrs(n); }
+  }
+  new MutationObserver((list) => {
+    for (const m of list) {
+      if (m.type === "childList") m.addedNodes.forEach(trTree);
+      else trAttrs(m.target);
+    }
+  }).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: TR_ATTR });
+  function setLang(l) {
+    LANG = l; store.set("vsl2-lang", l);
+    document.documentElement.lang = l;
+    $("#lang-btn").textContent = l === "th" ? "EN" : "ไทย";
+    $("#lang-btn").setAttribute("aria-label", l === "th" ? "Switch to English" : "เปลี่ยนเป็นภาษาไทย");
+    trTree(document.body);
+  }
+  $("#lang-btn").addEventListener("click", () => setLang(LANG === "th" ? "en" : "th"));
+  setLang(LANG);
 
   // ---------- color math (WCAG 2.x relative luminance) ----------
   const isHex = (v) => /^#[0-9a-f]{6}$/i.test(v);
@@ -1297,7 +1446,21 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
   }
 
   // ---------- review and apply ----------
-  let rmode = "combined", rfmt = "prompt";
+  let rmode = "combined", rfmt = "short";
+  // One line the skills can parse: ids only, the skill reads the full profile and palette from the library.
+  function shortCmd() {
+    const s = selStyle(), c = selColors(), sel = state.sel, use = sel.use || "";
+    const parts = [use === "presentation" ? "/create-presentation" : "/visual-style"];
+    if (sel.preset) parts.push("preset=" + sel.preset);
+    else {
+      if (s) parts.push("style=" + s.id);
+      if (sel.palette && sel.palette !== "custom") parts.push("palette=" + sel.palette);
+      else if (c) parts.push("colors=" + ROLES6.map(([r]) => c[r].slice(1)).join(","));
+    }
+    if (use && use !== "presentation") parts.push("use=" + use);
+    const cons = sel.constraints.trim();
+    return parts.join(" ") + (cons ? "\n" + cons : "");
+  }
   function tokens(c, names) { return ROLES6.map(([r]) => `  --color-${r}: ${c[r]};${names && names[r] ? ` /* ${names[r]} */` : ""}`).join("\n"); }
   function handoff() {
     const s = selStyle(), c = selColors(), sel = state.sel;
@@ -1348,11 +1511,11 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
         <div class="field"><label for="r-use">Use it for</label><span class="pill-select" style="display:flex"><select id="r-use" style="max-width:none;width:100%"><option value="">Not set</option>${useOpts}</select></span></div>
         <div class="field"><label for="r-cons">Constraints (one per line, optional)</label><textarea class="text-in" id="r-cons" placeholder="Brand font is Sarabun&#10;Must work on a projector">${esc(state.sel.constraints)}</textarea></div>
       </div>
-      <div><div class="result-head"><p class="sub">Handoff</p><div class="seg" role="radiogroup" aria-label="Format"><button type="button" role="radio" aria-checked="${rfmt === "prompt"}" data-rfmt="prompt">Prompt</button><button type="button" role="radio" aria-checked="${rfmt === "json"}" data-rfmt="json">JSON</button></div></div>
-      <pre class="snippet" id="snip" tabindex="0"></pre>
-      <p class="summary" style="font-size:13px;margin-top:8px">Paste this into a Claude Code session with this repo's skills. It names the command, the style and palette ids, the color values, the direction, and the constraints. ${s && !PROF[s.id] ? "Profile text has not loaded, so direction holds the summary only." : ""}</p></div>
-      <div class="dlg-foot"><span class="status-msg" id="copied" aria-live="polite"></span><button class="btn primary" type="button" id="copy">Copy ${rfmt === "json" ? "JSON" : "prompt"}</button></div>`);
-    const upd = () => { const h = handoff(); $("#snip").textContent = rfmt === "json" ? h.json : h.prompt; };
+      <div><div class="result-head"><p class="sub">Handoff</p><div class="seg" role="radiogroup" aria-label="Format"><button type="button" role="radio" aria-checked="${rfmt === "short"}" data-rfmt="short">Command</button><button type="button" role="radio" aria-checked="${rfmt === "prompt"}" data-rfmt="prompt">Full prompt</button><button type="button" role="radio" aria-checked="${rfmt === "json"}" data-rfmt="json">JSON</button></div></div>
+      <pre class="snippet ${rfmt === "short" ? "cmd" : ""}" id="snip" tabindex="0"></pre>
+      ${rfmt === "short" ? `<p class="summary" style="font-size:13px;margin-top:8px">Paste this into Claude Code with this repo open. The skill reads the full style profile, palette roles, and contrast notes from the library by id. Use Full prompt for other tools.</p>` : `<p class="summary" style="font-size:13px;margin-top:8px">Paste this into a Claude Code session with this repo's skills. It names the command, the style and palette ids, the color values, the direction, and the constraints. ${s && !PROF[s.id] ? "Profile text has not loaded, so direction holds the summary only." : ""}</p>`}</div>
+      <div class="dlg-foot"><span class="status-msg" id="copied" aria-live="polite"></span><button class="btn primary" type="button" id="copy">Copy ${rfmt === "json" ? "JSON" : rfmt === "short" ? "command" : "prompt"}</button></div>`);
+    const upd = () => { if (rfmt === "short") { $("#snip").textContent = shortCmd(); return; } const h = handoff(); $("#snip").textContent = rfmt === "json" ? h.json : h.prompt; };
     $("#r-use").addEventListener("input", (e) => { state.sel.use = e.target.value; saveSel(); upd(); });
     $("#r-cons").addEventListener("input", (e) => { state.sel.constraints = e.target.value; saveSel(); upd(); });
     $("#copy").addEventListener("click", () => copy($("#snip").textContent));
@@ -1364,6 +1527,16 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     try { navigator.clipboard.writeText(text).then(() => done("Copied"), fallback); } catch (e) { fallback(); }
   }
   function openHelp() {
+    if (LANG === "th") return showDialog(`<div class="dlg-head"><h2 id="dlg-title">วิธีใช้คลังนี้</h2>${closeBtn}</div>
+      <div class="facts">
+        <div class="fact"><h4>สไตล์ สี และพรีเซ็ต</h4><p>สไตล์คือหน้าตาและกฎของงาน พาเลตต์คือชุดสีที่กำหนดบทบาทไว้ ทั้งสองแยกกัน จึงใช้พาเลตต์ไหนกับสไตล์ไหนก็ได้ พรีเซ็ตเลือกให้ทั้งคู่สำหรับงานที่พบบ่อย และยังเปลี่ยนสีได้</p></div>
+        <div class="fact"><h4>ภาพตัวอย่างเป็นภาพร่าง</h4><p>ภาพตัวอย่างวาดในเบราว์เซอร์จากแพทเทิร์นของสไตล์และสีของพาเลตต์ บอกบุคลิกและสีได้ แต่ไม่ใช่ภาพอ้างอิงหรืองานจริง</p></div>
+        <div class="fact"><h4>การค้นหาอ่านอะไรบ้าง</h4><p>ชื่อ ชื่ออื่น อารมณ์ ประเภทงาน ตัวอักษร เลย์เอาต์ สื่อ การเคลื่อนไหว คำอธิบาย (รวมคำอธิบายภาษาไทย) ข้อความในโปรไฟล์ ชื่อพาเลตต์และชื่อสี และกลุ่มสีตามเฉดสี มีรายการคำไทยที่จับคู่กับคำอังกฤษ ไม่ได้ใช้ AI ถ้าไม่มีผลที่ตรงทุกคำ จะแสดงผลที่ใกล้ที่สุดและบอกไว้</p></div>
+        <div class="fact"><h4>คู่มือ</h4><p>แท็บคู่มือรวมหลักที่ใช้ได้กับทุกสไตล์: เลือกตามงาน กริดและระยะห่าง แอนิเมชันและ easing คู่ฟอนต์ไทยกับอังกฤษ หลักการใช้สี design tokens และแหล่งอ้างอิง สไตล์ที่มีป้าย ยังไม่ตรวจแหล่ง คือยังไม่พบแหล่งอ้างอิงในรอบค้นคว้า</p></div>
+        <div class="fact"><h4>คอนทราสต์</h4><p>คำนวณตาม WCAG 2.2 เนื้อหาต้องได้ 4.5:1 (AA) ตัวอักษรใหญ่และชิ้นส่วน UI ต้องได้ 3:1 พาเลตต์ที่สร้างให้จะถูกปรับให้ผ่านเกณฑ์ก่อนแสดง และมีป้ายบอกว่าเป็นสีที่สร้างให้เสมอ</p></div>
+        <div class="fact"><h4>การนำไปใช้</h4><p>เลือกสไตล์กับสีลำดับไหนก็ได้ เลือกอย่างเดียวก็พอ skill จะเสนอส่วนที่ขาดให้ การแตะสีเดี่ยวเป็นแค่การค้นหา สีของคุณจะเปลี่ยนเมื่อเลือกพาเลตต์ ปุ่ม ตรวจและใช้ จะให้คำสั่งบรรทัดเดียว คัดลอกไปวางใน Claude Code งานนำเสนอใช้ <code>/create-presentation</code> งานอื่นใช้ <code>/visual-style</code></p></div>
+        <div class="fact"><h4>สิ่งที่บันทึกไว้</h4><p>สิ่งที่เลือก ตัวกรอง และภาษาเก็บไว้ในเบราว์เซอร์นี้เท่านั้น ${DB ? `${DB.styles.length} สไตล์ ${DB.palettes.length} พาเลตต์ ${DB.presets.length} พรีเซ็ต` : ""}</p></div>
+      </div>`);
     showDialog(`<div class="dlg-head"><h2 id="dlg-title">How this library works</h2>${closeBtn}</div>
       <div class="facts">
         <div class="fact"><h4>Styles, colors, presets</h4><p>A style is the look and its rules. A palette is a set of colors with roles. They are separate, so any palette can go on any style. A preset fills both for a common job, and you can still change the colors.</p></div>

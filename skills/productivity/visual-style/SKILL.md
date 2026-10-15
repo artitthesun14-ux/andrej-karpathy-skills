@@ -22,7 +22,7 @@ Everything lives in this skill's folder. Load only what the task needs.
 | `library/styles/<category>.md` | Full profile per style, one `## <id>` section each |
 | `library/palettes.json` | Palettes: HEX, names, roles, shares, readable text pairs, pairs to avoid, notes |
 | `library/presets.json` | Ready combinations for common jobs, all adjustable |
-| `library/gallery.html` | Gallery: search, filters, color picking and palette building, style vs palette compare, a copyable handoff, and an optional Works tab (serve the folder, see `references/library-schema.md`) |
+| `library/gallery.html` | Gallery: search, filters, color picking and palette building, style vs palette compare, a copyable one-line command (Gallery command), and an optional Works tab (serve the folder, see `references/library-schema.md`) |
 | `references/style-direction.md` | Search, shortlist, combine, design direction, and review procedure |
 | `references/library-schema.md` | Field definitions, merged names, rules for adding entries |
 
@@ -31,6 +31,8 @@ Search and load with the CLI in `scripts/library.mjs` (commands in `references/s
 ## Workflow
 
 ### 1. Understand the task
+
+If the message is a gallery command (`style=`, `palette=`, `preset=`, `colors=`), read it with `references/style-direction.md` > Gallery command; the choice is made, so skip search and shortlist and go to the design direction.
 
 Name the work type (presentation, website, animation, infographic, brand design, product visualization, data storytelling), the audience, the medium, and hard constraints (brand colors, fonts, accessibility, deadline). Take these from the conversation, the repo, or an existing design system first. Ask only for what is missing and changes the choice.
 

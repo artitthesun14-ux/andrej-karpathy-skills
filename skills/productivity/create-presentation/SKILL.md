@@ -53,7 +53,7 @@ Pick the route from the request and the files present. Do not make the person na
 | Signals | Route |
 |---|---|
 | No existing deck; no style named | A. New |
-| No existing deck; a style, palette, mix, or "show me options" named | B. New in a given style |
+| No existing deck; a style, palette, mix, gallery command, or "show me options" named | B. New in a given style |
 | Existing deck; change its look, motion, or layout | C. Transform |
 | Existing deck; add, finish, or fix slides | D. Continue |
 
@@ -72,6 +72,7 @@ UNDERSTAND → CONTENT STRUCTURE → VISUAL PRODUCTION → REVIEW → FINAL
 
 UNDERSTAND → VISUAL STYLE SELECTION → DESIGN DIRECTION → VISUAL PRODUCTION → REVIEW
 
+- A gallery command (`style=`, `palette=`, `preset=`, `colors=`) already holds the ids: load them as `style-direction.md` > Gallery command says.
 - Map the named style, palette, or mix to library ids (`find --text` resolves aliases). Use the person's own colors with roles and a contrast check.
 - If they asked for options, or named only a mood, present the shortlist of 3 from `style-direction.md` and wait for the choice.
 - If style and palette are both clear, skip the shortlist.
