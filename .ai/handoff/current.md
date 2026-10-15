@@ -13,7 +13,7 @@ Updated: 2026-10-15. Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch:
 
 - CONFIRMED: branch in sync with origin at `c95ea66`. No repo files changed this session except this file (uncommitted).
 - CONFIRMED: Gallery artifact https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT at version 13, 29 files: 77 styles, 30 palettes, 9 presets, new Guide tab, Works tab still 4 works.
-- CONFIRMED: the repo library (`skills/productivity/visual-style/library/`) is unchanged: 55 styles, 27 palettes, 6 presets. The 22 new styles, 3 palettes, 3 presets exist ONLY in the gallery artifact, so `/create-presentation` does not know them.
+- CONFIRMED (2026-10-15, later): the 22 new styles, 3 palettes, 3 presets, `summary_th`, `research`, and the Guide tab were ported into the repo library, and the `chrome-anime` style was deleted from both repo and gallery (user request). Library now: 76 styles, 30 palettes, 9 presets; `library.mjs check` passes. Repo `gallery.html` now matches the gallery `index.html` (except the publish wrapper).
 - REPORTED by user (from a phone screen recording): Pick a color jumped up on every tap. Fix published in v13; not yet confirmed by the user on a real phone.
 
 ## 3. Completed
@@ -55,7 +55,7 @@ Gallery v13: Pick a color no longer scrolls when tapping a color while already i
 User decisions:
 - Research goes into the gallery: add what is missing, skip what exists, extra improvements allowed.
 - Decks stay out of the repo; artifacts only. `/create-presentation` adds finished decks to the gallery after the user has seen them.
-- No auto-calling of user-invoked skills. Chrome Anime user image only in the private gallery.
+- No auto-calling of user-invoked skills. Chrome Anime style deleted everywhere (user, 2026-10-15).
 
 Agent decisions (user may reject):
 - New styles kept in the gallery only (not the repo library), because the repo needs validation and the user did not ask for repo changes.
@@ -63,7 +63,7 @@ Agent decisions (user may reject):
 - Unverified styles are labelled instead of omitted.
 
 Gallery artifact differs from the repo (IMPORTANT):
-- Gallery has: user Chrome Anime image (`references/chrome-anime/user-01.webp`), `works.json` + `works/` (4 decks), 22 extra styles, 3 palettes, 3 presets, 2 extra profile md files, `summary_th`, Guide tab, `research` field, `app` medium, and the scroll fix. Never republish the gallery from repo files.
+- Gallery has (repo does not): `works.json` + `works/` (4 decks). Everything else in the library now matches the repo. Never republish the gallery without `works.json` and `works/`.
 - To change the gallery: `Artifact read` the URL (no path), Read every line of the saved HTML, read changed data files by `path`, edit, publish `index.html` plus only new or changed files (other files are kept).
 - Build sources from this session were in scratchpad `gal/` (`new-data.mjs`, `gen.mjs`, `contrast.mjs`, `out/`). Expect them gone; read the live files from the artifact instead.
 
@@ -83,16 +83,13 @@ Repo rules (`.claude/CLAUDE.md`): no em-dashes; Promotion Contract; user-invoked
 
 ## 9. Open Questions and Risks
 
-- Ask the user: add the 22 styles, 3 palettes, 3 presets to the repo library so `/create-presentation` can use them? Needs `library.mjs check`, gallery.html parity, docs if any, and a PR only if asked.
 - OPEN (PR #8 follow-up): fix `desert-stone` note in `skills/productivity/visual-style/library/palettes.json`; keep or drop Bauhaus and Brutalism aliases (agent recommends keep).
-- RISK: Chrome Anime user image is third-party art; credit or remove before sharing the gallery link.
 - RISK: republishing the gallery from repo files would drop all gallery-only content above.
 - Shareable deck link https://claude.ai/artifact/NFagUhWkbnoefD4trdcpCc (Motivate Employees) is still private until the user changes Share.
 
 ## 10. Next Actions, in priority order
 
 1. If the user reports the color picker still jumps: get a new recording, extract frames with `ffmpeg -vf "fps=1,scale=360:-1,tile=6x2"`, and check the `ds.sw` branch of the document click handler in the gallery `index.html`.
-2. Only if asked: port the new styles/palettes/presets into the repo library (read gallery `styles.json`, `palettes.json`, `presets.json`, both new md files by `path`; keep repo-only differences such as `example-01.webp`), run `library.mjs check` and `scripts/list-skills.sh`.
 3. Ask the user about the `desert-stone` note and the aliases.
 
 ## 11. Exact First Step for the Next Session
@@ -103,9 +100,9 @@ Run `git fetch origin main claude/setup-workflow-xd5lho && git checkout claude/s
 
 ```
 อ่าน .ai/handoff/current.md ก่อน แล้วทำต่อ
-gallery artifact TEgWtaAsxAdNuhwVjhX1QT อยู่ที่ v13: 77 สไตล์ 30 พาเลตต์ 9 presets มีแท็บ Guide และแก้ Pick a color ไม่ให้เด้งแล้ว
-สไตล์ใหม่ 22 ตัวอยู่ใน gallery เท่านั้น ยังไม่อยู่ใน repo
-ห้ามเขียนทับ gallery จาก repo (มี works 4 งาน รูป Chrome Anime ของฉัน และข้อมูลใหม่)
-งานค้าง: ถามฉันเรื่องย้ายสไตล์ใหม่เข้า repo, note palette desert-stone และ aliases Bauhaus/Brutalism
+gallery artifact TEgWtaAsxAdNuhwVjhX1QT อยู่ที่ v13: 76 สไตล์ 30 พาเลตต์ 9 presets มีแท็บ Guide และแก้ Pick a color ไม่ให้เด้งแล้ว
+สไตล์ใหม่ 22 ตัวย้ายเข้า repo แล้ว (76 สไตล์ 30 พาเลตต์ 9 presets)
+ห้ามเขียนทับ gallery จนทำให้ works 4 งานหาย (ข้อมูล library ตรงกับ repo แล้ว ลบ chrome-anime แล้ว)
+งานค้าง: note palette desert-stone และ aliases Bauhaus/Brutalism
 ทำตาม .claude/CLAUDE.md (ไม่มี em-dash)
 ```

@@ -320,9 +320,61 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
   .thumb svg { transition: transform .25s ease-out; }
   .card:hover .thumb svg { transform: scale(1.015); }
 }
-</style>
+.summary-th { margin: 0; color: var(--muted); font-size: 15px; max-width: 68ch; }
+.tag.unv { border-style: dashed; color: var(--warn); border-color: color-mix(in srgb, var(--warn) 50%, transparent); }
+
+/* guide: reference notes for grid, motion, fonts, tokens */
+#view-guide { font-family: var(--f-ui), 'Noto Sans Thai', sans-serif; }
+.g-nav { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 20px; }
+.g-nav a { border: 1px solid var(--rule); border-radius: 999px; padding: 6px 12px; color: var(--muted); text-decoration: none; font-size: 14px; white-space: nowrap; }
+.g-nav a:hover { color: var(--ink); border-color: var(--muted); }
+.gsec { margin: 0 0 44px; scroll-margin-top: 16px; }
+.gsec > h2 { font: 400 clamp(24px, 3vw, 30px)/1.3 var(--f-display); font-family: 'Bodoni Moda', 'Noto Serif Thai', Georgia, serif; margin: 0 0 6px; }
+.gsec > p.lead { color: var(--muted); margin: 0 0 16px; max-width: 72ch; line-height: 1.7; }
+.gcards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 14px; }
+.gcard { background: var(--panel); border-radius: 12px; padding: 16px; display: grid; gap: 10px; align-content: start; min-width: 0; line-height: 1.65; }
+.gcard h3 { margin: 0; font: 600 16px/1.4 var(--f-ui), 'Noto Sans Thai', sans-serif; }
+.gcard ul { margin: 0; padding-left: 18px; color: var(--ink); font-size: 14px; }
+.gcard li + li { margin-top: 4px; }
+.gcard .k { font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { border: 1px solid var(--rule); background: var(--raise); color: var(--ink); border-radius: 999px; padding: 4px 10px; min-height: 32px; font-size: 13px; cursor: pointer; }
+.chips button:hover { border-color: var(--accent); }
+.chips .pal-chip { display: inline-flex; gap: 6px; align-items: center; }
+.chips .pal-chip i { display: inline-flex; width: 28px; height: 12px; border-radius: 3px; overflow: hidden; }
+.chips .pal-chip i span { flex: 1; }
+.space-scale { display: grid; gap: 6px; }
+.space-scale div { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 10px; align-items: center; font: 400 12px var(--f-mono); color: var(--muted); }
+.space-scale b { display: block; height: 10px; background: var(--accent); border-radius: 2px; max-width: 100%; }
+.colsdemo { display: grid; gap: 10px; }
+.colsdemo .row { display: grid; gap: 4px; }
+.colsdemo .row span { height: 28px; background: color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 3px; }
+.colsdemo p { margin: 0; font-size: 12px; color: var(--muted); }
+.ease-demo { display: grid; gap: 10px; }
+.ease-row { display: grid; grid-template-columns: minmax(0, 150px) minmax(0, 1fr); gap: 12px; align-items: center; font-size: 13px; }
+.ease-row small { display: block; color: var(--muted); font: 400 11px var(--f-mono); overflow-wrap: anywhere; }
+.ease-track { position: relative; height: 22px; border-radius: 999px; background: var(--raise); overflow: hidden; }
+.ease-track i { position: absolute; left: 3px; top: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--accent); }
+.ease-demo.play .ease-track i { animation: ease-move var(--d, 600ms) var(--e) forwards; }
+@keyframes ease-move { to { left: calc(100% - 19px); } }
+@media (prefers-reduced-motion: reduce) { .ease-demo.play .ease-track i { animation: none; left: calc(100% - 19px); } }
+.fonts { display: grid; gap: 2px; }
+.font-row { display: grid; grid-template-columns: minmax(0, 170px) minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.font-row .k { font-size: 13px; color: var(--muted); }
+.font-row .k b { display: block; color: var(--ink); font-weight: 600; font-size: 14px; }
+.font-row .smp { font-size: 22px; line-height: 1.5; min-width: 0; overflow-wrap: anywhere; }
+.font-row .smp small { display: block; font: 400 11px var(--f-mono); color: var(--muted); }
+@media (max-width: 700px) { .font-row { grid-template-columns: 1fr; gap: 4px; } }
+.g-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.g-table th, .g-table td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.g-table th { color: var(--muted); font-weight: 600; font-size: 12px; letter-spacing: .04em; }
+.g-tablewrap { overflow-x: auto; background: var(--panel); border-radius: 12px; padding: 4px 6px; }
+.g-src { font-size: 13px; color: var(--muted); columns: 2 320px; column-gap: 28px; padding-left: 18px; }
+.g-src li { break-inside: avoid; margin-bottom: 6px; }
+.g-src a { color: var(--accent); }
 </head>
 <body>
+</style>
 <div class="wrap">
   <header class="top">
     <div class="title-row">
@@ -343,6 +395,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     <button role="tab" id="tab-styles" aria-controls="view-styles" aria-selected="true" data-tab="styles">Styles<span class="n" id="n-styles"></span></button>
     <button role="tab" id="tab-colors" aria-controls="view-colors" aria-selected="false" tabindex="-1" data-tab="colors">Colors<span class="n" id="n-colors"></span></button>
     <button role="tab" id="tab-presets" aria-controls="view-presets" aria-selected="false" tabindex="-1" data-tab="presets">Presets<span class="n" id="n-presets"></span></button>
+    <button role="tab" id="tab-guide" aria-controls="view-guide" aria-selected="false" tabindex="-1" data-tab="guide">Guide<span class="n">คู่มือ</span></button>
     <button role="tab" id="tab-works" aria-controls="view-works" aria-selected="false" tabindex="-1" data-tab="works" hidden>Works<span class="n" id="n-works"></span></button>
   </nav>
 
@@ -419,6 +472,11 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     <div class="grid" id="preset-grid"></div>
   </section>
 
+  <section id="view-guide" role="tabpanel" aria-labelledby="tab-guide" hidden>
+    <p class="tab-note">คู่มือพื้นฐานที่ใช้ได้กับทุกสไตล์: เลือกตามงาน กริด แอนิเมชัน ฟอนต์ สี และโทเคน แตะชื่อสไตล์หรือพาเลตต์เพื่อเปิดดู</p>
+    <div id="guide-body"></div>
+  </section>
+
   <section id="view-works" role="tabpanel" aria-labelledby="tab-works" hidden>
     <p class="tab-note">Work already made with this library, newest first. Open one to view it, or reuse its style and colors for the next job.</p>
     <p class="count" id="work-count"></p>
@@ -469,7 +527,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     ["surface", "Surface", "Cards, panels, table rows"],
     ["text", "Text", "Headings and body copy"],
   ];
-  const MEDIUM_LABEL = { motion: "animation (motion)", "3d": "3D" };
+  const MEDIUM_LABEL = { motion: "animation (motion)", "3d": "3D", app: "app UI" };
   let DB = null;
   const PROF = {};
   const store = {
@@ -549,6 +607,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     ["สามมิติ", ["3d", "isometric", "exploded"]], ["3มิติ", ["3d", "isometric", "exploded"]], ["โปสเตอร์", ["poster", "bold", "graphic"]], ["สนุก", ["playful", "fun", "energetic"]], ["อบอุ่น", ["warm", "intimate", "hospitable"]], ["สงบ", ["calm", "quiet", "serene"]],
     ["ทันสมัย", ["modern", "contemporary"]], ["คลาสสิก", ["classic", "classical", "neoclassical", "timeless"]], ["แบรนด์", ["brand", "identity"]], ["อาหาร", ["food", "restaurant", "menu"]], ["แฟชั่น", ["fashion", "magazine"]], ["ข้อมูล", ["data", "infographic", "chart"]],
     ["รายงาน", ["report", "annual"]], ["การ์ตูน", ["cartoon", "mascot", "character"]], ["อนิเมะ", ["anime"]], ["อนิเม", ["anime"]], ["โครเมียม", ["chrome", "metal"]], ["โครม", ["chrome", "metal"]], ["วินเทจ", ["vintage", "retro", "nostalgic"]], ["มาสคอต", ["mascot"]], ["ญี่ปุ่น", ["japanese"]], ["สวิส", ["swiss"]], ["ศิลปะ", ["art", "museum", "gallery"]], ["พิพิธภัณฑ์", ["museum"]], ["ผลิตภัณฑ์", ["product"]], ["สินค้า", ["product", "packaging"]], ["บรรจุภัณฑ์", ["packaging"]],
+    ["เรโทร", ["retro", "nostalgic", "vintage"]], ["ย้อนยุค", ["retro", "nostalgic", "vintage"]], ["กระจก", ["glass", "glassmorphism"]], ["นีออน", ["neon", "cyberpunk", "vaporwave"]], ["ไล่สี", ["gradient", "aurora"]], ["แอปพลิเคชัน", ["app", "interface"]], ["แอป", ["app", "interface"]], ["หน้าจอ", ["app", "interface", "dashboard"]], ["แดชบอร์ด", ["dashboard"]], ["อนาคต", ["futuristic", "future"]], ["วัยรุ่น", ["youth", "playful"]], ["สดใส", ["joyful", "playful", "energetic"]], ["ซอฟต์แวร์", ["software", "saas"]], ["เกม", ["game"]], ["ยุค", ["era", "retro"]],
     ["แดงเลือดหมู", C("burgundy")], ["เขียวเข้ม", C("forest")], ["เขียวมะกอก", C("olive")], ["เขียวอมฟ้า", C("teal")], ["ม่วงอ่อน", C("lilac")], ["กรมท่า", C("navy")], ["น้ำเงิน", [...C("blue"), "navy"]], ["น้ำตาล", C("brown")], ["งาช้าง", C("cream")],
     ["แดง", C("red")], ["ชมพู", C("pink")], ["ส้ม", C("orange")], ["เหลือง", C("yellow")], ["ทอง", C("gold")], ["เบจ", C("beige")], ["ครีม", C("cream")], ["เขียว", C("green")], ["ฟ้า", C("blue")], ["ม่วง", C("purple")], ["ขาว", C("white")], ["ดำ", C("black")], ["เทา", C("grey")],
   ].sort((a, b) => b[0].length - a[0].length);
@@ -607,7 +666,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     for (const s of DB.styles) {
       const pals = s.compatible_palettes.slice(0, 2).map((id) => DB.pal[id]);
       const prof = PROF[s.id] ? PROF[s.id].map((x) => x[1]).join(" ") : "";
-      IDX.s[s.id] = { cw: 2, colors: pals.flatMap((p) => p.colors.map((c) => c.hex)), f: [[6, low([s.name, s.id, ...s.aliases])], [4, low(s.mood)], [3, low([...s.use_cases, ...s.medium, ...s.typography_tags, ...s.layout_tags, ...s.motion_type])], [2, low([s.summary, DB.cat[s.category].name])], [1.5, low(pals.flatMap((p) => [p.name, ...p.colors.map((c) => c.name)]))], [1, low(prof)]] };
+      IDX.s[s.id] = { cw: 2, colors: pals.flatMap((p) => p.colors.map((c) => c.hex)), f: [[6, low([s.name, s.id, ...s.aliases])], [4, low(s.mood)], [3, low([...s.use_cases, ...s.medium, ...s.typography_tags, ...s.layout_tags, ...s.motion_type])], [2, low([s.summary, s.summary_th || "", DB.cat[s.category].name])], [1.5, low(pals.flatMap((p) => [p.name, ...p.colors.map((c) => c.name)]))], [1, low(prof)]] };
     }
     for (const r of DB.presets) {
       const s = DB.sty[r.primary_style], p = DB.pal[r.palette];
@@ -680,13 +739,6 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
       `<path d="M188 70 Q200 80 212 70" stroke="${c.fg}" stroke-width="2.5" fill="none" stroke-linecap="round"/>` +
       `<g fill="#FFFFFF" stroke="${c.fg}" stroke-width="2.5"><circle cx="140" cy="32" r="9"/><circle cx="276" cy="68" r="9"/></g><g fill="${c.fg}"><ellipse cx="164" cy="182" rx="14" ry="7"/><ellipse cx="242" cy="179" rx="14" ry="7"/></g>` +
       `<circle cx="200" cy="34" r="5" fill="${c.acc}"/>${T(22, 52, 26, c.fg, f.d, "Toon", 'font-weight="700"')}${T(22, 72, 11, c.fg, f.t, "No. 7 · reel one", 'letter-spacing="1"')}`,
-    chrome: (c, f) => `<linearGradient id="cg" x1="0" x2=".35" y1="0" y2="1"><stop offset="0" stop-color="${c.sur}"/><stop offset=".38" stop-color="${c.mut}"/><stop offset=".42" stop-color="${c.fg}"/><stop offset=".5" stop-color="#FFFFFF"/><stop offset=".56" stop-color="${c.mut}"/><stop offset=".8" stop-color="${c.sur}"/><stop offset="1" stop-color="${c.acc}"/></linearGradient>` +
-      `<radialGradient id="cgl"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient><rect width="320" height="200" fill="${c.bg}"/>` +
-      `<path d="M150 200 C150 150 160 120 172 96 C162 84 160 60 176 44 C192 30 214 36 222 52 C230 70 222 86 210 96 C228 120 236 160 236 200Z" fill="url(#cg)"/>` +
-      `<path d="M176 44 L150 14 L184 38 M216 46 L250 10 L222 52" stroke="url(#cg)" stroke-width="5" fill="none"/><path d="M92 176 L270 58" stroke="url(#cg)" stroke-width="4"/>` +
-      `<path d="M186 62 L204 60" stroke="${c.acc}" stroke-width="3"/>` +
-      [[204, 48, 14], [255, 66, 10], [160, 150, 8]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#cgl)" opacity=".8"/><path d="M${x} ${y - r * 1.6} L${x + 2} ${y - 2} L${x + r * 1.6} ${y} L${x + 2} ${y + 2} L${x} ${y + r * 1.6} L${x - 2} ${y + 2} L${x - r * 1.6} ${y} L${x - 2} ${y - 2}Z" fill="#FFFFFF"/>`).join("") +
-      `${T(18, 180, 22, c.fg, f.d, "CHROME", 'letter-spacing="3"')}${T(18, 196, 9, c.mut, f.t, "VOL.01 / 2026")}`,
     sculpt: (c, f) => `<radialGradient id="sg" cx=".3" cy=".3"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".55"/><stop offset="1" stop-color="${c.sur}" stop-opacity="0"/></radialGradient><rect width="320" height="200" fill="${c.sur}"/>${[[90, 120, 70], [210, 80, 60], [250, 170, 50]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="${c.bg}"/><circle cx="${x}" cy="${y}" r="${r}" fill="url(#sg)"/><circle cx="${x + 6}" cy="${y + 8}" r="${r}" fill="${c.fg}" opacity=".08"/>`).join("")}${T(18, 34, 14, c.fg, f.d, "Stillness")}`,
     label: (c, f) => `<rect width="320" height="200" fill="${c.pri}" opacity=".45"/><rect x="90" y="20" width="140" height="170" rx="6" fill="${c.pri}" opacity=".7"/><rect x="112" y="96" width="96" height="56" fill="${c.bg}"/>${T(120, 114, 10, c.fg, f.d, "NO. 04 / ROAST")}${T(120, 130, 9, c.fg, f.t, "250 g · whole bean")}${T(120, 144, 9, c.fg, f.t, "lot 2611")}`,
     ma: (c, f) => `<rect width="320" height="200" fill="${c.bg}"/><circle cx="236" cy="132" r="9" fill="${c.pri}"/>${T(236, 162, 10, c.fg, f.d, "間", 'text-anchor="middle"')}<rect x="24" y="24" width="1" height="40" fill="${c.mut}"/>`,
@@ -707,6 +759,92 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     "frames-peel": (c, f) => frames(c, f, (i) => [0, 1, 2, 3].map((l) => `<rect x="${14 + (l < i ? 60 : 0)}" y="${30 + l * 14}" width="60" height="12" rx="4" fill="${[c.acc, c.pri, c.sec, c.fg][l]}" opacity="${l < i ? 0.35 : 1}"/>`).join("")),
     "frames-flow": (c, f) => frames(c, f, (i) => `<circle cx="14" cy="56" r="7" fill="${c.mut}"/><circle cx="74" cy="56" r="7" fill="${c.mut}"/><path d="M21 56 H67" stroke="${c.mut}" stroke-dasharray="3 3"/><circle cx="${24 + i * 20}" cy="56" r="4" fill="${c.pri}"/>${i === 2 ? `<circle cx="74" cy="56" r="11" fill="none" stroke="${c.acc}"/>` : ""}`),
     "frames-reveal": (c, f) => frames(c, f, (i) => `<rect x="30" y="${24}" width="28" height="60" rx="6" fill="${c.acc}" opacity="${[0.1, 0.5, 1][i]}" transform="rotate(${[30, 12, 0][i]} 44 54)"/>${i === 2 ? T(44, 100, 9, c.fg, f.t, "Edition", 'text-anchor="middle"') : ""}`),
+    // design movements and eras
+    deco: (c, f) => `<rect width="320" height="200" fill="${c.pri}"/>` + Array.from({ length: 11 }, (_, i) => { const a = Math.PI * (1 + (i + 1) / 12); return `<path d="M160 150 L${(160 + Math.cos(a) * 130).toFixed(1)} ${(150 + Math.sin(a) * 130).toFixed(1)}" stroke="${c.acc}" stroke-width="1.2"/>`; }).join("") +
+      `<path d="M112 150 A48 48 0 0 1 208 150Z" fill="${c.acc}"/><path d="M128 150 A32 32 0 0 1 192 150Z" fill="${c.pri}"/>` + [0, 1, 2].map((i) => `<path d="M${24 + i * 7} ${186 - i * 7} V${30 + i * 7} H${92 + i * 7} V${14 + i * 7} H${228 - i * 7} V${30 + i * 7} H${296 - i * 7} V${186 - i * 7}" fill="none" stroke="${c.acc}" stroke-width="${i ? 0.8 : 1.6}"/>`).join("") +
+      `<rect x="96" y="158" width="128" height="26" fill="${c.bg}"/>${T(160, 177, 14, c.pri, f.d, "G R A N D", 'text-anchor="middle" letter-spacing="3"')}`,
+    nouveau: (c, f) => `<rect width="320" height="200" fill="${c.bg}"/><path d="M96 196 V86 Q96 22 160 22 Q224 22 224 86 V196" fill="${c.sec}" opacity=".18" stroke="${c.fg}" stroke-width="2"/>` +
+      [1, -1].map((d) => `<g transform="translate(${d === 1 ? 0 : 320},0) scale(${d},1)"><path d="M60 198 C30 150 110 130 74 86 S108 26 146 40" stroke="${c.pri}" stroke-width="3" fill="none"/><path d="M74 86 q-20 -6 -26 -24 q18 4 26 24z M92 132 q22 -4 30 -22 q-20 0 -30 22z" fill="${c.pri}" opacity=".8"/></g>`).join("") +
+      [0, 72, 144, 216, 288].map((a) => `<ellipse cx="160" cy="76" rx="9" ry="20" fill="${c.acc}" transform="rotate(${a} 160 96)"/>`).join("") + `<circle cx="160" cy="96" r="8" fill="${c.fg}"/>` +
+      `<rect x="112" y="142" width="96" height="30" rx="15" fill="${c.bg}" stroke="${c.fg}"/>${T(160, 162, 13, c.fg, f.d, "Iris & Vine", 'text-anchor="middle" font-style="italic"')}`,
+    midcentury: (c, f, p) => { const k = p.colors.map((x) => x.hex); return `<rect width="320" height="200" fill="${c.bg}"/><path d="M40 150 Q90 40 170 70 Q120 90 110 160 Z" fill="${k[2] || c.pri}"/>` +
+      `<circle cx="226" cy="66" r="34" fill="${k[3] || c.sec}"/>` + Array.from({ length: 8 }, (_, i) => `<path d="M226 66 L${(226 + Math.cos(i * Math.PI / 4) * 52).toFixed(1)} ${(66 + Math.sin(i * Math.PI / 4) * 52).toFixed(1)}" stroke="${k[4] || c.acc}" stroke-width="3"/>`).join("") +
+      `<rect x="200" y="120" width="90" height="14" rx="7" fill="${k[4] || c.acc}"/><path d="M212 134 l-8 40 M278 134 l8 40" stroke="${c.fg}" stroke-width="2"/>${T(24, 186, 20, c.fg, f.d, "Home, 1956", 'font-weight="600"')}`; },
+    memphis: (c, f, p) => { const k = p.colors.map((x) => x.hex).filter((h) => h !== c.bg && h !== c.fg); return `<rect width="320" height="200" fill="${c.bg}"/>` +
+      `<path d="M14 40 q12 -16 24 0 t24 0 t24 0 t24 0" stroke="${c.fg}" stroke-width="4" fill="none"/><path d="M220 168 l12 -14 l12 14 l12 -14 l12 14 l12 -14" stroke="${k[0] || c.pri}" stroke-width="4" fill="none"/>` +
+      `<path d="M250 20 l40 10 l-28 32 z" fill="${k[1] || c.acc}" stroke="${c.fg}" stroke-width="2"/><path d="M30 150 a30 30 0 0 1 60 0z" fill="${k[2] || c.sec}" stroke="${c.fg}" stroke-width="2"/>` +
+      Array.from({ length: 14 }, (_, i) => `<circle cx="${(i * 53) % 300 + 10}" cy="${(i * 37) % 180 + 10}" r="3" fill="${k[i % k.length] || c.pri}"/>`).join("") +
+      `<rect x="96" y="66" width="128" height="68" fill="${c.bg}" stroke="${c.fg}" stroke-width="2"/>${T(160, 108, 24, c.fg, f.d, "PARTY!", 'text-anchor="middle" font-weight="600"')}`; },
+    maximal: (c, f, p) => { const k = p.colors.map((x) => x.hex); return `<pattern id="mx" width="16" height="16" patternUnits="userSpaceOnUse"><rect width="16" height="16" fill="${k[0]}"/><rect width="8" height="16" fill="${k[1] || c.sec}"/></pattern><pattern id="md" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="6" cy="6" r="3" fill="${k[3] || c.acc}"/></pattern>` +
+      `<rect width="320" height="200" fill="url(#mx)"/><rect x="20" y="20" width="280" height="160" fill="url(#md)" opacity=".8"/><circle cx="160" cy="100" r="70" fill="${k[2] || c.fg}"/><circle cx="160" cy="100" r="54" fill="${k[1] || c.sec}"/>` +
+      `${T(160, 96, 30, k[2] || c.fg, f.d, "MORE", 'text-anchor="middle" font-style="italic"')}${T(160, 124, 20, k[2] || c.fg, f.t, "IS MORE", 'text-anchor="middle"')}`; },
+    seventies: (c, f, p) => { const k = p.colors.map((x) => x.hex).filter((h) => h !== c.bg); return `<rect width="320" height="200" fill="${c.bg}"/>` +
+      k.slice(0, 4).map((h, i) => `<path d="M${-20 + i * 18} 200 A${180 - i * 18} ${180 - i * 18} 0 0 1 ${340 - i * 18} 200" fill="none" stroke="${h}" stroke-width="18"/>`).join("") +
+      `<circle cx="160" cy="200" r="70" fill="${c.acc}"/>${T(160, 70, 36, c.fg, f.d, "groovy", 'text-anchor="middle" font-weight="700" letter-spacing="-1"')}`; },
+    y2k: (c, f) => `<linearGradient id="yc" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".35" stop-color="${c.sur}"/><stop offset=".5" stop-color="${c.sec}"/><stop offset=".7" stop-color="#FFFFFF"/><stop offset="1" stop-color="${c.acc}"/></linearGradient>` +
+      `<rect width="320" height="200" fill="${c.bg}"/><path d="M90 60 C120 10 200 30 220 70 C250 120 210 170 160 160 C100 170 60 110 90 60Z" fill="url(#yc)" stroke="${c.fg}" stroke-opacity=".25"/>` +
+      [[60, 40, 10], [262, 54, 14], [240, 160, 9], [70, 160, 7]].map(([x, y, r]) => `<path d="M${x} ${y - r} Q${x} ${y} ${x + r} ${y} Q${x} ${y} ${x} ${y + r} Q${x} ${y} ${x - r} ${y} Q${x} ${y} ${x} ${y - r}Z" fill="${c.pri}"/>`).join("") +
+      `${T(160, 110, 30, c.fg, f.d, "2000", 'text-anchor="middle" font-weight="600" stroke="#FFFFFF" stroke-width=".8"')}${T(160, 190, 10, c.fg, f.t, "LOADING ▮▮▮▯▯", 'text-anchor="middle"')}`,
+    vapor: (c, f) => `<linearGradient id="vs" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${c.sec}"/><stop offset="1" stop-color="${c.pri}"/></linearGradient><rect width="320" height="200" fill="${c.bg}"/>` +
+      `<circle cx="160" cy="104" r="54" fill="url(#vs)"/>` + [0, 1, 2, 3].map((i) => `<rect x="100" y="${88 + i * 8}" width="120" height="${2 + i}" fill="${c.bg}"/>`).join("") +
+      `<rect y="110" width="320" height="90" fill="${c.bg}"/>` + Array.from({ length: 13 }, (_, i) => `<path d="M160 110 L${-160 + i * 53} 200" stroke="${c.pri}" stroke-width="1"/>`).join("") + [114, 122, 134, 152, 178].map((y) => `<path d="M0 ${y} H320" stroke="${c.pri}" stroke-width="1"/>`).join("") +
+      `${T(160, 36, 22, c.fg, f.d, "ＶＡＰＯＲ", 'text-anchor="middle" letter-spacing="2"')}`,
+    cyber: (c, f) => `<rect width="320" height="200" fill="${c.bg}"/>` + [[20, 40, 60, 160], [96, 20, 40, 180], [250, 50, 50, 150]].map(([x, y, w, h]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c.sur}"/>`).join("") +
+      `<rect x="104" y="40" width="8" height="70" fill="${c.pri}"/><rect x="258" y="70" width="34" height="6" fill="${c.sec}"/>` +
+      `<path d="M14 14 h18 M14 14 v18 M306 14 h-18 M306 14 v18 M14 186 h18 M14 186 v-18 M306 186 h-18 M306 186 v-18" stroke="${c.sec}" stroke-width="2"/>` +
+      `<g>${T(30, 128, 44, c.fg, f.d, "NEON//", 'letter-spacing="1"')}</g><rect x="30" y="100" width="150" height="6" fill="${c.bg}"/>${T(36, 103, 44, c.pri, f.d, "NEON//", 'opacity=".6"')}` +
+      `${T(30, 150, 9, c.sec, f.t, "SYS 07 // SECTOR 4 // 23:59")}<rect x="0" y="170" width="320" height="10" fill="${c.acc}" opacity=".85"/>`,
+    retrofuture: (c, f, p) => { const k = p.colors.map((x) => x.hex); return `<rect width="320" height="200" fill="${c.sec}"/>` + Array.from({ length: 20 }, (_, i) => `<circle cx="${(i * 71) % 320}" cy="${(i * 43) % 200}" r="1.2" fill="${c.bg}"/>`).join("") +
+      `<circle cx="238" cy="70" r="36" fill="${k[4] || c.acc}"/><ellipse cx="238" cy="70" rx="62" ry="12" fill="none" stroke="${c.bg}" stroke-width="3" transform="rotate(-16 238 70)"/>` +
+      `<path d="M30 190 Q140 160 300 30" stroke="${c.bg}" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>` +
+      `<g transform="rotate(38 120 120)"><path d="M120 70 Q136 92 136 130 H104 Q104 92 120 70Z" fill="${c.bg}"/><path d="M104 120 l-12 22 h12z M136 120 l12 22 h-12z" fill="${c.pri}"/><circle cx="120" cy="104" r="6" fill="${c.pri}"/><path d="M110 132 q10 22 20 0z" fill="${k[4] || c.acc}"/></g>` +
+      `${T(20, 40, 22, c.bg, f.d, "TOMORROW", 'letter-spacing="3"')}`; },
+    scandi: (c, f) => `<rect width="320" height="200" fill="${c.bg}"/><rect y="150" width="320" height="50" fill="#D8C3A5" opacity=".7"/>` +
+      `<rect x="40" y="40" width="80" height="100" fill="${c.sur || c.sec}" opacity=".5"/><path d="M200 30 V70" stroke="${c.fg}"/><path d="M182 70 h36 l-8 18 h-20z" fill="${c.pri}"/>` +
+      `<rect x="176" y="112" width="70" height="8" rx="3" fill="#C9A982"/><path d="M182 120 l-4 30 M240 120 l4 30" stroke="#A88A63" stroke-width="3"/><circle cx="270" cy="140" r="10" fill="${c.sec}"/><path d="M270 130 q-6 -16 4 -24" stroke="${c.pri}" fill="none"/>` +
+      `${T(40, 176, 16, c.fg, f.d, "hemma")}${T(40, 192, 9, c.fg, f.t, "light · wood · wool", 'opacity=".7"')}`,
+    // digital UI and web trends
+    glass: (c, f) => `<filter id="gb"><feGaussianBlur stdDeviation="16"/></filter><rect width="320" height="200" fill="${c.bg}"/><g filter="url(#gb)"><circle cx="90" cy="70" r="56" fill="${c.pri}"/><circle cx="230" cy="130" r="60" fill="${c.sec}"/><circle cx="200" cy="40" r="36" fill="${c.acc}"/></g>` +
+      `<rect x="60" y="40" width="200" height="120" rx="18" fill="#FFFFFF" fill-opacity=".38" stroke="#FFFFFF" stroke-opacity=".9"/>${T(80, 78, 18, c.fg, f.d, "Good morning", 'font-weight="600"')}${T(80, 98, 11, c.fg, f.t, "3 tasks · 24°", 'opacity=".8"')}` +
+      `<rect x="80" y="116" width="72" height="26" rx="13" fill="${c.pri}"/>${T(116, 133, 11, "#FFFFFF", f.t, "Start", 'text-anchor="middle"')}<rect x="104" y="172" width="112" height="18" rx="9" fill="#FFFFFF" fill-opacity=".45" stroke="#FFFFFF" stroke-opacity=".8"/>`,
+    neu: (c, f) => `<filter id="nb"><feGaussianBlur stdDeviation="5"/></filter><rect width="320" height="200" fill="${c.bg}"/>` +
+      [[90, 100, 36, 0], [180, 100, 36, 1], [254, 70, 18, 0], [254, 130, 18, 0]].map(([x, y, r, pressed]) => pressed
+        ? `<circle cx="${x}" cy="${y}" r="${r}" fill="${c.bg}"/><circle cx="${x + 3}" cy="${y + 3}" r="${r - 2}" fill="none" stroke="#FFFFFF" stroke-width="4" opacity=".8" filter="url(#nb)"/><circle cx="${x - 3}" cy="${y - 3}" r="${r - 2}" fill="none" stroke="${c.fg}" stroke-width="4" opacity=".2" filter="url(#nb)"/><circle cx="${x}" cy="${y}" r="6" fill="${c.acc}"/>`
+        : `<circle cx="${x + 6}" cy="${y + 6}" r="${r}" fill="${c.fg}" opacity=".22" filter="url(#nb)"/><circle cx="${x - 6}" cy="${y - 6}" r="${r}" fill="#FFFFFF" opacity=".85" filter="url(#nb)"/><circle cx="${x}" cy="${y}" r="${r}" fill="${c.bg}"/>`).join("") +
+      `${T(90, 104, 12, c.fg, f.t, "OFF", 'text-anchor="middle" opacity=".6"')}${T(24, 30, 13, c.fg, f.d, "Living room", 'opacity=".7"')}`,
+    clay: (c, f, p) => { const k = p.colors.map((x) => x.hex).filter((h) => h !== c.bg && h !== c.fg); return `<radialGradient id="ch" cx=".35" cy=".25" r=".8"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".75"/><stop offset=".5" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient><filter id="cs"><feGaussianBlur stdDeviation="6"/></filter><rect width="320" height="200" fill="${c.bg}"/>` +
+      [[36, 46, 120, 108, 0], [176, 30, 70, 70, 1], [196, 112, 100, 64, 2]].map(([x, y, w, h, i]) => `<rect x="${x + 4}" y="${y + 10}" width="${w}" height="${h}" rx="24" fill="${c.fg}" opacity=".16" filter="url(#cs)"/><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="24" fill="${k[i % k.length] || c.pri}"/><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="24" fill="url(#ch)"/>`).join("") +
+      `${T(52, 96, 18, c.fg, f.d, "Hello!", 'font-weight="600"')}${T(52, 116, 11, c.fg, f.t, "Lesson 3 of 8")}<circle cx="211" cy="65" r="14" fill="#FFFFFF" opacity=".8"/>`; },
+    neobrutal: (c, f, p) => { const k = p.colors.map((x) => x.hex).filter((h) => h !== c.bg && h !== c.fg); const box = (x, y, w, h, fill) => `<rect x="${x + 5}" y="${y + 5}" width="${w}" height="${h}" fill="${c.fg}"/><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${fill}" stroke="${c.fg}" stroke-width="3"/>`;
+      return `<rect width="320" height="200" fill="${c.bg}"/>${box(18, 18, 170, 90, k[2] || c.acc)}${T(30, 58, 24, c.fg, f.d, "Ship it.", 'font-weight="800"')}${T(30, 82, 10, c.fg, f.t, "build · test · deploy")}` +
+        `${box(206, 18, 94, 60, k[1] || c.sec)}${T(216, 56, 20, c.bg, f.d, "99%", 'font-weight="800"')}${box(206, 96, 94, 52, c.bg)}${box(18, 128, 130, 42, k[0] || c.pri)}${T(83, 155, 14, c.bg, f.d, "Get started →", 'text-anchor="middle" font-weight="700"')}`; },
+    bento: (c, f) => { const t = (x, y, w, h, fill, inner = "") => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${fill}"/>${inner}`;
+      return `<rect width="320" height="200" fill="${c.bg}"/>${t(12, 12, 150, 116, c.sur || c.sec, `<rect x="28" y="54" width="118" height="60" rx="6" fill="${c.fg}" opacity=".12"/>${T(26, 40, 14, c.fg, f.d, "Your workspace", 'font-weight="600"')}`)}` +
+        `${t(170, 12, 66, 54, c.fg, T(182, 46, 18, c.bg, f.d, "4×", 'font-weight="700"'))}${t(244, 12, 64, 54, c.sur || c.sec, `<circle cx="276" cy="39" r="14" fill="none" stroke="${c.fg}" stroke-width="3"/>`)}` +
+        `${t(170, 74, 138, 54, c.acc, T(184, 106, 13, c.bg, f.t, "Sync in real time"))}${t(12, 136, 94, 52, c.sur || c.sec, T(24, 168, 11, c.fg, f.t, "Offline mode"))}${t(114, 136, 194, 52, c.sur || c.sec, L(3, 128, 150, 120, 9, 3, c.mut))}`; },
+    flat: (c, f) => `<rect width="320" height="200" fill="${c.bg}"/><rect x="0" y="0" width="320" height="40" fill="${c.pri}"/>${T(18, 26, 14, onColor(c.pri), f.d, "Inbox", 'font-weight="600"')}` +
+      [0, 1, 2].map((i) => `<rect x="18" y="${54 + i * 44}" width="284" height="36" rx="4" fill="#FFFFFF"/><rect x="18" y="${54 + i * 44 + 36}" width="284" height="2" fill="${c.fg}" opacity=".08"/><circle cx="38" cy="${72 + i * 44}" r="10" fill="${[c.sec, c.acc, c.pri][i]}"/><rect x="56" y="${64 + i * 44}" width="${[120, 90, 140][i]}" height="5" rx="2" fill="${c.fg}" opacity=".7"/><rect x="56" y="${76 + i * 44}" width="80" height="4" rx="2" fill="${c.mut}"/>`).join("") +
+      `<circle cx="276" cy="168" r="18" fill="${c.acc}"/><circle cx="278" cy="171" r="18" fill="${c.fg}" opacity=".15"/><circle cx="276" cy="168" r="18" fill="${c.acc}"/><path d="M276 160 v16 M268 168 h16" stroke="${onColor(c.acc)}" stroke-width="3"/>`,
+    skeuo: (c, f) => `<linearGradient id="sw" x1="0" x2="1"><stop offset="0" stop-color="${c.pri}"/><stop offset=".5" stop-color="${c.fg}" stop-opacity=".85"/><stop offset="1" stop-color="${c.pri}"/></linearGradient><radialGradient id="sk" cx=".35" cy=".3"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#9A9A9A"/><stop offset="1" stop-color="#3A3A3A"/></radialGradient>` +
+      `<rect width="320" height="200" fill="url(#sw)"/>` + Array.from({ length: 9 }, (_, i) => `<path d="M0 ${18 + i * 21} Q160 ${10 + i * 21} 320 ${22 + i * 21}" stroke="#000" stroke-opacity=".12" fill="none"/>`).join("") +
+      `<rect x="30" y="30" width="260" height="140" rx="10" fill="#2A2724" stroke="#000" stroke-opacity=".5"/><rect x="30" y="30" width="260" height="140" rx="10" fill="none" stroke="#FFFFFF" stroke-opacity=".15" stroke-dasharray="4 3" transform="translate(0,0)"/>` +
+      [80, 160, 240].map((x, i) => `<circle cx="${x}" cy="96" r="26" fill="url(#sk)"/><path d="M${x} 96 L${x + [8, -14, 18][i]} ${96 - [24, 20, 16][i]}" stroke="#222" stroke-width="3"/>${T(x, 142, 9, "#D9CBB0", f.d, ["GAIN", "TONE", "LEVEL"][i], 'text-anchor="middle" letter-spacing="1.5"')}`).join("") +
+      `<circle cx="270" cy="48" r="4" fill="${c.acc}"/><circle cx="270" cy="48" r="8" fill="${c.acc}" opacity=".3"/>`,
+    aurora: (c, f) => `<filter id="ab"><feGaussianBlur stdDeviation="26"/></filter><filter id="an"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .08 0"/></filter>` +
+      `<rect width="320" height="200" fill="${c.bg}"/><g filter="url(#ab)"><ellipse cx="80" cy="150" rx="110" ry="60" fill="${c.pri}"/><ellipse cx="250" cy="60" rx="100" ry="60" fill="${c.sec}"/><ellipse cx="200" cy="170" rx="70" ry="40" fill="${c.acc}"/></g><rect width="320" height="200" filter="url(#an)"/>` +
+      `${T(24, 70, 26, c.fg, f.d, "Think bigger.", 'font-weight="600" letter-spacing="-1"')}${T(24, 92, 11, c.fg, f.t, "The AI workspace for teams", 'opacity=".8"')}`,
+    darktech: (c, f) => `<radialGradient id="dg" cx=".5" cy=".75" r=".55"><stop offset="0" stop-color="${c.pri}" stop-opacity=".45"/><stop offset="1" stop-color="${c.pri}" stop-opacity="0"/></radialGradient><rect width="320" height="200" fill="${c.bg}"/>` +
+      Array.from({ length: 9 }, (_, i) => `<path d="M${i * 40} 0V200" stroke="${c.sec}" stroke-opacity=".5"/>`).join("") + `<rect width="320" height="200" fill="url(#dg)"/>` +
+      `${T(160, 40, 20, c.fg, f.d, "Deploy in seconds", 'text-anchor="middle" font-weight="600" letter-spacing="-.5"')}<rect x="60" y="78" width="200" height="104" rx="8" fill="${c.sur}" stroke="${c.pri}" stroke-opacity=".7"/>` +
+      `<circle cx="74" cy="90" r="3" fill="${c.mut}"/><circle cx="84" cy="90" r="3" fill="${c.mut}"/>${T(74, 116, 9.5, c.pri, f.t, "$ deploy --prod")}${T(74, 134, 9.5, c.fg, f.t, "✓ built in 1.84s")}${T(74, 152, 9.5, c.fg, f.t, "✓ 99.99% uptime")}<rect x="128" y="56" width="64" height="14" rx="7" fill="${c.pri}"/>`,
+    flatpeople: (c, f) => { const sk = c.acc, body = c.pri; return `<rect width="320" height="200" fill="${c.bg}"/><ellipse cx="170" cy="186" rx="120" ry="8" fill="${c.sur || c.sec}"/>` +
+      `<rect x="200" y="96" width="60" height="30" fill="${c.sec}"/><rect x="214" y="66" width="46" height="30" fill="${c.acc}"/><rect x="200" y="126" width="80" height="56" fill="${c.pri}" opacity=".6"/>` +
+      `<path d="M120 182 L134 130 L150 182" stroke="${c.fg}" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M118 140 Q130 90 146 92 Q160 96 150 142Z" fill="${body}"/><path d="M146 104 Q190 92 212 74" stroke="${sk}" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M126 104 Q106 128 96 156" stroke="${sk}" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="138" cy="80" r="9" fill="${sk}"/>` +
+      `${T(20, 40, 18, c.fg, f.d, "Let's build", 'font-weight="600"')}${T(20, 58, 11, c.fg, f.t, "together, faster")}`; },
+    dopamine: (c, f, p) => { const k = p.colors.map((x) => x.hex).filter((h) => h !== c.bg && h !== c.fg); return `<rect width="320" height="200" fill="${c.bg}"/>` +
+      [[14, 20, 120, 40], [146, 20, 160, 40], [14, 140, 90, 40], [116, 140, 190, 40], [230, 76, 76, 52]].map(([x, y, w, h], i) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h / 2}" fill="${k[i % k.length] || c.pri}"/>`).join("") +
+      `<circle cx="196" cy="102" r="16" fill="${k[1] || c.acc}"/><circle cx="191" cy="98" r="2" fill="${c.fg}"/><circle cx="201" cy="98" r="2" fill="${c.fg}"/><path d="M189 106 q7 7 14 0" stroke="${c.fg}" stroke-width="2" fill="none"/>` +
+      `${T(20, 112, 30, c.fg, f.d, "Yay!", 'font-weight="600"')}`; },
   };
   let uid = 0;
   function preview(style, palette) {
@@ -852,8 +990,8 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
       return `<article class="card ${on ? "is-sel" : ""}">
         <div class="thumb">${cardThumb(s, p)}${on ? `<span class="sel-flag">Selected</span>` : ""}<button class="open" type="button" data-detail="${s.id}" aria-label="Open ${esc(s.name)} details"></button></div>
         <div class="card-head"><div><div class="eyebrow">${esc(DB.cat[s.category].name)}</div><h3>${esc(s.name)}</h3></div>${dots(six(p))}</div>
-        <p class="summary clamp">${esc(s.summary)}</p>
-        <div class="tags">${tags.map((t) => `<span class="tag">${esc(MEDIUM_LABEL[t] || t)}</span>`).join("")}</div>
+        <p class="summary clamp" ${s.summary_th ? `lang="th" title="${esc(s.summary)}"` : ""}>${esc(s.summary_th || s.summary)}</p>
+        <div class="tags">${tags.map((t) => `<span class="tag">${esc(MEDIUM_LABEL[t] || t)}</span>`).join("")}${s.research === "unverified" ? `<span class="tag unv" title="No source was found for this style in the research round; the description is general knowledge.">ยังไม่ตรวจแหล่ง</span>` : ""}</div>
         <div class="actions"><button class="btn small" type="button" data-detail="${s.id}">Details</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-pick-style="${s.id}" aria-pressed="${on}">${on ? "Selected" : "Select style"}</button></div>
       </article>`;
     }).join("") : `<p class="empty">No style matches${state.q ? " this search" : ""}${Object.keys(state.filters).length ? " with these filters" : ""}. Remove a filter or try a single word such as <em>calm</em>, <em>poster</em>, or <em>green</em>.</p>`;
@@ -1112,6 +1250,8 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     showDialog(`<div class="dlg-head"><div><div class="eyebrow">${esc(DB.cat[s.category].name)}</div><h2 id="dlg-title">${esc(s.name)}</h2></div>${closeBtn}</div>
       <div class="thumb">${preview(s, pObj)}<span class="tag-synth">synthetic sketch · ${esc(pObj.name)}</span></div>
       <p style="margin:0;font-size:17px;max-width:68ch">${esc(s.summary)}</p>
+      ${s.summary_th ? `<p class="summary-th" lang="th">${esc(s.summary_th)}</p>` : ""}
+      ${s.research === "unverified" ? `<p class="notice" style="margin:0;font-size:14px">ยังไม่ตรวจแหล่ง: รอบค้นคว้านี้ไม่พบแหล่งอ้างอิงสำหรับสไตล์นี้ คำอธิบายมาจากความรู้ทั่วไป</p>` : ""}
       ${(s.reference_images || []).map((im) => `<figure class="example"><img src="${esc(im.path)}" alt="${esc(s.name)} example" loading="lazy"><figcaption>${im.kind === "generated" ? "Illustration made for this library" : `Reference · ${esc(im.source)}`}</figcaption></figure>`).join("")}
       <div class="meta-line"><span>Mood <b>${esc(s.mood.join(", "))}</b></span><span>Use for <b>${esc(s.medium.map((m) => MEDIUM_LABEL[m] || m).join(", "))}</b></span>${s.aliases.length ? `<span>Also called <b>${esc(s.aliases.join(", "))}</b></span>` : ""}</div>
       <div id="cmp-anchor"><div class="result-head"><p class="sub">Compare in ${cmpAll ? "every palette" : "its best palettes"}</p><button class="linkbtn" type="button" data-cmp-all="${s.id}">${cmpAll ? "Show best fits only" : `Show all ${DB.palettes.length} palettes`}</button></div>
@@ -1223,18 +1363,113 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
         <div class="fact"><h4>Styles, colors, presets</h4><p>A style is the look and its rules. A palette is a set of colors with roles. They are separate, so any palette can go on any style. A preset fills both for a common job, and you can still change the colors.</p></div>
         <div class="fact"><h4>Previews are sketches</h4><p>Every preview is drawn in the browser from the style's layout pattern and the palette. They show character and color, not reference images or real work.</p></div>
         <div class="fact"><h4>What search reads</h4><p>Names, aliases, mood, use cases, typography, layout, medium, motion, summaries, profile text, palette and color names, and color families by hue (so “green” finds green palettes even when no color is named green). A small keyword list maps common Thai words to these terms. It does not use AI; when no result matches every word, it shows the closest matches and says so.</p></div>
+        <div class="fact"><h4>Guide</h4><p>The Guide tab (คู่มือ) holds research notes that apply to every style: picks by job, grid and spacing, motion and easing, Thai and Latin font pairs, color rules, design tokens, and sources. Styles marked ยังไม่ตรวจแหล่ง had no source in that research round.</p></div>
         <div class="fact"><h4>Contrast</h4><p>Ratios use the WCAG 2.2 relative luminance formula. Body text needs 4.5:1 (AA), large text and UI parts need 3:1. Generated palettes are adjusted to meet these before they are shown, and are always labelled as generated.</p></div>
         <div class="fact"><h4>Applying a selection</h4><p>Review &amp; apply builds a handoff with the command, ids, color values, direction, and constraints. Copy it into Claude Code. Presentations go to <code>/create-presentation</code>; other work goes to <code>/visual-style</code>.</p></div>
         <div class="fact"><h4>What is saved</h4><p>Your selection and filters stay in this browser only. ${DB ? `${DB.styles.length} styles, ${DB.palettes.length} palettes, ${DB.presets.length} presets.` : ""}</p></div>
       </div>`);
   }
 
+  // ---------- guide: research notes on grid, motion, fonts, color, tokens (2026-10-15) ----------
+  const GUIDE_JOBS = [
+    ["เว็บไซต์แบรนด์หรู / โรงแรม", ["luxury-editorial", "editorial-scene-transitions", "art-deco"], ["charcoal-champagne", "noir-gold"], "Playfair Display หรือ Cormorant + Inter / Noto Serif Thai + Noto Sans Thai"],
+    ["เว็บสินค้าเทค / SaaS", ["dark-tech-saas", "bento-grid", "minimal-product-showcase"], ["dark-technical", "cobalt-ice"], "Inter หรือ Manrope + JetBrains Mono / IBM Plex Sans Thai หรือ Anuphan"],
+    ["แอปมือถือ / แดชบอร์ด", ["glassmorphism", "flat-material", "bento-grid"], ["aurora", "cobalt-ice"], "ฟอนต์ระบบ หรือ Inter / Noto Sans Thai"],
+    ["สไลด์นำเสนอผู้บริหาร", ["luxury-editorial", "swiss-international"], ["charcoal-champagne", "navy-trust"], "เซอริฟหัวข้อ + ซานส์เนื้อหา"],
+    ["สไลด์สอนหรืออธิบาย", ["swiss-international", "isometric-diagram", "layer-reveal"], ["ink-paper", "cobalt-ice"], "Noto Sans Thai หรือ Sarabun"],
+    ["รายงานประจำปี / ข้อมูล", ["contemporary-editorial", "scroll-narrative", "monochromatic-system"], ["muted-editorial", "mono-indigo"], "เซอริฟ + กรอเทสก์ ตัวเลขแบบ tabular"],
+    ["โพสต์โซเชียลเรียกความสนใจ", ["oversized-type", "color-blocking", "kinetic-typography"], ["swiss-signal", "pop-electric"], "คอนเดนซ์หนา / Kanit หรือ Prompt"],
+    ["อีเวนต์ / ดนตรี / วัยรุ่น", ["memphis", "y2k", "vaporwave", "contemporary-poster"], ["pop-electric", "neon-noir"], "ดิสเพลย์หรือวาริเอเบิล / Kanit"],
+    ["แพ็กเกจสินค้าพรีเมียม", ["embossed-print", "foil-stamping", "art-nouveau"], ["noir-gold", "forest-sage-ivory"], "เซอริฟดิสเพลย์"],
+    ["แบรนด์ธรรมชาติ / สุขภาพ / บ้าน", ["organic-shapes", "japanese-minimalism", "scandinavian"], ["forest-sage-ivory", "fjord-mist"], "เซอริฟอุ่น + ซานส์โค้ง"],
+    ["คาเฟ่ / ไลฟ์สไตล์ย้อนยุค", ["mid-century-modern", "retro-70s"], ["mid-century", "sunbaked-clay"], "จีโอเมตริกซานส์ หรือดิสเพลย์โค้งมน / Prompt"],
+    ["อธิบายผลิตภัณฑ์เชิงวิศวกรรม", ["exploded-cutaway", "blueprint-diagram", "mechanical-animation"], ["blueprint", "dark-technical"], "กรอเทสก์ + โมโน"],
+  ];
+  const GUIDE_FONTS = [
+    ["serif-display", "หัวข้อหรู", "'Playfair Display', serif", "Playfair Display", "'Noto Serif Thai', serif", "Noto Serif Thai"],
+    ["serif-display", "หัวข้อหรู (บาง)", "'Cormorant Garamond', serif", "Cormorant Garamond", "'Noto Serif Thai', serif", "Noto Serif Thai"],
+    ["serif-text", "เนื้อหาเซอริฟ", "'EB Garamond', serif", "EB Garamond", "'Noto Serif Thai', serif", "Noto Serif Thai"],
+    ["grotesk", "เนื้อหา / UI", "'Inter', sans-serif", "Inter", "'Noto Sans Thai', sans-serif", "Noto Sans Thai"],
+    ["grotesk", "เนื้อหา / UI (มีหัว)", "'Manrope', sans-serif", "Manrope", "'IBM Plex Sans Thai', sans-serif", "IBM Plex Sans Thai"],
+    ["grotesk", "มินิมอล (ไม่มีหัว)", "'DM Sans', sans-serif", "DM Sans", "'Anuphan', sans-serif", "Anuphan"],
+    ["geometric-sans", "จีโอเมตริก", "'Montserrat', sans-serif", "Montserrat", "'Kanit', sans-serif", "Kanit"],
+    ["geometric-sans", "จีโอเมตริกนุ่ม", "'Poppins', sans-serif", "Poppins", "'Prompt', sans-serif", "Prompt"],
+    ["condensed", "คอนเดนซ์ / โปสเตอร์", "'Oswald', sans-serif", "Oswald", "'Bai Jamjuree', sans-serif", "Bai Jamjuree"],
+    ["formal", "เอกสารทางการ", "'Inter', sans-serif", "Inter", "'Sarabun', sans-serif", "Sarabun (ฟอนต์แห่งชาติ)"],
+    ["monospace", "ตัวเลข / โค้ด", "'JetBrains Mono', monospace", "JetBrains Mono", "'IBM Plex Mono', monospace", "IBM Plex Mono (ไม่มีไทย)"],
+  ];
+  const GUIDE_EASE = [
+    ["linear", "linear", "ไม่ควรใช้กับ UI (ยกเว้นวนลูป)"],
+    ["M3 standard", "cubic-bezier(0.2,0,0,1)", "emphasized: ฉากและการเปิดหน้า"],
+    ["M3 decelerate", "cubic-bezier(0.05,0.7,0.1,1)", "ของที่เข้ามา: หรูและนุ่ม"],
+    ["M3 accelerate", "cubic-bezier(0.3,0,0.8,0.15)", "ของที่ออกไป"],
+    ["Carbon productive", "cubic-bezier(0.2,0,0.38,0.9)", "ปุ่ม เมนู สถานะ"],
+  ];
+  const GUIDE_SRC = [
+    ["ManyPixels: graphic design styles", "https://www.manypixels.co/blog/post/graphic-design-styles"], ["Webflow: graphic design styles", "https://webflow.com/blog/graphic-design-styles"],
+    ["Noun Project: 17 graphic design styles", "https://blog.thenounproject.com/?p=1842"], ["ManyPixels: retro design", "https://www.manypixels.co/blog/post/retro-design"],
+    ["Brunch: graphic design styles (Korean)", "https://brunch.co.kr/@qwer-rewq/238"], ["Studio Meyer: web design trends 2026 reality check", "https://studiomeyer.io/en/blog/webdesign-trends-2026-reality-check.md"],
+    ["DesignRush: website design trends", "https://www.designrush.com/agency/website-design-development/trends/web-design-trends"], ["ThePlus: web design trends 2026", "https://theplusaddons.com/blog/web-design-trends-2026/"],
+    ["Digital Agency Bangkok: 10 viral trends 2026", "https://digitalagencybangkok.com/10-viral-website-design-trends-2026/"], ["Macworld: Liquid Glass", "https://www.macworld.com/article/2807925/meet-liquid-glass-apple-redesigns-all-its-interfaces-at-once.html"],
+    ["TechRadar: iOS 26 redesign", "https://www.techradar.com/tech/apple-reveals-major-visual-redesign-for-ios-26-macos-26-and-more-at-wwdc-2025"], ["Design Milk: Liquid Glass", "https://design-milk.com/apple-returns-to-a-layered-software-design-with-liquid-glass-interface/"],
+    ["Design Tokens Format Module 2025.10 (W3C CG)", "https://www.w3.org/community/reports/design-tokens/CG-FINAL-format-20251028/"], ["Carbon motion", "https://carbondesignsystem.com/elements/motion/code/"],
+    ["Flutter M3 motion tokens", "https://flutter.googlesource.com/mirrors/flutter/+/adc7dfe87ebc5ff6cb6ceb786efaa83058fdc1a1/dev/tools/gen_defaults/lib/motion_template.dart"], ["UX Collective: 8pt grid", "https://uxdesign.cc/how-to-create-stronger-layouts-with-the-8pt-grid-system-cb0a1665714d"],
+    ["Galaxus grid system", "https://www.galaxus.ch/designsystem/foundations/grid-system-design"], ["Google Fonts: Anuphan", "https://fonts.google.com/specimen/Anuphan/about"],
+    ["Google Fonts: IBM Plex Sans Thai", "https://fonts.google.com/specimen/IBM+Plex+Sans+Thai/about"], ["Google Workspace: Thai national fonts", "https://workspaceupdates.googleblog.com/2019/02/expanded-thai-fonts-editors.html?hl=vi"],
+    ["Patek Philippe palette (shadcn.io)", "https://www.shadcn.io/design/patek-philippe/raw"],
+  ];
+  let guideFonts = false;
+  function loadGuideFonts() {
+    if (guideFonts) return; guideFonts = true;
+    const fam = ["Playfair+Display:wght@400;600", "Cormorant+Garamond:wght@400;600", "Inter:wght@400;600", "Manrope:wght@400;600", "DM+Sans:wght@400;600", "Montserrat:wght@400;600", "Poppins:wght@400;600", "Oswald:wght@400;600", "JetBrains+Mono:wght@400",
+      "Noto+Serif+Thai:wght@400;600", "Noto+Sans+Thai:wght@400;600", "IBM+Plex+Sans+Thai:wght@400;600", "Anuphan:wght@400;600", "Kanit:wght@400;600", "Prompt:wght@400;600", "Bai+Jamjuree:wght@400;600", "Sarabun:wght@400;600"];
+    const l = document.createElement("link"); l.rel = "stylesheet"; l.href = "https://fonts.googleapis.com/css2?" + fam.map((x) => "family=" + x).join("&") + "&display=swap"; document.head.appendChild(l);
+  }
+  let guideDone = false;
+  function renderGuide() {
+    if (guideDone || !DB) return; guideDone = true;
+    const sChip = (id) => DB.sty[id] ? `<button type="button" data-detail="${id}">${esc(DB.sty[id].name)}</button>` : "";
+    const pChip = (id) => DB.pal[id] ? `<button type="button" class="pal-chip" data-pal-preview="${id}"><i>${DB.pal[id].colors.slice(0, 4).map((c) => `<span style="background:${c.hex}"></span>`).join("")}</i>${esc(DB.pal[id].name)}</button>` : "";
+    const sec = (id, title, lead, body) => `<section class="gsec" id="g-${id}"><h2>${title}</h2>${lead ? `<p class="lead">${lead}</p>` : ""}${body}</section>`;
+    const card = (h, items) => `<div class="gcard"><h3>${h}</h3><ul>${items.map((x) => `<li>${x}</li>`).join("")}</ul></div>`;
+    const unv = DB.styles.filter((s) => s.research === "unverified");
+    const html = `<nav class="g-nav" aria-label="Guide sections">${[["jobs", "เลือกตามงาน"], ["grid", "กริด"], ["motion", "แอนิเมชัน"], ["fonts", "ฟอนต์"], ["color", "สี"], ["tokens", "Design tokens"], ["open", "ยังไม่ตรวจ"], ["src", "แหล่งอ้างอิง"]].map(([a, t]) => `<a href="#g-${a}" data-gnav="${a}">${t}</a>`).join("")}</nav>` +
+      sec("jobs", "เลือกตามประเภทงาน", "จุดเริ่มต้นที่แนะนำ ไม่ใช่กฎตายตัว สไตล์ภาพหนึ่งตัวใช้คู่กับสไตล์โมชันหนึ่งตัวได้ เช่น Luxury Editorial + Editorial Scene Transitions",
+        `<div class="gcards">${GUIDE_JOBS.map(([job, ss, ps, font]) => `<div class="gcard"><h3>${esc(job)}</h3><div class="k">สไตล์</div><div class="chips">${ss.map(sChip).join("")}</div><div class="k">พาเลตต์</div><div class="chips">${ps.map(pChip).join("")}</div><div class="k">ฟอนต์</div><div style="font-size:14px">${esc(font)}</div></div>`).join("")}</div>`) +
+      sec("grid", "กริดและระยะห่าง", "เลือกหน่วยพื้นฐานเดียวแล้วใช้ทั้งงาน: 8pt สำหรับระยะห่าง 4pt สำหรับปรับตัวอักษร อย่าผสมหลายระบบ",
+        `<div class="gcards"><div class="gcard"><h3>สเกลระยะห่าง (px)</h3><div class="space-scale">${[4, 8, 12, 16, 24, 32, 48, 64, 96, 128].map((n) => `<div><span>${n}</span><b style="width:${n * 1.6}px"></b></div>`).join("")}</div></div>` +
+        `<div class="gcard"><h3>คอลัมน์ตามขนาดจอ</h3><div class="colsdemo">${[[12, "เดสก์ท็อป 12 คอลัมน์ gutter ประมาณ 24 ถึง 32px"], [8, "แท็บเล็ต 8 คอลัมน์ gutter ประมาณ 16px"], [4, "มือถือ 4 คอลัมน์ ขอบข้างอย่างน้อย 16px"]].map(([n, t]) => `<div class="row" style="grid-template-columns:repeat(${n},1fr)">${"<span></span>".repeat(n)}</div><p>${t}</p>`).join("")}</div></div>` +
+        card("วางกริดตามสไตล์", ["หรูและบรรณาธิการ: กริดไม่สมมาตร เนื้อหากว้าง 5 ถึง 7 จาก 12 คอลัมน์ ที่เหลือเป็นที่ว่างตั้งใจ", "สวิสและข้อมูล: modular grid ช่องเท่ากันเป๊ะ", "Bento: กล่อง 1x1, 2x1, 2x2 ช่องว่างเท่ากันทุกจุด", "สไลด์ 1920x1080: 12 คอลัมน์ ขอบ 96 ถึง 120px หนึ่งไอเดียต่อสไลด์", "เนื้อหายาวบนเว็บ: บรรทัดละ 60 ถึง 75 ตัวอักษร"]) +
+        card("สเกลตัวอักษร", ["UI และแอป: ขั้นละประมาณ 1.25 เท่า", "งานหรู โปสเตอร์ สไลด์: ขั้นละ 1.333 ถึง 1.5 เท่า ให้หัวข้อห่างจากเนื้อหาชัด", "เนื้อหาเว็บอย่างน้อย 16 ถึง 17px", "ภาษาไทย: line-height 1.6 ถึง 1.8 ไม่เพิ่ม letter-spacing"]) + `</div>`) +
+      sec("motion", "แอนิเมชัน", "แบ่งเป็นสองโหมดแบบ IBM Carbon: productive สำหรับ UI ที่ต้องเร็ว และ expressive สำหรับช่วงสำคัญ ทุกงานต้องรองรับ prefers-reduced-motion",
+        `<div class="gcards">${card("Productive (มินิมอล UI)", ["ปุ่ม เมนู dropdown สถานะ", "ประมาณ 100 ถึง 250ms", "easing แบบ standard"])}${card("Expressive (หรู ฮีโร่ สไลด์)", ["เปิดหน้า เผยฉาก เปลี่ยนบท", "ประมาณ 400 ถึง 800ms", "easing แบบ decelerate", "หรูและมินิมอล: fade + เลื่อน 8 ถึง 24px, stagger 40 ถึง 80ms, เคลื่อนทีละอย่าง ห้ามเด้ง"])}` +
+        `<div class="gcard" style="grid-column:1/-1"><h3>เทียบ easing</h3><div class="ease-demo" id="ease-demo">${GUIDE_EASE.map(([n, e, use]) => `<div class="ease-row"><span>${esc(n)}<small>${esc(e)}</small><small>${esc(use)}</small></span><div class="ease-track" style="--e:${e}"><i></i></div></div>`).join("")}</div>` +
+        `<div class="actions"><button class="btn small primary" type="button" id="ease-play">เล่น (600ms)</button><button class="btn small" type="button" id="ease-slow">เล่นช้า (1200ms)</button></div><p class="summary" style="font-size:12px">ค่า M3 มาจากแหล่งรอง ควรเช็กหน้า m3.material.io ก่อนล็อกตัวเลข</p></div></div>`) +
+      sec("fonts", "ฟอนต์", "จับคู่ฟอนต์อังกฤษกับไทยตามแท็ก typography ในคลัง ตัวอย่างโหลดจาก Google Fonts ตอนเปิดแท็บนี้",
+        `<div class="g-tablewrap fonts">${GUIDE_FONTS.map(([tag, role, lf, ln, tf, tn]) => `<div class="font-row"><div class="k"><b>${esc(role)}</b><code>${esc(tag)}</code></div><div class="smp" style="font-family:${lf}">Design that lasts 0123<small>${esc(ln)}</small></div><div class="smp" lang="th" style="font-family:${tf}">ออกแบบให้อยู่นาน ๑๒๓<small>${esc(tn)}</small></div></div>`).join("")}</div>` +
+        `<p class="summary" style="font-size:13px;margin-top:10px">ที่ทดสอบกับภาษาไทยในงานจริงแล้ว: Playfair Display, Inter, Noto Serif Thai, Noto Sans Thai (เด็ค Motivate Employees) ตัวอื่นยังไม่เคยเรนเดอร์ในงาน</p>`) +
+      sec("color", "หลักการใช้สี", "ทุกพาเลตต์ในคลังกำหนดบทบาทและสัดส่วนไว้แล้ว หลักร่วมคือความยับยั้ง",
+        `<div class="gcards">${card("สัดส่วน", ["พื้นหลังประมาณ 55 ถึง 70%", "สีเน้น (accent) เพียง 5 ถึง 10%", "แบรนด์หรูจริงมักใช้แค่ 4 สีใกล้ขาวดำ กับสีเน้นอุ่นหนึ่งสี (เช่น Patek Philippe)"])}${card("คอนทราสต์ (WCAG 2.2)", ["ตัวอักษรเนื้อหา 4.5:1 ขึ้นไป", "ตัวอักษรใหญ่และชิ้นส่วน UI 3:1 ขึ้นไป", "สีพาสเทลและสีทองแบนใช้เป็นพื้นหรือรูปทรง ไม่ใช่สีตัวอักษร", "บนกระจกหรือกราเดียนต์ ให้วัดที่จุดที่สว่างที่สุด"])}${card("พาเลตต์ใหม่ในรอบนี้", [pChip("mid-century"), pChip("neon-noir"), pChip("aurora")])}</div>`) +
+      sec("tokens", "Design tokens (3 ชั้น)", "มาตรฐาน DTCG Format Module 2025.10 เวอร์ชันเสถียรแรก (ต.ค. 2025) รองรับธีม หลายแบรนด์ และ alias ไฟล์เดียวใช้ได้ทั้งเว็บ สไลด์ และ Figma",
+        `<div class="gcards">${card("ชั้นของโทเคน", ["<b>Primitive:</b> ค่าดิบ เช่น <code>#C8B48C</code>, <code>8px</code>, <code>cubic-bezier(...)</code>", "<b>Semantic:</b> บทบาท <code>bg</code> <code>text</code> <code>accent</code> <code>line</code> (พาเลตต์ในคลังมี role อยู่แล้ว)", "<b>Component:</b> <code>button.bg</code> <code>card.radius</code>"])}` +
+        `<div class="gcard"><h3>ตัวอย่าง (DTCG JSON)</h3><pre class="snippet">${esc(JSON.stringify({ color: { champagne: { $type: "color", $value: "#C8B48C" }, accent: { $type: "color", $value: "{color.champagne}" } }, space: { md: { $type: "dimension", $value: "16px" } }, motion: { decelerate: { $type: "cubicBezier", $value: [0.05, 0.7, 0.1, 1] } } }, null, 2))}</pre></div></div>`) +
+      sec("open", "สิ่งที่ยังไม่ได้ตรวจ", "",
+        `<div class="gcards">${card("สไตล์ที่ยังไม่พบแหล่งอ้างอิง", [`<div class="chips">${unv.map((s) => sChip(s.id)).join("")}</div>`])}${card("อื่นๆ", ["ค่า duration ของ M3 และ Carbon มาจากแหล่งรอง", "ฟอนต์ส่วนใหญ่ยังไม่เคยเรนเดอร์คู่ภาษาไทยในงานจริง", "บันทึกคอนทราสต์ของ Desert Stone ต้องแก้ (Rust บน Basalt 2.28:1)"])}</div>`) +
+      sec("src", "แหล่งอ้างอิง", "ค้นคว้าเมื่อ 15 ต.ค. 2026", `<ol class="g-src">${GUIDE_SRC.map(([t, u]) => `<li><a href="${u}" target="_blank" rel="noopener">${esc(t)}</a></li>`).join("")}</ol>`);
+    $("#guide-body").innerHTML = html;
+    const play = (d) => { const el = $("#ease-demo"); el.style.setProperty("--d", d + "ms"); $$(".ease-track", el).forEach((t) => t.style.setProperty("--d", d + "ms")); el.classList.remove("play"); void el.offsetWidth; el.classList.add("play"); };
+    $("#ease-play").addEventListener("click", () => play(600));
+    $("#ease-slow").addEventListener("click", () => play(1200));
+    $(".g-nav").addEventListener("click", (e) => { const a = e.target.closest("[data-gnav]"); if (!a) return; e.preventDefault(); $("#g-" + a.dataset.gnav).scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" }); });
+  }
+
   // ---------- navigation ----------
-  const TABS = () => ["styles", "colors", "presets", ...(DB && DB.works.length ? ["works"] : [])];
+  const TABS = () => ["styles", "colors", "presets", "guide", ...(DB && DB.works.length ? ["works"] : [])];
   function setTab(t, focus) {
     state.tab = t;
     $$("nav.tabs button").forEach((b) => { const on = b.dataset.tab === t; b.setAttribute("aria-selected", String(on)); b.tabIndex = on ? 0 : -1; if (on && focus) b.focus(); });
-    for (const v of ["styles", "colors", "presets", "works"]) $("#view-" + v).hidden = v !== t;
+    for (const v of ["styles", "colors", "presets", "guide", "works"]) $("#view-" + v).hidden = v !== t;
+    if (t === "guide") { loadGuideFonts(); renderGuide(); }
     store.set("vsl2-tab", t);
     if (DB && t === "styles") renderStyles();
     if (DB && t === "colors" && state.cmode === "browse") renderPalettes();
@@ -1326,11 +1561,19 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
       renderAll(); if (ds.genEdit) setCmode("build"); else toast(`Generated ${g.name.toLowerCase()} palette selected`); return;
     }
     if (ds.sw) {
+      // Already in Pick a color: update results in place and keep the scroll position, so the page does not jump.
+      const stay = !inDlg && state.tab === "colors" && state.cmode === "pick", y = scrollY;
       if (t.closest("#pk-names")) { $("#pk-name").value = ""; renderNameResults(); }
       if (inDlg) $("#dlg").close();
       if (state.tab !== "colors") setTab("colors");
       if (state.cmode !== "pick") setCmode("pick");
       setPick(ds.sw);
+      if (stay) {
+        scrollTo({ top: y, behavior: "instant" });
+        const c = libColors().find((x) => x.hex === state.pick);
+        toast(`${c ? c.name + " " : ""}${state.pick} picked. Results updated`);
+        return;
+      }
       const a = $("#picked-anchor"); if (a) a.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
       return;
     }

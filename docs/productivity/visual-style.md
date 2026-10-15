@@ -2,7 +2,7 @@
 
 Command: `/visual-style`
 
-คลังอ้างอิงด้าน visual: style library 55 สไตล์ใน 11 หมวด (editorial, Swiss, neoclassical, poster, color systems, botanical, tactile, minimal, industrial, motion, illustration) และ color library 27 palettes ที่แยกกันเพื่อจับคู่ได้อิสระ ทุก palette มีบทบาทสี สัดส่วน และคู่สีข้อความที่ผ่านการตรวจ contrast (WCAG 2.2) มี presets สำหรับงานยอดนิยม และ gallery ที่ค้นหาและกรองได้
+คลังอ้างอิงด้าน visual: style library 76 สไตล์ใน 13 หมวด (editorial, Swiss, neoclassical, poster, color systems, botanical, tactile, minimal, industrial, motion, illustration, design movements, digital UI) และ color library 30 palettes ที่แยกกันเพื่อจับคู่ได้อิสระ ทุก palette มีบทบาทสี สัดส่วน และคู่สีข้อความที่ผ่านการตรวจ contrast (WCAG 2.2) มี presets สำหรับงานยอดนิยม และ gallery ที่ค้นหาและกรองได้
 
 workflow: เข้าใจงาน → ค้นหา library → เสนอ 3 ทางเลือกที่ต่างกันจริง → จับคู่ style กับ palette → สรุป design direction → ลงมือทำงานจริง → ตรวจผลเทียบกับ direction
 

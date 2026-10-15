@@ -108,6 +108,60 @@
         "avoid": ["sequential ramp for unordered categories", "dual axes", "uncertainty hidden"]
       },
       "adjustable": ["palette", "secondary_styles"]
+    },
+    {
+      "id": "saas-product-site",
+      "name": "SaaS Product Site",
+      "summary": "A software product website: dark tech surfaces, a bento grid of features, real UI screenshots, and one glowing accent.",
+      "primary_style": "dark-tech-saas",
+      "secondary_styles": ["bento-grid"],
+      "secondary_role": "bento-grid lays out the feature section only; dark-tech-saas owns the hero, color, and type.",
+      "palette": "dark-technical",
+      "alt_palettes": ["neon-noir", "cobalt-ice", "ink-paper"],
+      "direction": {
+        "typography": "Tight grotesk headlines, monospace for numbers and code, one family for body.",
+        "composition": "Hero with headline and a glowing product screenshot, then a bento grid where tile size matches importance.",
+        "image_treatment": "Real UI and code only; no stock photography.",
+        "motion": "Short fade and rise on scroll with a 60 ms stagger; data flow lines in the hero at most.",
+        "avoid": ["more than one accent color", "low-contrast grey body text", "fake dashboards with invented numbers"]
+      },
+      "adjustable": ["palette", "secondary_styles", "motion"]
+    },
+    {
+      "id": "youth-event-pop",
+      "name": "Youth Event Pop",
+      "summary": "An event or campaign for a young audience: Memphis shapes, bright pop color, and kinetic type for social video.",
+      "primary_style": "memphis",
+      "secondary_styles": ["kinetic-typography"],
+      "secondary_role": "kinetic-typography is the motion layer for video and stories; memphis owns the static look.",
+      "palette": "pop-electric",
+      "alt_palettes": ["clash-tomato-mint", "pastel-soft", "neon-noir"],
+      "direction": {
+        "typography": "Chunky geometric sans; one headline per frame on a solid block.",
+        "composition": "Pattern and shapes at the edges, message in a calm center block.",
+        "image_treatment": "Cut-out photos or none.",
+        "motion": "Shapes pop in quickly, text holds long enough to read, reduced-motion fallback.",
+        "avoid": ["text over pattern", "more than two typefaces", "flashing faster than 3 times per second"]
+      },
+      "adjustable": ["palette", "secondary_styles", "motion"]
+    },
+    {
+      "id": "app-interface-glass",
+      "name": "App Interface Glass",
+      "summary": "A modern app or dashboard: frosted glass panels over a soft aurora gradient, clean grotesk type, and quick spring motion.",
+      "primary_style": "glassmorphism",
+      "secondary_styles": ["aurora-gradient"],
+      "secondary_role": "aurora-gradient is the background layer only; glassmorphism owns panels, controls, and type.",
+      "palette": "aurora",
+      "alt_palettes": ["fjord-mist", "cobalt-ice", "lilac-peach"],
+      "direction": {
+        "typography": "System or grotesk UI font at medium weight; strict type scale.",
+        "composition": "Two or three glass layers at most; the top layer holds the task.",
+        "image_treatment": "Blurred gradient or photo behind glass; no busy detail under text.",
+        "motion": "Panels slide and scale in 200 to 300 ms; blur follows scroll.",
+        "avoid": ["long text on glass", "glass on glass on glass", "text contrast below 4.5:1 at the brightest point"]
+      },
+      "adjustable": ["palette", "secondary_styles", "typography"]
     }
   ]
 }

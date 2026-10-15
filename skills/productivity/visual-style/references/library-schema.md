@@ -22,6 +22,7 @@ A style is one `styles.json` record plus one profile section with the same id.
 | `category` | One of `categories[].id` |
 | `aliases` | Other names that mean the same style. Searched by `find --text` |
 | `summary` | One sentence a designer could sketch from |
+| `summary_th` | Optional. The same summary in Thai, shown on gallery cards and searched by `find --text` |
 | `mood` | 2 to 4 adjectives |
 | `typography_tags`, `layout_tags`, `medium`, `motion_type` | Values from `vocabulary` only (enforced by `check`) |
 | `use_cases` | Concrete jobs |
@@ -29,6 +30,7 @@ A style is one `styles.json` record plus one profile section with the same id.
 | `related_styles` | Neighbors that a person might confuse with this one |
 | `reference_images` | `[{ "path", "source", "license", "kind" }]`, `kind` is `user-supplied`, `licensed`, `public-domain`, or `generated`. Paths are relative to `library/` and must exist |
 | `reference_sources` | Verifiable books, standards, or pages. Leave empty rather than guess |
+| `research` | Optional. `verified` when `reference_sources` back the profile, `unverified` when they do not (the gallery tags it). Absent means authored for this library |
 | `preview` | Gallery hint: `renderer`, `display` and `text` font keys, default `palette` |
 | `profile` | Path of the Markdown file holding the profile |
 
@@ -86,7 +88,7 @@ Then open http://localhost:8000/gallery.html. Previews are synthetic (drawn from
 What it offers:
 
 - Search over all fields (keyword matching with a small Thai/English map, not AI), quick filters (mood, color, use) and an all-filters drawer.
-- Tabs for styles, colors, and presets. Colors: a swatch wall of every library color (tap to see palettes that use it), palette browsing, and a 6-role palette builder with live WCAG checks. Generated palettes are labelled and contrast-fixed.
+- Tabs for styles, colors, presets, and a Thai guide (pick by job, spacing and columns, easing, font pairs, color rules, tokens, sources). Colors: a swatch wall of every library color (tap to see palettes that use it), palette browsing, and a 6-role palette builder with live WCAG checks. Generated palettes are labelled and contrast-fixed.
 - Compare grids: one style across its palettes or all palettes, one palette across its styles.
 - A selection tray and a Review & apply dialog that copies a handoff (prompt or JSON) for `/create-presentation` when the use is a presentation, otherwise `/visual-style`. A palette with no surface role uses its background as the surface.
 - A Works tab, shown only when a `works.json` sits next to the page and lists at least one work.

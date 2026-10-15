@@ -657,6 +657,83 @@
       "contrast_notes": "Flat Chrome is not metal: build the chrome look from a hard-stop gradient Void, Steel, Chrome, Ice Glint, keep text solid. Signal Red is one detail per image (an eye, a visor line).",
       "use_cases": ["album cover", "game key art", "streetwear", "tech launch"],
       "example": "A single cover: Void ground, a chrome figure lit from the top left with two star glints in Ice Glint, one Signal Red eye, title in condensed Chrome type."
+    },
+    {
+      "id": "mid-century",
+      "name": "Mid-century Warm",
+      "category": "warm",
+      "mood": ["optimistic", "warm", "retro"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F3E9D2", "name": "Cream", "role": "background", "share": 45 },
+        { "hex": "#3A2A1E", "name": "Walnut", "role": "text", "share": 20 },
+        { "hex": "#B9502A", "name": "Tangerine", "role": "primary", "share": 13 },
+        { "hex": "#2E6E6A", "name": "Teal", "role": "secondary", "share": 12 },
+        { "hex": "#D9A33B", "name": "Mustard", "role": "accent", "share": 10 }
+      ],
+      "text_pairs": [
+        { "fg": "Walnut", "bg": "Cream", "use": "body" },
+        { "fg": "Teal", "bg": "Cream", "use": "body" },
+        { "fg": "Walnut", "bg": "Mustard", "use": "body" },
+        { "fg": "Tangerine", "bg": "Cream", "use": "large" }
+      ],
+      "avoid_pairs": [{ "fg": "Mustard", "bg": "Cream" }, { "fg": "Tangerine", "bg": "Teal" }],
+      "contrast_notes": "Walnut on Cream is 11.4:1 and Teal on Cream 4.9:1, both fine for body text. Tangerine on Cream is 4.1:1, so use it for large type and shapes only. Mustard is a fill color: on Cream it is 1.9:1; set Walnut text on it (6.1:1).",
+      "use_cases": ["furniture brand", "cafe", "retro poster", "lifestyle brand"],
+      "example": "A furniture catalogue cover: Cream ground, Tangerine boomerang and Teal starburst, Walnut headline, a Mustard price tag with Walnut text."
+    },
+    {
+      "id": "neon-noir",
+      "name": "Neon Noir",
+      "category": "experimental",
+      "mood": ["nocturnal", "electric", "edgy"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#0E0B1F", "name": "Night", "role": "background", "share": 55 },
+        { "hex": "#221B3D", "name": "Dusk", "role": "surface", "share": 15 },
+        { "hex": "#F3EEFF", "name": "Neon White", "role": "text", "share": 15 },
+        { "hex": "#FF4FA3", "name": "Hot Pink", "role": "primary", "share": 8 },
+        { "hex": "#2BE0E8", "name": "Electric Cyan", "role": "secondary", "share": 5 },
+        { "hex": "#8B5CF6", "name": "Ultraviolet", "role": "accent", "share": 2 }
+      ],
+      "text_pairs": [
+        { "fg": "Neon White", "bg": "Night", "use": "body" },
+        { "fg": "Neon White", "bg": "Dusk", "use": "body" },
+        { "fg": "Electric Cyan", "bg": "Night", "use": "body" },
+        { "fg": "Hot Pink", "bg": "Night", "use": "body" },
+        { "fg": "Ultraviolet", "bg": "Night", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Neon White", "bg": "Hot Pink" }, { "fg": "Hot Pink", "bg": "Ultraviolet" }, { "fg": "Ultraviolet", "bg": "Dusk" }],
+      "contrast_notes": "Neon White on Night is 17:1 and Electric Cyan on Night 11.9:1. Hot Pink on Night is 6.4:1 and Ultraviolet on Night 4.6:1, enough for text but keep glows off body copy. Neon White on Hot Pink is only 2.7:1: put Night text on Hot Pink buttons instead.",
+      "use_cases": ["cyberpunk poster", "vaporwave cover", "night event", "game key art"],
+      "example": "A night event poster: Night ground with a Hot Pink perspective grid, Electric Cyan title glow, Neon White details on a Dusk panel."
+    },
+    {
+      "id": "aurora",
+      "name": "Aurora Haze",
+      "category": "pastel",
+      "mood": ["dreamy", "airy", "modern"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F6F4FF", "name": "Haze", "role": "background", "share": 45 },
+        { "hex": "#E3DEFA", "name": "Lavender Mist", "role": "surface", "share": 18 },
+        { "hex": "#5B4BD6", "name": "Iris", "role": "primary", "share": 12 },
+        { "hex": "#7FD3E6", "name": "Aqua Glow", "role": "secondary", "share": 10 },
+        { "hex": "#F59AC0", "name": "Blossom", "role": "accent", "share": 5 },
+        { "hex": "#1D1838", "name": "Night Ink", "role": "text", "share": 10 }
+      ],
+      "text_pairs": [
+        { "fg": "Night Ink", "bg": "Haze", "use": "body" },
+        { "fg": "Night Ink", "bg": "Lavender Mist", "use": "body" },
+        { "fg": "Iris", "bg": "Haze", "use": "body" },
+        { "fg": "Iris", "bg": "Lavender Mist", "use": "body" },
+        { "fg": "Night Ink", "bg": "Aqua Glow", "use": "body" },
+        { "fg": "Night Ink", "bg": "Blossom", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Aqua Glow", "bg": "Haze" }, { "fg": "Blossom", "bg": "Haze" }, { "fg": "Night Ink", "bg": "Iris" }],
+      "contrast_notes": "Night Ink on Haze is 15.6:1 and Iris on Haze 5.6:1. Aqua Glow and Blossom are gradient and fill colors only: on Haze they reach 1.6:1 and 1.9:1. Put Night Ink text on them (10:1 and 8.3:1). On Iris use white text, not Night Ink (2.8:1).",
+      "use_cases": ["glass UI", "aurora gradient", "AI product site", "deck cover"],
+      "example": "An AI product hero: an aurora of Iris, Aqua Glow, and Blossom blurred over Haze, a frosted Lavender Mist card, Night Ink headline."
     }
   ]
 }

@@ -96,7 +96,7 @@ function find(opts) {
     if (opts.layout && !has(s.layout_tags, opts.layout)) return false;
     if (opts.palette && !s.compatible_palettes.includes(opts.palette)) return false;
     if (opts.text) {
-      const blob = [s.id, s.name, s.summary, ...s.aliases, ...s.mood, ...s.use_cases].join(" ").toLowerCase();
+      const blob = [s.id, s.name, s.summary, s.summary_th || "", ...s.aliases, ...s.mood, ...s.use_cases].join(" ").toLowerCase();
       if (!opts.text.split(/\s+/).every((w) => blob.includes(w))) return false;
     }
     return true;
@@ -202,6 +202,7 @@ function check() {
   for (const s of styles) {
     for (const k of STYLE_KEYS) if (!(k in s)) errors.push(`style ${s.id}: missing ${k}`);
     if (!catIds.has(s.category)) errors.push(`style ${s.id}: unknown category ${s.category}`);
+    if ("research" in s && !["verified", "unverified"].includes(s.research)) errors.push(`style ${s.id}: research must be verified or unverified`);
     for (const p of s.compatible_palettes || []) if (!palIds.has(p)) errors.push(`style ${s.id}: unknown palette ${p}`);
     for (const r of s.related_styles || []) if (!styleIds.has(r)) errors.push(`style ${s.id}: unknown related style ${r}`);
     for (const [key, vocab] of Object.entries(vocabulary)) {
