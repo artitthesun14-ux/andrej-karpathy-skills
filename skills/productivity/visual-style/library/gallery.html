@@ -400,7 +400,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
   </nav>
 
   <section id="view-styles" role="tabpanel" aria-labelledby="tab-styles">
-    <p class="tab-note">Styles are the look and the rules: type, layout, composition, image, motion. Any palette can go on any style.</p>
+    <p class="tab-note">Styles are the look and the rules: type, layout, composition, image, motion. Any palette can go on any style. Choose a style and colors in any order; one of the two is enough to apply.</p>
     <div class="toolbar">
       <span class="pill-select"><select id="f-mood" aria-label="Mood"></select></span>
       <span class="pill-select"><select id="f-color" aria-label="Color"></select></span>
@@ -429,7 +429,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     </div>
 
     <div id="cm-pick">
-      <p class="mode-intro">Tap a color you like. Library palettes that use it, or a close color, appear below, then palettes generated from it.</p>
+      <p class="mode-intro">Tap a color to search with it. Library palettes that use it, or a close color, appear below, then palettes generated from it. Tapping only searches: your selected colors change when you press <b>Select palette</b> or <b>Use these colors</b>.</p>
       <div class="wall" id="pk-wall" role="group" aria-label="Colors from the library"></div>
       <details class="more own" id="pk-own">
         <summary>Enter your own color</summary>
@@ -1049,7 +1049,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
       cs.forEach((c) => used.add(c.hex)); return [name, cs];
     }).filter((r) => r[1].length);
     const tile = (hex, label) => `<button class="sw" type="button" data-sw="${hex}" aria-pressed="${hex === state.pick}" style="background:${hex}" title="${esc(label)} ${hex}" aria-label="${esc(label)} ${hex}"></button>`;
-    $("#pk-wall").innerHTML = (mine ? `<div class="wall-row"><p class="sub">Your colors</p><div class="wall-tiles">${ROLES6.map(([r, t]) => tile(mine[r], t)).join("")}</div></div>` : "") +
+    $("#pk-wall").innerHTML = (mine ? `<div class="wall-row"><p class="sub">Search with your colors</p><div class="wall-tiles">${ROLES6.map(([r, t]) => tile(mine[r], t)).join("")}</div></div>` : "") +
       rows.map(([name, cs]) => `<div class="wall-row"><p class="sub">${name}</p><div class="wall-tiles">${cs.map((c) => tile(c.hex, `${c.name}, ${c.pal.name}`)).join("")}</div></div>`).join("");
   }
   function setPick(hex, from) {
@@ -1101,7 +1101,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     const close = scored.filter((x) => x.d < 22), lib = (close.length ? close : scored).slice(0, 6);
     GEN = generate(hex);
     const vline = (c) => [verdict(ratio(c.text, c.background)), verdict(ratio(c.accent, c.background), "ui")];
-    $("#pk-picked").innerHTML = `<div class="picked" id="picked-anchor"><span class="big" style="background:${hex}"></span><div><h3>${named ? esc(named.name) : "Your color"} <span class="hex" style="color:var(--muted);font-weight:400">${hex}</span></h3><p>${close.length} library palette${close.length === 1 ? "" : "s"} use${close.length === 1 ? "s" : ""} this color or a close one${selStyle() ? `, shown on ${esc(selStyle().name)}` : ""}. Tap any color in a result to keep exploring.</p></div></div>`;
+    $("#pk-picked").innerHTML = `<div class="picked" id="picked-anchor"><span class="big" style="background:${hex}"></span><div><h3>${named ? esc(named.name) : "Your color"} <span class="hex" style="color:var(--muted);font-weight:400">${hex}</span></h3><p>${close.length} library palette${close.length === 1 ? "" : "s"} use${close.length === 1 ? "s" : ""} this color or a close one${selStyle() ? `, shown on ${esc(selStyle().name)}` : ""}. Tap any color in a result to keep exploring.${selColors() ? ` Your selection is still <b>${esc(selPalName())}</b>; it changes only when you select a palette below.` : ""}</p></div></div>`;
     $("#pk-results").innerHTML = `
       <div class="result-head"><h3><span class="kind lib">Library</span> ${close.length ? "Palettes that go with it" : "Nearest library palettes"}</h3><p>${close.length ? "Outlined column is the matching color." : "None close, showing the nearest."}</p></div>
       <div class="mini-grid">${lib.map((x) => { const on = state.sel.palette === x.p.id, st = styleFor(x.p); return `<div class="mini card ${on ? "is-sel" : ""}">
@@ -1213,11 +1213,11 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
   function renderTray() {
     const s = selStyle(), pn = selPalName(), c = selColors();
     $("#slot-style").classList.toggle("empty-slot", !s);
-    $("#slot-style").innerHTML = `<span class="vis">${s ? preview(s, c ? selPalObj() : DB.pal[s.preview.palette] || DB.pal[s.compatible_palettes[0]]) : ""}</span><span class="k">Style</span><span class="v">${s ? esc(s.name) : "Not chosen"}</span>`;
+    $("#slot-style").innerHTML = `<span class="vis">${s ? preview(s, c ? selPalObj() : DB.pal[s.preview.palette] || DB.pal[s.compatible_palettes[0]]) : ""}</span><span class="k">Style</span><span class="v">${s ? esc(s.name) : c ? "Optional" : "Not chosen"}</span>`;
     $("#slot-pal").classList.toggle("empty-slot", !c);
-    $("#slot-pal").innerHTML = `<span class="vis">${c ? ["background", "primary", "accent", "text"].map((r) => `<span style="background:${c[r]}"></span>`).join("") : ""}</span><span class="k">Colors</span><span class="v">${c ? esc(pn) : "Not chosen"}</span>`;
+    $("#slot-pal").innerHTML = `<span class="vis">${c ? ["background", "primary", "accent", "text"].map((r) => `<span style="background:${c[r]}"></span>`).join("") : ""}</span><span class="k">Colors</span><span class="v">${c ? esc(pn) : s ? "Optional" : "Not chosen"}</span>`;
     const n = (s ? 1 : 0) + (c ? 1 : 0);
-    $("#tray-n").textContent = `${n} of 2 chosen` + (state.sel.preset ? " · preset" : "");
+    $("#tray-n").textContent = `${n} of 2 chosen${n === 1 ? ", enough to apply" : ""}` + (state.sel.preset ? " · preset" : "");
     $("#apply-btn").disabled = !n;
     $("#apply-btn").title = n ? "" : "Select a style or a palette first";
   }
@@ -1337,6 +1337,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
     showDialog(`<div class="dlg-head"><div><div class="eyebrow">Review and apply</div><h2 id="dlg-title">${esc(s ? s.name : "No style yet")} <span style="color:var(--muted)">+</span> ${esc(c ? selPalName() : "no colors yet")}</h2></div>${closeBtn}</div>
       <div class="seg" role="radiogroup" aria-label="Preview mode">${modeSeg("rmode", rmode)}</div>
       <div id="r-prev">${m.html}</div><p class="prev-caption" id="r-cap">${esc(m.cap)}</p>
+      ${!s || !c ? `<p class="notice" style="margin:0;font-size:14px">${s ? "No colors yet: the handoff asks for a palette from the style's compatible palettes." : "No style yet: the handoff asks for 3 styles that fit these colors."} You can apply now, or choose it first.</p>` : ""}
       <div class="actions"><button class="btn small" type="button" data-goto="styles">${s ? "Change style" : "Choose a style"}</button><button class="btn small" type="button" data-goto="colors">${c ? "Change colors" : "Choose colors"}</button>${c ? `<button class="btn small" type="button" data-goto="build">Fine-tune colors</button>` : ""}</div>
       <div class="form-grid">
         <div class="field"><label for="r-use">Use it for</label><span class="pill-select" style="display:flex"><select id="r-use" style="max-width:none;width:100%"><option value="">Not set</option>${useOpts}</select></span></div>
@@ -1365,7 +1366,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
         <div class="fact"><h4>What search reads</h4><p>Names, aliases, mood, use cases, typography, layout, medium, motion, summaries, profile text, palette and color names, and color families by hue (so “green” finds green palettes even when no color is named green). A small keyword list maps common Thai words to these terms. It does not use AI; when no result matches every word, it shows the closest matches and says so.</p></div>
         <div class="fact"><h4>Guide</h4><p>The Guide tab (คู่มือ) holds research notes that apply to every style: picks by job, grid and spacing, motion and easing, Thai and Latin font pairs, color rules, design tokens, and sources. Styles marked ยังไม่ตรวจแหล่ง had no source in that research round.</p></div>
         <div class="fact"><h4>Contrast</h4><p>Ratios use the WCAG 2.2 relative luminance formula. Body text needs 4.5:1 (AA), large text and UI parts need 3:1. Generated palettes are adjusted to meet these before they are shown, and are always labelled as generated.</p></div>
-        <div class="fact"><h4>Applying a selection</h4><p>Review &amp; apply builds a handoff with the command, ids, color values, direction, and constraints. Copy it into Claude Code. Presentations go to <code>/create-presentation</code>; other work goes to <code>/visual-style</code>.</p></div>
+        <div class="fact"><h4>Applying a selection</h4><p>Choose a style and colors in any order. One of them is enough: the handoff asks for the missing part. Tapping a single color only searches; your colors change when you select a palette. Review &amp; apply builds a handoff with the command, ids, color values, direction, and constraints. Copy it into Claude Code. Presentations go to <code>/create-presentation</code>; other work goes to <code>/visual-style</code>.</p></div>
         <div class="fact"><h4>What is saved</h4><p>Your selection and filters stay in this browser only. ${DB ? `${DB.styles.length} styles, ${DB.palettes.length} palettes, ${DB.presets.length} presets.` : ""}</p></div>
       </div>`);
   }
@@ -1571,7 +1572,7 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
       if (stay) {
         scrollTo({ top: y, behavior: "instant" });
         const c = libColors().find((x) => x.hex === state.pick);
-        toast(`${c ? c.name + " " : ""}${state.pick} picked. Results updated`);
+        toast(`Showing palettes with ${c ? c.name + " " : ""}${state.pick}` + (selColors() ? ". Your selected colors did not change" : ""));
         return;
       }
       const a = $("#picked-anchor"); if (a) a.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
