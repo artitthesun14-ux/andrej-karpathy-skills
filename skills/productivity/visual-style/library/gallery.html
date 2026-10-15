@@ -119,6 +119,24 @@ a.btn { text-decoration: none; }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .tag { font-size: 12px; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--rule); color: var(--muted); }
 .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.count-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 12px; margin: 0 0 14px; }
+.count-row .count { margin: 0; }
+.size-seg button { padding: 6px 12px; min-height: 34px; font-size: 13px; }
+.thumb .expand { display: none; position: absolute; right: 6px; top: 6px; z-index: 1; width: 32px; height: 32px; border-radius: 50%; border: 0; background: rgba(0,0,0,.55); color: #fff; cursor: pointer; font-size: 16px; line-height: 1; }
+.grid.size-m, .grid.size-s { gap: 18px 12px; }
+.grid.size-m { grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); }
+.grid.size-s { grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr)); }
+@media (max-width: 600px) { .grid.size-m { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid.size-s { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 8px; } }
+.grid.size-m .card, .grid.size-s .card { gap: 6px; }
+.grid.size-m .thumb .expand, .grid.size-s .thumb .expand { display: grid; place-items: center; }
+.grid.size-m .summary, .grid.size-m .tags, .grid.size-m .eyebrow, .grid.size-m .dots, .grid.size-m [data-detail].btn, .grid.size-m .tag-synth,
+.grid.size-s .summary, .grid.size-s .tags, .grid.size-s .eyebrow, .grid.size-s .dots, .grid.size-s [data-detail].btn, .grid.size-s .tag-synth { display: none; }
+.grid.size-m .card h3 { font-size: 15px; } .grid.size-s .card h3 { font-size: 13px; }
+.grid.size-m .card h3, .grid.size-s .card h3 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.grid.size-m .actions .btn, .grid.size-s .actions .btn { flex: 1; min-width: 0; }
+.grid.size-s .actions .btn { font-size: 12px; padding-inline: 6px; min-height: 32px; }
+.grid.size-s .thumb .expand { width: 26px; height: 26px; font-size: 13px; right: 4px; top: 4px; }
+.grid.size-s .sel-flag { font-size: 10px; padding: 1px 6px; left: 4px; top: 4px; }
 .empty { padding: 32px 0; color: var(--muted); max-width: 60ch; }
 .notice { background: var(--panel); border-left: 3px solid var(--warn); padding: 16px; border-radius: 8px; }
 code, .hex { font-family: var(--f-mono); font-size: 0.86em; }
@@ -413,7 +431,10 @@ html[lang="th"] #tab-guide .n { display: none; }
     </div>
     <div class="active-chips" id="active-chips" hidden></div>
     <p class="notice" id="color-note" style="font-size:13px;margin:0 0 12px;padding:10px 14px" hidden></p>
-    <p class="count" id="style-count" aria-live="polite"></p>
+    <div class="count-row">
+      <p class="count" id="style-count" aria-live="polite"></p>
+      <div class="seg size-seg" role="group" aria-label="Card size" id="size-seg"><button type="button" data-size="l" aria-pressed="true">Large</button><button type="button" data-size="m" aria-pressed="false">Medium</button><button type="button" data-size="s" aria-pressed="false">Small</button></div>
+    </div>
     <div class="grid" id="style-grid"></div>
   </section>
 
@@ -543,6 +564,7 @@ html[lang="th"] #tab-guide .n { display: none; }
     filters: store.get("vsl2-filters", {}),
     fam: "",
     myColors: store.get("vsl2-mycolors", true),
+    size: store.get("vsl2-size", "l"),
     pick: "#2F6B4F",
     bmode: "combined",
     sel: Object.assign({ style: null, palette: null, custom: null, base: null, preset: null, use: "", constraints: "" }, store.get("vsl2-sel", {})),
@@ -564,6 +586,7 @@ html[lang="th"] #tab-guide .n { display: none; }
     "Any mood": "ทุกอารมณ์", "Works with any colors": "เข้ากับทุกสี", "Use for: anything": "ใช้กับ: ทุกงาน", "All categories": "ทุกหมวด", "Any use case": "ทุกประเภทงาน", "Any typography": "ตัวอักษรแบบใดก็ได้", "Any layout": "เลย์เอาต์แบบใดก็ได้", "Any motion": "การเคลื่อนไหวแบบใดก็ได้",
     "Category": "หมวด", "Use case": "ประเภทงาน", "Typography": "ตัวอักษร", "Layout": "เลย์เอาต์", "Motion": "การเคลื่อนไหว", "Close": "ปิด", "Reset": "รีเซ็ต", "Show results": "แสดงผล", "Clear all": "ล้างทั้งหมด",
     "animation (motion)": "แอนิเมชัน", "app UI": "หน้าจอแอป",
+    "Card size": "ขนาดการ์ด", "Large": "ใหญ่", "Medium": "กลาง", "Small": "เล็ก", "Expand": "ขยาย",
     "Details": "รายละเอียด", "Select style": "เลือกสไตล์", "Selected": "เลือกแล้ว", "sketch": "ภาพร่าง", "illustration": "ภาพประกอบ", "reference": "ภาพอ้างอิง", "In use": "กำลังใช้", "Use preset": "ใช้พรีเซ็ต", "Preset": "พรีเซ็ต",
     "No source was found for this style in the research round; the description is general knowledge.": "รอบค้นคว้าไม่พบแหล่งอ้างอิงของสไตล์นี้ คำอธิบายมาจากความรู้ทั่วไป",
     "Ways to choose colors": "วิธีเลือกสี", "Pick a color": "เลือกจากสี", "Browse palettes": "ดูพาเลตต์", "Build my palette": "สร้างพาเลตต์เอง",
@@ -1142,7 +1165,7 @@ html[lang="th"] #tab-guide .n { display: none; }
       const p = cardPalette(s), on = state.sel.style === s.id;
       const tags = [...s.mood.slice(0, 2), s.medium[0]].filter(Boolean);
       return `<article class="card ${on ? "is-sel" : ""}">
-        <div class="thumb">${cardThumb(s, p)}${on ? `<span class="sel-flag">Selected</span>` : ""}<button class="open" type="button" data-detail="${s.id}" aria-label="Open ${esc(s.name)} details"></button></div>
+        <div class="thumb">${cardThumb(s, p)}${on ? `<span class="sel-flag">Selected</span>` : ""}<button class="open" type="button" data-detail="${s.id}" aria-label="Open ${esc(s.name)} details"></button><button class="expand" type="button" data-detail="${s.id}" aria-label="Expand" title="Expand">⤢</button></div>
         <div class="card-head"><div><div class="eyebrow">${esc(DB.cat[s.category].name)}</div><h3>${esc(s.name)}</h3></div>${dots(six(p))}</div>
         <p class="summary clamp" ${s.summary_th ? `lang="th" title="${esc(s.summary)}"` : ""}>${esc(s.summary_th || s.summary)}</p>
         <div class="tags">${tags.map((t) => `<span class="tag">${esc(MEDIUM_LABEL[t] || t)}</span>`).join("")}${s.research === "unverified" ? `<span class="tag unv" title="No source was found for this style in the research round; the description is general knowledge.">ยังไม่ตรวจแหล่ง</span>` : ""}</div>
@@ -1683,6 +1706,10 @@ html[lang="th"] #tab-guide .n { display: none; }
     $("#drawer-form").addEventListener("submit", (e) => { e.preventDefault(); state.filters = drawerDraft(); $("#drawer").close(); syncQuick(); renderStyles(); });
     $("#drawer-reset").addEventListener("click", () => { $$("#drawer-fields select").forEach((el) => (el.value = "")); $$("#drawer-fields select")[0].dispatchEvent(new Event("input")); });
     $("#drawer").addEventListener("click", (e) => { if (e.target.closest("[data-close-drawer]") || e.target === $("#drawer")) $("#drawer").close(); });
+    // Card size: large shows one card per row on phones, medium two, small three; the expand button opens the full view.
+    const setSize = (v) => { state.size = v; store.set("vsl2-size", v); $("#style-grid").className = "grid" + (v === "l" ? "" : " size-" + v); $$("#size-seg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.size === v))); };
+    setSize(["l", "m", "s"].includes(state.size) ? state.size : "l");
+    $("#size-seg").addEventListener("click", (e) => { const b = e.target.closest("[data-size]"); if (b) setSize(b.dataset.size); });
     $("#mycolors").addEventListener("input", (e) => { state.myColors = e.target.checked; store.set("vsl2-mycolors", state.myColors); renderStyles(); });
     let qt; $("#q").addEventListener("input", () => { clearTimeout(qt); qt = setTimeout(onSearch, 120); });
     $("#help-btn").addEventListener("click", openHelp);
