@@ -1,108 +1,128 @@
 # Handoff: ai-product-workflow-skills
 
-Updated: 2026-10-15. Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. Single self-contained file (user asked for one file). Earlier history: `sessions/2026-10-11.md`; previous versions of this file in git (`c95ea66`, `8cbe20b`, `1ac7392`, `f9cca0a`).
+Updated: 2026-10-15 (evening). Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. Single self-contained file (user asked for one file). Earlier history: `sessions/2026-10-11.md`; previous versions of this file in git (`9221fed`, `c95ea66`, `8cbe20b`).
 
 ## 1. Goal and Success Criteria
 
 - Goal: maintain `ai-product-workflow-skills` (24 skills) and the private Visual Style Library gallery artifact; make presentations with `/create-presentation`.
-- This session: `/research` on visual styles (luxury, minimal, and beyond), grid, motion, fonts, design systems. Delivered as data files, then merged into the gallery artifact. Fixed a scroll jump in the gallery's color picker.
-- User said the research is for reference data only ("ไม่ได้จะสร้างโปรดัก"), not a product build. Do not push it into the `/grill-with-docs` workflow unless asked.
-- Next milestone: none requested.
+- This session: port the gallery-only styles into the repo, delete Chrome Anime, then fix gallery usability (color tap vs palette, Apply flow, color filter), add a one-line command handoff, and add a Thai interface toggle.
+- Next milestone: none requested. Remaining items are listed in section 10.
 
 ## 2. Current Status
 
-- CONFIRMED: branch in sync with origin at `c95ea66`. No repo files changed this session except this file (uncommitted).
-- CONFIRMED: Gallery artifact https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT at version 13, 29 files: 77 styles, 30 palettes, 9 presets, new Guide tab, Works tab still 4 works.
-- CONFIRMED (2026-10-15, later): the 22 new styles, 3 palettes, 3 presets, `summary_th`, `research`, and the Guide tab were ported into the repo library, and the `chrome-anime` style was deleted from both repo and gallery (user request). Library now: 76 styles, 30 palettes, 9 presets; `library.mjs check` passes. Repo `gallery.html` now matches the gallery `index.html` (except the publish wrapper).
-- REPORTED by user (from a phone screen recording): Pick a color jumped up on every tap. Fix published in v13; not yet confirmed by the user on a real phone.
+- CONFIRMED: branch pushed and in sync with origin at `96d99f6`. Working tree clean except this file.
+- CONFIRMED: gallery artifact https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT at version 17, 27 files: 76 styles, 30 palettes, 9 presets, Guide tab, Works tab (4 decks).
+- CONFIRMED: repo library and gallery data are identical (`styles.json`, `palettes.json`, `presets.json`, profile md files). Repo `library/gallery.html` equals gallery `index.html` except the publish wrapper (first line) and the closing tags.
+- CONFIRMED: `node scripts/library.mjs check` (from `skills/productivity/visual-style`): 76 styles, 30 palettes, 9 presets, 0 errors, 0 warnings.
+- UNKNOWN: behaviour on a real phone in the Claude app (only Playwright 390x844 tested); a real `/create-presentation` run with the new one-line command (not run end to end).
 
 ## 3. Completed
 
-Research (no repo change):
-- Notes in chat: luxury/minimal palettes from the library, 8pt grid, 12/8/4 columns, productive vs expressive motion (Carbon), M3 easing curves, DTCG 2025.10 tokens, Latin and Thai font pairs.
-- Files sent to the user (scratchpad, expect gone): `style-research.html` (visual, swatches) and `style-reference.md` (data file the user preferred). The user re-uploaded `style-reference.md`; it has 55 library styles with Thai one-liners, 22 outside styles, 27 palettes, foundations, job table, sources.
+Commits this session (all on the work branch):
 
-Gallery v12 (merged the research):
-- `summary_th` (Thai summary) on all 55 existing styles; cards show Thai, dialog shows both; Thai text indexed in search.
-- 2 new categories with profile files: `design-movements` (art-deco, art-nouveau, mid-century-modern, memphis, maximalism, retro-70s, y2k, vaporwave, cyberpunk, retro-futurism, scandinavian) and `digital-ui` (glassmorphism, neumorphism, claymorphism, neo-brutalism, bento-grid, flat-material, skeuomorphism, aurora-gradient, dark-tech-saas, flat-illustration-people, dopamine-design). 22 new SVG preview renderers in `index.html` (`R` object).
-- New field `research: "verified" | "unverified"`; 8 unverified styles show a dashed "ยังไม่ตรวจแหล่ง" tag and a notice in the dialog: retro-futurism, scandinavian, neumorphism, claymorphism, skeuomorphism, aurora-gradient, flat-illustration-people, dopamine-design. (The user was told 9 in chat; the data has 8.)
-- New medium `app` (label "app UI") in vocabulary.
-- 3 palettes: `mid-century` (warm), `neon-noir` (experimental), `aurora` (pastel). Text pairs checked by script (body >= 4.5:1, large >= 3:1); shares sum to 100.
-- 3 presets: `saas-product-site`, `youth-event-pop`, `app-interface-glass`.
-- Guide tab (คู่มือ, Thai): pick by job (12 jobs, chips open styles/palettes), spacing scale and column demo, easing demo (play 600/1200 ms, respects reduced motion), 11 Latin + Thai font pairs (Google Fonts loaded lazily on first open), color rules, DTCG token example, unverified list, 21 sources.
-- More Thai search words (เรโทร, กระจก, นีออน, ไล่สี, แอป, แดชบอร์ด, วัยรุ่น, เกม, ...). Help dialog mentions the Guide.
-
-Gallery v13: Pick a color no longer scrolls when tapping a color while already in Pick mode (keeps `scrollY`, shows a toast "<name> <hex> picked. Results updated"). Taps from dialogs or other tabs still navigate and scroll to the result.
+1. `7d56465` Port and delete:
+   - 22 styles (`design-movements`, `digital-ui` categories), 3 palettes (`mid-century`, `neon-noir`, `aurora`), 3 presets (`saas-product-site`, `youth-event-pop`, `app-interface-glass`) moved from gallery to repo, with optional fields `summary_th` and `research` (`verified`/`unverified`).
+   - `chrome-anime` style deleted everywhere (user decision): styles.json entry, profile section, `references/chrome-anime/` images (repo `example-01.webp`; gallery `example-01.webp` and `user-01.webp`), `chrome` SVG renderer. y2k and cyberpunk "Differs from" and `related_styles` rewritten. Palette `chrome-noir` kept (other styles use it).
+   - `library.mjs`: `find --text` also searches `summary_th`; `check` validates `research` values.
+   - Docs: `library-schema.md` (new fields, Guide tab), `docs/productivity/visual-style.md` (76 styles, 13 categories, 30 palettes).
+   - Repo JSON kept in its compact format with a formatter that reproduced the old files byte for byte before merging.
+2. `d86e5f5` Issue 3 and 2 (wording only): Pick a color says taps only search; wall row renamed "Search with your colors"; toast "Showing palettes with X. Your selected colors did not change"; result note "Your selection is still X"; tray marks the missing half "Optional" and shows "enough to apply"; review dialog notice when style or colors are missing; help text.
+3. `c203ce7` Issue 1: Styles color filter options read "Works with ...", filter labelled Colors; a note says it only narrows the list, with "Select <palette>" button or a link to Colors; card sketch tag names its palette.
+4. `96d99f6` One-line command and Thai toggle:
+   - Apply defaults to a command, e.g. `/create-presentation style=art-deco palette=noir-gold` plus constraint lines. Keys: `preset=`, `style=`, `palette=`, `colors=` (6 HEX without `#`, order primary, secondary, accent, background, surface, text), `use=` (only for `/visual-style`). Tabs Command / Full prompt / JSON.
+   - Shared spec in `skills/productivity/visual-style/references/style-direction.md` > Gallery command; pointers in `visual-style/SKILL.md` step 1 and `create-presentation/SKILL.md` route B. Rule: always load every id with `library.mjs`; complete a missing half with the shortlist; report unknown ids; mention `research: unverified`.
+   - ไทย / EN button: `TH` phrase table plus `TH_RX` patterns applied by a MutationObserver to text nodes and placeholder/aria-label/title. Skips `svg, pre, code, textarea, #guide-body, .hex, .ch, .fact p, [data-no-tr]`. Help dialog has a separate Thai version. Language stored in localStorage `vsl2-lang`; default Thai when the browser language is Thai. Library data (names, profiles) stays English.
 
 ## 4. Issues and Fixes
 
 | Issue | Status | Cause | Resolution | Evidence |
 |---|---|---|---|---|
-| Pick a color jumps up on every color tap (phone) | FIXED, not confirmed by user | Click handler for `data-sw` always ran `#picked-anchor.scrollIntoView` | When already on Colors > Pick and not in a dialog, restore `scrollY` and toast instead | Playwright 390x844 touch: scrollY before = after on 3 taps, no page errors |
-| Thai text in style data | FIXED | Library summaries English only | `summary_th` field | v12 render |
-| `desert-stone` note wrong (Rust on Basalt 2.28:1) | OPEN | from before | PR #8 follow-up, not fixed; listed in Guide | `library.mjs contrast "#A0462A" "#2E2B28"` |
+| Tapping a single color looked like it changed the palette | FIXED (wording) | Tap only runs `setPick`; nothing said so | Intro, label, toast, result note | Playwright: tray palette unchanged after tap, texts as expected |
+| Unclear whether Apply needs both style and colors | FIXED (wording) | `1 of 2 chosen` hidden on phones | "Optional" slot text, notice in review, help | Playwright 390x844 |
+| Styles color filter looked like a selection | FIXED | Filter recolors cards, options named "Palette: X" | Renamed options, note with Select button, palette name on sketch tag | Playwright; chip text "Colors: Works with ..." (duplicate "Works with" fixed by relabelling) |
+| Copying a long handoff on a phone is hard | FIXED | Handoff was 40 to 60 lines | One-line command default | Commands for library palette, custom colors, preset all produced correctly |
+| Thai search misses words in the middle of Thai text (e.g. ฟองอากาศ 0 results, ขั้นบันได 0, ดาว 2 of 3) | OPEN, CONFIRMED | `textHas` regex requires a non-Thai char before the term; Thai has no spaces | Not fixed. Fix: for terms containing Thai chars, use plain `includes` | Playwright search counts vs `summary_th` contents |
+| `desert-stone` note wrong (Rust on Basalt 2.28:1) | OPEN | from before | Not fixed; listed in Guide | `library.mjs contrast "#A0462A" "#2E2B28"` |
+| Selected style disappears silently when a filter excludes it (issue 4) | OPEN | No notice | Not fixed | Code reading |
+| "Apply" wording implies a commit step (issue 5) | OPEN | Apply only builds copy text | Not fixed; suggested rename e.g. "Copy handoff" | Code reading |
 | Diagram labels small on phone in Motivate deck | OPEN, accepted | SVG scales down | deck is for projection | earlier renders |
 
 ## 5. Attempts That Failed or Were Rejected
 
-- Rejected by user: a product-style workflow for the research (wanted data only).
-- First file format (HTML page) was not what the user wanted; they asked for a plain data file, then for it to go into the gallery.
-- `pkill -f "http.server 8765"` returns exit code 144 in this sandbox but still stops the server; harmless.
-- Earlier sessions: `rm -f shots/*` after `cd` blocked by safety check (use a fresh folder); Supabase hosting rejected; auto-calling user-invoked skills rejected.
+- Playwright `page.goto(url#hash)` on the same page does not reload, so the `#style-id` deep link test timed out; open the dialog by clicking `[data-detail=...]` instead.
+- The ไทย / EN button cannot be clicked while a modal dialog is open (dialog intercepts pointer); code that re-rendered help on toggle was removed as unreachable.
+- First translation pattern `X on Y` was too broad (would garble palette contrast notes); narrowed to short capitalised names.
+- `pkill -f "http.server 8765"` exits 144 in this sandbox but stops the server; harmless.
+- Rejected by user earlier: product-style workflow for research, auto-calling user-invoked skills, Supabase hosting.
 
 ## 6. Decisions and Constraints
 
 User decisions:
-- Research goes into the gallery: add what is missing, skip what exists, extra improvements allowed.
-- Decks stay out of the repo; artifacts only. `/create-presentation` adds finished decks to the gallery after the user has seen them.
-- No auto-calling of user-invoked skills. Chrome Anime style deleted everywhere (user, 2026-10-15).
+- Port the gallery-only styles into the repo (done). Delete Chrome Anime as a whole style, not only the image (asked explicitly).
+- Fix order chosen by user: 3, 2, then 1, then the one-line command (option A), plus a Thai toggle.
+- Decks stay out of the repo; finished decks go to the gallery Works tab only after the user has seen them.
+- No auto-calling of user-invoked skills.
 
 Agent decisions (user may reject):
-- New styles kept in the gallery only (not the repo library), because the repo needs validation and the user did not ask for repo changes.
-- New profiles written in English to match existing profile files; Thai in `summary_th` and the Guide.
-- Unverified styles are labelled instead of omitted.
+- Option B (gallery saves selection to artifact storage so no copy is needed) not built; possible later on top of A.
+- Thai toggle translates interface only; library data stays English (cards already show `summary_th`).
+- Chrome-noir palette kept after deleting chrome-anime.
 
-Gallery artifact differs from the repo (IMPORTANT):
-- Gallery has (repo does not): `works.json` + `works/` (4 decks). Everything else in the library now matches the repo. Never republish the gallery without `works.json` and `works/`.
-- To change the gallery: `Artifact read` the URL (no path), Read every line of the saved HTML, read changed data files by `path`, edit, publish `index.html` plus only new or changed files (other files are kept).
-- Build sources from this session were in scratchpad `gal/` (`new-data.mjs`, `gen.mjs`, `contrast.mjs`, `out/`). Expect them gone; read the live files from the artifact instead.
+Gallery publishing rules (IMPORTANT):
+- Gallery has `works.json` + `works/` (4 decks) that the repo does not. Never publish in a way that drops them; files left out of a publish are kept.
+- To change the gallery: `Artifact read` the URL (no path), Read every line of the saved HTML, edit, publish `index.html` (plus only changed data files) to the same URL. The publish source used this session was a scratchpad copy; expect it gone. Rebuild it from the live artifact or from repo `gallery.html` (replace the repo's first 5 head lines with nothing and keep the body; the artifact wrapper is added at publish).
+- Every gallery code change must be applied to both repo `gallery.html` and the published `index.html`. This session used one Python replace script per change against both files (each replacement asserted to match exactly once).
 
 Repo rules (`.claude/CLAUDE.md`): no em-dashes; Promotion Contract; user-invoked skills need `disable-model-invocation: true`, `openai.yaml`, a `workflow-router` row, and never call each other.
 
-## 7. Files Changed
+## 7. Files Changed (this session)
 
-- Repo: `.ai/handoff/current.md` only (uncommitted).
-- Gallery v12: `index.html`, `styles.json`, `palettes.json`, `presets.json` changed; `styles/design-movements.md`, `styles/digital-ui.md` added. v13: `index.html` only.
+- `skills/productivity/visual-style/library/styles.json`, `palettes.json`, `presets.json`, `gallery.html`
+- `skills/productivity/visual-style/library/styles/design-movements.md` (new), `digital-ui.md` (new), `illustration-character.md`
+- `skills/productivity/visual-style/library/references/chrome-anime/example-01.webp` (deleted)
+- `skills/productivity/visual-style/scripts/library.mjs`
+- `skills/productivity/visual-style/references/library-schema.md`, `style-direction.md`
+- `skills/productivity/visual-style/SKILL.md`, `skills/productivity/create-presentation/SKILL.md`
+- `docs/productivity/visual-style.md`
+- `.ai/handoff/current.md` (this file; uncommitted)
+- Gallery artifact: v14 (data, profiles, image deletions, index.html), v15, v16, v17 (index.html only).
 
 ## 8. Validation and Evidence
 
-- Data generator checks: every style tag in vocabulary, every palette/related style/preset reference exists, text-pair contrast thresholds, shares = 100, no em-dash in new data files.
-- Playwright (local server) 1440x900 and 390x844: no page errors, no horizontal overflow, new category grids, glass dialog, Guide tab rendered. 404s only for gallery files not copied locally (other profiles, images).
-- Published file list after v12: 29 files, all 27 previous files present.
-- NOT verified: the gallery inside the Claude phone app after v12/v13; Thai rendering of fonts other than Playfair, Inter, Noto Serif Thai, Noto Sans Thai in real work; M3 and Carbon duration numbers (secondary sources).
+- `library.mjs check`: 0 errors, 0 warnings. `find --text กระจก` returns glassmorphism.
+- `library.mjs style art-deco` returns all metadata plus 14 profile fields; `palette noir-gold` returns roles, contrast table, avoid pair; unknown id prints `Unknown style "..."`; `retro-futurism` shows `research: unverified`. So the one-line command gives the skill a superset of the old long handoff (which carried 6 profile fields).
+- Playwright (local `python3 -m http.server` in `library/`), 1440x900 and 390x844: no page errors; style counts; dialogs; pick flow; filter note; review notice; commands for palette, custom colors, preset; Thai crawl of all screens leaves only library data in English; toggling back restores English.
+- No em-dashes in changed files.
+- NOT verified: real phone in the Claude app; clipboard behaviour inside the app; an actual `/create-presentation` session consuming the command.
 
 ## 9. Open Questions and Risks
 
-- OPEN (PR #8 follow-up): fix `desert-stone` note in `skills/productivity/visual-style/library/palettes.json`; keep or drop Bauhaus and Brutalism aliases (agent recommends keep).
-- RISK: republishing the gallery from repo files would drop all gallery-only content above.
+- Thai search bug (section 4) affects searches for Thai words not in the keyword map.
+- Two copies of the gallery (repo and published) can drift; a build script that produces the publish file from repo `gallery.html` was proposed, not built.
+- Previews are synthetic for 75 of 76 styles; only `vintage-rubber-hose` has a reference image. Needs licensed images, not code.
+- Translation is pattern based: new English UI strings added later will show in English in Thai mode until added to `TH`/`TH_RX` in `gallery.html`.
+- Selection lives in browser localStorage only.
 - Shareable deck link https://claude.ai/artifact/NFagUhWkbnoefD4trdcpCc (Motivate Employees) is still private until the user changes Share.
 
 ## 10. Next Actions, in priority order
 
-1. If the user reports the color picker still jumps: get a new recording, extract frames with `ffmpeg -vf "fps=1,scale=360:-1,tile=6x2"`, and check the `ds.sw` branch of the document click handler in the gallery `index.html`.
-3. Ask the user about the `desert-stone` note and the aliases.
+1. Fix Thai search: in `gallery.html` `textHas()` (search for `function textHas`), when the term contains Thai characters use `text.includes(term)`; keep word-start matching for Latin. Apply to repo and published copies; verify ฟองอากาศ finds y2k and ขั้นบันได finds art-deco.
+2. Ask the user whether to do issue 5 (rename Apply, e.g. "Copy handoff" / "คัดลอกคำสั่ง") and issue 4 (notice when the selected style is filtered out).
+3. Ask the user about the `desert-stone` note and the Bauhaus/Brutalism aliases (agent recommends keep).
+4. Optional: build script for the publish copy; option B (no-copy handoff via artifact storage).
+5. If the user reports wrong or missing Thai text: add the exact English string to `TH` or a pattern to `TH_RX` in both copies.
 
 ## 11. Exact First Step for the Next Session
 
-Run `git fetch origin main claude/setup-workflow-xd5lho && git checkout claude/setup-workflow-xd5lho && git status -sb && git log -3 --oneline`. Success check: `c95ea66` on top (or this handoff committed after it). Then wait for the user's request; for any gallery work, start with `Artifact read` of TEgWtaAsxAdNuhwVjhX1QT.
+Run `git fetch origin claude/setup-workflow-xd5lho && git checkout claude/setup-workflow-xd5lho && git status -sb && git log -3 --oneline`. Success check: `96d99f6` (or a commit of this handoff after it) on top. For any gallery work, start with `Artifact read` of TEgWtaAsxAdNuhwVjhX1QT and confirm it is version 17 or later.
 
 ## 12. Ready-to-paste Continuation Prompt
 
 ```
 อ่าน .ai/handoff/current.md ก่อน แล้วทำต่อ
-gallery artifact TEgWtaAsxAdNuhwVjhX1QT อยู่ที่ v13: 76 สไตล์ 30 พาเลตต์ 9 presets มีแท็บ Guide และแก้ Pick a color ไม่ให้เด้งแล้ว
-สไตล์ใหม่ 22 ตัวย้ายเข้า repo แล้ว (76 สไตล์ 30 พาเลตต์ 9 presets)
-ห้ามเขียนทับ gallery จนทำให้ works 4 งานหาย (ข้อมูล library ตรงกับ repo แล้ว ลบ chrome-anime แล้ว)
-งานค้าง: note palette desert-stone และ aliases Bauhaus/Brutalism
+gallery TEgWtaAsxAdNuhwVjhX1QT v17: 76 สไตล์ 30 พาเลตต์ 9 presets ข้อมูลตรงกับ repo แล้ว ลบ chrome-anime แล้ว
+มีคำสั่งบรรทัดเดียวใน Apply และปุ่ม ไทย/EN แล้ว
+แก้ gallery ต้องแก้ทั้ง repo gallery.html และไฟล์ที่ publish และห้ามทำ works 4 งานหาย
+งานค้าง: บั๊กค้นหาคำไทยกลางประโยค, ข้อ 4/5 (แจ้งเตือนสไตล์ถูกกรองหาย, ชื่อปุ่ม Apply), note desert-stone, aliases Bauhaus/Brutalism
 ทำตาม .claude/CLAUDE.md (ไม่มี em-dash)
 ```
