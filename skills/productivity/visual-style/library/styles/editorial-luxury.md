@@ -86,3 +86,20 @@ Typography with a clear personality, magazine composition, images that carry mea
 **Differs from:** museum-exhibition designs for walls and walking; art-catalogue designs for close reading of reproductions. luxury-editorial dramatizes images; art-catalogue presents them neutrally.
 **Prompt recipe:** "Contemporary art catalogue page, single artwork reproduced uncropped on a warm grey page, small precise grotesk caption block with artist, title, year, medium, dimensions, plate number, lots of empty space."
 **Implementation notes:** Use `object-fit: contain` and never `cover` for artworks. Keep caption data structured (artist, title, year, medium, dimensions) so it renders identically. Provide alt text from the caption.
+
+## quiet-luxury
+
+**Visual DNA:** Close-up photographs of material (knit, wool, linen, leather grain, stone), tonal neutral grounds one or two steps apart, small calm type, and no visible logo or metallic accent.
+**Design principles:** Value is shown by material and fit, never announced. Remove every element that signals price directly (logos, gold, big claims). Consistency across pages matters more than any single hero.
+**Color behavior:** Tonal neutrals (oat, taupe, stone, espresso) with values close together; contrast comes from one dark text color. No saturated accent; at most one deep neutral fill per page.
+**Typography:** A light transitional or old-style serif for headlines at modest sizes (32 to 48px on web, not display-huge), and a quiet grotesk for text and labels at 13 to 16px. Sentence case, normal tracking; small caps for labels only.
+**Layout:** A 12-column editorial grid with wide outer margins (8 to 12% of width) and one image per spread or slide. Text blocks stay narrow (45 to 60 characters).
+**Composition:** One subject per frame, often cropped tight to the material. Images and text sit in separate zones; repeat the same crop ratio across a sequence.
+**Image treatment:** Soft natural daylight, low contrast, no harsh shadows. Macro shots of fabric and surface; people photographed from the shoulder or in part, faces optional. Muted, slightly warm grade; no filters or vignettes.
+**Texture and material:** The texture lives in the photography. Graphic surfaces stay flat; a faint paper grain on print is the maximum.
+**Motion language:** Slow fades of 600 to 900 ms and slow image crossfades. No movement on type; no parallax beyond 8px.
+**Best for:** Fashion and knitwear brands, boutique hotels, private client and wealth decks, lookbooks, and interiors.
+**Avoid when:** The audience needs loud calls to action, the brand is young and playful, or there is no good material photography to show.
+**Differs from:** luxury-editorial is serif-led drama with high-contrast Didone headlines and a hero image; quiet-luxury is smaller type, tonal color, and material close-ups. minimal-product-showcase arranges many products in identical tiles; quiet-luxury tells one material story. charcoal-champagne colors bring a metallic note; quiet-luxury avoids metallics.
+**Prompt recipe:** "Quiet luxury lookbook spread, macro photograph of oat wool knit in soft daylight, tonal oat and taupe background, small light serif headline, small grotesk caption, wide margins, no logo, no gold."
+**Implementation notes:** Set color tokens as close tonal steps (for example 4 neutrals within one hue). Keep headline sizes modest and use `font-weight: 300` to `400`. Preload the hero image and use `object-fit: cover` with a fixed `aspect-ratio` so crops repeat exactly.

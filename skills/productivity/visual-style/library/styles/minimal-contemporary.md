@@ -69,3 +69,20 @@ Only the elements that are needed, intentional empty space, and close attention 
 **Differs from:** premium-product-campaign dramatizes one hero; minimal-product-showcase presents many calmly. luxury-editorial is serif-led and narrative; this style is grotesk-only and factual.
 **Prompt recipe:** "Minimal product showcase grid, identical tiles with products centered on seamless light grey, same studio lighting and angle, small grotesk name and price under each."
 **Implementation notes:** Fix tile `aspect-ratio` and use `object-fit: contain` so products align. Use consistent image dimensions to avoid layout shift.
+
+## wabi-sabi
+
+**Visual DNA:** Uneven, handmade edges (torn paper, brush strokes, hand-thrown clay), rough natural textures, earthy low-chroma tones, and quiet asymmetry with large empty areas that feel weathered rather than clean.
+**Design principles:** Accept imperfection, impermanence, and incompleteness. Nothing is perfectly aligned or polished; marks of making and age stay visible. Fewer things, each with presence.
+**Color behavior:** Earth, ash, clay, moss, and unbleached paper. Low saturation, close values, one darker earth for text. No pure white or pure black.
+**Typography:** A soft old-style serif or a humanist face at small sizes, sometimes one brush-written word as the only display element. Generous line height (1.6 to 1.8).
+**Layout:** Asymmetric placement on a loose grid; one element off-center with 50 to 70% of the area left empty. Edges of images and shapes can be irregular.
+**Composition:** A single object (cup, bowl, branch, stone) placed low or to one side, with negative space carrying the mood. Pairs of uneven sizes instead of symmetric sets.
+**Image treatment:** Natural side light, visible texture, muted grade with lifted shadows. Objects show wear: cracks, glaze runs, patina, mended seams.
+**Texture and material:** Raw clay, washi and handmade paper, linen, aged wood, stone, rust. A visible paper or plaster grain on backgrounds.
+**Motion language:** Slow fades of 800 to 1200 ms, ink-spread or paper-reveal masks with irregular edges. Never bouncy or snappy.
+**Best for:** Ceramics and craft studios, tea houses, slow-living and wellness brands, restaurant menus, and artisanal packaging.
+**Avoid when:** The product needs to look precise, technical, or new, or the audience expects crisp corporate polish.
+**Differs from:** japanese-minimalism uses precise, clean emptiness (ma) and a single exact mark; wabi-sabi embraces rough edges, age, and visible making. handcrafted-illustration is about drawn characters and pictures; wabi-sabi is about texture and restraint. sculpted-surface is smooth and lit like a studio object; wabi-sabi is rough and weathered.
+**Prompt recipe:** "Wabi-sabi still life, a hand-thrown ash-glazed bowl with a small crack placed low and off-center, rough unbleached paper background, soft side light, earthy muted tones, small old-style serif caption, large empty space."
+**Implementation notes:** Use `mask-image` with an irregular SVG edge for photo frames and a subtle noise texture (SVG `feTurbulence`, opacity 4 to 8%) on backgrounds. Keep text contrast at 4.5:1 or more even though the palette is low chroma.

@@ -19,7 +19,8 @@ A style is one `styles.json` record plus one profile section with the same id.
 |---|---|
 | `id` | kebab-case, unique, stable |
 | `name` | Display name |
-| `category` | One of `categories[].id` |
+| `category` | One of `categories[].id`: the primary category, shown on cards |
+| `facet` | One of `facets[].id`: `look` (aesthetic or movement), `layout` (composition pattern), `material` (surface and rendering), `story` (sequence and motion), or `color` (color structure). The medium is the separate `medium` field |
 | `aliases` | Other names that mean the same style. Searched by `find --text` |
 | `summary` | One sentence a designer could sketch from |
 | `summary_th` | Optional. The same summary in Thai, shown on gallery cards and searched by `find --text` |
@@ -34,6 +35,8 @@ A style is one `styles.json` record plus one profile section with the same id.
 | `preview` | Gallery hint: `renderer`, `display` and `text` font keys, default `palette` |
 | `profile` | Path of the Markdown file holding the profile |
 
+Top-level `featured` lists a dozen distinct starting points shown first in the gallery. `check` fails on an unknown facet or featured id.
+
 Profile section fields, one bold label each, in this order: Visual DNA, Design principles, Color behavior, Typography, Layout, Composition, Image treatment, Texture and material, Motion language, Best for, Avoid when, Differs from, Prompt recipe, Implementation notes.
 
 Writing rules:
@@ -47,6 +50,7 @@ Writing rules:
 | Field | Meaning |
 |---|---|
 | `id`, `name`, `category` | `category` is one of the palette `categories` |
+| `aliases` | Optional. Other names for the same colors (for example Quiet Luxury for `charcoal-champagne`), searched by `palettes --text` and the gallery |
 | `mood` | 2 to 4 adjectives |
 | `source` | `authored` (made for this library), `estimated-from-screenshot`, or `verified: <source>` |
 | `colors` | `[{ "hex", "name", "role", "share" }]`. HEX as uppercase `#RRGGBB`. `role` is background, surface, text, text-muted, primary, secondary, accent, signal, or line. `share` is the approximate percent of area; shares add to 100 |
@@ -56,6 +60,12 @@ Writing rules:
 | `use_cases`, `example` | Where it fits, and one concrete application |
 
 Thresholds follow WCAG 2.2 (https://www.w3.org/TR/WCAG22/), success criteria 1.4.3 and 1.4.11.
+
+Derived, never stored:
+
+- **Ground**: `light` or `dark`, from the background's relative luminance (above 0.18 is light).
+- **Status colors** (success, warning, error, info): fixed hues in OKLCH, lightness moved until each reaches 4.5:1 on the background. They stay apart from brand roles so a palette swap never changes what a status color means. `check` fails a palette whose derived status colors cannot reach 4.5:1.
+- **Muted text and border** for palettes without `text-muted` or `line` roles (gallery handoff only): 4.5:1 and 3:1 on the background.
 
 ## Preset entry
 
@@ -87,10 +97,11 @@ Then open http://localhost:8000/gallery.html. Previews are synthetic (drawn from
 
 What it offers:
 
+- A row of kinds above the style grid (All, Featured, and the five facets).
 - Search over all fields (keyword matching with a small Thai/English map, not AI), quick filters (mood, color, use) and an all-filters drawer.
-- Tabs for styles, colors, presets, and a Thai guide (pick by job, spacing and columns, easing, font pairs, color rules, tokens, sources). Colors: a swatch wall of every library color (tap to see palettes that use it), palette browsing, and a 6-role palette builder with live WCAG checks. Generated palettes are labelled and contrast-fixed.
+- Tabs for styles, colors, presets, and a Thai guide (pick by job, spacing and columns, easing, font pairs, color rules, tokens, sources). Colors: a swatch wall of every library color (tap to see palettes that use it); Color harmony (nine OKLCH harmonies from one color with hue, saturation, and lightness controls, per-color locks, Regenerate, Reset, hand edits shown against the computed value, calculated contrast); palette browsing by family, mood, ground, and use, with a small UI preview and status colors on each card; a 6-role palette builder with live WCAG checks. Harmony and builder results can be saved as My palettes. Presets: a mixer that shuffles style or colors separately (with locks and a recommended-only switch) and shows recommendations without blocking any pair, plus My presets (save, rename, duplicate, update, delete). Saved palettes and presets live in the browser's storage only. Generated palettes are labelled and contrast-fixed.
 - Compare grids: one style across its palettes or all palettes, one palette across its styles.
-- A selection tray and a Review & apply dialog that copies a one-line command (see `style-direction.md` > Gallery command), or a full handoff (prompt or JSON) for other tools, for `/create-presentation` when the use is a presentation, otherwise `/visual-style`. A palette with no surface role uses its background as the surface.
+- A selection tray and a Review & apply dialog that copies a one-line command (see `style-direction.md` > Gallery command), or a full handoff (prompt or JSON with `design_direction`) for other tools, for `/create-presentation` when the use is a presentation, otherwise `/visual-style`. A palette with no surface role uses its background as the surface.
 - A language button (ไทย / EN) that switches the interface to Thai. Library data (names, profiles) stays as written.
 - A Works tab, shown only when a `works.json` sits next to the page and lists at least one work.
 

@@ -7,10 +7,11 @@ Shared procedure for choosing a style and palette and turning it into a design d
 Search and load with the CLI (Node 18+, no install), run from the `visual-style` skill folder:
 
 ```
-node scripts/library.mjs find --medium presentation --mood calm   # also --category --use --motion --typography --layout --palette --text
+node scripts/library.mjs find --medium presentation --mood calm   # also --facet --category --use --motion --typography --layout --palette --text
 node scripts/library.mjs style <id>          # metadata plus the one profile section
-node scripts/library.mjs palettes --style <id>
-node scripts/library.mjs palette <id>        # roles, shares, contrast table, warnings
+node scripts/library.mjs palettes --style <id>   # also --ground light|dark --mood --use --text
+node scripts/library.mjs palette <id>        # roles, shares, contrast table, ground, derived status colors, warnings
+node scripts/library.mjs harmony "#hex" [type]   # harmonies from one color, with light and dark page roles
 node scripts/library.mjs preset <id>
 node scripts/library.mjs contrast "#hex" "#hex"
 node scripts/library.mjs check               # after editing the library
@@ -39,6 +40,8 @@ Read it as follows. Lines after the first are the person's constraints.
 | `colors=<6 HEX>` | Custom colors without `#`, in role order primary, secondary, accent, background, surface, text | Run `contrast` for text on background, text on surface, and accent on background |
 | `use=<medium>` | Intended medium (`/visual-style` only) | |
 
+The gallery's JSON handoff also carries `design_direction` (schema `visual-style/design-direction@1`): style and palette ids, color roles with muted text, border, and derived status colors, the profile's typography, layout, composition, principles, image, texture, and motion text, constraints, an avoid list, calculated contrast checks, and whether the pair is a recommended one. Treat it as the same choice as the one-line command; still load the ids.
+
 Always load every id before working; never act on the id alone. The loaded data replaces the long handoff: write the design direction from it. If only a style or only colors are given, complete the missing half with the shortlist below (palettes from the style's `compatible_palettes`, or 3 styles whose palettes fit the colors). If an id is not found, say so and offer the closest match from `find --text`. If the style has `research: unverified`, tell the person once that its profile has no checked source.
 
 ## Present a shortlist
@@ -60,7 +63,8 @@ Supported choices:
 - **A style as is**, with one of its `compatible_palettes`.
 - **A separate palette** with any style. If it is not in the style's compatible list, say why it still works and check its text pairs.
 - **Two styles mixed.** Name one primary and one secondary. The primary owns typography, grid, and composition. The secondary contributes one layer only (texture, image treatment, or motion). If both want to own the same layer, the primary wins.
-- **The person's own colors.** Assign each a role (background, surface, text, text-muted, primary, secondary, accent, signal, line), estimate shares, and run `contrast` for every text pair. Warn on any body pair below 4.5:1 and any large-text or UI pair below 3:1, and propose the nearest passing shade.
+- **The person's own colors.** Assign each a role (background, surface, text, text-muted, primary, secondary, accent, signal, line), estimate shares, and run `contrast` for every text pair. Warn on any body pair below 4.5:1 and any large-text or UI pair below 3:1, and propose the nearest passing shade. With only one color, run `harmony` and offer one or two of its results.
+- **Status colors** (success, warning, error, info) are never taken from brand roles. Use the derived ones from `palette <id>`, which reach 4.5:1 on that palette's background.
 - **A variant.** Change one axis of an existing style (palette, type family, density, or motion) and name it `<style-id>` plus the change, for example "swiss-international, serif headlines".
 - **A preset**, adjusted through its `adjustable` fields.
 

@@ -18,11 +18,11 @@ Everything lives in this skill's folder. Load only what the task needs.
 
 | File | Holds |
 |---|---|
-| `library/styles.json` | Searchable metadata per style: category, mood, type, layout, medium, use cases, motion, compatible palettes |
+| `library/styles.json` | Searchable metadata per style: category, facet (look, layout, material, story, color), mood, type, layout, medium, use cases, motion, compatible palettes |
 | `library/styles/<category>.md` | Full profile per style, one `## <id>` section each |
 | `library/palettes.json` | Palettes: HEX, names, roles, shares, readable text pairs, pairs to avoid, notes |
 | `library/presets.json` | Ready combinations for common jobs, all adjustable |
-| `library/gallery.html` | Gallery: search, filters, color picking and palette building, style vs palette compare, a copyable one-line command (Gallery command), and an optional Works tab (serve the folder, see `references/library-schema.md`) |
+| `library/gallery.html` | Gallery: search, browse by kind, filters, color picking, color harmonies, palette building, a style and palette mixer, saved palettes and presets, a copyable one-line command (Gallery command) or JSON design direction, and an optional Works tab (serve the folder, see `references/library-schema.md`) |
 | `references/style-direction.md` | Search, shortlist, combine, design direction, and review procedure |
 | `references/library-schema.md` | Field definitions, merged names, rules for adding entries |
 

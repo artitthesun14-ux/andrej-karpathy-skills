@@ -49,7 +49,7 @@ Named periods and movements that people ask for by name. Each one is a complete 
 **Motion language:** Shapes slide and rotate into place with a short overshoot, then hold.
 **Best for:** Furniture brands, cafes, event posters, lifestyle and interior brands.
 **Avoid when:** The tone must be strictly corporate or high-tech.
-**Differs from:** geometric-composition (Bauhaus) is primary colors and strict; mid-century-modern is warmer and looser. retro-70s is rounder with stripes and sunsets.
+**Differs from:** bauhaus is primary colors and strict; mid-century-modern is warmer and looser. retro-70s is rounder with stripes and sunsets.
 **Prompt recipe:** "Mid-century modern poster, boomerang and starburst shapes in mustard teal and tangerine on cream, walnut brown text, off-center layout, light paper grain."
 **Implementation notes:** A 3 or 4 color palette is enough; add a subtle grain with an SVG noise filter at low opacity.
 
@@ -188,3 +188,20 @@ Named periods and movements that people ask for by name. Each one is a complete 
 **Differs from:** japanese-minimalism is emptier and more contemplative; scandinavian is cosier and lived-in.
 **Prompt recipe:** "Scandinavian interior brand page, warm white and fog grey, pale oak and wool textures, soft daylight photo, friendly grotesk headings, generous spacing."
 **Implementation notes:** Not checked against a source in this research round; treat the description as general knowledge.
+
+## bauhaus
+
+**Visual DNA:** Shape, color, and type treated as one system: elementary forms in primaries (yellow triangle, red square, blue circle as the school's teaching example), lowercase sans-serif type, heavy black bars and rules, and asymmetric layouts that expose their construction.
+**Design principles:** Form follows function. Use the fewest elements that do the job; let structure show. Type, image, and shape share one grid and one logic, so the layout reads as a built object.
+**Color behavior:** Red, yellow, blue with black and off-white. Color marks function (one color for headings, one for the key shape), always flat. Black bars carry as much weight as color.
+**Typography:** Geometric or grotesk sans, often all lowercase, set flush left. Bold weights for short headings, regular for text; heavy horizontal or vertical rules separate sections. Type can run vertically along a bar.
+**Layout:** Asymmetric modular grid; content aligned to strong vertical and horizontal axes. Wide black or colored bars divide the page into functional zones.
+**Composition:** One dominant shape or bar, a column of text pulled to one side, and small numbers or labels pinned to grid lines. Photomontage frames sit in rectangles or circles.
+**Image treatment:** Black and white photography, photomontage, and tight geometric crops (circle, rectangle). Diagrams and arrows are welcome.
+**Texture and material:** Flat print. Optionally a slight paper tone; no gradients or shadows.
+**Motion language:** Bars slide in along their axis, shapes snap to grid positions in sequence, 200 to 400 ms with mechanical easing; type follows the bar it belongs to.
+**Best for:** Design schools and workshops, exhibition posters, architecture studios, method explainers, and brands that want to look rational and constructive.
+**Avoid when:** The subject needs warmth, luxury, or nostalgia for a different era, or text must be mixed case for accessibility in long reading.
+**Differs from:** geometric-composition arranges shapes for balance in any palette; bauhaus is a whole system where type, bars, and color-to-shape rules work together. swiss-international is calmer and text-led on a strict grid; bauhaus is more experimental with heavy bars and lowercase. constructivist-layout pushes diagonals and urgency; bauhaus keeps strong horizontals and verticals.
+**Prompt recipe:** "Bauhaus exhibition poster, heavy black horizontal bars, red square, yellow triangle and blue circle on off-white, lowercase geometric sans text flush left, asymmetric modular grid, flat print, no gradients."
+**Implementation notes:** Build bars and shapes with CSS Grid areas and SVG primitives. Use `text-transform: lowercase` only on short display text; keep body copy in normal case for readability. Map each color to one function in the token file.

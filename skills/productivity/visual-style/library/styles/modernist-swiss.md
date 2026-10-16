@@ -57,7 +57,7 @@ Visible grid, systematic structure, typographic hierarchy, and every element wit
 
 **Visual DNA:** Circles, squares, and triangles in flat primary colors arranged as the main actors, with geometric sans type that shares their construction.
 **Design principles:** Reduce ideas to elementary forms. Balance through visual weight of shapes and colors. Form follows a simple rule set.
-**Color behavior:** Primary red, yellow, blue plus black and off-white. Each shape gets one flat color; no gradients.
+**Color behavior:** Flat colors from any palette, often primaries with black and off-white. Each shape gets one flat color; no gradients.
 **Typography:** Geometric sans (constructed from circles and straight lines), often lowercase, at 2 to 3 sizes.
 **Layout:** Grid-based placement of shapes; shapes often aligned to grid intersections or touching edges.
 **Composition:** Asymmetric balance of large and small shapes. A big circle balanced by a small dense square. Overlaps create new shapes.
@@ -66,6 +66,6 @@ Visible grid, systematic structure, typographic hierarchy, and every element wit
 **Motion language:** Shapes translate, rotate, and scale along clear paths; morph between primitives. Mechanical easing, 300 to 600 ms, often in sequence like a construction kit.
 **Best for:** Education, design events, brand patterns, section dividers, children's content that still needs rigor.
 **Avoid when:** The subject is somber or deeply emotional, or the brand needs luxury cues.
-**Differs from:** constructivist-layout directs attention with diagonals and bars; geometric-composition balances shapes as a calm system. color-blocking uses rectangles as containers; geometric-composition uses shapes as subjects.
+**Differs from:** constructivist-layout directs attention with diagonals and bars; geometric-composition balances shapes as a calm system. bauhaus is the whole school's system (type, bars, color-to-shape rules, function); geometric-composition is only the shape arrangement, in any palette. color-blocking uses rectangles as containers; geometric-composition uses shapes as subjects.
 **Prompt recipe:** "Geometric composition, large red circle, blue square and yellow triangle on off-white, balanced asymmetric arrangement on a grid, geometric sans lowercase type, flat colors, no gradients."
 **Implementation notes:** Build shapes with SVG primitives or CSS (`border-radius: 50%`, `clip-path`). Keep a shape vocabulary list so the system stays consistent across pages.

@@ -342,6 +342,44 @@ dialog.drawer .dlg { min-height: 100%; grid-template-rows: auto 1fr auto; }
 .summary-th { margin: 0; color: var(--muted); font-size: 15px; max-width: 68ch; }
 .tag.unv { border-style: dashed; color: var(--warn); border-color: color-mix(in srgb, var(--warn) 50%, transparent); }
 
+/* taxonomy, palette intelligence, harmony, mixer, saved presets */
+.facet-note { color: var(--muted); font-size: 13px; margin: -6px 0 12px; }
+.col .cr { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badges { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
+.ui-sample { border-radius: 8px; padding: 10px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 10px; align-items: center; font-size: 12px; line-height: 1.4; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+.ui-sample .us-card { grid-column: 1 / -1; border-radius: 6px; padding: 8px 10px; display: grid; gap: 2px; min-width: 0; }
+.ui-sample b { font-size: 14px; }
+.ui-sample .us-btn { border-radius: 5px; padding: 4px 10px; font-weight: 600; white-space: nowrap; }
+.ui-sample .us-link { text-decoration: underline; text-underline-offset: 2px; }
+.ui-sample .us-sem { display: flex; gap: 5px; align-items: center; }
+.ui-sample .us-sem i { width: 10px; height: 10px; border-radius: 50%; }
+.range { display: grid; grid-template-columns: minmax(0, 1fr) 54px; gap: 10px; align-items: center; }
+.range input[type="range"] { width: 100%; accent-color: var(--accent); min-height: 32px; }
+.range output { font: 400 12px var(--f-mono); color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.field small { color: var(--muted); font-size: 12px; }
+.hsw { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 10px; align-items: center; }
+.hsw input[type="color"] { width: 52px; height: 52px; border-radius: 10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+.hsw .rl { display: grid; gap: 3px; min-width: 0; }
+.hsw .rl .k { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.hsw .rl small { color: var(--muted); font-size: 12px; }
+.hsw .rl small.edited { color: var(--warn); }
+.hsw .side { display: grid; gap: 6px; justify-items: end; }
+.btn.lock[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+.mixer { margin-bottom: 28px; }
+.mix-layout { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 820px) { .mix-layout { grid-template-columns: 1fr; } }
+.mix-side { display: grid; gap: 12px; min-width: 0; }
+.mix-row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; padding-bottom: 12px; border-bottom: 1px solid var(--rule); }
+.mix-row .k { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.mix-row .v { font-weight: 600; font-size: 16px; min-width: 0; overflow-wrap: anywhere; }
+.fit-note { font-size: 13px; margin: 0; }
+.fit-note.ok { color: var(--ok); } .fit-note.warn { color: var(--warn); }
+.save-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.h2sub { font: 600 13px var(--f-ui); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+.my-presets { margin-bottom: 32px; }
+.chips button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
+.name-edit { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 6px; }
+
 /* guide: reference notes for grid, motion, fonts, tokens */
 #view-guide { font-family: var(--f-ui), 'Noto Sans Thai', sans-serif; }
 .g-nav { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 20px; }
@@ -422,6 +460,8 @@ html[lang="th"] #tab-guide .n { display: none; }
 
   <section id="view-styles" role="tabpanel" aria-labelledby="tab-styles">
     <p class="tab-note">Styles are the look and the rules: type, layout, composition, image, motion. Any palette can go on any style. Choose a style and colors in any order; one of the two is enough to apply.</p>
+    <div class="fam" id="facet-row" role="group" aria-label="Browse styles by"></div>
+    <p class="facet-note" id="facet-note" hidden></p>
     <div class="toolbar">
       <span class="pill-select"><select id="f-mood" aria-label="Mood"></select></span>
       <span class="pill-select"><select id="f-color" aria-label="Styles that work with these colors"></select></span>
@@ -442,6 +482,7 @@ html[lang="th"] #tab-guide .n { display: none; }
     <p class="tab-note">Colors are palettes with roles and checked contrast. They are separate from styles, so pick them in any order.</p>
     <div class="seg" role="group" aria-label="Ways to choose colors" id="cmode">
       <button type="button" data-cmode="pick" aria-pressed="true">Pick a color</button>
+      <button type="button" data-cmode="harmony" aria-pressed="false">Color harmony</button>
       <button type="button" data-cmode="browse" aria-pressed="false">Browse palettes</button>
       <button type="button" data-cmode="build" aria-pressed="false">Build my palette</button>
     </div>
@@ -449,6 +490,7 @@ html[lang="th"] #tab-guide .n { display: none; }
     <div id="cm-browse" hidden>
       <p class="mode-intro">Ready-made palettes from the library. Every HEX value, name, and role below comes from the library data.</p>
       <div class="fam" id="fam" role="group" aria-label="Color family"></div>
+      <div class="toolbar"><span class="pill-select"><select id="pf-mood" aria-label="Palette mood"></select></span><span class="pill-select"><select id="pf-ground" aria-label="Page ground"></select></span><span class="pill-select"><select id="pf-use" aria-label="Palette use case"></select></span></div>
       <p class="count" id="palette-count" aria-live="polite"></p>
       <div class="grid" id="palette-grid"></div>
     </div>
@@ -470,6 +512,34 @@ html[lang="th"] #tab-guide .n { display: none; }
       <div id="pk-results"></div>
     </div>
 
+    <div id="cm-harmony" hidden>
+      <p class="mode-intro">Start from one color and a color-theory rule. Hues turn in OKLCH, so steps look even. Lock a color to keep it while you regenerate or adjust; type over any HEX and the computed value stays visible. Contrast ratios are calculated, not estimated.</p>
+      <div class="build-layout">
+        <div class="panel">
+          <div class="big-pick">
+            <input type="color" id="h-color" aria-label="Base color picker" value="#2f6b4f">
+            <div class="field"><label for="h-hex">Base color (HEX)</label><input class="text-in hexin" id="h-hex" value="#2F6B4F" maxlength="7" spellcheck="false" autocomplete="off"></div>
+          </div>
+          <div class="field"><label for="h-type">Harmony</label><span class="pill-select" style="display:flex"><select id="h-type" style="max-width:none;width:100%"></select></span><small id="h-note"></small></div>
+          <div class="field"><label for="h-hue">Hue shift</label><div class="range"><input type="range" id="h-hue" min="-180" max="180" step="1" value="0"><output id="o-hue" for="h-hue">0°</output></div></div>
+          <div class="field"><label for="h-sat">Saturation</label><div class="range"><input type="range" id="h-sat" min="-60" max="60" step="1" value="0"><output id="o-sat" for="h-sat">0%</output></div></div>
+          <div class="field"><label for="h-light">Lightness</label><div class="range"><input type="range" id="h-light" min="-30" max="30" step="1" value="0"><output id="o-light" for="h-light">0</output></div></div>
+          <div class="field"><span>Page ground</span><div class="seg" role="radiogroup" aria-label="Page ground" id="h-ground"></div></div>
+          <div class="actions"><button class="btn small" type="button" id="h-regen">Regenerate</button><button class="btn small" type="button" id="h-reset">Reset</button></div>
+          <h3>Colors</h3>
+          <div id="h-swatches" style="display:grid;gap:12px"></div>
+        </div>
+        <div class="sticky-prev">
+          <div id="h-roles"></div>
+          <div id="h-preview"></div>
+          <p class="prev-caption" id="h-caption"></p>
+          <div class="checks" id="h-checks" aria-live="polite"></div>
+          <div class="actions"><button class="btn small primary" type="button" id="h-use">Use these colors</button><button class="btn small" type="button" id="h-edit">Edit in builder</button></div>
+          <div class="save-row"><label class="sr" for="h-name">Palette name</label><input class="text-in" id="h-name" placeholder="Name this palette" autocomplete="off"><button class="btn small" type="button" id="h-save">Save palette</button></div>
+        </div>
+      </div>
+    </div>
+
     <div id="cm-build" hidden>
       <p class="mode-intro">Set each color role. Swatch, picker, and HEX share one value, and the preview updates as you type. Your edits become the selected palette.</p>
       <div class="build-layout">
@@ -479,6 +549,7 @@ html[lang="th"] #tab-guide .n { display: none; }
           </div>
           <div id="b-roles" style="display:grid;gap:12px"></div>
           <div class="actions"><button class="btn small" type="button" id="b-reset-all">Reset all</button></div>
+          <div class="save-row"><label class="sr" for="b-name">Palette name</label><input class="text-in" id="b-name" placeholder="Name this palette" autocomplete="off"><button class="btn small" type="button" id="b-save">Save palette</button></div>
           <h3>Readability</h3>
           <div class="checks" id="b-checks" aria-live="polite"></div>
         </div>
@@ -492,7 +563,10 @@ html[lang="th"] #tab-guide .n { display: none; }
   </section>
 
   <section id="view-presets" role="tabpanel" aria-labelledby="tab-presets" hidden>
-    <p class="tab-note">Presets pair a style, a palette, and a few rules for a common job. Using one fills your selection; you can still change the colors.</p>
+    <p class="tab-note">Mix a style with any colors, save the pair as your own preset, or start from a library preset for a common job. Using one fills your selection; you can still change the colors.</p>
+    <div class="panel mixer" id="mixer"></div>
+    <div class="my-presets" id="my-presets"></div>
+    <p class="h2sub">Library presets</p>
     <p class="count" id="preset-count"></p>
     <div class="grid" id="preset-grid"></div>
   </section>
@@ -567,9 +641,21 @@ html[lang="th"] #tab-guide .n { display: none; }
     size: store.get("vsl2-size", "l"),
     pick: "#2F6B4F",
     bmode: "combined",
-    sel: Object.assign({ style: null, palette: null, custom: null, base: null, preset: null, use: "", constraints: "" }, store.get("vsl2-sel", {})),
+    facet: store.get("vsl2-facet", ""),
+    pf: store.get("vsl2-pf", {}),
+    lock: Object.assign({ style: false, palette: false }, store.get("vsl2-lock", {})),
+    fitOnly: store.get("vsl2-fit", true),
+    myPalettes: [].concat(store.get("vsl2-mypalettes", [])).filter((x) => x && x.id && x.colors),
+    myPresets: [].concat(store.get("vsl2-mypresets", [])).filter((x) => x && x.id),
+    H: Object.assign({ base: "#2F6B4F", type: "complementary", adj: { hue: 0, sat: 0, light: 0 }, seed: 0, locks: {}, edits: {}, dark: false }, store.get("vsl2-harmony", {})),
+    sel: Object.assign({ style: null, palette: null, custom: null, base: null, preset: null, name: null, mine: null, myPal: null, use: "", constraints: "" }, store.get("vsl2-sel", {})),
   };
   const saveSel = () => store.set("vsl2-sel", state.sel);
+  // Every change of colors or style goes through here, so stale links (preset, saved palette, name) never survive it.
+  const CLEAR = { custom: null, base: null, genBase: null, preset: null, name: null, mine: null, myPal: null };
+  function setSel(patch) { Object.assign(state.sel, CLEAR, patch); saveSel(); }
+  const today = () => new Date().toISOString().slice(0, 10);
+  const newId = (p) => p + Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
 
   // ---------- language: interface text in English or Thai; library data (names, profiles) stays as written ----------
   let LANG = store.get("vsl2-lang", /^th/i.test(navigator.language || "") ? "th" : "en");
@@ -638,12 +724,50 @@ html[lang="th"] #tab-guide .n { display: none; }
     "Colors:": "สี:", "Mood:": "อารมณ์:", "Use for:": "ใช้กับ:", "Category:": "หมวด:", "Use case:": "ประเภทงาน:", "Typography:": "ตัวอักษร:", "Layout:": "เลย์เอาต์:", "Motion:": "การเคลื่อนไหว:",
     "· body": "· เนื้อหา", "· large": "· ตัวใหญ่", "· ui": "· UI", "· do not use for text": "· ห้ามใช้กับตัวอักษร", ", or": ", หรือ", "Searching for": "กำลังค้นหา",
     "Brand font is Sarabun\nMust work on a projector": "ฟอนต์แบรนด์คือ Sarabun\nต้องดูชัดบนโปรเจกเตอร์",
+    // taxonomy
+    "Browse styles by": "เรียกดูสไตล์ตาม", "Featured": "แนะนำ", "Look and aesthetic": "ลุคและสุนทรียะ", "Layout and composition": "เลย์เอาต์และการจัดวาง", "Material and rendering": "วัสดุและการเรนเดอร์", "Story and motion": "การเล่าเรื่องและการเคลื่อนไหว", "Color structure": "โครงสร้างสี",
+    "Featured: a short list of distinct starting points.": "แนะนำ: จุดเริ่มต้นสั้นๆ ที่ต่างกันชัดเจน",
+    "Design philosophies, movements, and visual aesthetics: the whole look.": "แนวคิดการออกแบบ ขบวนการศิลปะ และสุนทรียะ: หน้าตาทั้งชุด",
+    "How the page is divided and where things sit; pairs with almost any look.": "การแบ่งหน้าและตำแหน่งของสิ่งต่างๆ ใช้คู่กับลุคได้แทบทุกแบบ",
+    "Surfaces, depth, print finishes, and 3D rendering.": "พื้นผิว มิติ งานพิมพ์พิเศษ และการเรนเดอร์ 3D",
+    "How a sequence unfolds: scenes, camera, scroll, and animated explainers.": "ลำดับการเล่า: ฉาก กล้อง การเลื่อน และแอนิเมชันอธิบาย",
+    "How color is organized (limited, complementary, blocking). Pair with a palette.": "วิธีจัดระบบสี (จำกัดสี สีตรงข้าม บล็อกสี) ใช้คู่กับพาเลตต์",
+    "Show all kinds": "แสดงทุกประเภท",
+    // palettes
+    "Palette mood": "อารมณ์ของพาเลตต์", "Any ground": "พื้นแบบใดก็ได้", "Page ground": "พื้นของหน้า", "Palette use case": "ประเภทงานของพาเลตต์", "My palettes": "พาเลตต์ของฉัน",
+    "Heading": "หัวข้อ", "Body text on the surface.": "เนื้อหาบนพื้นผิว", "Link": "ลิงก์", "Button": "ปุ่ม", "Status colors (derived)": "สีสถานะ (คำนวณให้)",
+    "Clear the mood, ground, and use filters": "ล้างตัวกรองอารมณ์ พื้น และประเภทงาน",
+    "Delete": "ลบ", "Confirm delete": "ยืนยันลบ", "Palette saved": "บันทึกพาเลตต์แล้ว", "Palette deleted": "ลบพาเลตต์แล้ว", "Palette name": "ชื่อพาเลตต์", "Name this palette": "ตั้งชื่อพาเลตต์", "Save palette": "บันทึกพาเลตต์",
+    "background": "พื้นหลัง", "surface": "พื้นผิว", "text": "ตัวอักษร", "text-muted": "ตัวอักษรรอง", "primary": "สีหลัก", "secondary": "สีรอง", "accent": "สีเน้น", "signal": "สีสัญญาณ", "line": "เส้น",
+    // harmony
+    "Color harmony": "ฮาร์โมนีสี", "Base color picker": "ตัวเลือกสีตั้งต้น", "Base color (HEX)": "สีตั้งต้น (HEX)", "Harmony": "ฮาร์โมนี", "Hue shift": "เลื่อนเฉดสี", "Saturation": "ความสด", "Lightness": "ความสว่าง",
+    "Regenerate": "สุ่มแบบใหม่", "Edit in builder": "แก้ในตัวสร้างพาเลตต์", "Lock": "ล็อก", "Locked": "ล็อกแล้ว", "Edited": "แก้เอง", "Computed": "ค่าที่คำนวณ", "Use computed": "ใช้ค่าที่คำนวณ", "Extra": "สีเสริม",
+    "Start from one color and a color-theory rule. Hues turn in OKLCH, so steps look even. Lock a color to keep it while you regenerate or adjust; type over any HEX and the computed value stays visible. Contrast ratios are calculated, not estimated.": "เริ่มจากสีเดียวกับหลักทฤษฎีสี หมุนเฉดสีใน OKLCH ระยะห่างของสีจึงดูเท่ากัน ล็อกสีที่ต้องการเก็บไว้ระหว่างสุ่มหรือปรับค่า พิมพ์ HEX ทับได้ทุกสีและยังเห็นค่าที่คำนวณไว้ อัตราคอนทราสต์คำนวณจริง ไม่ได้ประมาณ",
+    "Background, surface, and text are built from the base hue. Text is set to at least 7:1 on the background and 4.5:1 on the surface; the ratios below are calculated.": "พื้นหลัง พื้นผิว และตัวอักษรสร้างจากเฉดสีตั้งต้น ตัวอักษรตั้งให้ได้อย่างน้อย 7:1 บนพื้นหลังและ 4.5:1 บนพื้นผิว อัตราด้านล่างคำนวณจริง",
+    "Primary on background": "สีหลักบนพื้นหลัง", "Label on primary": "ตัวอักษรบนสีหลัก",
+    "Monochromatic": "สีเดียว (Monochromatic)", "Analogous": "สีข้างเคียง (Analogous)", "Complementary": "สีตรงข้าม (Complementary)", "Split-complementary": "ตรงข้ามแยก (Split-complementary)", "Triadic": "สามเส้า (Triadic)", "Tetradic": "สี่เส้า (Tetradic)", "Neutral + accent": "สีกลาง + สีเน้น", "Warm / cool variations": "โทนอุ่น / โทนเย็น",
+    "One hue in several values.": "สีเดียวหลายระดับความสว่าง", "Neighbouring hues within 60 degrees.": "สีข้างเคียงในช่วง 60 องศา", "The opposite hue as the accent.": "ใช้สีตรงข้ามเป็นสีเน้น", "The two hues beside the opposite.": "สองสีที่อยู่ข้างสีตรงข้าม", "Three hues 120 degrees apart.": "สามสีห่างกัน 120 องศา", "Four hues 90 degrees apart.": "สี่สีห่างกัน 90 องศา",
+    "Near-neutrals of the same hue, your color as the only accent.": "สีเกือบกลางจากเฉดเดียวกัน ใช้สีของคุณเป็นสีเน้นสีเดียว", "One hue, even lightness steps, chroma kept.": "เฉดเดียว ไล่ความสว่างเท่าๆ กัน คงความสด", "The same color pushed toward warm (orange) and cool (blue).": "สีเดิมที่ดันไปทางอุ่น (ส้ม) และทางเย็น (น้ำเงิน)",
+    // mixer and my presets
+    "Mix a style with any colors, save the pair as your own preset, or start from a library preset for a common job. Using one fills your selection; you can still change the colors.": "ผสมสไตล์กับสีใดก็ได้ บันทึกคู่ที่ชอบเป็นพรีเซ็ตของคุณ หรือเริ่มจากพรีเซ็ตในคลังสำหรับงานที่พบบ่อย กดใช้แล้วจะเติมการเลือกให้ ยังเปลี่ยนสีภายหลังได้",
+    "Mix style and colors": "ผสมสไตล์กับสี", "Compatibility is a suggestion, not a rule: any style takes any colors. Lock one side and shuffle the other, or tap a suggestion.": "ความเข้ากันเป็นคำแนะนำ ไม่ใช่ข้อห้าม สไตล์ไหนใช้สีไหนก็ได้ ล็อกฝั่งหนึ่งแล้วสุ่มอีกฝั่ง หรือแตะคำแนะนำ",
+    "Choose a style or colors first, or press Shuffle both.": "เลือกสไตล์หรือสีก่อน หรือกดสุ่มทั้งคู่",
+    "Shuffle style": "สุ่มสไตล์", "Shuffle colors": "สุ่มสี", "Shuffle both": "สุ่มทั้งคู่", "Lock style": "ล็อกสไตล์", "Lock colors": "ล็อกสี", "Style locked": "ล็อกสไตล์แล้ว", "Colors locked": "ล็อกสีแล้ว", "Recommended pairs only": "เฉพาะคู่ที่แนะนำ", "Both are locked": "ล็อกไว้ทั้งคู่",
+    "Preset name": "ชื่อพรีเซ็ต", "Name this preset": "ตั้งชื่อพรีเซ็ต", "Save as preset": "บันทึกเป็นพรีเซ็ต", "My presets": "พรีเซ็ตของฉัน", "Library presets": "พรีเซ็ตจากคลัง", "Copy to my presets": "คัดลอกไปพรีเซ็ตของฉัน",
+    "No saved presets yet. Choose a style and colors, then Save as preset above.": "ยังไม่มีพรีเซ็ตที่บันทึก เลือกสไตล์และสี แล้วกดบันทึกเป็นพรีเซ็ตด้านบน",
+    "Use": "ใช้", "Rename": "เปลี่ยนชื่อ", "Duplicate": "ทำสำเนา", "Update from selection": "อัปเดตจากที่เลือก", "Save": "บันทึก", "Cancel": "ยกเลิก", "not set": "ยังไม่ระบุ",
+    "Preset saved": "บันทึกพรีเซ็ตแล้ว", "Preset updated": "อัปเดตพรีเซ็ตแล้ว", "Preset deleted": "ลบพรีเซ็ตแล้ว", "Preset duplicated": "ทำสำเนาพรีเซ็ตแล้ว", "Copied to My presets": "คัดลอกไปพรีเซ็ตของฉันแล้ว",
   };
   const TH_RX = [
     [/^(\d+) styles · (\d+) palettes · (\d+) presets$/, "$1 สไตล์ · $2 พาเลตต์ · $3 พรีเซ็ต"],
     [/^(\d+) of (\d+) styles(.*)$/, (m, a, b, r) => `${a} จาก ${b} สไตล์` + r.replace(", matching every part of your search", " ตรงทุกคำที่ค้น").replace(/, closest matches \((\d+) of (\d+) parts\)/, " ใกล้เคียงที่สุด (ตรง $1 จาก $2 คำ)").replace(" match these filters", " ตรงกับตัวกรองนี้")],
     [/^(\d+) of (\d+) palettes(.*)\. Tap any color to find palettes that use it\.$/, (m, a, b, r) => `${a} จาก ${b} พาเลตต์` + r.replace(", matching every part of your search", " ตรงทุกคำที่ค้น").replace(/, closest matches \((\d+) of (\d+) parts\)/, " ใกล้เคียงที่สุด (ตรง $1 จาก $2 คำ)") + " แตะสีใดก็ได้เพื่อหาพาเลตต์ที่ใช้สีนั้น"],
-    [/^(\d+) of (\d+) presets$/, "$1 จาก $2 พรีเซ็ต"], [/^(\d+) works?$/, "$1 ผลงาน"],
+    [/^(\d+) of (\d+) presets$/, "$1 จาก $2 พรีเซ็ต"], [/^Fits (\d+) styles?$/, "เข้ากับ $1 สไตล์"], [/^(Monochromatic|Analogous|Complementary|Split-complementary|Triadic|Tetradic|Neutral \+ accent|Tonal|Warm \/ cool variations) from (#[0-9A-F]{6})( \(edited\))?$/, (m, n, h, e) => `${th(n)} จาก ${h}${e ? " (แก้แล้ว)" : ""}`], [/^(\d+) saved in this browser$/, "บันทึกไว้ $1 ชุดในเบราว์เซอร์นี้"],
+    [/^Saved in this browser · (.*)$/, "บันทึกในเบราว์เซอร์นี้ · $1"], [/^(\d+) constraints?$/, "ข้อกำหนด $1 ข้อ"], [/^My presets · (\d+)$/, "พรีเซ็ตของฉัน · $1"],
+    [/^(Primary|Secondary|Accent|Extra) HEX$/, (m, r) => `HEX ${th(r)}`], [/^Palettes recommended for (.+)$/, "พาเลตต์ที่แนะนำสำหรับ $1"], [/^Styles that fit the nearest library palette, (.+)$/, "สไตล์ที่เข้ากับพาเลตต์ในคลังที่ใกล้ที่สุด คือ $1"], [/^Styles that fit (.+)$/, "สไตล์ที่เข้ากับ $1"],
+    [/^Recommended pair: (.+) is one of (.+)'s palettes\.$/, "คู่ที่แนะนำ: $1 เป็นพาเลตต์หนึ่งของ $2"], [/^(.+) is outside (.+)'s recommended palettes\. The preview shows the real pair; check contrast before use\.$/, "$1 ไม่อยู่ในพาเลตต์ที่แนะนำของ $2 ภาพตัวอย่างแสดงคู่จริง ตรวจคอนทราสต์ก่อนใช้"],
+    [/^Your colors are closest to (.+), one of (.+)'s palettes\.$/, "สีของคุณใกล้ $1 ที่สุด ซึ่งเป็นพาเลตต์หนึ่งของ $2"], [/^Your colors are closest to (.+), outside (.+)'s recommended palettes\. The preview shows the real pair\.$/, "สีของคุณใกล้ $1 ที่สุด ซึ่งไม่อยู่ในพาเลตต์ที่แนะนำของ $2 ภาพตัวอย่างแสดงคู่จริง"],
+    [/^(.+) · (Light|Dark) ground$/, (m, a, g) => `${a} · ${g === "Light" ? "พื้นสว่าง" : "พื้นมืด"}`], [/^(\d+) works?$/, "$1 ผลงาน"],
     [/^Show (\d+) styles$/, "แสดง $1 สไตล์"], [/^Show all (\d+) palettes$/, "แสดงทั้ง $1 พาเลตต์"],
     [/^(\d+) of 2 chosen(, enough to apply)?( · preset)?$/, (m, n, e, p) => `เลือกแล้ว ${n} จาก 2` + (e ? " กดใช้ได้แล้ว" : "") + (p ? " · พรีเซ็ต" : "")],
     [/^Works with (\w+) palettes$/, "เข้ากับพาเลตต์กลุ่ม $1"], [/^Works with (.+)$/, "เข้ากับ $1"],
@@ -742,6 +866,72 @@ html[lang="th"] #tab-guide .n { display: none; }
   }
   const dE = (a, b) => { const [p, q] = [lab(a), lab(b)]; return Math.hypot(p[0] - q[0], p[1] - q[1], p[2] - q[2]); };
   const onColor = (hex) => (ratio(hex, "#111111") >= ratio(hex, "#FFFFFF") ? "#111111" : "#FFFFFF");
+  // OKLCH (Oklab, Bjorn Ottosson). Same math as scripts/library.mjs, so the gallery and the CLI agree.
+  const sLin = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4), lSrgb = (c) => (c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055);
+  function toOklch(hex) {
+    const [r, g, b] = rgb(hex).map((v) => sLin(v / 255));
+    const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b), m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b), s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
+    const L = 0.2104542553 * l + 0.793617785 * m - 0.0040720468 * s, A = 1.9779984951 * l - 2.428592205 * m + 0.4505937099 * s, B = 0.0259040371 * l + 0.7827717662 * m - 0.808675766 * s;
+    return [L, Math.hypot(A, B), ((Math.atan2(B, A) * 180) / Math.PI + 360) % 360];
+  }
+  function oklchRgb(L, C, h) {
+    const a = C * Math.cos((h * Math.PI) / 180), b = C * Math.sin((h * Math.PI) / 180);
+    const l = (L + 0.3963377774 * a + 0.2158037573 * b) ** 3, m = (L - 0.1055613458 * a - 0.0638541728 * b) ** 3, s = (L - 0.0894841775 * a - 1.291485548 * b) ** 3;
+    return [4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s, -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s, -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s];
+  }
+  // Out of gamut: keep lightness and hue, reduce chroma until the color fits sRGB.
+  function fromOklch(L, C, h) {
+    L = Math.min(1, Math.max(0, L)); C = Math.max(0, C); h = ((h % 360) + 360) % 360;
+    let v = oklchRgb(L, C, h);
+    for (let i = 0; i < 40 && v.some((x) => x < -1e-4 || x > 1 + 1e-4); i++) { C *= 0.92; v = oklchRgb(L, C, h); }
+    return "#" + v.map((x) => Math.round(Math.min(1, Math.max(0, lSrgb(Math.min(1, Math.max(0, x))))) * 255).toString(16).padStart(2, "0")).join("").toUpperCase();
+  }
+  function fixOk(fg, bg, target) {
+    let [L, C, h] = toOklch(fg), out = fg; const dir = lum(bg) > 0.18 ? -1 : 1;
+    for (let n = 0; ratio(out, bg) < target && n < 100; n++) { L += dir * 0.01; out = fromOklch(L, C, h); }
+    return out;
+  }
+  const groundOf = (bgHex) => (lum(bgHex) > 0.18 ? "light" : "dark");
+  // Status colors are derived per background and kept apart from brand roles: swapping a palette never changes what they mean.
+  const SEM_HUES = { success: 150, warning: 70, error: 27, info: 255 };
+  const semCache = {};
+  function semantic(bgHex) {
+    if (semCache[bgHex]) return semCache[bgHex];
+    const dark = groundOf(bgHex) === "dark";
+    return (semCache[bgHex] = Object.fromEntries(Object.entries(SEM_HUES).map(([k, h]) => [k, fixOk(fromOklch(dark ? 0.78 : 0.5, 0.14, h), bgHex, 4.5)])));
+  }
+  // Muted text and borders for palettes that do not define them: muted text reaches 4.5:1, borders 3:1 (WCAG 1.4.11).
+  function derivedMuted(text, bg) { const [Lt, Ct, ht] = toOklch(text), [Lb] = toOklch(bg); return fixOk(fromOklch((Lt + Lb) / 2, Ct * 0.5, ht), bg, 4.5); }
+  function derivedBorder(text, bg) { const [Lt, Ct, ht] = toOklch(text), [Lb] = toOklch(bg); return fixOk(fromOklch(Lb + (Lt - Lb) * 0.35, Ct * 0.4, ht), bg, 3); }
+
+  // Harmonies: [hue offset, lightness change, chroma factor, role]. Same table as scripts/library.mjs.
+  const HARM = {
+    monochromatic: { name: "Monochromatic", note: "One hue in several values.", steps: [[0, 0, 1, "primary"], [0, 0.16, 0.7, "secondary"], [0, -0.18, 0.9, "accent"], [0, 0.3, 0.4, "extra"], [0, -0.3, 0.7, "extra"]] },
+    analogous: { name: "Analogous", note: "Neighbouring hues within 60 degrees.", steps: [[0, 0, 1, "primary"], [-30, 0.04, 0.9, "secondary"], [30, -0.04, 1, "accent"], [-15, 0.2, 0.6, "extra"], [15, -0.2, 0.8, "extra"]] },
+    complementary: { name: "Complementary", note: "The opposite hue as the accent.", steps: [[0, 0, 1, "primary"], [0, 0.18, 0.6, "secondary"], [180, 0, 1, "accent"], [180, 0.2, 0.5, "extra"], [0, -0.22, 0.8, "extra"]] },
+    "split-complementary": { name: "Split-complementary", note: "The two hues beside the opposite.", steps: [[0, 0, 1, "primary"], [150, 0, 0.9, "secondary"], [210, 0, 1, "accent"], [0, 0.2, 0.5, "extra"], [0, -0.2, 0.8, "extra"]] },
+    triadic: { name: "Triadic", note: "Three hues 120 degrees apart.", steps: [[0, 0, 1, "primary"], [120, 0, 0.9, "secondary"], [240, 0, 1, "accent"], [0, 0.22, 0.5, "extra"], [120, -0.2, 0.8, "extra"]] },
+    tetradic: { name: "Tetradic", note: "Four hues 90 degrees apart.", steps: [[0, 0, 1, "primary"], [90, 0, 0.9, "secondary"], [180, 0, 1, "accent"], [270, 0, 0.9, "extra"], [0, 0.22, 0.5, "extra"]] },
+    "neutral-accent": { name: "Neutral + accent", note: "Near-neutrals of the same hue, your color as the only accent.", steps: [[0, 0, 1, "accent"], [0, -0.05, 0.12, "primary"], [0, 0.15, 0.08, "secondary"], [0, 0.3, 0.05, "extra"], [0, -0.3, 0.1, "extra"]] },
+    tonal: { name: "Tonal", note: "One hue, even lightness steps, chroma kept.", steps: [[0, 0, 1, "primary"], [0, 0.12, 1, "secondary"], [0, -0.12, 1, "accent"], [0, 0.24, 1, "extra"], [0, -0.24, 1, "extra"]] },
+    "warm-cool": { name: "Warm / cool variations", note: "The same color pushed toward warm (orange) and cool (blue).", steps: [[0, 0, 1, "primary"], ["warm", 0.02, 1, "secondary"], ["cool", -0.02, 1, "accent"], ["warm2", 0.06, 0.9, "extra"], ["cool2", -0.06, 0.9, "extra"]] },
+  };
+  const toward = (h, target, amt) => { const d = ((target - h + 540) % 360) - 180; return h + Math.sign(d) * Math.min(Math.abs(d), amt); };
+  function harmony(hex, type, adj = {}) {
+    const def = HARM[type] || HARM.complementary; const [L0, C0, h0] = toOklch(hex); const { hue = 0, sat = 0, light = 0 } = adj;
+    return def.steps.map(([dh, dL, cm, role], i) => {
+      if (i === 0 && !hue && !sat && !light) return { hex, role };
+      const h = typeof dh === "number" ? h0 + dh : toward(h0, dh.startsWith("warm") ? 55 : 250, dh.endsWith("2") ? 50 : 25);
+      return { hex: fromOklch(L0 + dL + light, Math.max(0.005, C0 * cm * (1 + sat)), h + hue), role };
+    });
+  }
+  function harmonyRoles(sw, dark) {
+    const by = (r) => (sw.find((s) => s.role === r) || sw[0]).hex;
+    const [, C, hue] = toOklch(sw[0].hex), c = Math.min(C, 0.03);
+    const background = fromOklch(dark ? 0.18 : 0.975, c * 0.5, hue), surface = fromOklch(dark ? 0.24 : 0.93, c * 0.7, hue);
+    const text = fixOk(fixOk(fromOklch(dark ? 0.94 : 0.22, c * 0.6, hue), background, 7), surface, 4.5);
+    return { primary: by("primary"), secondary: by("secondary"), accent: by("accent"), background, surface, text };
+  }
   // Plain-language verdicts. Thresholds: WCAG 2.2 SC 1.4.3 (4.5 body, 3 large) and SC 1.4.11 (3 for UI parts).
   function verdict(r, kind = "text") {
     const n = r.toFixed(2);
@@ -835,11 +1025,11 @@ html[lang="th"] #tab-guide .n { display: none; }
   const low = (a) => [].concat(a).join(" ").toLowerCase().replace(/-/g, " ");
   const IDX = { s: {}, p: {}, r: {} };
   function buildIndex() {
-    for (const p of DB.palettes) IDX.p[p.id] = { cw: 5, colors: p.colors.map((c) => c.hex), f: [[6, low(p.name + " " + p.id)], [5, low(p.colors.map((c) => c.name))], [4, low(p.mood)], [3, low([...p.use_cases, DB.pcatName[p.category]])], [1, low([p.example, p.contrast_notes])]] };
+    for (const p of DB.palettes) IDX.p[p.id] = { cw: 5, colors: p.colors.map((c) => c.hex), f: [[6, low([p.name, p.id, ...(p.aliases || [])])], [5, low(p.colors.map((c) => c.name))], [4, low(p.mood)], [3, low([...p.use_cases, DB.pcatName[p.category]])], [1, low([p.example, p.contrast_notes])]] };
     for (const s of DB.styles) {
       const pals = s.compatible_palettes.slice(0, 2).map((id) => DB.pal[id]);
       const prof = PROF[s.id] ? PROF[s.id].map((x) => x[1]).join(" ") : "";
-      IDX.s[s.id] = { cw: 2, colors: pals.flatMap((p) => p.colors.map((c) => c.hex)), f: [[6, low([s.name, s.id, ...s.aliases])], [4, low(s.mood)], [3, low([...s.use_cases, ...s.medium, ...s.typography_tags, ...s.layout_tags, ...s.motion_type])], [2, low([s.summary, s.summary_th || "", DB.cat[s.category].name])], [1.5, low(pals.flatMap((p) => [p.name, ...p.colors.map((c) => c.name)]))], [1, low(prof)]] };
+      IDX.s[s.id] = { cw: 2, colors: pals.flatMap((p) => p.colors.map((c) => c.hex)), f: [[6, low([s.name, s.id, ...s.aliases])], [4, low(s.mood)], [3, low([...s.use_cases, ...s.medium, ...s.typography_tags, ...s.layout_tags, ...s.motion_type])], [2, low([s.summary, s.summary_th || "", DB.cat[s.category].name, DB.facet[s.facet] ? DB.facet[s.facet].name : ""])], [1.5, low(pals.flatMap((p) => [p.name, ...p.colors.map((c) => c.name)]))], [1, low(prof)]] };
     }
     for (const r of DB.presets) {
       const s = DB.sty[r.primary_style], p = DB.pal[r.palette];
@@ -864,7 +1054,7 @@ html[lang="th"] #tab-guide .n { display: none; }
     if (state.sel.palette && DB.pal[state.sel.palette]) return six(DB.pal[state.sel.palette]);
     return null;
   }
-  const selPalName = () => state.sel.palette === "custom" ? (state.sel.base && DB.pal[state.sel.base] ? `Custom (from ${DB.pal[state.sel.base].name})` : "Custom palette") : state.sel.palette && DB.pal[state.sel.palette] ? DB.pal[state.sel.palette].name : null;
+  const selPalName = () => state.sel.palette === "custom" ? (state.sel.name ? state.sel.name : state.sel.base && DB.pal[state.sel.base] ? `Custom (from ${DB.pal[state.sel.base].name})` : "Custom palette") : state.sel.palette && DB.pal[state.sel.palette] ? DB.pal[state.sel.palette].name : null;
   const selPalObj = () => { const c = selColors(); if (!c) return null; return state.sel.palette === "custom" ? palObj(c, selPalName()) : DB.pal[state.sel.palette]; };
 
   // ---------- synthetic previews (320 x 200) ----------
@@ -1018,6 +1208,18 @@ html[lang="th"] #tab-guide .n { display: none; }
       [[14, 20, 120, 40], [146, 20, 160, 40], [14, 140, 90, 40], [116, 140, 190, 40], [230, 76, 76, 52]].map(([x, y, w, h], i) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h / 2}" fill="${k[i % k.length] || c.pri}"/>`).join("") +
       `<circle cx="196" cy="102" r="16" fill="${k[1] || c.acc}"/><circle cx="191" cy="98" r="2" fill="${c.fg}"/><circle cx="201" cy="98" r="2" fill="${c.fg}"/><path d="M189 106 q7 7 14 0" stroke="${c.fg}" stroke-width="2" fill="none"/>` +
       `${T(20, 112, 30, c.fg, f.d, "Yay!", 'font-weight="600"')}`; },
+    // added with the taxonomy round
+    quiet: (c, f) => `<pattern id="kn" width="10" height="8" patternUnits="userSpaceOnUse"><path d="M0 4 q2.5 -4 5 0 t5 0" stroke="${c.fg}" stroke-opacity=".14" fill="none"/></pattern><rect width="320" height="200" fill="${c.bg}"/>` +
+      `<rect x="150" y="16" width="154" height="168" fill="${c.sur}"/><rect x="150" y="16" width="154" height="168" fill="url(#kn)"/><path d="M150 120 Q220 96 304 132 V184 H150Z" fill="${c.fg}" opacity=".07"/>` +
+      `${T(22, 104, 21, c.fg, f.d, "The knit edit")}${T(22, 124, 8.5, c.mut, f.t, "MERINO · UNDYED · NO. 3", 'letter-spacing="2"')}<rect x="22" y="142" width="36" height="1" fill="${c.fg}" opacity=".45"/>${T(22, 170, 9, c.fg, f.t, "Autumn 2026", 'opacity=".75"')}`,
+    wabi: (c, f) => `<filter id="wr"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .09 0"/></filter><rect width="320" height="200" fill="${c.bg}"/><rect width="320" height="200" filter="url(#wr)"/>` +
+      `<path d="M28 40 C60 30 96 44 128 36" stroke="${c.fg}" stroke-width="5" stroke-linecap="round" fill="none" opacity=".55"/><ellipse cx="214" cy="168" rx="58" ry="7" fill="${c.fg}" opacity=".12"/>` +
+      `<path d="M160 112 C158 150 186 166 214 166 C246 166 270 148 268 110 C240 104 190 106 160 112Z" fill="${c.pri}"/><path d="M160 112 C190 104 240 102 268 110 C244 118 186 120 160 112Z" fill="${c.fg}" opacity=".35"/>` +
+      `<path d="M168 122 C176 140 172 150 186 160" stroke="${c.acc || c.sec}" stroke-width="2" fill="none"/>${T(24, 178, 10, c.fg, f.d, "tea bowl, ash glaze", 'font-style="italic" opacity=".8"')}`,
+    bauhaus: (c, f, p) => { const k = p.colors.map((x) => x.hex).filter((h) => h !== c.bg && h !== c.fg); const red = k[0] || c.pri, blue = k[1] || c.sec, yellow = k[2] || c.acc;
+      return `<rect width="320" height="200" fill="${c.bg}"/><rect x="0" y="40" width="320" height="16" fill="${c.fg}"/><rect x="20" y="0" width="14" height="200" fill="${c.fg}"/>` +
+        `<rect x="196" y="74" width="72" height="72" fill="${red}"/><circle cx="118" cy="132" r="40" fill="${blue}"/><path d="M228 190 L266 122 L304 190Z" fill="${yellow}"/>` +
+        `${T(44, 32, 24, c.fg, f.d, "bauhaus", 'font-weight="600" letter-spacing="-.5"')}<g transform="rotate(-90 30 190)">${T(30, 194, 9, c.bg, f.t, "ausstellung 1923", 'letter-spacing="1"')}</g>${T(44, 190, 9, c.fg, f.t, "form · farbe · funktion")}`; },
   };
   let uid = 0;
   function preview(style, palette) {
@@ -1064,6 +1266,8 @@ html[lang="th"] #tab-guide .n { display: none; }
       DB.pal = Object.fromEntries(DB.palettes.map((x) => [x.id, x]));
       DB.sty = Object.fromEntries(DB.styles.map((x) => [x.id, x]));
       DB.cat = Object.fromEntries(DB.categories.map((x) => [x.id, x]));
+      DB.facets = DB.facets || []; DB.featured = (DB.featured || []).filter((id) => DB.sty[id]);
+      DB.facet = Object.fromEntries(DB.facets.map((x) => [x.id, x]));
       DB.pcatName = Object.fromEntries(DB.pcats.map((x) => [x.id, x.name]));
     } catch (e) {
       $("#style-grid").innerHTML = `<div class="notice"><strong>Library data could not load.</strong> Browsers block reading local files, so serve this folder first:<br><code>cd skills/productivity/visual-style/library &amp;&amp; python3 -m http.server 8000</code><br>then open <code>http://localhost:8000/gallery.html</code>.</div>`;
@@ -1072,6 +1276,9 @@ html[lang="th"] #tab-guide .n { display: none; }
     if (state.sel.style && !DB.sty[state.sel.style]) state.sel.style = null;
     if (state.sel.palette && state.sel.palette !== "custom" && !DB.pal[state.sel.palette]) state.sel.palette = null;
     if (state.sel.palette === "custom" && !state.sel.custom) state.sel.palette = null;
+    // Saved presets keep working when an id leaves the library: the missing part is dropped, the rest stays.
+    for (const m of state.myPresets) { if (m.style && !DB.sty[m.style]) m.style = null; if (m.palette && m.palette !== "custom" && !DB.pal[m.palette]) m.palette = null; }
+    if (state.facet && state.facet !== "featured" && !DB.facet[state.facet]) state.facet = "";
     try { const w = await fetch("works.json").then((x) => (x.ok ? x.json() : { works: [] })); DB.works = (w.works || []).filter((x) => x.id && x.path && DB.sty[x.style]); } catch (e) { DB.works = []; }
     DB.works.sort((a, b) => String(b.created).localeCompare(String(a.created)));
     buildIndex();
@@ -1148,8 +1355,18 @@ html[lang="th"] #tab-guide .n { display: none; }
     if (ex && !recolored) return `<img class="work-cover" src="${esc(ex.path)}" alt="${esc(s.name)} example" loading="lazy"><span class="tag-synth">${KIND_LABEL[ex.kind] || "reference"}</span>`;
     return `${preview(s, p)}<span class="tag-synth">sketch · ${esc(p.name)}</span>`;
   }
+  // Taxonomy row: start from what you know (featured, or a kind of style) without learning the categories first.
+  function renderFacets() {
+    const opts = [["", "All"], ...(DB.featured.length ? [["featured", "Featured"]] : []), ...DB.facets.map((f) => [f.id, f.name])];
+    $("#facet-row").innerHTML = opts.map(([v, txt]) => `<button type="button" data-facet="${v}" aria-pressed="${state.facet === v}">${esc(txt)}</button>`).join("");
+    const f = DB.facet[state.facet];
+    $("#facet-note").hidden = !state.facet;
+    $("#facet-note").textContent = state.facet === "featured" ? "Featured: a short list of distinct starting points." : f ? f.note : "";
+  }
+  const passFacet = (s) => !state.facet || (state.facet === "featured" ? DB.featured.includes(s.id) : s.facet === state.facet);
   function renderStyles() {
-    const base = DB.styles.filter((s) => passFilters(s));
+    let base = DB.styles.filter((s) => passFilters(s) && passFacet(s));
+    if (state.facet === "featured") base = base.sort((a, b) => DB.featured.indexOf(a.id) - DB.featured.indexOf(b.id));
     const { list, all, best } = rank(base, (s) => IDX.s[s.id]);
     $("#n-styles").textContent = state.q ? list.length : "";
     const parts = state.groups.length;
@@ -1163,15 +1380,15 @@ html[lang="th"] #tab-guide .n { display: none; }
     $("#mycolors-wrap").classList.toggle("off", !has); $("#mycolors-wrap").title = has ? "" : "Select a palette first";
     $("#style-grid").innerHTML = list.length ? list.map((s) => {
       const p = cardPalette(s), on = state.sel.style === s.id;
-      const tags = [...s.mood.slice(0, 2), s.medium[0]].filter(Boolean);
+      const tags = [s.use_cases[0], s.mood[0]].filter(Boolean), fc = DB.facet[s.facet];
       return `<article class="card ${on ? "is-sel" : ""}">
         <div class="thumb">${cardThumb(s, p)}${on ? `<span class="sel-flag">Selected</span>` : ""}<button class="open" type="button" data-detail="${s.id}" aria-label="Open ${esc(s.name)} details"></button><button class="expand" type="button" data-detail="${s.id}" aria-label="Expand" title="Expand">⤢</button></div>
         <div class="card-head"><div><div class="eyebrow">${esc(DB.cat[s.category].name)}</div><h3>${esc(s.name)}</h3></div>${dots(six(p))}</div>
         <p class="summary clamp" ${s.summary_th ? `lang="th" title="${esc(s.summary)}"` : ""}>${esc(s.summary_th || s.summary)}</p>
-        <div class="tags">${tags.map((t) => `<span class="tag">${esc(MEDIUM_LABEL[t] || t)}</span>`).join("")}${s.research === "unverified" ? `<span class="tag unv" title="No source was found for this style in the research round; the description is general knowledge.">ยังไม่ตรวจแหล่ง</span>` : ""}</div>
+        <div class="tags">${fc ? `<span class="tag" style="border-style:dashed">${esc(fc.name)}</span>` : ""}${tags.map((t) => `<span class="tag">${esc(t)}</span>`).join("")}${s.research === "unverified" ? `<span class="tag unv" title="No source was found for this style in the research round; the description is general knowledge.">ยังไม่ตรวจแหล่ง</span>` : ""}</div>
         <div class="actions"><button class="btn small" type="button" data-detail="${s.id}">Details</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-pick-style="${s.id}" aria-pressed="${on}">${on ? "Selected" : "Select style"}</button></div>
       </article>`;
-    }).join("") : `<p class="empty">No style matches${state.q ? " this search" : ""}${Object.keys(state.filters).length ? " with these filters" : ""}. Remove a filter or try a single word such as <em>calm</em>, <em>poster</em>, or <em>green</em>.</p>`;
+    }).join("") : `<p class="empty">No style matches${state.q ? " this search" : ""}${Object.keys(state.filters).length || state.facet ? " with these filters" : ""}. ${state.facet ? `<button class="linkbtn" type="button" data-facet="">Show all kinds</button> or remove` : "Remove"} a filter, or try a single word such as <em>calm</em>, <em>poster</em>, or <em>green</em>.</p>`;
   }
 
   // ---------- render: palettes ----------
@@ -1180,26 +1397,57 @@ html[lang="th"] #tab-guide .n { display: none; }
   }
   // A palette as columns: color, name, HEX. Tapping a column looks for palettes that use that color.
   function sheet(p, hl, short) {
-    return `<div class="cols ${short ? "short" : ""}">${p.colors.map((c) => `<button type="button" class="col ${hl && c.hex === hl ? "hl" : ""}" data-sw="${c.hex}" aria-label="Find palettes with ${esc(c.name)} ${c.hex}" title="${esc(c.name)} ${c.hex} · ${c.role}"><span class="chip" style="background:${c.hex}"></span><span class="cn">${esc(c.name)}</span><span class="ch">${c.hex}</span></button>`).join("")}</div>`;
+    return `<div class="cols ${short ? "short" : ""}">${p.colors.map((c) => `<button type="button" class="col ${hl && c.hex === hl ? "hl" : ""}" data-sw="${c.hex}" aria-label="Find palettes with ${esc(c.name)} ${c.hex}" title="${esc(c.name)} ${c.hex} · ${c.role}"><span class="chip" style="background:${c.hex}"></span><span class="cn">${esc(c.name)}</span><span class="cr">${esc(c.role)}</span><span class="ch">${c.hex}</span></button>`).join("")}</div>`;
+  }
+  // A small real UI in the palette's roles: ground, card, text, link, button, and the derived status colors.
+  function uiSample(c) {
+    const sem = semantic(c.background);
+    return `<div class="ui-sample" style="background:${c.background};color:${c.text}"><div class="us-card" style="background:${c.surface};color:${c.text}"><b>Heading</b><span>Body text on the surface. <span class="us-link" style="color:${c.accent}">Link</span></span></div><span class="us-sem" title="Status colors (derived)">${["success", "warning", "error", "info"].map((k) => `<i style="background:${sem[k]}"></i>`).join("")}</span><span class="us-btn" style="background:${c.primary};color:${onColor(c.primary)}">Button</span></div>`;
+  }
+  const fitsCount = (id) => DB.styles.filter((s) => s.compatible_palettes.includes(id)).length;
+  const palFilterDefs = () => [
+    ["mood", "Palette mood", "Any mood", [...new Set(DB.palettes.flatMap((p) => p.mood))].sort().map((v) => [v, v]), (p, v) => p.mood.includes(v)],
+    ["ground", "Page ground", "Any ground", [["light", "Light ground"], ["dark", "Dark ground"]], (p, v) => groundOf(six(p).background) === v],
+    ["use", "Palette use case", "Any use case", [...new Set(DB.palettes.flatMap((p) => p.use_cases))].sort().map((v) => [v, v]), (p, v) => p.use_cases.includes(v)],
+  ];
+  function myPalCard(m) {
+    const on = state.sel.palette === "custom" && state.sel.myPal === m.id, c = m.colors, po = palObj(c, m.name), del = state.confirmDel === m.id;
+    return `<article class="card ${on ? "is-sel" : ""}">
+        ${sheet(po)}
+        <div class="card-head"><div><div class="eyebrow">Saved in this browser · ${esc(m.created || "")}</div><h3>${esc(m.name)}</h3></div></div>
+        ${uiSample(c)}
+        ${m.source ? `<p class="summary" style="font-size:13px">${esc(m.source)}</p>` : ""}
+        <div class="badges">${vHTML(verdict(ratio(c.text, c.background)))}</div>
+        <div class="actions"><button class="btn small" type="button" data-del-my-pal="${m.id}">${del ? "Confirm delete" : "Delete"}</button><button class="btn small" type="button" data-edit-my-pal="${m.id}">Edit</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-my-pal="${m.id}" aria-pressed="${on}">${on ? "Selected" : "Select palette"}</button></div>
+      </article>`;
   }
   const styleFor = (p) => selStyle() || DB.styles.find((s) => s.compatible_palettes[0] === p.id) || DB.styles.find((s) => s.compatible_palettes.includes(p.id)) || DB.styles[0];
   function renderPalettes() {
-    $("#fam").innerHTML = [["", "All"], ...DB.pcats.map((c) => [c.id, c.name])].map(([v, t]) => `<button type="button" data-fam="${v}" aria-pressed="${state.fam === v}">${esc(t)}</button>`).join("");
-    const base = DB.palettes.filter((p) => !state.fam || p.category === state.fam);
+    if (state.fam === "mine" && !state.myPalettes.length) state.fam = "";
+    $("#fam").innerHTML = [["", "All"], ...(state.myPalettes.length ? [["mine", "My palettes"]] : []), ...DB.pcats.map((c) => [c.id, c.name])].map(([v, t]) => `<button type="button" data-fam="${v}" aria-pressed="${state.fam === v}">${esc(t)}</button>`).join("");
+    const defs = palFilterDefs();
+    for (const [k, label, any, opts] of defs) { const el = $("#pf-" + k), val = state.pf[k] || ""; el.innerHTML = `<option value="">${esc(any)}</option>` + opts.map(([v, x]) => `<option value="${esc(v)}" ${v === val ? "selected" : ""}>${esc(x)}</option>`).join(""); el.classList.toggle("on", !!val); }
+    if (state.fam === "mine") {
+      $("#palette-count").textContent = `${state.myPalettes.length} saved in this browser`;
+      $("#palette-grid").innerHTML = state.myPalettes.map(myPalCard).join("");
+      return;
+    }
+    const base = DB.palettes.filter((p) => (!state.fam || p.category === state.fam) && defs.every(([k, , , , test]) => !state.pf[k] || test(p, state.pf[k])));
     const { list, all, best } = rank(base, (p) => IDX.p[p.id]);
     $("#n-colors").textContent = state.q ? list.length : "";
     const parts = state.groups.length;
     $("#palette-count").textContent = `${list.length} of ${DB.palettes.length} palettes` + (parts > 1 && list.length ? (all ? ", matching every part of your search" : `, closest matches (${best} of ${parts} parts)`) : "") + ". Tap any color to find palettes that use it.";
     $("#palette-grid").innerHTML = list.length ? list.map((p) => {
-      const on = state.sel.palette === p.id, v = textPairVerdict(p);
+      const on = state.sel.palette === p.id, v = textPairVerdict(p), c6 = six(p), n = fitsCount(p.id);
       return `<article class="card ${on ? "is-sel" : ""}">
         ${sheet(p)}
-        <div class="card-head"><div><div class="eyebrow">${esc(DB.pcatName[p.category])}</div><h3>${esc(p.name)}</h3></div></div>
+        <div class="card-head"><div><div class="eyebrow">${esc(DB.pcatName[p.category])} · ${groundOf(c6.background) === "dark" ? "Dark ground" : "Light ground"}</div><h3>${esc(p.name)}</h3></div></div>
+        ${uiSample(c6)}
         <p class="summary">${esc(p.mood.join(", "))}. For ${esc(p.use_cases.slice(0, 3).join(", "))}.</p>
-        <div>${vHTML(v)}</div>
-        <div class="actions"><button class="btn small" type="button" data-pal-preview="${p.id}">Compare on styles</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-pick-pal="${p.id}" aria-pressed="${on}">${on ? "Selected" : "Select palette"}</button></div>
+        <div class="badges">${vHTML(v)}<span class="tag">Fits ${n} styles</span>${p.aliases ? `<span class="tag">Also called ${esc(p.aliases.join(", "))}</span>` : ""}</div>
+        <div class="actions"><button class="btn small" type="button" data-pal-preview="${p.id}">Compare on styles</button><button class="btn small" type="button" data-edit-pal="${p.id}">Edit</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-pick-pal="${p.id}" aria-pressed="${on}">${on ? "Selected" : "Select palette"}</button></div>
       </article>`;
-    }).join("") : `<p class="empty">No palette matches. Try a color word such as <em>green</em>, <em>cream</em>, or <em>แดง</em>, or choose <strong>Pick a color</strong> above.</p>`;
+    }).join("") : `<p class="empty">No palette matches. ${Object.keys(state.pf).length ? `<button class="linkbtn" type="button" id="pf-clear">Clear the mood, ground, and use filters</button>, try` : "Try"} a color word such as <em>green</em>, <em>cream</em>, or <em>แดง</em>, or choose <strong>Pick a color</strong> above.</p>`;
   }
 
   // ---------- pick a color ----------
@@ -1330,14 +1578,161 @@ html[lang="th"] #tab-guide .n { display: none; }
     if (hexEl) hexEl.removeAttribute("aria-invalid");
     const cur = { ...buildColors() };
     if (state.sel.palette !== "custom") { state.sel.base = state.sel.palette && DB.pal[state.sel.palette] ? state.sel.palette : (selStyle() ? (selStyle().preview.palette) : DB.palettes[0].id); state.sel.genBase = null; }
-    cur[role] = h; state.sel.custom = cur; state.sel.palette = "custom"; state.sel.preset = null; saveSel();
+    cur[role] = h; state.sel.custom = cur; state.sel.palette = "custom"; state.sel.preset = null; state.sel.mine = null; state.sel.myPal = null;
+    if (state.sel.name && !/ \(edited\)$/.test(state.sel.name)) state.sel.name += " (edited)";
+    saveSel();
     if (from !== "picker") $("#bc-" + role).value = h.toLowerCase();
     if (from !== "hex") hexEl.value = h;
     renderBuildLive(); renderTray();
   }
 
+  // ---------- saved palettes ----------
+  function savePalette(name, colors, source) {
+    const m = { id: newId("my-"), name: name.trim() || "My palette " + (state.myPalettes.length + 1), colors: { ...colors }, source, created: today() };
+    state.myPalettes.unshift(m); store.set("vsl2-mypalettes", state.myPalettes);
+    toast("Palette saved"); renderPalettes(); return m;
+  }
+
+  // ---------- color harmony ----------
+  const saveH = () => store.set("vsl2-harmony", state.H);
+  // A repeatable small variation per swatch, so Regenerate gives a new variant and the same seed gives the same one.
+  const jit = (seed, i, k) => { const x = Math.sin((seed * 97 + i * 13 + k * 7) * 12.9898) * 43758.5453; return (x - Math.floor(x)) * 2 - 1; };
+  function harmonyNow() {
+    const H = state.H;
+    const sw = harmony(H.base, H.type, H.adj).map((s, i) => {
+      let computed = s.hex;
+      if (H.seed && i > 0) { const [L, C, h] = toOklch(s.hex); computed = fromOklch(L + jit(H.seed, i, 1) * 0.05, C * (1 + jit(H.seed, i, 2) * 0.15), h + jit(H.seed, i, 3) * 12); }
+      const locked = H.locks[i], edited = H.edits[i];
+      return { role: s.role, computed, hex: locked || edited || computed, locked: !!locked, edited: !!edited && !locked };
+    });
+    return { sw, roles: harmonyRoles(sw, H.dark) };
+  }
+  const ROLE_LABEL = { primary: "Primary", secondary: "Secondary", accent: "Accent", extra: "Extra" };
+  function renderHarmony() {
+    const H = state.H;
+    $("#h-type").innerHTML = Object.entries(HARM).map(([k, d]) => `<option value="${k}" ${k === H.type ? "selected" : ""}>${esc(d.name)}</option>`).join("");
+    $("#h-note").textContent = (HARM[H.type] || HARM.complementary).note;
+    $("#h-hex").value = H.base; $("#h-hex").removeAttribute("aria-invalid"); $("#h-color").value = H.base.toLowerCase();
+    $("#h-hue").value = H.adj.hue; $("#h-sat").value = H.adj.sat * 100; $("#h-light").value = H.adj.light * 100;
+    $("#h-ground").innerHTML = [["light", "Light ground"], ["dark", "Dark ground"]].map(([v, x]) => `<button type="button" role="radio" aria-checked="${(v === "dark") === !!H.dark}" data-hground="${v}">${x}</button>`).join("");
+    renderHarmonyLive();
+  }
+  function renderHarmonyLive() {
+    const H = state.H, { sw, roles: c } = harmonyNow();
+    $("#o-hue").textContent = `${H.adj.hue > 0 ? "+" : ""}${H.adj.hue}°`; $("#o-sat").textContent = `${H.adj.sat > 0 ? "+" : ""}${Math.round(H.adj.sat * 100)}%`; $("#o-light").textContent = `${H.adj.light > 0 ? "+" : ""}${Math.round(H.adj.light * 100)}`;
+    $("#h-swatches").innerHTML = sw.map((s, i) => `<div class="hsw">
+      <input type="color" data-hsw="${i}" value="${s.hex.toLowerCase()}" aria-label="${ROLE_LABEL[s.role]} color picker">
+      <div class="rl"><span class="k">${ROLE_LABEL[s.role]}</span><input class="text-in hexin" data-hsw-hex="${i}" value="${s.hex}" maxlength="7" spellcheck="false" autocomplete="off" aria-label="${ROLE_LABEL[s.role]} HEX">
+        ${s.edited ? `<small class="edited">Edited</small><small>Computed <span class="hex">${s.computed}</span>, ΔE ${dE(s.hex, s.computed).toFixed(0)}</small>` : s.locked ? `<small>Locked</small>` : ""}</div>
+      <div class="side"><button class="btn small lock" type="button" data-hlock="${i}" aria-pressed="${s.locked}">${s.locked ? "Locked" : "Lock"}</button>${s.edited ? `<button class="linkbtn" type="button" data-hrevert="${i}">Use computed</button>` : ""}</div></div>`).join("");
+    $("#h-roles").innerHTML = `<div class="cols short">${ROLES6.map(([r, x]) => `<button type="button" class="col" data-sw="${c[r]}" aria-label="Find palettes with ${x} ${c[r]}"><span class="chip" style="background:${c[r]}"></span><span class="cn">${x}</span><span class="ch">${c[r]}</span></button>`).join("")}</div>`;
+    const m = mock(selStyle(), c, selStyle() ? "combined" : "colors");
+    $("#h-preview").innerHTML = m.html;
+    $("#h-caption").textContent = "Background, surface, and text are built from the base hue. Text is set to at least 7:1 on the background and 4.5:1 on the surface; the ratios below are calculated.";
+    const checks = [["Text on background", c.text, c.background, "text"], ["Text on surface", c.text, c.surface, "text"], ["Primary on background", c.primary, c.background, "ui"], ["Accent on background", c.accent, c.background, "ui"], ["Label on primary", onColor(c.primary), c.primary, "text"]];
+    $("#h-checks").innerHTML = checks.map(([l, fg, bg, k]) => `<div class="check"><span class="demo" style="background:${bg};color:${fg}">Aa</span><span>${l}<br>${vHTML(verdict(ratio(fg, bg), k))}</span></div>`).join("");
+  }
+  function setHarmony(patch, keepEdits) { Object.assign(state.H, patch); if (!keepEdits) state.H.edits = {}; saveH(); renderHarmonyLive(); }
+  function useHarmony(edit) {
+    const { roles } = harmonyNow(), d = HARM[state.H.type] || HARM.complementary;
+    setSel({ palette: "custom", custom: { ...roles }, genBase: { ...roles }, name: `${d.name} from ${state.H.base}` });
+    renderAll(); if (edit) setCmode("build"); else toast(`${d.name} from ${state.H.base} selected`);
+  }
+
   // ---------- presets ----------
+  // Mixer: style and colors stay independent. Compatibility only ranks suggestions; any pair can be previewed and used.
+  function nearestLib(c) {
+    let best = null;
+    for (const p of DB.palettes) { const s = six(p), d = ROLES6.reduce((a, [r]) => a + dE(s[r], c[r]), 0); if (!best || d < best.d) best = { p, d }; }
+    return best.p;
+  }
+  function fitInfo() {
+    const s = selStyle(), c = selColors(); if (!s || !c) return null;
+    const lib = state.sel.palette !== "custom" ? DB.pal[state.sel.palette] : null;
+    if (lib) return s.compatible_palettes.includes(lib.id) ? { ok: true, t: `Recommended pair: ${lib.name} is one of ${s.name}'s palettes.` } : { ok: false, t: `${lib.name} is outside ${s.name}'s recommended palettes. The preview shows the real pair; check contrast before use.` };
+    const near = nearestLib(c);
+    return s.compatible_palettes.includes(near.id) ? { ok: true, t: `Your colors are closest to ${near.name}, one of ${s.name}'s palettes.` } : { ok: false, t: `Your colors are closest to ${near.name}, outside ${s.name}'s recommended palettes. The preview shows the real pair.` };
+  }
+  const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+  function shuffle(which) {
+    const L = state.lock, s = selStyle(), c = selColors();
+    const doStyle = (which === "style" || which === "both") && !L.style, doPal = (which === "palette" || which === "both") && !L.palette;
+    if (!doStyle && !doPal) return toast("Both are locked");
+    let sid = state.sel.style, pid = state.sel.palette !== "custom" ? state.sel.palette : null;
+    if (doStyle) {
+      const palFor = doPal ? null : pid ? DB.pal[pid] : c ? nearestLib(c) : null;
+      let pool = state.fitOnly && palFor ? DB.styles.filter((x) => x.compatible_palettes.includes(palFor.id)) : DB.styles;
+      if (pool.length > 1) pool = pool.filter((x) => x.id !== sid);
+      sid = pick(pool).id;
+    }
+    if (doPal) {
+      const st = DB.sty[sid];
+      let pool = state.fitOnly && st ? st.compatible_palettes.map((id) => DB.pal[id]) : DB.palettes;
+      if (pool.length > 1) pool = pool.filter((x) => x.id !== pid);
+      pid = pick(pool).id;
+    }
+    if (doPal) setSel({ style: sid, palette: pid });
+    else { state.sel.style = sid; state.sel.preset = null; state.sel.mine = null; saveSel(); }
+    renderAll();
+  }
+  function renderMixer() {
+    const s = selStyle(), c = selColors(), L = state.lock, fit = fitInfo();
+    const lib = c && state.sel.palette !== "custom" ? DB.pal[state.sel.palette] : null;
+    const near = c && !lib ? nearestLib(c) : null, palRef = lib || near;
+    const m = s || c ? mock(s, c, s && c ? "combined" : s ? "style" : "colors") : null;
+    const sChips = s ? s.compatible_palettes.map((id) => `<button type="button" class="pal-chip" data-mix-pal="${id}" aria-pressed="${state.sel.palette === id}"><i>${DB.pal[id].colors.slice(0, 4).map((x) => `<span style="background:${x.hex}"></span>`).join("")}</i>${esc(DB.pal[id].name)}</button>`).join("") : "";
+    const pStyles = palRef ? DB.styles.filter((x) => x.compatible_palettes.includes(palRef.id)) : [];
+    $("#mixer").innerHTML = `<h3>Mix style and colors</h3>
+      <p class="summary" style="font-size:13px;margin:0">Compatibility is a suggestion, not a rule: any style takes any colors. Lock one side and shuffle the other, or tap a suggestion.</p>
+      <div class="mix-layout">
+        <div>${m ? m.html + `<p class="prev-caption" style="margin-top:8px">${esc(m.cap)}</p>` : `<p class="empty" style="padding:12px 0">Choose a style or colors first, or press Shuffle both.</p>`}</div>
+        <div class="mix-side">
+          <div class="mix-row"><span class="k">Style</span><span class="v">${s ? esc(s.name) : "Not chosen"}</span>
+            <div class="actions"><button class="btn small" type="button" data-shuffle="style" ${L.style ? "disabled" : ""}>Shuffle style</button><button class="btn small lock" type="button" data-lock-side="style" aria-pressed="${L.style}">${L.style ? "Style locked" : "Lock style"}</button></div></div>
+          <div class="mix-row"><span class="k">Colors</span><span class="v">${c ? esc(selPalName()) : "Not chosen"}</span>
+            <div class="actions"><button class="btn small" type="button" data-shuffle="palette" ${L.palette ? "disabled" : ""}>Shuffle colors</button><button class="btn small lock" type="button" data-lock-side="palette" aria-pressed="${L.palette}">${L.palette ? "Colors locked" : "Lock colors"}</button></div></div>
+          <div class="actions"><button class="btn small primary" type="button" data-shuffle="both" ${L.style && L.palette ? "disabled" : ""}>Shuffle both</button><label class="switch"><input type="checkbox" id="fit-only" ${state.fitOnly ? "checked" : ""}> Recommended pairs only</label></div>
+          ${fit ? `<p class="fit-note ${fit.ok ? "ok" : "warn"}">${esc(fit.t)}</p>` : ""}
+          ${s ? `<div><p class="sub" style="margin-bottom:6px">Palettes recommended for ${esc(s.name)}</p><div class="chips">${sChips}</div></div>` : ""}
+          ${palRef ? `<div><p class="sub" style="margin-bottom:6px">${lib ? `Styles that fit ${esc(lib.name)}` : `Styles that fit the nearest library palette, ${esc(near.name)}`}</p><div class="chips">${pStyles.map((x) => `<button type="button" data-mix-style="${x.id}" aria-pressed="${state.sel.style === x.id}">${esc(x.name)}</button>`).join("")}</div></div>` : ""}
+          <div class="save-row"><label class="sr" for="mix-name">Preset name</label><input class="text-in" id="mix-name" placeholder="Name this preset" autocomplete="off"><button class="btn small" type="button" id="mix-save" ${s || c ? "" : "disabled"}>Save as preset</button></div>
+        </div>
+      </div>`;
+  }
+
+  // ---------- my presets: saved combinations of style, colors, use, and constraints (this browser only) ----------
+  const saveMine = () => store.set("vsl2-mypresets", state.myPresets);
+  function presetFromSel(name) {
+    const s = selStyle(), c = selColors(), sel = state.sel;
+    return { name: name.trim() || [s ? s.name : null, c ? selPalName() : null].filter(Boolean).join(" + "), style: s ? s.id : null,
+      palette: c ? sel.palette : null, custom: c && sel.palette === "custom" ? { ...c } : null, colorsName: c && sel.palette === "custom" ? selPalName() : null,
+      use: sel.use || "", constraints: sel.constraints || "" };
+  }
+  const minePal = (m) => (m.palette === "custom" && m.custom ? palObj(m.custom, m.colorsName || "custom colors") : m.palette ? DB.pal[m.palette] : null);
+  function renderMyPresets() {
+    const list = state.myPresets;
+    $("#my-presets").innerHTML = `<p class="h2sub">My presets${list.length ? ` · ${list.length}` : ""}</p>` + (list.length ? `<div class="grid">${list.map((m) => {
+      const s = m.style ? DB.sty[m.style] : null, p = minePal(m), on = state.sel.mine === m.id, del = state.confirmDel === m.id, ren = state.renaming === m.id;
+      const thumb = s ? preview(s, p || DB.pal[s.preview.palette]) : p ? colorsArt(six(p)) : "";
+      const nCons = (m.constraints || "").split(/\n+/).filter((x) => x.trim()).length;
+      return `<article class="card ${on ? "is-sel" : ""}">
+        <div class="thumb">${thumb}<span class="tag-synth">sketch</span>${on ? `<span class="sel-flag">In use</span>` : ""}</div>
+        <div class="card-head"><div style="min-width:0;flex:1"><div class="eyebrow">Saved in this browser · ${esc(m.created || "")}</div>${ren ? `<div class="name-edit"><label class="sr" for="ren-${m.id}">Preset name</label><input class="text-in" id="ren-${m.id}" value="${esc(m.name)}" data-ren-input="${m.id}"><button class="btn small primary" type="button" data-ren-save="${m.id}">Save</button><button class="btn small" type="button" data-ren-cancel="1">Cancel</button></div>` : `<h3>${esc(m.name)}</h3>`}</div>${p ? dots(six(p)) : ""}</div>
+        <div class="meta-line"><span>Style <b>${s ? esc(s.name) : "not chosen"}</b></span><span>Palette <b>${p ? esc(p.name) : "not chosen"}</b></span><span>Use for <b>${m.use ? esc(MEDIUM_LABEL[m.use] || m.use) : "not set"}</b></span>${nCons ? `<span>${nCons} constraints</span>` : ""}</div>
+        ${m.from ? `<p class="summary" style="font-size:13px">${esc(m.from)}</p>` : ""}
+        <div class="actions"><button class="btn small ${on ? "selected" : "primary"}" type="button" data-use-mine="${m.id}">${on ? "In use" : "Use"}</button><button class="btn small" type="button" data-ren-mine="${m.id}">Rename</button><button class="btn small" type="button" data-dup-mine="${m.id}">Duplicate</button><button class="btn small" type="button" data-upd-mine="${m.id}" ${selStyle() || selColors() ? "" : "disabled"}>Update from selection</button><button class="btn small" type="button" data-del-mine="${m.id}">${del ? "Confirm delete" : "Delete"}</button></div>
+      </article>`;
+    }).join("")}</div>` : `<p class="empty" style="padding:4px 0 8px">No saved presets yet. Choose a style and colors, then Save as preset above.</p>`);
+  }
+  function useMine(id) {
+    const m = state.myPresets.find((x) => x.id === id); if (!m) return;
+    const pal = m.palette === "custom" && m.custom ? { palette: "custom", custom: { ...m.custom }, name: m.colorsName } : { palette: m.palette && DB.pal[m.palette] ? m.palette : null };
+    setSel({ style: m.style, ...pal, mine: m.id }); state.sel.use = m.use || ""; state.sel.constraints = m.constraints || ""; saveSel();
+    renderAll(); toast(`${m.name} applied. Change colors any time in Colors.`);
+  }
+
   function renderPresets() {
+    renderMixer(); renderMyPresets();
     const { list } = rank(DB.presets, (r) => IDX.r[r.id]);
     $("#n-presets").textContent = state.q ? list.length : "";
     $("#preset-count").textContent = `${list.length} of ${DB.presets.length} presets`;
@@ -1349,13 +1744,13 @@ html[lang="th"] #tab-guide .n { display: none; }
         <p class="summary">${esc(pr.summary)}</p>
         <div class="meta-line"><span>Style <b>${esc(s.name)}</b>${pr.secondary_styles.length ? ` + ${esc(pr.secondary_styles.map((x) => DB.sty[x].name).join(", "))}` : ""}</span><span>Palette <b>${esc(p.name)}</b></span></div>
         <div class="tags">${s.medium.slice(0, 3).map((t) => `<span class="tag">${esc(MEDIUM_LABEL[t] || t)}</span>`).join("")}</div>
-        <div class="actions"><button class="btn small" type="button" data-preset-detail="${pr.id}">Details</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-preset="${pr.id}">${on ? "In use" : "Use preset"}</button></div>
+        <div class="actions"><button class="btn small" type="button" data-preset-detail="${pr.id}">Details</button><button class="btn small" type="button" data-dup-lib="${pr.id}">Copy to my presets</button><button class="btn small ${on ? "selected" : "primary"}" type="button" data-preset="${pr.id}">${on ? "In use" : "Use preset"}</button></div>
       </article>`;
     }).join("") : `<p class="empty">No preset matches this search.</p>`;
   }
   function usePreset(id) {
     const pr = DB.presets.find((x) => x.id === id);
-    Object.assign(state.sel, { style: pr.primary_style, palette: pr.palette, custom: null, base: null, genBase: null, preset: pr.id });
+    setSel({ style: pr.primary_style, palette: pr.palette, preset: pr.id });
     saveSel(); renderAll(); toast(`${pr.name} applied. Change colors any time in Colors.`);
   }
 
@@ -1379,8 +1774,8 @@ html[lang="th"] #tab-guide .n { display: none; }
   }
   function reuseWork(id) {
     const w = DB.works.find((x) => x.id === id);
-    if (w.custom) Object.assign(state.sel, { style: w.style, palette: "custom", custom: { ...w.custom }, base: null, genBase: null, preset: null });
-    else Object.assign(state.sel, { style: w.style, palette: DB.pal[w.palette] ? w.palette : null, custom: null, base: null, genBase: null, preset: null });
+    if (w.custom) setSel({ style: w.style, palette: "custom", custom: { ...w.custom } });
+    else setSel({ style: w.style, palette: DB.pal[w.palette] ? w.palette : null });
     if (w.kind === "presentation") state.sel.use = "presentation";
     saveSel(); renderAll(); setTab("styles"); scrollTo({ top: 0 });
     toast(`${DB.sty[w.style].name} from “${w.title}” selected`);
@@ -1394,7 +1789,7 @@ html[lang="th"] #tab-guide .n { display: none; }
     $("#slot-pal").classList.toggle("empty-slot", !c);
     $("#slot-pal").innerHTML = `<span class="vis">${c ? ["background", "primary", "accent", "text"].map((r) => `<span style="background:${c[r]}"></span>`).join("") : ""}</span><span class="k">Colors</span><span class="v">${c ? esc(pn) : s ? "Optional" : "Not chosen"}</span>`;
     const n = (s ? 1 : 0) + (c ? 1 : 0);
-    $("#tray-n").textContent = `${n} of 2 chosen${n === 1 ? ", enough to apply" : ""}` + (state.sel.preset ? " · preset" : "");
+    $("#tray-n").textContent = `${n} of 2 chosen${n === 1 ? ", enough to apply" : ""}` + (state.sel.preset || state.sel.mine ? " · preset" : "");
     $("#apply-btn").disabled = !n;
     $("#apply-btn").title = n ? "" : "Select a style or a palette first";
   }
@@ -1485,6 +1880,42 @@ html[lang="th"] #tab-guide .n { display: none; }
     return parts.join(" ") + (cons ? "\n" + cons : "");
   }
   function tokens(c, names) { return ROLES6.map(([r]) => `  --color-${r}: ${c[r]};${names && names[r] ? ` /* ${names[r]} */` : ""}`).join("\n"); }
+  // Muted text, border, and status colors: the palette's own roles when it has them, otherwise derived and labelled.
+  function extraRoles(c, lib) {
+    const own = (r) => (lib ? (lib.colors.find((x) => x.role === r) || {}).hex : null);
+    const textMuted = own("text-muted"), border = own("line");
+    return { textMuted: textMuted || derivedMuted(c.text, c.background), border: border || derivedBorder(c.text, c.background), derived: [...(textMuted ? [] : ["textMuted"]), ...(border ? [] : ["border"]), "semantic"], semantic: semantic(c.background) };
+  }
+  // Design Direction: everything the next workflow needs, read from the library rather than from names.
+  function designDirection() {
+    const s = selStyle(), c = selColors(), sel = state.sel;
+    const lib = c && sel.palette !== "custom" ? DB.pal[sel.palette] : null;
+    const pr = sel.preset ? DB.presets.find((x) => x.id === sel.preset) : null;
+    const pf = (l) => (s ? profField(s.id, l) || null : null);
+    const x = c ? extraRoles(c, lib) : null, fit = fitInfo();
+    const avoid = [];
+    if (s && pf("Avoid when")) avoid.push(`Style avoid when: ${pf("Avoid when")}`);
+    if (pr) avoid.push(...pr.direction.avoid);
+    if (lib) for (const a of lib.avoid_pairs) avoid.push(`Do not set ${a.fg} text on ${a.bg}`);
+    const checks = c ? [["text", "background", "text"], ["text", "surface", "text"], ["accent", "background", "ui"], ["primary", "background", "ui"]].map(([a, b, k]) => { const r = ratio(c[a], c[b]); return { pair: `${a} on ${b}`, ratio: +r.toFixed(2), needs: k === "ui" ? 3 : 4.5, passes: r >= (k === "ui" ? 3 : 4.5) }; }) : [];
+    return {
+      schema: "visual-style/design-direction@1",
+      selectedStyleId: s ? s.id : null, selectedStyleName: s ? s.name : null,
+      selectedPaletteId: lib ? lib.id : c ? "custom" : null, selectedPaletteName: c ? selPalName() : null,
+      customPalette: c && !lib ? { ...c } : null, presetId: pr ? pr.id : null, useCase: sel.use || null,
+      colorRoles: c ? { ...c, textMuted: x.textMuted, border: x.border } : null,
+      semanticColors: c ? { ...x.semantic, note: "Derived for this background (4.5:1 or more), separate from brand colors" } : null,
+      derivedRoles: x ? x.derived : [],
+      typography: pf("Typography"), layout: pf("Layout"), composition: pf("Composition"),
+      visualPrinciples: s ? [pf("Visual DNA"), pf("Design principles")].filter(Boolean) : [],
+      colorBehavior: pf("Color behavior"), imageTreatment: pf("Image treatment"), texture: pf("Texture and material"), motion: pf("Motion language"),
+      constraints: sel.constraints.trim() ? sel.constraints.trim().split(/\n+/) : [],
+      avoid, contrastChecks: checks,
+      compatibility: fit ? { recommended: fit.ok, note: fit.t } : null,
+      previewReference: s ? { gallery: "#" + s.id, kind: "synthetic sketch drawn from the style's layout pattern and these colors, not a reference image" } : null,
+      sources: { styleProfile: s ? `${s.profile}#${s.id}` : null, palette: lib ? `palettes.json#${lib.id}` : c ? "custom colors from the gallery" : null, profileLoaded: s ? !!PROF[s.id] : null },
+    };
+  }
   function handoff() {
     const s = selStyle(), c = selColors(), sel = state.sel;
     const lib = sel.palette && sel.palette !== "custom" ? DB.pal[sel.palette] : null;
@@ -1510,6 +1941,7 @@ html[lang="th"] #tab-guide .n { display: none; }
       style: s ? { id: s.id, name: s.name } : null,
       palette: c ? { id: lib ? lib.id : "custom", name: selPalName(), based_on: sel.palette === "custom" ? sel.base || "generated" : undefined, colors: c } : null,
       direction: Object.fromEntries(direction), constraints: cons,
+      design_direction: designDirection(),
     };
     const lines = [cmd, `Use for: ${use ? MEDIUM_LABEL[use] || use : "not set"}`];
     if (pr) lines.push(`Preset: ${pr.id} (${pr.name})`);
@@ -1517,7 +1949,11 @@ html[lang="th"] #tab-guide .n { display: none; }
     lines.push(`Palette: ${lib ? `${lib.id} (${lib.name})` : c ? `custom${sel.base ? `, edited from ${sel.base}` : ", generated in the gallery"}` : "not chosen: pick from the style's compatible palettes"}`);
     if (direction.length) { lines.push("", "Design direction:"); for (const [k, v] of direction) lines.push(`- ${k}: ${v}`); }
     if (cons.length) { lines.push("", "Constraints:"); for (const v of cons) lines.push(`- ${v}`); }
-    if (c) lines.push("", "Color tokens:", ":root {", tokens(c, names), "}");
+    if (c) {
+      const x = extraRoles(c, lib);
+      lines.push("", "Color tokens:", ":root {", tokens(c, names), `  --color-text-muted: ${x.textMuted};${x.derived.includes("textMuted") ? " /* derived */" : ""}`, `  --color-border: ${x.border};${x.derived.includes("border") ? " /* derived */" : ""}`,
+        ...Object.entries(x.semantic).map(([k, v]) => `  --color-${k}: ${v}; /* status, derived */`), "}");
+    }
     return { prompt: lines.join("\n"), json: JSON.stringify(json, null, 2) };
   }
   function openReview() {
@@ -1558,7 +1994,8 @@ html[lang="th"] #tab-guide .n { display: none; }
         <div class="fact"><h4>คู่มือ</h4><p>แท็บคู่มือรวมหลักที่ใช้ได้กับทุกสไตล์: เลือกตามงาน กริดและระยะห่าง แอนิเมชันและ easing คู่ฟอนต์ไทยกับอังกฤษ หลักการใช้สี design tokens และแหล่งอ้างอิง สไตล์ที่มีป้าย ยังไม่ตรวจแหล่ง คือยังไม่พบแหล่งอ้างอิงในรอบค้นคว้า</p></div>
         <div class="fact"><h4>คอนทราสต์</h4><p>คำนวณตาม WCAG 2.2 เนื้อหาต้องได้ 4.5:1 (AA) ตัวอักษรใหญ่และชิ้นส่วน UI ต้องได้ 3:1 พาเลตต์ที่สร้างให้จะถูกปรับให้ผ่านเกณฑ์ก่อนแสดง และมีป้ายบอกว่าเป็นสีที่สร้างให้เสมอ</p></div>
         <div class="fact"><h4>การนำไปใช้</h4><p>เลือกสไตล์กับสีลำดับไหนก็ได้ เลือกอย่างเดียวก็พอ skill จะเสนอส่วนที่ขาดให้ การแตะสีเดี่ยวเป็นแค่การค้นหา สีของคุณจะเปลี่ยนเมื่อเลือกพาเลตต์ ปุ่ม ตรวจและใช้ จะให้คำสั่งบรรทัดเดียว คัดลอกไปวางใน Claude Code งานนำเสนอใช้ <code>/create-presentation</code> งานอื่นใช้ <code>/visual-style</code></p></div>
-        <div class="fact"><h4>สิ่งที่บันทึกไว้</h4><p>สิ่งที่เลือก ตัวกรอง และภาษาเก็บไว้ในเบราว์เซอร์นี้เท่านั้น ${DB ? `${DB.styles.length} สไตล์ ${DB.palettes.length} พาเลตต์ ${DB.presets.length} พรีเซ็ต` : ""}</p></div>
+        <div class="fact"><h4>จัดหมวด ผสม และบันทึก</h4><p>แถวบนแท็บสไตล์แบ่งตามประเภท: ลุค เลย์เอาต์ วัสดุ การเล่าเรื่อง และโครงสร้างสี แท็บสีมีฮาร์โมนีสี 9 แบบจากสีตั้งต้น ล็อกสีได้ และบันทึกพาเลตต์ของคุณเอง แท็บพรีเซ็ตมีที่ผสมสไตล์กับสี สุ่มทีละฝั่ง และบันทึกคู่ที่ชอบเป็นพรีเซ็ต ความเข้ากันเป็นแค่คำแนะนำ ปุ่ม JSON ใน ตรวจและใช้ ส่ง design direction ครบชุด (บทบาทสี สีสถานะ ตัวอักษร เลย์เอาต์ ข้อห้าม ผลคอนทราสต์)</p></div>
+        <div class="fact"><h4>สิ่งที่บันทึกไว้</h4><p>สิ่งที่เลือก ตัวกรอง ภาษา พาเลตต์และพรีเซ็ตที่บันทึก เก็บไว้ในเบราว์เซอร์นี้เท่านั้น ${DB ? `${DB.styles.length} สไตล์ ${DB.palettes.length} พาเลตต์ ${DB.presets.length} พรีเซ็ต` : ""}</p></div>
       </div>`);
     showDialog(`<div class="dlg-head"><h2 id="dlg-title">How this library works</h2>${closeBtn}</div>
       <div class="facts">
@@ -1568,7 +2005,8 @@ html[lang="th"] #tab-guide .n { display: none; }
         <div class="fact"><h4>Guide</h4><p>The Guide tab (คู่มือ) holds research notes that apply to every style: picks by job, grid and spacing, motion and easing, Thai and Latin font pairs, color rules, design tokens, and sources. Styles marked ยังไม่ตรวจแหล่ง had no source in that research round.</p></div>
         <div class="fact"><h4>Contrast</h4><p>Ratios use the WCAG 2.2 relative luminance formula. Body text needs 4.5:1 (AA), large text and UI parts need 3:1. Generated palettes are adjusted to meet these before they are shown, and are always labelled as generated.</p></div>
         <div class="fact"><h4>Applying a selection</h4><p>Choose a style and colors in any order. One of them is enough: the handoff asks for the missing part. Tapping a single color only searches; your colors change when you select a palette. Review &amp; apply builds a handoff with the command, ids, color values, direction, and constraints. Copy it into Claude Code. Presentations go to <code>/create-presentation</code>; other work goes to <code>/visual-style</code>.</p></div>
-        <div class="fact"><h4>What is saved</h4><p>Your selection and filters stay in this browser only. ${DB ? `${DB.styles.length} styles, ${DB.palettes.length} palettes, ${DB.presets.length} presets.` : ""}</p></div>
+        <div class="fact"><h4>Browse, mix, save</h4><p>The row above the Styles grid groups styles by kind: look, layout, material, story and motion, and color structure. Colors offers nine harmonies from one color, with locks, and lets you save your own palettes. Presets has a mixer that shuffles style or colors separately and saves the pair as your preset. Compatibility only ranks suggestions. The JSON handoff carries a full design direction: color roles, status colors, type, layout, avoid list, and contrast results.</p></div>
+        <div class="fact"><h4>What is saved</h4><p>Your selection, filters, saved palettes, and saved presets stay in this browser only. ${DB ? `${DB.styles.length} styles, ${DB.palettes.length} palettes, ${DB.presets.length} presets.` : ""}</p></div>
       </div>`);
   }
 
@@ -1675,18 +2113,21 @@ html[lang="th"] #tab-guide .n { display: none; }
     store.set("vsl2-tab", t);
     if (DB && t === "styles") renderStyles();
     if (DB && t === "colors" && state.cmode === "browse") renderPalettes();
+    if (DB && t === "presets") renderPresets();
   }
   function setCmode(m) {
     state.cmode = m;
     $$("#cmode button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.cmode === m)));
-    for (const v of ["browse", "pick", "build"]) $("#cm-" + v).hidden = v !== m;
+    for (const v of ["browse", "pick", "build", "harmony"]) $("#cm-" + v).hidden = v !== m;
     if (m === "pick") { renderPickSide(); renderPickResults(); }
+    if (m === "harmony") renderHarmony();
     if (m === "build") renderBuild();
   }
   function renderAll() {
     syncQuick(); renderStyles(); renderPalettes(); renderPresets(); renderWorks(); renderTray();
     if (state.cmode === "pick") { renderPickSide(); renderPickResults(); }
     if (state.cmode === "build") renderBuild();
+    if (state.cmode === "harmony") renderHarmonyLive();
   }
   function onSearch() {
     state.q = $("#q").value; state.groups = parseQuery(state.q);
@@ -1700,6 +2141,7 @@ html[lang="th"] #tab-guide .n { display: none; }
   function init() {
     $("#counts").textContent = `${DB.styles.length} styles · ${DB.palettes.length} palettes · ${DB.presets.length} presets`;
     filterDefs();
+    renderFacets();
     $("#hints").innerHTML = `<span>Try</span>` + ["หรูหราแต่ไม่เยอะ", "เขียวธรรมชาติ", "พรีเซนเทชั่นบริษัทเทคโนโลยี", "red and cream", "magazine typography", "3D technical animation"].map((q) => `<button type="button" data-hint="${esc(q)}">${esc(q)}</button>`).join("");
     for (const d of FDEF.filter((x) => x.quick)) $("#f-" + d.k).addEventListener("input", (e) => setFilter(d.k, e.target.value));
     $("#all-filters").addEventListener("click", openDrawer);
@@ -1720,9 +2162,34 @@ html[lang="th"] #tab-guide .n { display: none; }
     $("#pk-color").addEventListener("input", (e) => setPick(e.target.value, "picker"));
     $("#pk-hex").addEventListener("input", (e) => { const h = normHex(e.target.value); if (h) setPick(h, "hex"); else e.target.setAttribute("aria-invalid", "true"); });
     $("#pk-name").addEventListener("input", renderNameResults);
-    $("#b-start").addEventListener("input", (e) => { const id = e.target.value; if (!id) return; Object.assign(state.sel, { palette: id, custom: null, base: null, genBase: null, preset: null }); saveSel(); renderBuild(); renderTray(); renderPalettes(); renderStyles(); });
+    $("#b-start").addEventListener("input", (e) => { const id = e.target.value; if (!id) return; setSel({ palette: id }); renderBuild(); renderTray(); renderPalettes(); renderStyles(); });
     $("#b-roles").addEventListener("input", (e) => { const t = e.target; if (t.dataset.role) setRole(t.dataset.role, t.value, "picker"); else if (t.dataset.roleHex) setRole(t.dataset.roleHex, t.value, "hex"); });
-    $("#b-reset-all").addEventListener("click", () => { const b = buildBase(); if (state.sel.palette === "custom") { if (state.sel.base) { state.sel.palette = state.sel.base; state.sel.custom = null; state.sel.base = null; } else state.sel.custom = { ...b }; saveSel(); } renderBuild(); renderTray(); renderStyles(); renderPalettes(); });
+    $("#b-reset-all").addEventListener("click", () => { const b = buildBase(); if (state.sel.palette === "custom") { if (state.sel.base) setSel({ palette: state.sel.base }); else { state.sel.custom = { ...b }; if (state.sel.name) state.sel.name = state.sel.name.replace(/ \(edited\)$/, ""); saveSel(); } } renderBuild(); renderTray(); renderStyles(); renderPalettes(); });
+    for (const k of ["mood", "ground", "use"]) $("#pf-" + k).addEventListener("input", (e) => { if (e.target.value) state.pf[k] = e.target.value; else delete state.pf[k]; store.set("vsl2-pf", state.pf); renderPalettes(); });
+    // Harmony: typing updates the preview in place; committing a value (change) redraws the swatch list with its Edited note.
+    const hBase = (v, from) => { const h = normHex(v); if (!h) { $("#h-hex").setAttribute("aria-invalid", "true"); return; } $("#h-hex").removeAttribute("aria-invalid"); if (from !== "hex") $("#h-hex").value = h; if (from !== "picker") $("#h-color").value = h.toLowerCase(); setHarmony({ base: h }); };
+    $("#h-color").addEventListener("input", (e) => hBase(e.target.value, "picker"));
+    $("#h-hex").addEventListener("input", (e) => hBase(e.target.value, "hex"));
+    $("#h-type").addEventListener("input", (e) => { $("#h-note").textContent = HARM[e.target.value].note; setHarmony({ type: e.target.value }); });
+    for (const [id, k, f] of [["h-hue", "hue", 1], ["h-sat", "sat", 100], ["h-light", "light", 100]]) $("#" + id).addEventListener("input", (e) => { state.H.adj = { ...state.H.adj, [k]: +e.target.value / f }; saveH(); renderHarmonyLive(); });
+    const hEdit = (e, full) => {
+      const el = e.target, i = el.dataset.hsw !== undefined ? el.dataset.hsw : el.dataset.hswHex; if (i === undefined) return;
+      const h = normHex(el.value); if (!h) { el.setAttribute("aria-invalid", "true"); return; } el.removeAttribute("aria-invalid");
+      if (state.H.locks[i]) state.H.locks[i] = h; else state.H.edits[i] = h; saveH();
+      if (full) return renderHarmonyLive();
+      const other = el.dataset.hsw !== undefined ? $(`[data-hsw-hex="${i}"]`) : $(`[data-hsw="${i}"]`); if (other) other.value = el.dataset.hsw !== undefined ? h : h.toLowerCase();
+      const { roles } = harmonyNow(); const m = mock(selStyle(), roles, selStyle() ? "combined" : "colors"); $("#h-preview").innerHTML = m.html;
+    };
+    $("#h-swatches").addEventListener("input", (e) => hEdit(e, false));
+    $("#h-swatches").addEventListener("change", (e) => hEdit(e, true));
+    $("#h-regen").addEventListener("click", () => { state.H.seed = 1 + Math.floor(Math.random() * 1e6); state.H.edits = {}; saveH(); renderHarmonyLive(); });
+    $("#h-reset").addEventListener("click", () => { Object.assign(state.H, { adj: { hue: 0, sat: 0, light: 0 }, seed: 0, locks: {}, edits: {} }); saveH(); renderHarmony(); });
+    $("#h-use").addEventListener("click", () => useHarmony(false));
+    $("#h-edit").addEventListener("click", () => useHarmony(true));
+    $("#h-save").addEventListener("click", () => { const d = HARM[state.H.type] || HARM.complementary; savePalette($("#h-name").value || `${d.name} from ${state.H.base}`, harmonyNow().roles, `Harmony: ${d.name.toLowerCase()} from ${state.H.base}`); $("#h-name").value = ""; });
+    $("#b-save").addEventListener("click", () => { const c = buildColors(), lib = state.sel.palette && DB.pal[state.sel.palette]; savePalette($("#b-name").value || selPalName() || "My palette", c, lib ? `Copy of ${lib.name}` : state.sel.base && DB.pal[state.sel.base] ? `Edited from ${DB.pal[state.sel.base].name}` : "Built in the gallery"); $("#b-name").value = ""; });
+    $("#mixer").addEventListener("input", (e) => { if (e.target.id === "fit-only") { state.fitOnly = e.target.checked; store.set("vsl2-fit", state.fitOnly); } });
+    $("#my-presets").addEventListener("keydown", (e) => { const id = e.target.dataset.renInput; if (!id) return; if (e.key === "Enter") { e.preventDefault(); $(`[data-ren-save="${id}"]`).click(); } if (e.key === "Escape") { state.renaming = null; renderMyPresets(); } });
     $("#slot-style").addEventListener("click", () => { setTab("styles"); scrollTo({ top: 0 }); });
     $("#slot-pal").addEventListener("click", () => { setTab("colors"); scrollTo({ top: 0 }); });
     $("#apply-btn").addEventListener("click", openReview);
@@ -1740,30 +2207,70 @@ html[lang="th"] #tab-guide .n { display: none; }
   document.addEventListener("click", (e) => {
     const t = e.target.closest("button"); if (!t) return;
     const ds = t.dataset, inDlg = !!t.closest("#dlg");
+    // A pending "Confirm delete" lasts only until the next other click.
+    if (state.confirmDel && !ds.delMine && !ds.delMyPal) { state.confirmDel = null; renderMyPresets(); if (state.fam === "mine") renderPalettes(); }
     if ("close" in ds) return $("#dlg").close();
     if (ds.hint) { $("#q").value = ds.hint; onSearch(); return; }
+    if ("facet" in ds && (t.closest("#facet-row") || t.closest("#style-grid"))) { state.facet = ds.facet; store.set("vsl2-facet", state.facet); renderFacets(); renderStyles(); return; }
+    if (t.id === "pf-clear") { state.pf = {}; store.set("vsl2-pf", {}); return renderPalettes(); }
+    if (ds.hground) { setHarmony({ dark: ds.hground === "dark" }, true); return renderHarmony(); }
+    if (ds.hlock !== undefined) { const i = ds.hlock; if (state.H.locks[i]) delete state.H.locks[i]; else state.H.locks[i] = harmonyNow().sw[i].hex; delete state.H.edits[i]; saveH(); return renderHarmonyLive(); }
+    if (ds.hrevert !== undefined) { delete state.H.edits[ds.hrevert]; saveH(); return renderHarmonyLive(); }
+    if (ds.shuffle) return shuffle(ds.shuffle);
+    if (ds.lockSide) { state.lock[ds.lockSide] = !state.lock[ds.lockSide]; store.set("vsl2-lock", state.lock); return renderMixer(); }
+    if (ds.mixPal) { setSel({ palette: ds.mixPal }); return renderAll(); }
+    if (ds.mixStyle) { state.sel.style = ds.mixStyle; state.sel.preset = null; state.sel.mine = null; saveSel(); return renderAll(); }
+    if (t.id === "mix-save") { const m = { id: newId("mp-"), ...presetFromSel($("#mix-name").value), created: today() }; state.myPresets.unshift(m); saveMine(); state.sel.mine = m.id; saveSel(); renderPresets(); toast("Preset saved"); return; }
+    if (ds.useMine) return useMine(ds.useMine);
+    if (ds.renMine) { state.renaming = ds.renMine; renderMyPresets(); const el = $(`#ren-${ds.renMine}`); if (el) { el.focus(); el.select(); } return; }
+    if (ds.renSave) { const el = $(`#ren-${ds.renSave}`), m = state.myPresets.find((x) => x.id === ds.renSave); if (m && el && el.value.trim()) { m.name = el.value.trim(); saveMine(); } state.renaming = null; return renderMyPresets(); }
+    if (ds.renCancel) { state.renaming = null; return renderMyPresets(); }
+    if (ds.dupMine) { const i = state.myPresets.findIndex((x) => x.id === ds.dupMine); if (i < 0) return; const m = state.myPresets[i]; state.myPresets.splice(i + 1, 0, { ...JSON.parse(JSON.stringify(m)), id: newId("mp-"), name: m.name + " (copy)", created: today() }); saveMine(); renderMyPresets(); toast("Preset duplicated"); return; }
+    if (ds.updMine) { const m = state.myPresets.find((x) => x.id === ds.updMine); if (!m) return; Object.assign(m, presetFromSel(m.name), { updated: today() }); saveMine(); state.sel.mine = m.id; saveSel(); renderPresets(); toast("Preset updated"); return; }
+    if (ds.delMine) {
+      if (state.confirmDel !== ds.delMine) { state.confirmDel = ds.delMine; return renderMyPresets(); }
+      state.myPresets = state.myPresets.filter((x) => x.id !== ds.delMine); saveMine(); if (state.sel.mine === ds.delMine) { state.sel.mine = null; saveSel(); }
+      state.confirmDel = null; renderPresets(); toast("Preset deleted"); return;
+    }
+    if (ds.dupLib) {
+      const pr = DB.presets.find((x) => x.id === ds.dupLib);
+      state.myPresets.unshift({ id: newId("mp-"), name: pr.name, style: pr.primary_style, palette: pr.palette, custom: null, colorsName: null, use: "", constraints: `Avoid: ${pr.direction.avoid.join("; ")}`, from: `Copied from the library preset ${pr.name}. Secondary styles and the preset direction stay with the library preset.`, created: today() });
+      saveMine(); renderMyPresets(); toast("Copied to My presets"); return;
+    }
+    if (ds.myPal || ds.editMyPal) {
+      const id = ds.myPal || ds.editMyPal, m = state.myPalettes.find((x) => x.id === id); if (!m) return;
+      const on = ds.myPal && state.sel.palette === "custom" && state.sel.myPal === id;
+      if (on) setSel({ palette: null }); else setSel({ palette: "custom", custom: { ...m.colors }, genBase: { ...m.colors }, name: m.name, myPal: m.id });
+      renderAll(); if (ds.editMyPal) setCmode("build"); else toast(on ? "Palette removed from your selection" : `${m.name} selected`); return;
+    }
+    if (ds.delMyPal) {
+      if (state.confirmDel !== ds.delMyPal) { state.confirmDel = ds.delMyPal; return renderPalettes(); }
+      state.myPalettes = state.myPalettes.filter((x) => x.id !== ds.delMyPal); store.set("vsl2-mypalettes", state.myPalettes);
+      if (state.sel.myPal === ds.delMyPal) { state.sel.myPal = null; saveSel(); }
+      state.confirmDel = null; renderPalettes(); toast("Palette deleted"); return;
+    }
     if (ds.detail) return openStyle(ds.detail);
     if (ds.tryPal) { const [sid, pid] = ds.tryPal.split("|"); return openStyle(sid, pid); }
     if (ds.cmpAll) { cmpAll = !cmpAll; openStyle(ds.cmpAll, detailPal, true); return; }
-    if (ds.palStyle) { const [pid, sid] = ds.palStyle.split("|"); Object.assign(state.sel, { style: sid, palette: pid, custom: null, base: null, genBase: null, preset: null }); saveSel(); renderAll(); toast(`${DB.sty[sid].name} with ${DB.pal[pid].name} selected`); return openPalette(pid, null, true); }
+    if (ds.palStyle) { const [pid, sid] = ds.palStyle.split("|"); setSel({ style: sid, palette: pid }); renderAll(); toast(`${DB.sty[sid].name} with ${DB.pal[pid].name} selected`); return openPalette(pid, null, true); }
     if ("review" in ds) return openReview();
     if (ds.pickStyle) {
-      const on = state.sel.style === ds.pickStyle; state.sel.style = on ? null : ds.pickStyle; state.sel.preset = null; saveSel();
+      const on = state.sel.style === ds.pickStyle; state.sel.style = on ? null : ds.pickStyle; state.sel.preset = null; state.sel.mine = null; saveSel();
       renderStyles(); renderTray(); renderPresets(); if (state.cmode === "build") renderBuildLive();
       toast(on ? "Style removed from your selection" : `${DB.sty[ds.pickStyle].name} selected. Next: choose colors.`);
       if (inDlg) openStyle(ds.pickStyle, detailPal, true); return;
     }
-    if (ds.pickBoth) { const [sid, pid] = ds.pickBoth.split("|"); Object.assign(state.sel, { style: sid, palette: pid, custom: null, base: null, genBase: null, preset: null }); saveSel(); renderAll(); toast(`${DB.sty[sid].name} with ${DB.pal[pid].name} selected`); return openStyle(sid, pid, true); }
+    if (ds.pickBoth) { const [sid, pid] = ds.pickBoth.split("|"); setSel({ style: sid, palette: pid }); renderAll(); toast(`${DB.sty[sid].name} with ${DB.pal[pid].name} selected`); return openStyle(sid, pid, true); }
     if (ds.palPreview) return openPalette(ds.palPreview);
     if (ds.pmode) return openPalette(ds.pmodePal, ds.pmode);
     if (ds.pickPal) {
-      const on = state.sel.palette === ds.pickPal; Object.assign(state.sel, { palette: on ? null : ds.pickPal, custom: null, base: null, genBase: null, preset: null }); saveSel();
+      const on = state.sel.palette === ds.pickPal; setSel({ palette: on ? null : ds.pickPal });
       renderAll(); toast(on ? "Palette removed from your selection" : `${DB.pal[ds.pickPal].name} selected`);
       if (inDlg) openPalette(ds.pickPal, null, true); return;
     }
-    if (ds.editPal) { Object.assign(state.sel, { palette: ds.editPal, custom: null, base: null, genBase: null, preset: null }); saveSel(); $("#dlg").close(); setTab("colors"); setCmode("build"); renderAll(); return; }
+    if (ds.editPal) { setSel({ palette: ds.editPal }); $("#dlg").close(); setTab("colors"); setCmode("build"); renderAll(); return; }
     if (ds.genUse || ds.genEdit) {
-      const g = GEN[+(ds.genUse || ds.genEdit)]; Object.assign(state.sel, { palette: "custom", custom: { ...g.c }, base: null, genBase: { ...g.c }, preset: null }); saveSel();
+      const g = GEN[+(ds.genUse || ds.genEdit)]; setSel({ palette: "custom", custom: { ...g.c }, genBase: { ...g.c } });
       renderAll(); if (ds.genEdit) setCmode("build"); else toast(`Generated ${g.name.toLowerCase()} palette selected`); return;
     }
     if (ds.sw) {

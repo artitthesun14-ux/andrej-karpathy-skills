@@ -86,6 +86,7 @@
     {
       "id": "mono-graphite",
       "name": "Graphite Monochrome",
+      "aliases": ["Monochrome Architecture"],
       "category": "neutral",
       "mood": ["austere", "architectural", "calm"],
       "source": "authored",
@@ -204,6 +205,7 @@
     {
       "id": "earth-tone",
       "name": "Earth Tone",
+      "aliases": ["Earthy Mediterranean"],
       "category": "earth",
       "mood": ["grounded", "honest", "crafted"],
       "source": "authored",
@@ -251,6 +253,7 @@
     {
       "id": "forest-sage-ivory",
       "name": "Forest, Sage, Warm Ivory",
+      "aliases": ["Neo Botanical"],
       "category": "botanical",
       "mood": ["natural", "restorative", "tonal"],
       "source": "authored",
@@ -298,6 +301,7 @@
     {
       "id": "pastel-soft",
       "name": "Soft Pastel",
+      "aliases": ["Soft Digital Pastel"],
       "category": "pastel",
       "mood": ["gentle", "friendly", "playful"],
       "source": "authored",
@@ -394,6 +398,7 @@
     {
       "id": "charcoal-champagne",
       "name": "Charcoal and Champagne",
+      "aliases": ["Quiet Luxury"],
       "category": "luxury",
       "mood": ["refined", "quiet", "expensive"],
       "source": "authored",
@@ -489,6 +494,7 @@
     {
       "id": "dark-technical",
       "name": "Dark Technical",
+      "aliases": ["Cyber Industrial"],
       "category": "technical",
       "mood": ["focused", "precise", "engineered"],
       "source": "authored",
@@ -734,6 +740,126 @@
       "contrast_notes": "Night Ink on Haze is 15.6:1 and Iris on Haze 5.6:1. Aqua Glow and Blossom are gradient and fill colors only: on Haze they reach 1.6:1 and 1.9:1. Put Night Ink text on them (10:1 and 8.3:1). On Iris use white text, not Night Ink (2.8:1).",
       "use_cases": ["glass UI", "aurora gradient", "AI product site", "deck cover"],
       "example": "An AI product hero: an aurora of Iris, Aqua Glow, and Blossom blurred over Haze, a frosted Lavender Mist card, Night Ink headline."
+    },
+    {
+      "id": "electric-editorial",
+      "name": "Electric Editorial",
+      "category": "vivid",
+      "mood": ["electric", "editorial", "optimistic"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#FAF6EE", "name": "Warm White", "role": "background", "share": 50 },
+        { "hex": "#111111", "name": "Ink", "role": "text", "share": 22 },
+        { "hex": "#1F3BFF", "name": "Electric Blue", "role": "primary", "share": 12 },
+        { "hex": "#FF5A1F", "name": "Vivid Orange", "role": "accent", "share": 8 },
+        { "hex": "#00B8D9", "name": "Cyan", "role": "secondary", "share": 4 },
+        { "hex": "#55524C", "name": "Graphite", "role": "text-muted", "share": 4 }
+      ],
+      "text_pairs": [
+        { "fg": "Ink", "bg": "Warm White", "use": "body" },
+        { "fg": "Electric Blue", "bg": "Warm White", "use": "body" },
+        { "fg": "Graphite", "bg": "Warm White", "use": "body" },
+        { "fg": "Warm White", "bg": "Electric Blue", "use": "body" },
+        { "fg": "Ink", "bg": "Vivid Orange", "use": "body" },
+        { "fg": "Ink", "bg": "Cyan", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Vivid Orange", "bg": "Warm White" }, { "fg": "Cyan", "bg": "Warm White" }, { "fg": "Ink", "bg": "Electric Blue" }],
+      "contrast_notes": "Ink on Warm White is 17.5:1 and Electric Blue on Warm White 6.2:1, so blue can carry links and headlines. Vivid Orange (2.9:1) and Cyan (2.2:1) never carry text on Warm White: use them as fills with Ink text on top (6.1:1 and 8.0:1). On Electric Blue use Warm White text, not Ink (2.8:1).",
+      "use_cases": ["editorial magazine", "culture or design event", "tech editorial", "campaign landing page"],
+      "example": "A design-week site: Warm White pages, Ink headlines, Electric Blue links and section numbers, one Vivid Orange block per page with Ink text on it."
+    },
+    {
+      "id": "jewel-tones",
+      "name": "Jewel Tones",
+      "category": "luxury",
+      "mood": ["rich", "regal", "saturated"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F4EFE6", "name": "Pearl", "role": "background", "share": 45 },
+        { "hex": "#E6DFD2", "name": "Linen", "role": "surface", "share": 8 },
+        { "hex": "#17141C", "name": "Onyx", "role": "text", "share": 15 },
+        { "hex": "#0B6B4C", "name": "Emerald", "role": "primary", "share": 12 },
+        { "hex": "#1E3F94", "name": "Sapphire", "role": "secondary", "share": 10 },
+        { "hex": "#6A3C99", "name": "Amethyst", "role": "secondary", "share": 4 },
+        { "hex": "#9E1238", "name": "Ruby", "role": "accent", "share": 6 }
+      ],
+      "text_pairs": [
+        { "fg": "Onyx", "bg": "Pearl", "use": "body" },
+        { "fg": "Onyx", "bg": "Linen", "use": "body" },
+        { "fg": "Emerald", "bg": "Pearl", "use": "body" },
+        { "fg": "Sapphire", "bg": "Pearl", "use": "body" },
+        { "fg": "Sapphire", "bg": "Linen", "use": "body" },
+        { "fg": "Ruby", "bg": "Pearl", "use": "body" },
+        { "fg": "Amethyst", "bg": "Pearl", "use": "body" },
+        { "fg": "Pearl", "bg": "Emerald", "use": "body" },
+        { "fg": "Pearl", "bg": "Ruby", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Onyx", "bg": "Sapphire" }, { "fg": "Emerald", "bg": "Ruby" }, { "fg": "Amethyst", "bg": "Sapphire" }],
+      "contrast_notes": "Every jewel reads as text on Pearl (5.7:1 to 8.4:1), and Pearl reads on every jewel. Never set one jewel on another: they sit within 1.5:1 of each other. Use them as separate series or blocks divided by Pearl, and keep Onyx off the jewels (1.9:1 to 2.8:1).",
+      "use_cases": ["luxury retail", "gala or award", "data story with four series", "heritage brand"],
+      "example": "An awards-night deck: Pearl slides, one jewel per award category, Onyx text, Pearl rules between jewel blocks."
+    },
+    {
+      "id": "warm-minimalism",
+      "name": "Warm Minimalism",
+      "category": "neutral",
+      "mood": ["warm", "calm", "tactile"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F1EBE1", "name": "Oat", "role": "background", "share": 50 },
+        { "hex": "#DED2C0", "name": "Beige", "role": "surface", "share": 18 },
+        { "hex": "#A89B88", "name": "Mushroom", "role": "line", "share": 6 },
+        { "hex": "#5C4433", "name": "Walnut", "role": "primary", "share": 8 },
+        { "hex": "#2B211B", "name": "Espresso", "role": "text", "share": 14 },
+        { "hex": "#625447", "name": "Taupe Grey", "role": "text-muted", "share": 4 }
+      ],
+      "text_pairs": [
+        { "fg": "Espresso", "bg": "Oat", "use": "body" },
+        { "fg": "Espresso", "bg": "Beige", "use": "body" },
+        { "fg": "Walnut", "bg": "Oat", "use": "body" },
+        { "fg": "Walnut", "bg": "Beige", "use": "body" },
+        { "fg": "Taupe Grey", "bg": "Oat", "use": "body" },
+        { "fg": "Taupe Grey", "bg": "Beige", "use": "body" },
+        { "fg": "Oat", "bg": "Walnut", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Mushroom", "bg": "Oat" }, { "fg": "Mushroom", "bg": "Beige" }],
+      "contrast_notes": "Espresso on Oat is 13.3:1. Mushroom is a line and shape color only (2.3:1 on Oat). Walnut carries buttons and links (7.6:1 on Oat). There is no saturated accent on purpose: emphasis comes from Walnut fills and type weight.",
+      "use_cases": ["quiet luxury fashion", "interior or furniture brand", "wellness", "portfolio"],
+      "example": "A furniture lookbook: Oat pages, Beige image mats, Espresso text, Walnut buttons, Mushroom hairlines."
+    },
+    {
+      "id": "high-contrast",
+      "name": "High Contrast (AAA)",
+      "category": "neutral",
+      "mood": ["clear", "trustworthy", "direct"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#FFFFFF", "name": "White", "role": "background", "share": 50 },
+        { "hex": "#EEF1F5", "name": "Mist Grey", "role": "surface", "share": 16 },
+        { "hex": "#0B0B0C", "name": "Near Black", "role": "text", "share": 18 },
+        { "hex": "#3D4451", "name": "Slate", "role": "text-muted", "share": 4 },
+        { "hex": "#0040A8", "name": "Deep Blue", "role": "primary", "share": 6 },
+        { "hex": "#8A3000", "name": "Burnt Orange", "role": "accent", "share": 2 },
+        { "hex": "#FFD400", "name": "Focus Yellow", "role": "signal", "share": 2 },
+        { "hex": "#6B7280", "name": "Steel Line", "role": "line", "share": 2 }
+      ],
+      "text_pairs": [
+        { "fg": "Near Black", "bg": "White", "use": "body" },
+        { "fg": "Near Black", "bg": "Mist Grey", "use": "body" },
+        { "fg": "Slate", "bg": "White", "use": "body" },
+        { "fg": "Slate", "bg": "Mist Grey", "use": "body" },
+        { "fg": "Deep Blue", "bg": "White", "use": "body" },
+        { "fg": "Deep Blue", "bg": "Mist Grey", "use": "body" },
+        { "fg": "White", "bg": "Deep Blue", "use": "body" },
+        { "fg": "Burnt Orange", "bg": "White", "use": "body" },
+        { "fg": "Burnt Orange", "bg": "Mist Grey", "use": "body" },
+        { "fg": "Near Black", "bg": "Focus Yellow", "use": "body" },
+        { "fg": "Steel Line", "bg": "White", "use": "ui" }
+      ],
+      "avoid_pairs": [{ "fg": "Focus Yellow", "bg": "White" }, { "fg": "Steel Line", "bg": "Near Black" }],
+      "contrast_notes": "Every text pair reaches 7:1 (WCAG AAA) on White and Mist Grey: Near Black 19.7:1, Slate 9.8:1, Deep Blue 9.1:1, Burnt Orange 8.4:1. Focus Yellow is for focus rings and highlight backgrounds behind Near Black text (13.7:1), never for text (1.4:1 on White). Steel Line reaches 4.8:1 for borders and input outlines (WCAG 1.4.11 needs 3:1).",
+      "use_cases": ["public service or government", "healthcare", "forms and dashboards", "education for all ages"],
+      "example": "A benefits application form: White page, Mist Grey field groups, Near Black labels, Steel Line input borders, Deep Blue buttons, Focus Yellow focus ring."
     }
   ]
 }
