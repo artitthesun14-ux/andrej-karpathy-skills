@@ -1,126 +1,158 @@
 # Handoff: ai-product-workflow-skills
 
-Updated: 2026-10-16 (second session that day). Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. Single self-contained file (user asked for one file). Earlier history: `sessions/2026-10-11.md`; previous versions of this file in git (`f5747e5`, `e66e6d7`, `9221fed`, `c95ea66`, `8cbe20b`).
+Updated: 2026-10-17. Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. Single self-contained file (user asked for one file). Earlier history: `sessions/2026-10-11.md`; previous versions of this file in git (`a2652bd`, `f5747e5`, `e66e6d7`, `9221fed`, `c95ea66`, `8cbe20b`).
 
 ## 1. Goal and Success Criteria
 
-- Goal: maintain `ai-product-workflow-skills` and the private Visual Style Library gallery artifact (part of the `visual-style` skill, `skills/productivity/visual-style/`).
-- This session: the user pasted a 10-phase prompt "Upgrade Visual Style Library: Style Taxonomy, Palette Intelligence & Style Mixing" (audit first, then taxonomy, selective new styles, palette roles and semantic colors, harmony generator, more palettes, style x palette mixing, discovery UX, Design Direction output, verification). Keep existing ids and the `/visual-style` / `/create-presentation` command contract working.
-- Definition of done from the prompt: find styles without knowing names, see differences between near styles, pick palettes by mood/use/starting color, generate harmonies, mix style and palette freely, preview before use, save presets, hand off a full design direction. All eight are implemented (section 3); quality on a real phone is unverified.
-- Next milestone: none requested. The user has not reviewed the new gallery yet.
+- Goal: maintain `ai-product-workflow-skills` and the private Visual Style Library gallery artifact (part of the `visual-style` skill, `skills/productivity/visual-style/`), and use `/create-presentation` and `/visual-style` to make real works from it.
+- This session (2026-10-16/17) had no repo changes. It produced three works, outside the repo:
+  1. A New Balance ABZORB 2010 deck (quiet-luxury + desert-stone). The user had it deleted.
+  2. A `/create-prompt` explainer deck with animation (quiet-luxury + earth-tone). The user had it deleted.
+  3. An On shoe parts explorer (quiet-luxury + swiss-signal, deeper accent). This one is kept as an artifact, with a PDF version.
+- Next milestone: none requested.
 
 ## 2. Current Status
 
-- CONFIRMED: branch in sync with origin at `52b5b31` (the upgrade). Working tree clean except this file (uncommitted; commit only if the user asks).
-- CONFIRMED: gallery https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT at version 20, 29 files (same paths as v19; `works.json` and all 5 works kept). Library now 79 styles, 34 palettes, 9 presets.
-- CONFIRMED: published `index.html` is built from repo `gallery.html` at `52b5b31` (v19 live copy was diffed equal to the previous repo version before publishing).
-- CONFIRMED: `node scripts/library.mjs check`: 79 styles, 34 palettes, 9 presets, 0 errors, 0 warnings.
-- UNKNOWN: real phone in the Claude app; the live v20 page was not opened after publishing (only local Playwright).
+- CONFIRMED: branch in sync with origin at `a2652bd`. Working tree clean except this file (uncommitted; commit only if the user asks).
+- CONFIRMED: `node skills/productivity/visual-style/scripts/library.mjs check` gives 79 styles, 34 palettes, 9 presets, 0 errors, 0 warnings (run at session start).
+- CONFIRMED: gallery https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT unchanged this session (v20, 29 files). No new works were added to it.
+- CONFIRMED: live artifact https://claude.ai/artifact/9f7VDq6n6dJws4i4Vwdg9B ("On ทีละชิ้น", v1). The PDF was sent to the user as `on-cloudswift4-cloudxtempo.pdf`.
+- CONFIRMED deleted at user request: artifacts Mv12Jb5AjVGFi9VeNFUT2A (NB 2010) and PuZCw8CrExZhc752BnHAyf (/create-prompt deck), plus their local files.
+- UNKNOWN: whether the user wants the On page added to the gallery's Works tab. Not asked yet; the user has seen the page.
 
-## 3. Completed (commit `52b5b31`, gallery v20)
+## 3. Completed
 
-1. Audit (Phase 1), reported to the user: most requested styles already existed; duplicates or confusion were Bauhaus as an alias of `geometric-composition`, color-systems styles being color structure rather than looks, and "Cinematic" living in `camera-driven-storytelling`. Six requested palettes already existed under other names (now `aliases`).
-2. Taxonomy: `styles.json` gains top-level `facets` (look, layout, material, story, color) and `featured` (12 ids); every style has `facet`. `category` stays the primary category.
-3. New styles with full 14-field profiles and new preview renderers (`quiet`, `wabi`, `bauhaus`): `quiet-luxury` (editorial-luxury.md), `wabi-sabi` (minimal-contemporary.md), `bauhaus` (design-movements.md). All three `research: "unverified"`, no sources. `geometric-composition` lost the Bauhaus aliases (now "Shape Composition", "Primitive Shapes"), summary and Color behavior made palette-neutral, Differs from names bauhaus. `camera-driven-storytelling` aliases "Cinematic Storytelling", "Cinematic".
-4. New palettes: `electric-editorial` (vivid), `jewel-tones` (luxury), `warm-minimalism` (neutral), `high-contrast` (neutral, every text pair 7:1 or more). Each added at the end of several styles' `compatible_palettes`. Palette `aliases`: charcoal-champagne Quiet Luxury, mono-graphite Monochrome Architecture, dark-technical Cyber Industrial, earth-tone Earthy Mediterranean, pastel-soft Soft Digital Pastel, forest-sage-ivory Neo Botanical.
-5. `scripts/library.mjs`: OKLCH conversion with gamut clipping, `fixContrast`, derived `ground` (light if background luminance > 0.18), derived semantic colors (hues success 150, warning 70, error 27, info 255, each 4.5:1 on the background), `HARMONIES` table (9 types) and `harmony <hex> [type]` command, `find --facet`, `palettes --ground`, palette text search includes aliases and use cases. `check` adds: facet and featured validation, contrast self-test (#000/#FFF 21, #767676 4.54, #777777 4.48), OKLCH round trip, semantic 4.5:1 per palette.
-6. Gallery (`library/gallery.html`):
-   - Styles: row All / Featured / five facets with a note; card tags are facet, first use case, first mood.
-   - Colors: new mode Color harmony (base picker and HEX, 9 harmonies, hue/sat/light sliders, light/dark ground, Lock per swatch, Regenerate with seeded jitter, Reset, hand edits shown as Edited with the computed value and ΔE plus Use computed, role mapping, calculated checks, Use / Edit in builder / Save palette). Browse gains mood, ground, and use selects, a My palettes family, cards with role labels, ground, a small UI sample with status dots, Fits N styles, aliases, Edit. Builder gains Save palette.
-   - Presets: mixer (Shuffle style / colors / both, Lock style / colors, Recommended pairs only, fit note that never blocks, recommended palette chips and fitting style chips, nearest library palette for custom colors, Save as preset) and My presets (Use, Rename inline with Enter/Escape, Duplicate, Update from selection, two-step Delete). Library presets gain Copy to my presets.
-   - Handoff: JSON adds `design_direction` (schema `visual-style/design-direction@1`) with ids, color roles plus textMuted and border (own role or derived, listed in `derivedRoles`), semantic colors, profile typography/layout/composition/principles/color behavior/image/texture/motion, constraints, avoid list, contrast checks, compatibility, gallery hash. Full prompt adds muted, border, and status tokens. One-line command unchanged.
-   - All selection changes go through `setSel()` (clears preset, saved-palette and saved-preset links). New localStorage keys: `vsl2-facet`, `vsl2-pf`, `vsl2-lock`, `vsl2-fit`, `vsl2-mypalettes`, `vsl2-mypresets`, `vsl2-harmony`; `vsl2-sel` gains `name`, `mine`, `myPal`.
-   - Thai strings for every new UI text (TH and TH_RX), help dialog fact "Browse, mix, save" in both languages.
-7. Docs: `references/library-schema.md` (facet, featured, palette aliases, derived ground/semantic/muted/border, gallery features), `references/style-direction.md` (CLI flags, harmony, status colors rule, `design_direction`), `SKILL.md` library table, `docs/productivity/visual-style.md` counts (79 / 34).
+1. **NB ABZORB 2010 deck (deleted).** 9 Thai slides. Facts from the New Balance press release (May 7 2025, US$160, ABZORB 1993/998, SBS 2006/992) and sneaker media. Followed by a delete of the artifact and the local files.
+2. **/create-prompt deck (deleted).** 10 slides with a step animation engine:
+   - each slide plays at most 8 s;
+   - "ถัดไป" skips to the final frame; there is a "เล่นซ้ำ" button;
+   - reduced motion shows the final frame with step numbers;
+   - 16:9 stage scaled to fit, reflowing below 760 px;
+   - print gives 10 pages.
+   Source files `skills/productivity/create-prompt/` do not exist in this repo, so it used the user's "facts" section. Published as an artifact after the user asked, then deleted on request.
+3. **On parts explorer (kept).**
+   - Phase 1 identified the black shoe as **Cloudswift 4 Black | Eclipse** (men's SKU 3MF10130106). Its cage, logo and pods match the on.com photo; the Cloudswift 3 (on.com page now redirects to /shop) was ruled out using a Pro-Direct photo.
+   - The white/blue shoe is **Cloud X Tempo Ivory | Storm** (women's SKU 3WG30090980).
+   - Part tables: 7 parts per model, all primary (on.com product page data). The user's claims were sorted into confirmed / conflicts / not found.
+   - Page colours were asked for (the prompt had `{{...}}` placeholders). The user chose Swiss Signal with a deeper accent `#C41E16`, and Noto Serif Thai with IBM Plex Sans Thai.
+   - Drawing: vector SVG traced from on.com transparent PNGs, with colours sampled from the user's photos. Exploded view 1.2 s, numbered labels, panel with Thai function, original quote and source link, "เลือกรุ่นไหนดี" table.
+   - PDF: 9 A4 pages showing both models exploded, every part listed, and the comparison table.
 
 ## 4. Issues and Fixes
 
 | Issue | Status | Cause | Resolution | Evidence |
 |---|---|---|---|---|
-| Commit chain did not run | FIXED | `pkill -f "http.server 8765"` exits 144 and stopped the `&&` chain before `git commit` | Re-ran commit and push without pkill | `52b5b31` pushed |
-| Duplicate TH keys ("Try", "Remove") after first pass | FIXED | Added keys that already existed | Removed the new duplicates; node scan found none | scratchpad key scan |
-| Harmony palette name stayed English in Thai tray | FIXED | Name built as "<Harmony> from #HEX" | TH_RX entry translating harmony names | Playwright tray text "สามเส้า (Triadic) จาก #D7261E" |
-| Constraints textarea placeholder stays English in Thai mode | OPEN (from earlier) | `trAttrs()` skips elements matching `NO_TR`, which includes `textarea` | Fix: translate textarea attributes, add a muted `::placeholder` color | code reading |
-| Thai search misses words mid-text (ฟองอากาศ, ขั้นบันได) | OPEN (from 2026-10-15) | `textHas` regex needs a non-Thai char before the term | Fix: use `includes` for Thai terms | earlier Playwright counts |
-| `desert-stone` contrast note wrong (Rust on Basalt 2.28:1) | OPEN (older) | | | Guide tab lists it |
-| Selected style disappears silently when filtered out (issue 4) | OPEN | | | code reading |
-| "Apply" implies a commit step (issue 5) | OPEN | | suggested "คัดลอกคำสั่ง" | code reading |
+| on.com WebFetch returned almost no product text | FIXED | Page is JS-rendered (Nuxt) | `curl` the page with a browser UA, then decode `__NUXT_DATA__` (devalue arrays: `["null",k,v,...]` objects, Apollo cache `__ref` keys). HighlightCards, `usps`, ProductFact and ProductTechnologyItem hold the product-specific text. | `scratchpad/on/parse.py` (session scratchpad, ephemeral) |
+| Generic site-wide tech text looked product-specific | AVOIDED | Every on.com page embeds the global glossary (CloudTec, HIIT and similar) | Only cite text reachable from that product's ProductDetails (features, usps, highlightCards, technologies). Cloud X Tempo has `technologies: null`, so its CloudTec row uses only "Training optimized CloudTec® cushioning". | parse output |
+| Cloudswift 3 page unavailable | WORKED AROUND | Discontinued, redirects to /shop | Compared against a retailer photo (secondary, labelled) | Pro-Direct 269788 |
+| Black shoe's shadow merged with its pods in the alpha mask | FIXED | Shadow is opaque in the PNG | Remove dark connected components (max RGB below 13) that touch rows 655 and below | `cs4_sil.png` |
+| Red accent invisible on black or blue shoe parts | FIXED without changing the user's colour | `#C41E16` on `#1E1E20` is 2.81:1 and on blue 1.07:1 | Highlight = white 9 px halo stroke under a 4 px red stroke (`vector-effect: non-scaling-stroke`) | screenshots |
+| Exploded view showed holes where the cage and tongue sat | FIXED | Upper mask had the cage and tongue subtracted | Upper = full region; cage and tongue drawn on top | v4 screenshot |
+| CloudTec highlight strips floated above the pods | FIXED | Midsole/pod split too low (U+40) | Split at U+30 (heel U+40) | v4 screenshot |
+| Cloud X Tempo "outsole" took dark pod-window interiors | FIXED | Darkness mask alone | Outsole = dark pixels within 24 px of the bottom, or at the heel and toe rims; interiors become `ct_inner` inside CloudTec | preview |
+| Blue tap flash on SVG parts on phones | FIXED | Default `-webkit-tap-highlight-color` | Set to transparent on `.part` | m screenshot |
+| /create-prompt deck: "ถัดไป" disabled on the last slide during animation | FIXED (deck since deleted) | Button disabled whenever `cur == N-1` | Disabled only when on the last slide and not playing | test log |
+| /create-prompt deck: badge numbers showed without reduced motion; double list numbers | FIXED (deck since deleted) | `.four span {display:block}` beat `.badge {display:none}`; `ol` kept its default markers | `!important` on the badge display; `list-style: none` | screenshots |
+| Python edit with `assert t.count(a)==1` failed on a substring that occurred twice (`CT_HI = pct_color` inside `CS_CT_HI = ...`) | FIXED | Ambiguous anchor | Anchor with a leading newline | build.py |
+| Playwright `goto(sameUrl#hash)` did not reload the page | FIXED | Hash-only navigation | `goto('about:blank')` first | test log |
+| Carried over: constraints placeholder English in Thai mode (gallery) | OPEN | `trAttrs()` skips `textarea` via `NO_TR` | Translate textarea attributes, add a muted `::placeholder` | code reading |
+| Carried over: Thai search misses mid-text words (ฟองอากาศ, ขั้นบันได) | OPEN | `textHas` regex needs a non-Thai char before the term | Use `includes` for Thai terms | earlier Playwright |
+| Carried over: `desert-stone` contrast note wrong (Rust on Basalt 2.28:1) | OPEN | | | Guide tab |
+| Carried over: selected style vanishes silently when filtered out (issue 4); "Apply" wording (issue 5) | OPEN | | suggested "คัดลอกคำสั่ง" | code reading |
 
-## 5. Attempts That Failed or Were Rejected
+## 5. What worked well (keep doing)
 
-- `pkill` inside a `&&` chain kills the chain (exit 144); run it alone.
-- Republishing an artifact needs `Artifact read` of the URL without `path`, then Read every line of the saved file (about 1795 lines in chunks of 230 or less), even after diffing it.
-- `Artifact` publish with only `files` (no `file_path`) is refused; pass the page as `file_path`.
-- Python edit scripts with `assert t.count(old) == 1` were reliable for this large file; keep that pattern.
-- Not done on purpose: no reference sources for the 3 new styles (rule: never add unverified sources); no new palettes for names that already exist (aliases instead); no change to the one-line gallery command.
-- Rejected by user earlier: product-style workflow for research, auto-calling user-invoked skills, Supabase hosting.
+- Facts first, drawing second. Phase 1 tables with exact quotes and URLs before any visuals, and the user's claims checked into three groups.
+- Identify the version by comparing images from the official site, side by side. Say which evidence decided it.
+- When a prompt says to ask (placeholders, colour choice), ask with one AskUserQuestion that carries a recommended option and the contrast numbers.
+- For product drawings: trace silhouettes from official transparent PNGs, align them to the user's photo with edge template matching (`cv2.matchTemplate` on Canny, scale about 0.732), sample colours from the user's photo, and label them `estimated-from-screenshot`.
+- Mark every guessed placement in the UI itself (Speedboard position, cupped heel area, layer split) instead of hiding it.
+- Test with Playwright before publishing: errors, timing, skip/replay, keyboard Tab order, touch emulation, reduced motion, 360 px horizontal scroll. Then look at screenshots and fix what they show.
+- The final report states what was checked, how, and what was not (real phone, live page).
 
-## 6. Decisions and Constraints
+## 6. Mistakes to avoid (lessons)
+
+- Don't trust a contact-sheet thumbnail when judging a render. A 40 dpi PDF preview made a correct page look broken; re-render the page at 90 dpi before deciding.
+- Don't subtract overlying parts from a base part when the view can explode. Draw full layers and stack them.
+- Don't use the default 5 px median on traced masks. A 9 px median removes speckle at colour boundaries.
+- Check part boundaries against the photo's real features (pod highlight strips) before choosing the offset.
+- `assert count == 1` edit anchors must be unique; a short anchor can sit inside a longer identifier.
+- A deck file meant for a downloadable `.html` needs its own doctype. An artifact version must drop `<!doctype>`, `<html>`, `<head>` and `<body>`; build it as a separate file.
+- Don't add a deck or work to the gallery until the user has seen it and agrees. Not done this session; ask first.
+
+## 7. Decisions and Constraints
 
 User decisions:
-- Run the full upgrade prompt (this session); audit first, keep ids and references.
-- Earlier: decks stay out of the repo; works go to the gallery only after the user has seen them.
+- Delete the NB deck and the /create-prompt deck (artifacts and local files).
+- On page colours: background `#FFFFFF`, text `#0A0A0A`, accent `#C41E16`; fonts Noto Serif Thai + IBM Plex Sans Thai.
+- Earlier, still valid: decks stay out of the repo; works go to the gallery only after the user has seen them. Rejected earlier: product-style workflow for research, auto-calling user-invoked skills, Supabase hosting.
 
 Agent decisions (user may reject):
-- Bauhaus split into its own style; `geometric-composition` keeps its id and becomes the shape-only arrangement.
-- Wabi-Sabi as a separate style rather than an alias of `japanese-minimalism` (different texture and finish).
-- Status colors are derived, never stored, so brand palettes cannot redefine them.
-- Saved palettes and presets live in browser storage only (no shared storage capability declared).
-- User presets hand off as `style=` plus `palette=`/`colors=` (the `preset=` key stays for library presets).
-- Mixer lives in the Presets tab; tabs stay Styles, Colors, Presets, Guide, Works.
+- Highlight technique: white halo plus red line, which keeps the user's colour.
+- Speedboard drawn under the midsole in an assumed grey (on.com gives no position).
+- No weight values (they differ by gender); drop 8 mm shown for both (on.com).
+- Exploded labels show numbers only below 760 px, with a numbered legend under the drawing.
 
-Gallery publishing rules (IMPORTANT):
-- Never publish in a way that drops `works.json` or `works/`; files left out of a publish are kept.
-- Build the page from repo `gallery.html` with `sed '1,5d' gallery.html | grep -vx '</head>' | grep -vx '<body>' | head -n -2`, diff against the live copy (`sed 1d saved | head -n -2`) so only your change differs, then publish `index.html` as `file_path` plus changed data files (`styles.json`, `palettes.json`, `styles/*.md`, `contentType: text/markdown`) to the same URL with `root` = repo root.
-- Every gallery code change goes into both repo `gallery.html` and the published `index.html`.
-- Local test: `cd skills/productivity/visual-style/library && python3 -m http.server 8765`; Playwright from `$(npm root -g)/playwright` with `/opt/pw-browsers`. A 404 for `works.json` locally is expected.
+Gallery publishing rules (IMPORTANT, unchanged):
+- Never publish in a way that drops `works.json` or `works/`.
+- Build the page from repo `gallery.html` with `sed '1,5d' gallery.html | grep -vx '</head>' | grep -vx '<body>' | head -n -2`. Diff it against the live copy, then publish `index.html` as `file_path` plus the changed data files to the same URL with `root` = repo root.
+- Every gallery code change goes into both the repo `gallery.html` and the published `index.html`.
+- Republishing an artifact from another session needs `Artifact read` first.
 
-Repo rules (`.claude/CLAUDE.md`): no em-dashes; Promotion Contract; user-invoked skills need `disable-model-invocation: true`, `openai.yaml`, a `workflow-router` row, and never call each other. After library edits run `node scripts/library.mjs check`.
+Repo rules (`.claude/CLAUDE.md`):
+- No em-dashes.
+- Follow the Promotion Contract.
+- User-invoked skills need `disable-model-invocation: true`, `openai.yaml` and a `workflow-router` row, and never call each other.
+- After library edits run `node scripts/library.mjs check`.
 
-## 7. Files Changed (this session)
+Data rules learned for product work:
+- Primary source = the on.com product page data for that SKU.
+- Never move text from one model to another.
+- Specs only from on.com.
 
-- Commit `52b5b31`: `skills/productivity/visual-style/library/{styles.json, palettes.json, gallery.html}`, `library/styles/{design-movements, editorial-luxury, minimal-contemporary, modernist-swiss}.md`, `scripts/library.mjs`, `references/{library-schema, style-direction}.md`, `SKILL.md`, `docs/productivity/visual-style.md`.
-- Gallery artifact v20: `index.html`, `styles.json`, `palettes.json`, the four profile files above.
-- `.ai/handoff/current.md` (this file, uncommitted).
+## 8. Files Changed (this session)
 
-## 8. Validation and Evidence
+- Repo: only `.ai/handoff/current.md` (this file, uncommitted).
+- Outside the repo, in the session scratchpad (ephemeral): `on/` holds `gen.py`, `build.py`, `assemble.py`, `page.tpl.html`, `on-anatomy.html` (the published page), `on-cloudswift4-cloudxtempo.pdf`, and test scripts. The scratchpad also holds older files from earlier sessions that were not touched.
 
-- `check`: 0 errors, 0 warnings (includes the new self-tests).
-- CLI spot checks: `palette jewel-tones` prints semantic colors 4.9 to 5.6:1; `harmony 2F6B4F complementary` light/dark text 16.1 and 15.8:1; `find --facet layout` 6 styles; `palettes --ground dark` 5 palettes; `find --text bauhaus` finds `bauhaus`.
-- Playwright, 1440x900 English and 390x844 Thai, run twice (second run after the last edit): 79 cards; Featured order starts Quiet Luxury; layout facet 6; searches for bauhaus and quiet luxury rank the new styles first; dark ground filter 5 palettes; triadic harmony; lock kept through Regenerate; edit shows Edited; save and select harmony palette; My palettes lists it; mixer shuffle with style lock keeps the style; save, duplicate, rename, two-step delete, copy library preset; JSON has `design_direction` (25 keys) with typography and semantic colors; command unchanged; no horizontal overflow on Styles, every Colors mode, Presets; no page errors.
-- Screenshots reviewed: harmony and presets at 1440, browse and styles at 390, phone harmony full page, new style cards, Jewel Tones card.
-- Published files listed after publish: 29 files, works intact.
-- NOT verified: live v20 page in a browser, real phone in the Claude app, dialogs (style/palette detail) with the new styles beyond search.
+## 9. Validation and Evidence
 
-## 9. Open Questions and Risks
+- On page, Playwright: no console errors at desktop or mobile; explode settles in under 1.5 s (DUR 1200 ms); clicking a part works assembled and exploded; label click works; Tab order is laces → outsole and Enter opens the panel; arrow keys switch tabs; touch tap works with `hasTouch`; reduced motion jumps immediately; no horizontal scroll at 360 px on either model, assembled or exploded.
+- Drawings compared side by side with on.com and the user's photos (not a translucent overlay).
+- NOT verified: the live artifact page in a browser; a real phone; real finger swipes; the PDF pages other than page 2 at full resolution.
+- `quiet-luxury` still has `research: unverified`.
 
-- User has not reviewed the upgrade; facet assignments and the Bauhaus split are agent choices.
-- New styles have no checked sources ("ยังไม่ตรวจแหล่ง" tag shows on cards).
-- Phone: Styles tab now has the facet row above three filter selects; the Colors mode switch scrolls horizontally inside itself at 390px.
-- Two gallery copies (repo and published) can drift; two deck copies too (see `f5747e5` handoff for deck details: deck artifact DiiCFL535aE9UQtL9tVpn4 v2, copy at `works/vsl-guide/`).
-- Translation is pattern based: new UI strings need `TH` or `TH_RX` entries.
+## 10. Open Questions and Risks
+
+- Gallery Works: add the On page as a work? The user has seen it; ask before adding.
+- On page: the internal part boundaries on the black shoe and the Cloud X Tempo heel-cup area are estimates.
+- Gallery v20 still not reviewed by the user (facets, Color harmony, mixer).
 - Artifacts are private until the user shares them.
 
-## 10. Next Actions, in priority order
+## 11. Next Actions, in priority order
 
-1. Ask the user to review gallery v20 (Styles facets, Colors > Color harmony, Presets mixer) and collect changes.
-2. Fix the constraints placeholder (section 4) in repo and published gallery; verify in Thai at 390x844.
-3. Fix Thai search mid-text in `gallery.html` `textHas()` (use `includes` for Thai terms); verify ฟองอากาศ finds y2k and ขั้นบันได finds art-deco.
-4. Ask about issue 5 (rename Apply) and issue 4 (notice when the selected style is filtered out).
-5. Optional: research sources for quiet-luxury, wabi-sabi, bauhaus and set `research: verified` only with real sources; fix the `desert-stone` note.
+1. Ask whether to add the On page (9f7VDq6n6dJws4i4Vwdg9B) to the gallery Works tab. If yes, follow `create-presentation` > Add to the gallery: read `works.json` first and keep every entry. The page needs its own doctype version under `works/<id>/index.html`.
+2. Ask the user to review gallery v20 and collect changes.
+3. Fix the gallery constraints placeholder and the Thai mid-text search (section 4). Apply both to the repo `gallery.html` and the published copy, and verify in Thai at 390x844.
+4. Ask about issue 4 and issue 5. Fix the `desert-stone` note. Research sources for quiet-luxury, wabi-sabi and bauhaus.
 
-## 11. Exact First Step for the Next Session
+## 12. Exact First Step for the Next Session
 
-Run `git fetch origin claude/setup-workflow-xd5lho && git checkout claude/setup-workflow-xd5lho && git status -sb && git log -3 --oneline && node skills/productivity/visual-style/scripts/library.mjs check`. Success check: `52b5b31` (or a handoff commit after it) on top and `79 styles, 34 palettes, 9 presets. 0 errors, 0 warnings.` For gallery work, `Artifact read` TEgWtaAsxAdNuhwVjhX1QT and confirm version 20 or later with 29 files.
+Run:
 
-## 12. Ready-to-paste Continuation Prompt
+```
+git fetch origin claude/setup-workflow-xd5lho && git checkout claude/setup-workflow-xd5lho && git status -sb && git log -3 --oneline && node skills/productivity/visual-style/scripts/library.mjs check
+```
+
+Success check: `a2652bd` (or a handoff commit after it) on top, and `79 styles, 34 palettes, 9 presets. 0 errors, 0 warnings.` For gallery work, `Artifact read` TEgWtaAsxAdNuhwVjhX1QT first. The On page source lived in the old scratchpad; if it is gone, `Artifact read` 9f7VDq6n6dJws4i4Vwdg9B to get it back.
+
+## 13. Ready-to-paste Continuation Prompt
 
 ```
 อ่าน .ai/handoff/current.md ก่อน แล้วทำต่อ
-อัปเกรดคลัง visual-style เสร็จแล้ว (commit 52b5b31, gallery TEgWtaAsxAdNuhwVjhX1QT v20):
-facets 5 ประเภท + Featured, สไตล์ใหม่ quiet-luxury / wabi-sabi / bauhaus, พาเลตต์ใหม่ 4 ชุด,
-ฮาร์โมนีสี 9 แบบ, mixer + พรีเซ็ตของฉัน, design_direction ใน JSON, CLI harmony/--facet/--ground
-แก้ gallery ต้องแก้ทั้ง repo gallery.html และไฟล์ที่ publish และห้ามทำ works หาย
-งานค้าง: รอผู้ใช้รีวิว v20, placeholder ช่องข้อกำหนดไม่แปลไทย, บั๊กค้นหาคำไทยกลางประโยค, ข้อ 4/5, note desert-stone, แหล่งอ้างอิงของ 3 สไตล์ใหม่
+session ล่าสุดไม่ได้แก้ repo มีงาน 3 ชิ้นนอก repo: deck NB 2010 และ deck /create-prompt (ผู้ใช้สั่งลบแล้ว)
+และหน้า interactive "On ทีละชิ้น" (artifact 9f7VDq6n6dJws4i4Vwdg9B, Cloudswift 4 Black|Eclipse และ Cloud X Tempo Ivory|Storm, ข้อมูลจาก on.com) ส่ง PDF ไปแล้ว
+งานค้าง: ถามว่าจะใส่หน้า On ลง Works ใน gallery TEgWtaAsxAdNuhwVjhX1QT ไหม (ห้ามทำ works หาย), รอรีวิว gallery v20,
+placeholder ช่องข้อกำหนดไม่แปลไทย, บั๊กค้นหาคำไทยกลางประโยค, ข้อ 4/5, note desert-stone, แหล่งอ้างอิงของ 3 สไตล์ใหม่
 ทำตาม .claude/CLAUDE.md (ไม่มี em-dash) และรัน library.mjs check หลังแก้คลัง
 ```
