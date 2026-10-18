@@ -1,126 +1,135 @@
 # Handoff: ai-product-workflow-skills
 
-Updated: 2026-10-17 (second session that day). Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. Single self-contained file (user asked for one file). Earlier history: `sessions/2026-10-11.md`; previous versions of this file in git (`769098b`, `a2652bd`, `f5747e5`, `e66e6d7`, `9221fed`, `c95ea66`, `8cbe20b`).
+Updated: 2026-10-18. Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. Single self-contained file (user asked for one file). Earlier history: `sessions/2026-10-11.md`; previous versions of this file in git (`5bb2c42`, `769098b`, `a2652bd`, `f5747e5`, `e66e6d7`, `9221fed`, `c95ea66`, `8cbe20b`).
 
 ## 1. Goal and Success Criteria
 
-- Goal: maintain `ai-product-workflow-skills` and the private Visual Style Library gallery artifact (part of the `visual-style` skill, `skills/productivity/visual-style/`), and use `/create-presentation` and `/visual-style` to make real works from it.
-- This session had no repo changes except this file. It fixed the "On ทีละชิ้น" shoe parts page after user feedback from a phone, and installed a third-party skill.
-- Next milestone: none requested. The user may still report more layout problems on the On page.
+- Goal: maintain `ai-product-workflow-skills` and the private Visual Style Library gallery artifact (`skills/productivity/visual-style/`), and use `/create-presentation` and `/visual-style` to make real works.
+- This session: built a Thai presentation "ทำไมกรุงเทพฯ น้ำท่วมง่าย: ผังเมืองกับการไหลของน้ำ" with `/create-presentation style=quiet-luxury palette=chrome-noir`, isometric figures made with the `anatomy` skill. Then, on user request: added a zoom-into-a-street animation, switched the whole deck to a paper-cut style, and added rough hand-cut paper edges.
+- Success criteria (from the user's prompt, all met, see section 8):
+  - Artifact opens; slides change by keyboard and on-screen buttons; slide number shown.
+  - Main animation shows rain, roof, street, pipe, canal, pump station, river, sea; flooding when rain or tide rises.
+  - Plan slide toggle gives a visibly different result.
+  - Every number has a source on the last slide; no invented numbers.
+  - Reduced motion shows a readable still; no horizontal scroll at 360 px.
+  - Contrast checks pass.
+- Next milestone: none requested. The user may give more visual feedback on the deck.
 
 ## 2. Current Status
 
-- CONFIRMED: branch in sync with origin at `769098b`. Working tree clean except this file (uncommitted; commit only if the user asks).
-- CONFIRMED: `node skills/productivity/visual-style/scripts/library.mjs check` gives 79 styles, 34 palettes, 9 presets, 0 errors, 0 warnings (run at session start).
-- CONFIRMED: On page artifact https://claude.ai/artifact/9f7VDq6n6dJws4i4Vwdg9B is now v2 (shared "anyone with the link").
-- CONFIRMED: gallery https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT is now v22, 31 files. The user had already added the On page to Works before this session (`works.json` entry `on-shoe-parts`, dated 2026-10-17, plus `works/on-shoe-parts/index.html` and `cover.jpg`). This session replaced only `works/on-shoe-parts/index.html` with the v2 code. `index.html` was republished unchanged (identical to the repo build of `gallery.html`).
-- CONFIRMED: third-party skill `anatomy` installed globally with `npx skills add wheresryan22/anatomy -g -a claude-code` into `~/.claude/skills/anatomy`. It lives in the container only, so a new session will not have it.
-- UNKNOWN: whether the user finds the new explode proportions right. Not tested on a real iPhone.
+- CONFIRMED: repo working tree clean before this file; branch in sync with origin at `5bb2c42`. No repo files changed this session except this file (uncommitted; commit only if the user asks).
+- CONFIRMED: deck artifact https://claude.ai/artifact/YHGk1ndufSNXVMRtH9fj3G is version 4 (label "Rough paper edges"), private, not shared, 11 slides.
+- CONFIRMED: `library.mjs check` gave 79 styles, 34 palettes, 9 presets, 0 errors, 0 warnings at session start.
+- CONFIRMED: deck NOT added to the gallery Works tab (rule: only after the user has seen it and agrees). Not published to the anatomy community gallery (needs explicit yes).
+- CONFIRMED: `anatomy` skill present at `~/.claude/skills/anatomy` in this container. It is container-only; a new container may not have it.
+- UNKNOWN: whether the user is happy with paper-cut v4. Not tested on a real phone or Safari.
 
 ## 3. Completed
 
-1. **On page, thinner highlight** (user: "the red line hides the product").
-   - Filled parts: outline changed from 4 px red on a 9 px white halo to 2 px red on a 4 px white halo (non-scaling).
-   - Laces (stroked parts): before, a 12 px red line on a 22 px white halo covered the whole lace. Now a red rim of about 1.5 screen px each side, then the lace redrawn in its own colour on top. The width is computed from `k = viewBox width / svg clientWidth`, and the highlight is redrawn on resize.
-   - Focus (Tab) dashes scaled down the same way.
-2. **On page, explode proportions** (user: "the proportions are sometimes odd when exploded").
-   - Offsets made even and tighter. Cloudswift 4: laces -235, cage -165, upper -95, helion 0, speedboard 60, cloudtec 120, outsole 180 (was -300, -215, -130, 0, 75, 150, 235). Cloud X Tempo: laces -235, tongue -165, upper -95, heel -95 with `dx: -55`, helion 0, cloudtec 80, outsole 160 (was -300, -215, -130, -55, 0, 110, 200).
-   - The heel cup now moves with the upper and slides back (new optional `dx` per part, also applied to labels and the highlight). Its SVG group was moved after the upper so it paints on top; before it was hidden under the upper and showed as a sliver.
-   - `svg.style.aspectRatio` is set every frame from the animated viewBox, as a guard against Safari not updating `height: auto` during the animation (HYPOTHESIS for the "sometimes" part; not reproduced, Chromium was fine).
-3. A before/after image was sent to the user (`on-before-after.png` in the session scratchpad).
-4. Installed and skimmed the `anatomy` skill. Only network action found: `scripts/publish.mjs`, which opens a PR to its community gallery and sends agent and model names. Its docs say to run it only after an explicit yes.
+1. **Research** (subagent, web): figures with sources and years. DDS site returned 503, IGES 403, no recent DGR report found, so many figures come from news quoting agencies (tagged "ข่าว" on the reference slide).
+2. **Deck v1** (11 slides now, was 10): cover, terrain section, zoom (added later), water cycle sim, bottlenecks, planning toggle, subsidence, three waters, measures (tunnel), summary, references.
+   - One persistent isometric model city (68 depth-sorted items, plinth with ruler and the engraved label "ภาพจำลองเพื่ออธิบาย ไม่ใช่สัดส่วนจริง"), front cut showing culvert, canal, pump station with 3 pumps, floodwall panels, river, sea, deep tunnel (slide 9 only).
+   - Each slide eases the SVG viewBox to its camera (`cams` in `build.mjs`).
+   - Explanatory steady-state model in the page script `solve()`: pipe capacity 60 mm/hr (the only real number in the model, source [6]), runoff coefficient 0.55 open / 0.92 filled, pump capacity falls with river level. Model values are labelled as assumed on the reference slide.
+3. **Zoom slide (slide 3)**, from the user's sketch: camera zooms into the district street on the main model (tau 0.6, ~1.7 s), then crossfades to a separate close-up SVG (`zoom.mjs`). Close-up: 3 buildings with windows, shutters, awnings, AC units, roof tanks, downpipes, lamp, tree, bollards; slanted rain; route roof › downpipe › sidewalk › curb inlet › basin › pipe › drop shaft › deep sewer to the canal; pipe fills and turns red when full; water ponds on the street.
+4. **Paper-cut style (v3)**, user chose: whole deck, light paper colours. Cream paper ground with grain, buildings in 4 paper hues (cream, sage, blush, sand, `data-h` on `.pc` groups), blue paper water, white waterlines, red paper for the one bottleneck detail, paper-tab buttons.
+5. **Rough edges (v4)**: noise-displaced edges baked into path data at assemble time (`rough.mjs`, `roughSvg`), live water paths roughened in the page with the same function (`ROUGH_SRC`), baked offset shadows (`.pcs` paths) instead of CSS filters.
 
 ## 4. Issues and Fixes
 
 | Issue | Status | Cause | Resolution | Evidence |
 |---|---|---|---|---|
-| Red highlight covers the laces on a phone | FIXED | Non-scaling 12 px red plus 22 px halo on laces that are about 4 px wide at 390 px | Red rim (lace width + 3k) under the lace redrawn in its own colour; filled parts 2 px on 4 px | v3/v4 screenshots at 390x844 |
-| Exploded view looks odd | FIXED (user not yet confirmed) | Uneven gaps (laces 170 above upper, others 75); heel cup hidden under the upper | Even offsets about 60 to 70; heel `dx` and repaint order | v4 screenshots; ratio check svg box = viewBox (1.241 and 1.262) |
-| "Sometimes" odd on iPhone | HYPOTHESIS | Safari may not resize an inline SVG with `height: auto` while the viewBox animates | Explicit `aspect-ratio` per frame | Not reproduced; no WebKit in the container |
-| Rerunning `assemble.v1.py` overwrote `on-anatomy.html` with the new template but old offsets | FIXED | Backup script still reads `page.tpl.html` | Ran `assemble.py` again; checked `"off": -235` appears twice | grep count |
-| Gallery republish needs the page "viewed" | WORKED AROUND | Artifact tool requires reading every line of the live page (2302 lines) | Read it in chunks of at most 300 lines (450 exceeds the 25k token limit); it matched the repo build except one blank line | diff output |
-| Carried over: constraints placeholder English in Thai mode (gallery) | OPEN | `trAttrs()` skips `textarea` via `NO_TR` | Translate textarea attributes, add a muted `::placeholder` | code reading |
-| Carried over: Thai search misses mid-text words (ฟองอากาศ, ขั้นบันได) | OPEN | `textHas` regex needs a non-Thai char before the term | Use `includes` for Thai terms | earlier Playwright |
-| Carried over: `desert-stone` contrast note wrong (Rust on Basalt 2.28:1) | OPEN | | | Guide tab |
-| Carried over: selected style vanishes silently when filtered out (issue 4); "Apply" wording (issue 5) | OPEN | | suggested "คัดลอกคำสั่ง" | code reading |
+| Slides type cannot host the deck | WORKED AROUND | Slides type: no script in slides, x-embed 16 KB max | Hand-written HTML artifact | type instructions read |
+| All slides showed at once in local test | FIXED | `article{display:contents}` beat `hidden`; publish skeleton adds the rule, local test did not | Added `[hidden]{display:none!important}` | screenshot |
+| Ground looked hollow (dark v1) | FIXED | Tone ramp too close to card colour | Lifted ramp | z3 screenshots |
+| Water looked like glass boxes | FIXED | Stroked water polygons | Fill only plus separate waterline path `wl` | screenshots |
+| Floating "sea level" line | FIXED | Line in mid-air over the city | Ghost level plane `msl` drawn under buildings | z2/z6 |
+| Buttons on hidden slides acted | FIXED | Click handler not scoped | Ignore buttons outside the current article | s6 test |
+| Floating line ends (anatomy `lines.mjs`) | FIXED | Culvert outline legs, ladder rungs, dashed lane line, short grate slots | Closed outlines, edge-to-edge rungs, lane marks as closed shapes, outlined opening walls | `line ends: 0` both drawings |
+| Signal Red text 4.35:1 on card (dark v1) | FIXED | Brand red too dark | Derived error colour for text | contrast CLI |
+| Kit light theme overrode my tokens | FIXED | `.iso[data-theme="light"]` more specific | Selector `.iso,.iso[data-theme="light"]` | screenshots |
+| Floodwall panels got random paper hues | FIXED | Hue on every `.pc` | Hue only on buildings (`items[].b`) | grep count |
+| Zoom ran at 6.5 fps with SVG displacement filter | FIXED | Filters re-render on every viewBox frame | Bake roughness into paths, offset shadow paths, no filters | `fps.cjs`: 41.5 zooming, 59.5 close-up (headless Chromium) |
+| Deck size grew to 1.66 MB | MITIGATED | Subdivided edges | Step 2.4 to 3.4 units: 1.30 MB | assemble output |
+| Thin parts (tide gauge, pump columns) look wobbly | OPEN (cosmetic) | Same noise amplitude on all parts | Offered smaller amplitude for small parts | screenshots |
+| Carried over: gallery constraints placeholder English in Thai mode | OPEN | `trAttrs()` skips textarea | Translate textarea attributes | code reading |
+| Carried over: Thai search misses mid-text words | OPEN | `textHas` regex | Use `includes` for Thai | earlier Playwright |
+| Carried over: `desert-stone` contrast note wrong; issues 4 and 5 | OPEN | | | Guide tab |
 
 ## 5. Attempts That Failed or Were Rejected
 
-- Heel cup with `dx: -70`, painted under the upper: still a sliver. Fixed by repainting it above the upper, `dx: -55`.
-- Reading 450 lines of the gallery page in one Read call: over the token limit. Use 300 or fewer.
+- SVG `feTurbulence` + `feDisplacementMap` filter on paper groups: looked right but 6.5 fps while zooming. Do not use filters on large groups that animate.
+- CSS `drop-shadow` per building: 15.5 fps while zooming. Replaced by baked offset shadow paths.
+- First noise frequency 0.55: looked fuzzy, not cut. 0.16 (main) reads as hand-cut.
+- Signal-red readout text on dark card: failed contrast (dark version only).
+- Figure 1.77 m high tide (2022): dropped, no source URL.
+- Design rainfall 80 mm/hr (2026 news): not used, weak source.
 
 ## 6. Decisions and Constraints
 
 User decisions:
-- On page colours stay: background `#FFFFFF`, text `#0A0A0A`, accent `#C41E16`; fonts Noto Serif Thai + IBM Plex Sans Thai.
-- On page is in the gallery Works tab (done by the user).
-- Earlier, still valid: decks stay out of the repo; works go to the gallery only after the user has seen them. Rejected earlier: product-style workflow for research, auto-calling user-invoked skills, Supabase hosting.
+- Deck style: started quiet-luxury + chrome-noir (gallery command); then user asked for paper-cut, chose "whole deck" and "light paper colours". Paper-cut is not in the Visual Style Library; colours are agent-made, not a library palette.
+- Rough paper edges: yes.
+- Zoom into one street, as in the user's sketch (rain slanted, pipe goes down, along, down again, then right).
+- Earlier, still valid: decks stay out of the repo; works go to the gallery only after the user has seen them; never publish to the anatomy gallery without explicit yes.
 
 Agent decisions (user may reject):
-- Highlight = thin red rim, so the part keeps its own colour.
-- Even explode spacing; heel cup slides back instead of down.
-- Speedboard drawn under the midsole in an assumed grey; no weights; drop 8 mm for both (unchanged).
+- Hero size (anatomy tiers), not Epic. Steady-state model instead of time integration; levels settle in about 3 s; subsidence play 6 s.
+- Slide 3 zoom target: front street of the inland district.
+- Reduced motion: no zoom movement, close-up shown at once, no rain motion.
 
-Gallery publishing rules (IMPORTANT, unchanged):
-- Never publish in a way that drops `works.json` or `works/`. After a publish, list files and check the count (31 now).
-- Page build: `sed '1,5d' skills/productivity/visual-style/library/gallery.html | grep -vx '</head>' | grep -vx '<body>' | head -n -2`. Diff it against the live copy, then publish it as `file_path` plus only the changed files via `files` to the same URL.
-- The gallery copy of a work needs its own doctype version: `<!doctype html>`, `<html lang="th">`, head with charset and viewport, `</head><body>` after `</style>`, and the eyebrow links back with `<a href="../../">← Visual Style Library</a>`.
-- Republishing an artifact from another session needs `Artifact read` first, and reading every line of the saved page.
+Repo rules (`.claude/CLAUDE.md`): no em-dashes; Promotion Contract; user-invoked skills never call each other.
 
-Repo rules (`.claude/CLAUDE.md`): no em-dashes; Promotion Contract; user-invoked skills need `disable-model-invocation: true`, `openai.yaml` and a `workflow-router` row, and never call each other; run `node skills/productivity/visual-style/scripts/library.mjs check` after library edits.
-
-Data rules for product work: primary source = on.com product page data for that SKU; never move text from one model to another; specs only from on.com.
-
-## 7. Files Changed (this session)
+## 7. Files Changed
 
 - Repo: only `.ai/handoff/current.md` (this file, uncommitted).
-- Session scratchpad (ephemeral, lost with the container), folder `on/`:
-  - `page.tpl.html` (template, new highlight and `dx` code), `assemble.py` (new offsets), `svg_cxt.txt` (heel group moved after upper);
-  - `on-anatomy.html` (published v2 fragment), `test.html` (doctype copy for tests), `gal/works/on-shoe-parts/index.html` (gallery copy);
-  - backups `page.tpl.v1.html`, `assemble.v1.py`, `on-anatomy.v1.html`, `svg_cxt.v1.txt`;
-  - tests `m.cjs` (390x844 screenshots), `d.cjs` (1280 and 360: scroll width, ratio, errors), `bb.cjs` (part bounding boxes).
-- If the scratchpad is gone: `Artifact read` 9f7VDq6n6dJws4i4Vwdg9B (path `index.html`) gives the full v2 page; the template parts are inside it.
+- Session scratchpad (ephemeral), folder `flood/`:
+  - `build.mjs` (main city, cameras, live data), `zoom.mjs` (close-up), `rough.mjs` (edge roughening, shared with the page), `template.html` (page, CSS tokens, slide text, live script), `assemble.mjs` (writes `deck.html` for publish and `test.html` with doctype).
+  - `template.noir.html`: the dark quiet-luxury template before paper-cut.
+  - Tests: `t.cjs` (all slides 1440 and 360, errors, h-scroll), `z.cjs` (2x card shots), `zz.cjs` (zoom sequence), `rm.cjs` (reduced motion), `fps.cjs` (frame rate), `s6.cjs` (interactions).
+  - Build: `node build.mjs && node zoom.mjs && node assemble.mjs`, then publish `deck.html` to the same artifact.
+- If the scratchpad is gone: `Artifact read` YHGk1ndufSNXVMRtH9fj3G gives the full built page (sources are not in it; geometry is baked, so big geometry edits need a rebuild from scratch).
 
 ## 8. Validation and Evidence
 
-- Playwright Chromium at 390x844 (touch, 2x): no page errors; both models assembled and exploded; laces and upper selected; screenshots looked at.
-- At 1280 and 360: no horizontal scroll, svg box ratio equals viewBox ratio, label click opens the panel, 0 errors.
-- NOT verified: real iPhone or Safari/WebKit; the PDF and the gallery cover image (both still show the old version); the live artifact pages in a browser.
+- Playwright Chromium, all 11 slides at 1440x900 and 360x780: no page errors, no horizontal scroll (latest run after v4).
+- Reduced motion: rain path unchanged over time (still frame), story readable.
+- anatomy `scripts/lines.mjs` with `CHROME_PATH=/opt/pw-browsers/chromium-1194/chrome-linux/chrome`: `line ends: 0` on the main city and on the close-up (close-up checked through `testz.html`, which forces the close-up visible).
+- Contrast (library CLI): ink on paper 12.47, soft ink 5.44 to 5.99, error text 5.91, success text 5.14, pressed button 13.74.
+- Frame rate (headless, software): 41.5 fps zooming, 59.5 fps close-up.
+- NOT verified: real phone, Safari/WebKit, a timed 10-minute talk, the published page in a browser.
 
 ## 9. Open Questions and Risks
 
-- Does the user still see odd proportions? If yes, ask which model, which tap, and for a screenshot.
-- Should the PDF (`on-cloudswift4-cloudxtempo.pdf`, 9 pages) and the gallery cover be rebuilt from v2? Offered, not answered.
-- `anatomy` skill: user may want it kept across sessions (install without `-g` and commit, or add to the environment setup script). Offered, not answered. It runs with full agent permissions; never run its publish script without an explicit yes.
-- Gallery v20 features (facets, Color harmony, mixer) still not reviewed by the user.
-- Internal part boundaries on both shoes remain estimates.
+- Does the user want the deck in the gallery Works tab? Not asked yet in a yes/no form.
+- Edge roughness amount and thin-part wobble: offered tuning, not answered.
+- Paper-cut as a library style: if wanted, add it to the Visual Style Library (style entry, palette, research sources) and run `library.mjs check`.
+- Several figures are secondary (news) sources; primary DDS documents were unreachable.
+- Scratchpad sources are lost with the container.
 
 ## 10. Next Actions, in priority order
 
-1. Wait for the user's verdict on the On page v2. If more fixes: edit `page.tpl.html` / `assemble.py`, run `python3 assemble.py`, rebuild `test.html` and the gallery copy, run `m.cjs` and `d.cjs`, then publish both (On artifact, and gallery with only `works/on-shoe-parts/index.html` changed).
-2. If asked: regenerate the PDF and the gallery cover from v2.
-3. Ask the user to review gallery v20 and collect changes.
-4. Fix the gallery constraints placeholder and the Thai mid-text search (section 4) in both the repo `gallery.html` and the published copy; verify in Thai at 390x844.
-5. Ask about issue 4 and issue 5. Fix the `desert-stone` note. Research sources for quiet-luxury, wabi-sabi and bauhaus.
+1. Wait for the user's verdict on deck v4. For edits: change `template.html` / `build.mjs` / `zoom.mjs` / `rough.mjs`, rebuild, run `t.cjs`, `lines.mjs` on `test.html` and `testz.html`, `fps.cjs`, then publish `deck.html` to the same URL.
+2. If the user agrees: add the deck to the gallery (TEgWtaAsxAdNuhwVjhX1QT) as `works/<id>/index.html` with doctype and a `../../` back link, a cover image, and a `works.json` entry; keep all 31 existing files (list files after publish).
+3. Carried over: gallery placeholder translation, Thai mid-text search, issues 4 and 5, `desert-stone` note, sources for quiet-luxury, wabi-sabi and bauhaus.
 
 ## 11. Exact First Step for the Next Session
 
 Run:
 
 ```
-git fetch origin claude/setup-workflow-xd5lho && git checkout claude/setup-workflow-xd5lho && git status -sb && git log -3 --oneline && node skills/productivity/visual-style/scripts/library.mjs check
+git fetch origin claude/setup-workflow-xd5lho && git checkout claude/setup-workflow-xd5lho && git status -sb && git log -3 --oneline && ls ~/.claude/skills
 ```
 
-Success check: `769098b` (or a handoff commit after it) on top, and `79 styles, 34 palettes, 9 presets. 0 errors, 0 warnings.` Before any On page or gallery work, `Artifact read` the artifact you will publish to (9f7VDq6n6dJws4i4Vwdg9B or TEgWtaAsxAdNuhwVjhX1QT).
+Success check: `5bb2c42` (or a later handoff commit) on top, clean tree. Then `Artifact read` https://claude.ai/artifact/YHGk1ndufSNXVMRtH9fj3G before any publish to it. If the scratchpad `flood/` folder is gone, say so before promising geometry edits.
 
 ## 12. Ready-to-paste Continuation Prompt
 
 ```
 อ่าน .ai/handoff/current.md ก่อน แล้วทำต่อ
-session ล่าสุดแก้หน้า "On ทีละชิ้น" (artifact 9f7VDq6n6dJws4i4Vwdg9B เป็น v2) ให้เส้นไฮไลต์แดงบางลง และระยะแยกชิ้นส่วนเท่ากันขึ้น
-อัปเดตฉบับใน gallery TEgWtaAsxAdNuhwVjhX1QT (v22, 31 ไฟล์) แล้ว ยังไม่ได้ทดสอบบน iPhone จริง
-งานค้าง: รอผู้ใช้ตอบว่าสัดส่วนโอเคไหม, ทำ PDF และภาพปกใหม่ถ้าผู้ใช้ขอ, รีวิว gallery v20,
-placeholder ช่องข้อกำหนดไม่แปลไทย, บั๊กค้นหาคำไทยกลางประโยค, ข้อ 4/5, note desert-stone, แหล่งอ้างอิงของ 3 สไตล์
-skill anatomy ติดตั้งไว้แค่ใน container เดิม ถ้าต้องใช้ให้ติดตั้งใหม่
-ทำตาม .claude/CLAUDE.md (ไม่มี em-dash) และห้ามทำ works ใน gallery หาย
+session ล่าสุดทำพรีเซนเทชัน "ทำไมกรุงเทพฯ น้ำท่วมง่าย" (artifact YHGk1ndufSNXVMRtH9fj3G เวอร์ชัน 4, 11 สไลด์)
+ภาพเมือง isometric ด้วย skill anatomy มีสไลด์ซูมเข้าถนน ตอนนี้เป็นสไตล์ตัดกระดาษสีอ่อน ขอบหยักแบบตัดมือ
+ยังไม่ได้ใส่ใน gallery Works และยังไม่ได้ทดสอบบนมือถือจริง
+ไฟล์ build อยู่ใน scratchpad เดิม ถ้าหายต้องเริ่มจาก Artifact read
+ทำตาม .claude/CLAUDE.md (ไม่มี em-dash) ห้ามทำ works ใน gallery หาย ห้าม publish ขึ้น gallery ของ anatomy ถ้าผู้ใช้ไม่ยืนยัน
 ```
