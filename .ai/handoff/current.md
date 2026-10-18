@@ -1,103 +1,80 @@
 # Handoff: ai-product-workflow-skills
 
-Updated: 2026-10-18 (fourth session of the day). Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. One self-contained file, because the user asked for one. Earlier history: `sessions/2026-10-11.md`, plus older versions of this file in git (`7c67075` has the AI chatbot deck session; `30457aa` has the Luxury Minimalism session; also `e4797d2`, `5bb2c42`, `769098b`, `a2652bd`, `f5747e5`, `e66e6d7`, `9221fed`, `c95ea66`, `8cbe20b`).
+Updated: 2026-10-18 (fifth session of the day). Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. One self-contained file, because the user asked for one. Earlier history: `sessions/2026-10-11.md`, plus older versions of this file in git (`8882233` has the full Canva Tank Day build session; `7c67075` the AI chatbot deck; `30457aa` Luxury Minimalism; also `e4797d2`, `5bb2c42`, `769098b`, `a2652bd`, `f5747e5`, `e66e6d7`, `9221fed`, `c95ea66`, `8cbe20b`).
 
 ## 1. Goal and Success Criteria
 
 - Goal: maintain `ai-product-workflow-skills` and use `/visual-style` and `/create-presentation` to make real works.
 - This session:
-  1. Read the previous handoff and ran its first-step check (all passed).
-  2. `/visual-style palette=forest-sage-ivory`, built in **Canva** (not HTML): a Thai class deck "Starbucks Korea: แคมเปญ Tank Day ที่กลายเป็นวิกฤตระดับประเทศ", a risk management analysis with 5 topics, speaker notes, and a coffee cup motif.
-  3. Answered how to animate in Canva (Canva Help Center via `mcp__Canva__help`).
-  4. Follow-up from the user: filled their new blank page 2 with a detailed event timeline, and reworked topic 2 (Risk Matrix) to match the course slide (photo the user sent), with fuller wording.
-- Success: an editable Canva file with facts sourced, analysis labelled, notes on every slide, palette colors, and no Starbucks branding or violent imagery. Met, except the items in sections 4 and 9.
+  1. Read the previous handoff (`8882233`) and summarized it.
+  2. User asked for the Tank Day deck as a **motion graphic HTML presentation** in the style of their artifact https://claude.ai/artifact/YHGk1ndufSNXVMRtH9fj3G ("ทำไมกรุงเทพฯ น้ำท่วมง่าย", paper-cut style).
+  3. Built and published it, then the user asked to delete it. Deleted.
+- Success for this session: the user got what they asked (build, then delete). No open deliverable from this session.
 
 ## 2. Current Status
 
-- CONFIRMED: Canva design `DAHYV68zUwE`, title "Starbucks Korea Tank Day", 9 pages, saved (both editing transactions committed). Edit link: https://www.canva.com/d/6AgFK8e4rTJtfBc (view: https://www.canva.com/d/OkboyTCsrHDMkP9). Not shared, not published.
-- CONFIRMED: repo working tree clean at `7c67075` before this file was written. This file is uncommitted; commit only if the user asks.
-- UNKNOWN: the user's verdict on the latest page 2 and topic 2 changes. They had not replied yet.
-- Page order now (page ids for `edit-design`):
-  1. Cover `PBpkpcPkRqjxjLCY` (plain cup)
-  2. Timeline `PBXGz8wRqwxVMmd2` (added by the user, filled by the agent)
-  3. Event summary `PBcGL9p0V2YSM3m5` (cracked cup)
-  4. Topic 1 causes and risk types `PBWhD0fjH9DHLKzP`
-  5. Topic 2 Risk Matrix `PBNbRLR2VjzrHK54`
-  6. Topic 3 4T `PBdkVwbH1bwb5bsr`
-  7. Topic 4 prevention, response, recovery `PBrnpwH0MfMdf4QM` (repaired cup)
-  8. Topic 5 LogisTech Intelligence `PBhp17R2ZlyybwfM` (cup with lid, sleeve, saucer)
-  9. References `PBR8xsPRbRsnCp1G`
+- CONFIRMED: motion artifact `1b2MRxmFRigj8HTk1MrqFk` **deleted** at the user's request (they chose "Artifact motion graphic" when asked what to delete). Its URL is dead; do not reuse it.
+- CONFIRMED: Canva design `DAHYV68zUwE` ("Starbucks Korea Tank Day", 9 pages) untouched this session. Edit: https://www.canva.com/d/6AgFK8e4rTJtfBc. Not shared, not published. Page ids are in `8882233`'s handoff section 2.
+- CONFIRMED: repo clean at `8882233` before this file was written. This file is uncommitted; commit only if the user asks.
+- UNKNOWN: why the user deleted the motion deck (not stated). Do not rebuild it unless asked.
+- The HTML source lived only in this session's scratchpad (`/tmp/claude-0/-home-user-andrej-karpathy-skills/eb143eb9-b25f-4481-aced-56e6f68cc3ef/scratchpad/tankday-motion.html`); assume it is gone next session.
 
 ## 3. Completed
 
-1. **Fact check** (web): campaign, Gwangju 1980 and Park Jong-chul 1987 meaning, apologies, CEO dismissal, complaints, police raid, new CEO, card spending, Q2 loss. 10 sources, listed on slide 9 and in full (with URLs) in slide 9 notes.
-2. **Style:** user chose Material-Led Packaging from a shortlist of 3 (palette given, style missing, so the agent asked). Text recolored to Forest `#1F3B2D` and Ivory `#F6F1E4`. Contrast Forest on Ivory 10.82.
-3. **Canva build:** `create-design` with brief and outline, then many `edit-design` passes: typo fixes, citations, analysis labels, Input/Process/Output/Feedback labels, owner and KPI line on topic 5, speaker notes on all pages (with an `[แผนแอนิเมชัน]` block each).
-4. **Page 2 timeline:** ivory background reused from media `MAHYV-PIqcE`, 6 cards (15-18 พ.ค., ทำไมเป็นปัญหา, 18-19 พ.ค., 20-26 พ.ค., มิ.ย.-ส.ค., ก.ค.-ต.ค.) with source numbers, notes about 1 minute.
-5. **Topic 2 rework:** Likelihood is now the horizontal axis and Impact vertical (course convention); grid narrowed to x 860-1760; cups moved; levels table added with course thresholds 1-4 ต่ำ, 5-9 ปานกลาง, 10-15 สูง, 16-25 สูงมาก and their meanings; R1-R5 names, Inherent and Residual spelled out; notes rewritten.
-6. Scores (agent analysis): Inherent R1 20, R2 16, R3 12, R4 12, R5 9. Residual R1 8, R2 6, R3 6, R4 4, R5 4.
+1. Read the reference artifact (owned by the user, 1.3 MB). Its style: paper-cut warm paper with grain (`--void #EFE8DC`, `--surface #F8F3EA`, ink `#2A251F`, steel `#665B4E`, signal red `#C23A22`, blue `#2C78A8`), Noto Serif Thai + IBM Plex Sans Thai, editorial spread (figure card left with 4 corner labels, text column right, footer nav with dots and count), one red paper detail per slide, light theme only.
+2. Built a 9-slide deck in that style with a paper cup motif: cover, timeline (6 steps, cup cracks then is repaired), topic 1 (approval belt with a missing gate), topic 2 (Risk Matrix, cups slide Inherent to Residual, R1 to R5 buttons), topic 3 (4T tiles plus response-speed and card-rank comparison), topic 4 (Prevention, Response, Recovery), topic 5 (LogisTech Input/Process/Output loop, "without the system" toggle), summary (3 lessons), references. Arrow/Space stepped through build steps; N notes; F fullscreen.
+3. Headless Chromium run of every slide and step: no errors, no horizontal overflow at 1400 px or 390 px.
+4. Published, then deleted on request.
 
 ## 4. Issues and Fixes
 
 | Issue | Status | Cause | Resolution | Evidence |
 |---|---|---|---|---|
-| Canva generated typos (ตนโต๊ะ, ฮ่อนไหว, ซม., ส่งกลัน) | FIXED | AI generation | `find_and_replace_text` | thumbnails after edit |
-| Generated matrix cups did not match scores | FIXED | random placement | deleted extras, repositioned 10 cups, added score labels | page 5 thumbnail |
-| Grid image cropped after resize | FIXED | resize keeps image box | `crop_media` to 900 x 788.48 | page 5 thumbnail |
-| Added text came out 16 px black, other font | MITIGATED | `add_text` defaults; no font-family operation | size and color fixed by `format_text`; font still differs | element fontRef `YACgEZ1cb1Q` vs `YAFdJvhjN5k` |
-| Animations not set | OPEN (tool limit) | Canva MCP has no animation operation; Help Center says order and on-click are not supported | plan written in notes; told the user | `mcp__Canva__help` answer |
-| Grid shading is a smooth gradient, not the 4 course bands | OPEN (minor) | shading is a generated image | levels table and score labels carry the meaning | page 5 |
-| Page 3 summary partly repeats page 2 timeline | OPEN | user added page 2 later | asked the user whether to keep or delete | none |
-| Read output truncated at 100k chars | WORKED AROUND | large design JSON | read one page per call | tool notice |
+| Slide 7 replay cancelled entrance animations | FIXED before publish | global `stopAll` in reset | per-slide timer list | headless run |
+| Multi-paragraph copy injected into a `<p>` | FIXED before publish | invalid nesting | container changed to `div` | code |
+| Ex-CEO quote has no citation number | OPEN (applies to Canva too) | earlier notes do not say which source | left uncited in the motion deck | `8882233` notes |
+| Canva carry-overs: font mismatch on added text, gradient matrix shading, page 3 repeats page 2 | OPEN | see `8882233` section 4 | none this session | none |
 
 ## 5. Attempts That Failed or Were Rejected
 
-- Slides Artifact type and HTML deck: not used; the user asked for Canva.
-- Splitting slides to fake step-by-step animation: offered, not started (no page-duplicate operation; would need rebuilding elements). User has not chosen.
+- Motion graphic HTML deck: built, then rejected (deleted) by the user. Reason unknown.
+- From earlier: Slides Artifact type not used; split-slide reveals in Canva offered, not chosen.
 
 ## 6. Decisions and Constraints
 
 User decisions:
-- Palette forest-sage-ivory, style Material-Led Packaging, built in Canva.
-- Do not share, publish, or move other Canva files.
-- Approved both commits after preview.
-- Follow the course Risk Matrix convention (photo: Likelihood horizontal, 4 levels 1-4 / 5-9 / 10-15 / 16-25).
+- Canva remains the deck of record. Palette forest-sage-ivory, style Material-Led Packaging.
+- Do not share, publish, or move Canva files. Risk Matrix follows the course convention (Likelihood horizontal; 1-4 ต่ำ, 5-9 ปานกลาง, 10-15 สูง, 16-25 สูงมาก).
+- Deletion of the motion artifact (this session).
 
-Agent decisions (the user may reject):
-- 5 risk types (Reputational, Operational, Financial, Compliance/Governance, Strategic); all scores and the 4T mapping are the presenter's analysis.
-- LogisTech Intelligence interpreted per the prompt (no course definition given), labelled on the slide.
-- Death toll not stated (sources differ); stock price marked unconfirmed.
-- Thai name spellings: อี แจมยอง, ซน จองฮยอน, ชอง ยงจิน, ปัก จงชุล.
+Agent decisions (still apply to content): 5 risk types and all scores are the presenter's analysis; LogisTech Intelligence is an interpretation; death toll not stated; stock price unconfirmed. Scores: Inherent R1 20, R2 16, R3 12, R4 12, R5 9; Residual R1 8, R2 6, R3 6, R4 4, R5 4.
 
-Tool rules: `edit-design` needs a preview and the user's approval before `commit`. Existing media ids can be reused with `insert_fill`.
+Tool rules: Canva `edit-design` needs a preview and the user's approval before `commit`. Artifact deletes are permanent and need the user's explicit request; ask which item when "ลบ" is ambiguous.
 
 Repo rules (`.claude/CLAUDE.md`): no em-dashes; keep the JSON hand formatting.
 
 ## 7. Files Changed
 
 - Repo: only this file (uncommitted).
-- Scratchpad (ephemeral, `/tmp/claude-0/-home-user-andrej-karpathy-skills/b09ba2f5-ac02-5876-89f3-6b949654719d/scratchpad/tankday/`): `notes.md` (notes source and full references, pages 1 and 3 to 9 in old numbering S1 to S8), `ops*.json`, `p2a.json`, `p5.json` (operation batches), `design.txt` (truncated first read).
-- The Canva file is the durable copy; notes can be read back with `read-design` field `presenter_notes`.
+- Content sources for the deck (speaker notes, full references, timeline and matrix text) were in an earlier scratchpad: `/tmp/claude-0/-home-user-andrej-karpathy-skills/b09ba2f5-ac02-5876-89f3-6b949654719d/scratchpad/tankday/` (`notes.md`, `p2a.json`, `p5.json`, `cups.md`). It still existed this session but is ephemeral. The Canva file is the durable copy (`read-design` field `presenter_notes`).
 
 ## 8. Validation and Evidence
 
-- Every edit checked against the returned thumbnail and element JSON; both transactions returned `committed`.
-- After the first commit, pages 1 and 8 notes were read back and matched.
-- NOT verified: Present mode in Canva, a phone, actual speaking time of notes (estimated from character counts), and pages 2 and 5 notes read back after the second commit.
+- Motion deck: headless run, 4 screenshots reviewed (cover, topic 1, topic 2 with R1 selected, topic 5). Not tested on a real phone or projector. Moot now that it is deleted.
+- Canva: nothing new verified this session.
 
 ## 9. Open Questions and Risks
 
-- Keep or delete page 3 (summary) now that page 2 has the timeline?
-- Expand short wording on other slides too (topic 1, 4T table, topic 4 flow)? Offered, no answer.
-- Split slides to simulate step-by-step reveals? Offered, no answer.
+- Does the user want any other version of the deck (or none)? Not asked after the delete.
+- Carried over from `8882233`: feedback on Canva pages 2 and 5; keep or delete Canva page 3; expand wording on pages 4, 6, 7; split-slide reveals.
 - Facts are as of 2026-10-18; the police investigation is ongoing.
 
 ## 10. Next Actions, in priority order
 
-1. Get the user's feedback on pages 2 and 5. For edits: `read-design` with `open_transaction: true` on one page, `edit-design` with `keep_open`, show the thumbnail, ask, then `commit`.
-2. If asked: delete or shorten page 3; expand wording on pages 4, 6, 7.
-3. If asked: build split-slide reveals (start with topic 4).
-4. Carried over from `7c67075`: the AI chatbot deck (artifact NjR1vHeghHG9RemNhgkVaQ) still awaits feedback and a gallery yes; gallery TEgWtaAsxAdNuhwVjhX1QT is v24 with 7 works.
+1. Wait for the user's direction. Do not rebuild the motion deck unprompted.
+2. If they return to Canva: get feedback on pages 2 and 5 (`read-design` with `open_transaction: true` on one page, `edit-design` with `keep_open`, show the thumbnail, ask, then `commit`).
+3. If asked: delete or shorten Canva page 3; expand pages 4, 6, 7.
+4. Carried over from `7c67075`: AI chatbot deck (artifact NjR1vHeghHG9RemNhgkVaQ) awaits feedback and a gallery yes; gallery TEgWtaAsxAdNuhwVjhX1QT is v24 with 7 works.
 
 ## 11. Exact First Step for the Next Session
 
@@ -105,14 +82,14 @@ Repo rules (`.claude/CLAUDE.md`): no em-dashes; keep the JSON hand formatting.
 git fetch origin claude/setup-workflow-xd5lho && git checkout claude/setup-workflow-xd5lho && git status -sb && git log -2 --oneline
 ```
 
-Then load the Canva tools (`ToolSearch` "select:mcp__Canva__read-design,mcp__Canva__edit-design") and run `read-design` on `DAHYV68zUwE` with fields `design_metadata`, `page_metadata`. Success check: 9 pages, ids as in section 2.
+Then, only if the task is about the Canva deck, load the Canva tools (`ToolSearch` "select:mcp__Canva__read-design,mcp__Canva__edit-design") and run `read-design` on `DAHYV68zUwE` with fields `design_metadata`, `page_metadata`. Success check: 9 pages, ids as in `8882233` section 2.
 
 ## 12. Ready-to-paste Continuation Prompt
 
 ```
 อ่าน .ai/handoff/current.md ก่อน แล้วทำต่อ
-session ล่าสุด: ทำพรีเซนเทชัน Canva "Starbucks Korea Tank Day" (design DAHYV68zUwE, 9 หน้า, บันทึกแล้ว) สไตล์ Material-Led Packaging + forest-sage-ivory
-เพิ่งเติมหน้า 2 ไทม์ไลน์ และปรับหัวข้อ 2 Risk Matrix ตามเกณฑ์อาจารย์ (Likelihood แนวนอน, ระดับ 1-4/5-9/10-15/16-25) รอผู้ใช้ตอบว่าพอใจไหม
-แก้ Canva ต้องแสดงตัวอย่างและให้ผู้ใช้อนุมัติก่อน commit ห้ามแชร์หรือ publish ตั้งแอนิเมชันผ่านเครื่องมือไม่ได้
+session ล่าสุด: ทำพรีเซน Tank Day แบบ motion graphic HTML ตามสไตล์ artifact น้ำท่วมกรุงเทพฯ แล้วผู้ใช้สั่งลบ artifact นั้นแล้ว (ห้ามใช้ลิงก์เดิม)
+ไฟล์หลักยังเป็น Canva "Starbucks Korea Tank Day" (design DAHYV68zUwE, 9 หน้า) ยังรอ feedback หน้า 2 และ 5 และเรื่องลบหน้า 3
+แก้ Canva ต้องแสดงตัวอย่างและให้ผู้ใช้อนุมัติก่อน commit ห้ามแชร์หรือ publish
 ทำตาม .claude/CLAUDE.md (ไม่มี em-dash)
 ```
