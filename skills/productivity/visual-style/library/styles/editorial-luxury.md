@@ -15,7 +15,7 @@ Typography with a clear personality, magazine composition, images that carry mea
 **Motion language:** Slow (600 to 1200 ms), ease-out fades and short vertical drifts (8 to 16 px). Images reveal with a mask wipe. Nothing bounces.
 **Best for:** Executive and investor presentations, premium brands, private banking, real estate, fashion houses, investment theses that must feel considered.
 **Avoid when:** Dense data or many items must fit on one screen, the audience needs quick scanning, or the brand voice is playful.
-**Differs from:** fashion-magazine lets the image fill the frame and puts type over it; luxury-editorial keeps image and type in separate zones with space between. minimal-product-showcase uses grotesk-only type and product tiles; luxury-editorial is serif-led and narrative.
+**Differs from:** fashion-magazine lets the image fill the frame and puts type over it; luxury-editorial keeps image and type in separate zones with space between. minimal-product-showcase uses grotesk-only type and product tiles; luxury-editorial is serif-led and narrative. heritage-luxury uses quieter Garalde type, a monogram, and house codes instead of Didone drama.
 **Prompt recipe:** "Luxury editorial layout, high-contrast Didone headline in light weight, wide margins, one hero image cropped to a detail, small tracked uppercase labels, warm white ground with a single champagne rule, calm and restrained."
 **Implementation notes:** Use `clamp()` for the display size so it scales. Set `font-optical-sizing: auto` when the face supports it. Keep line length with `max-width: 60ch`. Check that thin Didone strokes survive at the smallest display size and on projectors; increase weight one step for slides.
 
@@ -55,18 +55,18 @@ Typography with a clear personality, magazine composition, images that carry mea
 
 ## premium-product-campaign
 
-**Visual DNA:** One product, lit like sculpture, in a large tonal field. A short headline (2 to 5 words) and a single line of copy. No feature lists on the hero.
+**Visual DNA:** One product treated as a sculpture in a large tonal field: a single key light that describes its form, a rim light that separates it from the ground, a controlled floor reflection, and one macro detail of its material. A short headline (2 to 5 words) and a single line of copy. No feature lists on the hero.
 **Design principles:** Desire over information. The product silhouette must be recognizable. Light and material quality do the persuading.
 **Color behavior:** Background is a tone derived from the product (darker or lighter variant of its main color, or deep neutral). Text is one color. Accent appears only in the call to action.
 **Typography:** Clean grotesk, medium weight, tight tracking for the headline; or a refined serif for heritage brands. Price and CTA in the same family, smaller.
 **Layout:** Centered or slightly offset product occupying 40 to 60 percent of the frame. Headline above or beside. Ample space on all sides.
-**Composition:** Product at a three-quarter angle with a soft shadow or reflection grounding it. Light from one side to show form.
+**Composition:** Product at a three-quarter angle with a soft shadow or reflection grounding it, occupying 40 to 60 percent of the frame height. Key light from one side at 45 to 70 degrees, the opposite side falling into shadow; one narrow specular highlight running along the form. An optional circular or square macro inset (10 to 20 percent of the frame) shows the material up close, aligned to the product's center line.
 **Image treatment:** Studio photography or high-quality render, seamless background, accurate materials, controlled reflections.
 **Texture and material:** The product's own material (brushed metal, glass, leather) is the texture; the background stays smooth.
 **Motion language:** Slow orbit or dolly-in (2 to 4 s), light sweep across surfaces, headline fades in after the product settles.
 **Best for:** Product launches, ecommerce heroes, out-of-home ads, keynote reveals, premium devices and cosmetics.
 **Avoid when:** The product is visually unremarkable or the message is about service, process, or many SKUs.
-**Differs from:** minimal-product-showcase presents a range in neutral tiles with specs; premium-product-campaign stages one hero with drama. product-render is the asset; this style is the full campaign composition.
+**Differs from:** minimal-product-showcase presents a range in neutral tiles with specs; premium-product-campaign stages one hero with drama. product-render is the asset (an accurate 3D render); this style is the full campaign composition where form, material, and light are the message, not a product placed on an expensive-looking background. Gold is not a default: midnight-pearl and charcoal-silver suit most products better than noir-gold.
 **Prompt recipe:** "Premium product campaign hero, single product at three-quarter angle, side key light, soft floor reflection, deep tonal background matched to the product, short medium-weight grotesk headline, lots of space."
 **Implementation notes:** Serve the product image with transparent background and build the tonal backdrop in CSS so it adapts. Use `aspect-ratio` to prevent layout shift. Pair with `product-reveal-3d` for motion.
 
@@ -90,16 +90,33 @@ Typography with a clear personality, magazine composition, images that carry mea
 ## quiet-luxury
 
 **Visual DNA:** Close-up photographs of material (knit, wool, linen, leather grain, stone), tonal neutral grounds one or two steps apart, small calm type, and no visible logo or metallic accent.
-**Design principles:** Value is shown by material and fit, never announced. Remove every element that signals price directly (logos, gold, big claims). Consistency across pages matters more than any single hero.
+**Design principles:** Value is shown by material and fit, never announced. Remove every element that signals price directly (logos, gold, big claims). Consistency across pages matters more than any single hero. Restraint still needs hierarchy: exactly three type levels (headline, label, body) with the headline at least 1.6 times the body size, and every element aligned to one of two or three vertical lines so the precision is visible.
 **Color behavior:** Tonal neutrals (oat, taupe, stone, espresso) with values close together; contrast comes from one dark text color. No saturated accent; at most one deep neutral fill per page.
-**Typography:** A light transitional or old-style serif for headlines at modest sizes (32 to 48px on web, not display-huge), and a quiet grotesk for text and labels at 13 to 16px. Sentence case, normal tracking; small caps for labels only.
+**Typography:** A light transitional or old-style serif for headlines at modest sizes (32 to 48px on web, not display-huge), and a quiet grotesk for text at 15 to 17px and labels at 12 to 13px (never smaller: tiny type is imitation, not luxury). Sentence case, normal tracking; small caps for labels only.
 **Layout:** A 12-column editorial grid with wide outer margins (8 to 12% of width) and one image per spread or slide. Text blocks stay narrow (45 to 60 characters).
 **Composition:** One subject per frame, often cropped tight to the material. Images and text sit in separate zones; repeat the same crop ratio across a sequence.
 **Image treatment:** Soft natural daylight, low contrast, no harsh shadows. Macro shots of fabric and surface; people photographed from the shoulder or in part, faces optional. Muted, slightly warm grade; no filters or vignettes.
 **Texture and material:** The texture lives in the photography. Graphic surfaces stay flat; a faint paper grain on print is the maximum.
 **Motion language:** Slow fades of 600 to 900 ms and slow image crossfades. No movement on type; no parallax beyond 8px.
 **Best for:** Fashion and knitwear brands, boutique hotels, private client and wealth decks, lookbooks, and interiors.
-**Avoid when:** The audience needs loud calls to action, the brand is young and playful, or there is no good material photography to show.
-**Differs from:** luxury-editorial is serif-led drama with high-contrast Didone headlines and a hero image; quiet-luxury is smaller type, tonal color, and material close-ups. minimal-product-showcase arranges many products in identical tiles; quiet-luxury tells one material story. charcoal-champagne colors bring a metallic note; quiet-luxury avoids metallics.
+**Avoid when:** The audience needs loud calls to action, the brand is young and playful, or there is no good material photography to show. Also avoid the generic version: cream ground plus a black serif with nothing else decided is not this style.
+**Differs from:** luxury-editorial is serif-led drama with high-contrast Didone headlines and a hero image; quiet-luxury is smaller type, tonal color, and material close-ups. minimal-product-showcase arranges many products in identical tiles; quiet-luxury tells one material story. tactile-minimalism builds texture into the graphic surfaces (stocks, edges, relief); quiet-luxury keeps graphics flat and lets photography carry texture. charcoal-champagne brings a metallic note, so use Champagne only as a flat tone; oxblood-cream and dusty-rose-cocoa give color without metal.
 **Prompt recipe:** "Quiet luxury lookbook spread, macro photograph of oat wool knit in soft daylight, tonal oat and taupe background, small light serif headline, small grotesk caption, wide margins, no logo, no gold."
 **Implementation notes:** Set color tokens as close tonal steps (for example 4 neutrals within one hue). Keep headline sizes modest and use `font-weight: 300` to `400`. Preload the hero image and use `object-fit: cover` with a fixed `aspect-ratio` so crops repeat exactly.
+
+## heritage-luxury
+
+**Visual DNA:** A restrained monogram or wordmark, one hairline frame or rule system, a refined serif paired with spaced small caps, and rich but muted color (oxblood, deep green, midnight), set in a modern asymmetric layout with real empty space.
+**Design principles:** Heritage is shown by a few house codes repeated with discipline, not by stacking period ornament. Pick at most three codes (for example monogram, one frame weight, one color) and use them everywhere. One founding fact (a year, a place, a craft) replaces paragraphs of history.
+**Color behavior:** One deep muted brand color as the ground of covers, labels, or a block, with a warm light neutral for reading pages. Metal is optional: if used, it is one thin rule or the monogram only, never a gradient, and a palette without metal (oxblood-cream, midnight-pearl) is equally valid. Text always meets 4.5:1.
+**Typography:** An old-style or transitional serif (Garalde) for display at 40 to 72px, and the same family or a quiet serif for text at 16 to 18px. Small caps or uppercase labels at 11 to 13px with 0.12 to 0.2em tracking for the founding line and section labels. Old-style figures for years.
+**Layout:** A 12-column grid used asymmetrically: the brand block or monogram card takes 4 to 5 columns, text takes 5, the rest is space. Frames are a single 0.5 to 1px hairline inset 6 to 10 percent of the shorter side; never double frames inside double frames.
+**Composition:** One strong mark per page, placed off center. Headline in sentence case, set left. The monogram is built from two letters at most, overlapped or stacked, drawn with the same stroke contrast as the serif.
+**Image treatment:** Craft close-ups (stitching, a hand at work, tools, archive objects) in warm soft light; archival images used small, framed by the hairline, never as sepia full-bleed nostalgia.
+**Texture and material:** Uncoated or laid paper, leather, cloth bindings, wax seals only where the product really uses them. Digital surfaces stay flat with at most a faint paper grain.
+**Motion language:** Slow fades of 700 to 1000 ms; the hairline frame draws once from one corner (600 ms) on entry; the monogram never spins or bounces.
+**Best for:** Heritage brand identities, maisons in leather, watches, tailoring, spirits and wine, anniversary books, private banking with a founding story.
+**Avoid when:** The brand has no real history or craft to point to (it reads as costume), the product is young and fast, or the layout must carry dense data.
+**Differs from:** neoclassical-editorial is symmetric, architectural, and institutional (Roman capitals, arches, pediments); heritage-luxury is asymmetric and brand-led, built on a monogram and a founding fact. luxury-editorial is Didone drama around a hero image; heritage-luxury uses quieter Garalde type and house codes. foil-stamping is a print finish; heritage-luxury may use it once, or not at all.
+**Prompt recipe:** "Heritage luxury brand identity, deep oxblood label card with a single thin cream hairline frame, two-letter serif monogram, small caps founding line 'Est. 1887', warm cream page with a left-aligned Garalde headline, lots of space, no gold gradient, no ornamental borders."
+**Implementation notes:** Draw the monogram as SVG so it scales from favicon to packaging. Use `font-variant-caps: all-small-caps` and `font-variant-numeric: oldstyle-nums` where the font supports them. Set frame inset as a percentage of the container so the hairline keeps its proportion on mobile.

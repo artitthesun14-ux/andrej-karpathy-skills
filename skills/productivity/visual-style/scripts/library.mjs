@@ -284,7 +284,7 @@ function check() {
   const warnings = [];
   const { vocabulary, categories, styles } = load("styles.json");
   const { categories: pcats, palettes: pals } = load("palettes.json");
-  const { presets } = load("presets.json");
+  const { presets, pairings = [] } = load("presets.json");
   const styleIds = new Set(styles.map((s) => s.id));
   const palIds = new Set(pals.map((p) => p.id));
   const catIds = new Set(categories.map((c) => c.id));
@@ -377,6 +377,14 @@ function check() {
   for (const pr of presets) {
     for (const sid of [pr.primary_style, ...pr.secondary_styles]) if (!styleIds.has(sid)) errors.push(`preset ${pr.id}: unknown style ${sid}`);
     for (const pid of [pr.palette, ...pr.alt_palettes]) if (!palIds.has(pid)) errors.push(`preset ${pr.id}: unknown palette ${pid}`);
+  }
+  const seenPair = new Set();
+  for (const pg of pairings) {
+    if (!styleIds.has(pg.style)) errors.push(`pairing: unknown style ${pg.style}`);
+    if (!palIds.has(pg.palette)) errors.push(`pairing: unknown palette ${pg.palette}`);
+    if (!pg.note) errors.push(`pairing ${pg.style} + ${pg.palette}: needs a note`);
+    if (seenPair.has(pg.style + "|" + pg.palette)) errors.push(`pairing ${pg.style} + ${pg.palette}: listed twice`);
+    seenPair.add(pg.style + "|" + pg.palette);
   }
 
   for (const f of ["styles.json", "palettes.json", "presets.json", ...md.keys()]) {

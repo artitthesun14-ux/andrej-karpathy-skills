@@ -163,5 +163,14 @@
       },
       "adjustable": ["palette", "secondary_styles", "typography"]
     }
+  ],
+  "pairings_note": "Pairings are experiments to start from, not rules: any style takes any palette. Each one names a style and a palette and says what the pair shows.",
+  "pairings": [
+    { "style": "quiet-luxury", "palette": "oxblood-cream", "note": "Quiet luxury with one deep red instead of beige alone: the oxblood carries the headline and the buttons." },
+    { "style": "quiet-luxury", "palette": "dusty-rose-cocoa", "note": "The same restraint in a soft color: rose as the ground, cocoa type, no metal." },
+    { "style": "architectural-minimalism", "palette": "mono-graphite", "note": "Stone and graphite planes under one hard light; the shadow is the darkest value on the page." },
+    { "style": "tactile-minimalism", "palette": "warm-minimalism", "note": "Warm ivory and espresso stocks layered with visible edges and one blind deboss." },
+    { "style": "heritage-luxury", "palette": "emerald-brass", "note": "Deep forest label with a single brass hairline and a two-letter monogram." },
+    { "style": "premium-product-campaign", "palette": "midnight-pearl", "note": "A cool night field with pearl highlights instead of the usual black and gold." }
   ]
 }

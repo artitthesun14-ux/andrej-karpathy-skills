@@ -71,6 +71,8 @@ Derived, never stored:
 
 `primary_style`, `secondary_styles` with a `secondary_role` sentence, `palette`, `alt_palettes`, a `direction` that records only decisions the styles do not already settle, and `adjustable` fields. Presets never copy rules from profiles.
 
+`presets.json` may also hold `pairings`: `[{ "style", "palette", "note" }]`, one style and one palette to try together, with a one-sentence `note` on what the pair shows. They are experiments, not rules; the gallery mixer lists them under Pairings to try. `check` fails an unknown id, a missing note, or a repeated pair.
+
 ## Merged and remapped names
 
 Names from the original brief that describe the same Visual DNA were merged as aliases rather than separate entries (for example International Typographic Style, Modernist Grid, Swiss Minimalism, and Functional Typography are aliases of `swiss-international`). Run `find --text <name>` to resolve any of them.

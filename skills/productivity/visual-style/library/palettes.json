@@ -86,7 +86,7 @@
     {
       "id": "mono-graphite",
       "name": "Graphite Monochrome",
-      "aliases": ["Monochrome Architecture"],
+      "aliases": ["Monochrome Architecture", "Stone and Graphite"],
       "category": "neutral",
       "mood": ["austere", "architectural", "calm"],
       "source": "authored",
@@ -444,6 +444,7 @@
     {
       "id": "emerald-brass",
       "name": "Emerald and Brass",
+      "aliases": ["Deep Forest and Brass"],
       "category": "luxury",
       "mood": ["stately", "classical", "deep"],
       "source": "authored",
@@ -802,6 +803,7 @@
     {
       "id": "warm-minimalism",
       "name": "Warm Minimalism",
+      "aliases": ["Warm Ivory and Espresso"],
       "category": "neutral",
       "mood": ["warm", "calm", "tactile"],
       "source": "authored",
@@ -860,6 +862,112 @@
       "contrast_notes": "Every text pair reaches 7:1 (WCAG AAA) on White and Mist Grey: Near Black 19.7:1, Slate 9.8:1, Deep Blue 9.1:1, Burnt Orange 8.4:1. Focus Yellow is for focus rings and highlight backgrounds behind Near Black text (13.7:1), never for text (1.4:1 on White). Steel Line reaches 4.8:1 for borders and input outlines (WCAG 1.4.11 needs 3:1).",
       "use_cases": ["public service or government", "healthcare", "forms and dashboards", "education for all ages"],
       "example": "A benefits application form: White page, Mist Grey field groups, Near Black labels, Steel Line input borders, Deep Blue buttons, Focus Yellow focus ring."
+    },
+    {
+      "id": "oxblood-cream",
+      "name": "Oxblood and Warm Cream",
+      "category": "luxury",
+      "mood": ["warm", "assured", "intimate"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F4ECE1", "name": "Warm Cream", "role": "background", "share": 52 },
+        { "hex": "#E7DACB", "name": "Biscuit", "role": "surface", "share": 16 },
+        { "hex": "#2A1D17", "name": "Dark Brown", "role": "text", "share": 14 },
+        { "hex": "#5E1A1D", "name": "Oxblood", "role": "primary", "share": 10 },
+        { "hex": "#8C6A5A", "name": "Clay Taupe", "role": "secondary", "share": 4 },
+        { "hex": "#6A574C", "name": "Umber Grey", "role": "text-muted", "share": 4 }
+      ],
+      "text_pairs": [
+        { "fg": "Dark Brown", "bg": "Warm Cream", "use": "body" },
+        { "fg": "Dark Brown", "bg": "Biscuit", "use": "body" },
+        { "fg": "Oxblood", "bg": "Warm Cream", "use": "body" },
+        { "fg": "Oxblood", "bg": "Biscuit", "use": "body" },
+        { "fg": "Warm Cream", "bg": "Oxblood", "use": "body" },
+        { "fg": "Umber Grey", "bg": "Warm Cream", "use": "body" },
+        { "fg": "Clay Taupe", "bg": "Warm Cream", "use": "ui" }
+      ],
+      "avoid_pairs": [{ "fg": "Clay Taupe", "bg": "Biscuit" }],
+      "contrast_notes": "Dark Brown on Warm Cream is 13.9:1 and Oxblood on Warm Cream is 10.9:1, so Oxblood can carry headlines, links, and buttons. Clay Taupe reaches only 4.2:1 on Warm Cream: use it for hairlines, icons, and large type, never body text. No metallic on purpose: the deep red is the only richness.",
+      "use_cases": ["quiet luxury fashion", "private client deck", "wine or leather brand", "boutique hotel"],
+      "example": "A leather goods lookbook: Warm Cream pages, Biscuit image mats, Dark Brown text, one Oxblood title per spread and Oxblood buttons on the web."
+    },
+    {
+      "id": "midnight-pearl",
+      "name": "Midnight Navy and Pearl",
+      "category": "luxury",
+      "mood": ["cool", "nocturnal", "composed"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#0F1626", "name": "Midnight Navy", "role": "background", "share": 56 },
+        { "hex": "#1C2638", "name": "Night Slate", "role": "surface", "share": 16 },
+        { "hex": "#ECEAE4", "name": "Pearl", "role": "text", "share": 14 },
+        { "hex": "#A3ABB8", "name": "Cool Gray", "role": "text-muted", "share": 6 },
+        { "hex": "#9DB4D6", "name": "Pale Steel Blue", "role": "accent", "share": 4 },
+        { "hex": "#3A4559", "name": "Dusk Line", "role": "line", "share": 4 }
+      ],
+      "text_pairs": [
+        { "fg": "Pearl", "bg": "Midnight Navy", "use": "body" },
+        { "fg": "Pearl", "bg": "Night Slate", "use": "body" },
+        { "fg": "Cool Gray", "bg": "Midnight Navy", "use": "body" },
+        { "fg": "Cool Gray", "bg": "Night Slate", "use": "body" },
+        { "fg": "Pale Steel Blue", "bg": "Midnight Navy", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Dusk Line", "bg": "Midnight Navy" }],
+      "contrast_notes": "Pearl on Midnight Navy is 15.0:1. Cool Gray keeps 6.6:1 even on Night Slate, so captions stay readable on cards. Dusk Line is 1.9:1: rules and card edges only. Pale Steel Blue is the one accent; it replaces gold for cool evening luxury.",
+      "use_cases": ["product launch", "watch or jewelry campaign", "evening event", "premium tech hero"],
+      "example": "A watch launch page: Midnight Navy ground, the product lit in Pearl highlights, Cool Gray specifications, one Pale Steel Blue link."
+    },
+    {
+      "id": "charcoal-silver",
+      "name": "Charcoal and Brushed Silver",
+      "category": "luxury",
+      "mood": ["sleek", "restrained", "modern"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#1E1E1F", "name": "Charcoal", "role": "background", "share": 54 },
+        { "hex": "#2C2C2D", "name": "Graphite", "role": "surface", "share": 18 },
+        { "hex": "#F3F0EA", "name": "Warm White", "role": "text", "share": 14 },
+        { "hex": "#A7A39C", "name": "Warm Grey", "role": "text-muted", "share": 6 },
+        { "hex": "#B9BCC0", "name": "Brushed Silver", "role": "accent", "share": 4 },
+        { "hex": "#4A4A4B", "name": "Seam", "role": "line", "share": 4 }
+      ],
+      "text_pairs": [
+        { "fg": "Warm White", "bg": "Charcoal", "use": "body" },
+        { "fg": "Warm White", "bg": "Graphite", "use": "body" },
+        { "fg": "Warm Grey", "bg": "Charcoal", "use": "body" },
+        { "fg": "Warm Grey", "bg": "Graphite", "use": "body" },
+        { "fg": "Brushed Silver", "bg": "Charcoal", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Seam", "bg": "Charcoal" }],
+      "contrast_notes": "Warm White on Charcoal is 14.7:1. Brushed Silver is a flat light grey (8.7:1), not a metallic effect: use it for one rule, an icon, or a product highlight. Seam (1.9:1) is for card edges only.",
+      "use_cases": ["architecture or real estate", "premium device", "menswear", "gallery opening"],
+      "example": "A residential tower deck: Charcoal slides, Graphite plan panels, Warm White titles, Warm Grey notes, one Brushed Silver hairline under each title."
+    },
+    {
+      "id": "dusty-rose-cocoa",
+      "name": "Dusty Rose and Cocoa",
+      "category": "luxury",
+      "mood": ["soft", "warm", "understated"],
+      "source": "authored",
+      "colors": [
+        { "hex": "#F3EAE6", "name": "Porcelain Rose", "role": "background", "share": 50 },
+        { "hex": "#D9B8B0", "name": "Dusty Rose", "role": "surface", "share": 18 },
+        { "hex": "#3B2A26", "name": "Cocoa", "role": "text", "share": 14 },
+        { "hex": "#8E4F4A", "name": "Rosewood", "role": "primary", "share": 8 },
+        { "hex": "#B5A398", "name": "Soft Taupe", "role": "line", "share": 6 },
+        { "hex": "#6E5A52", "name": "Taupe Ink", "role": "text-muted", "share": 4 }
+      ],
+      "text_pairs": [
+        { "fg": "Cocoa", "bg": "Porcelain Rose", "use": "body" },
+        { "fg": "Cocoa", "bg": "Dusty Rose", "use": "body" },
+        { "fg": "Rosewood", "bg": "Porcelain Rose", "use": "body" },
+        { "fg": "Porcelain Rose", "bg": "Rosewood", "use": "body" },
+        { "fg": "Taupe Ink", "bg": "Porcelain Rose", "use": "body" }
+      ],
+      "avoid_pairs": [{ "fg": "Soft Taupe", "bg": "Porcelain Rose" }, { "fg": "Rosewood", "bg": "Dusty Rose" }],
+      "contrast_notes": "Cocoa on Porcelain Rose is 11.5:1 and still 7.4:1 on Dusty Rose. Rosewood (5.3:1) carries buttons and links. Soft Taupe (2.1:1) is for hairlines only. Rose is a ground here, not an accent, which keeps it adult rather than sweet.",
+      "use_cases": ["beauty or skincare brand", "bridal or jewelry", "wellness retreat", "fragrance packaging"],
+      "example": "A skincare range: Porcelain Rose cartons, Dusty Rose inner trays, Cocoa type, Rosewood for the product name only."
     }
   ]
 }

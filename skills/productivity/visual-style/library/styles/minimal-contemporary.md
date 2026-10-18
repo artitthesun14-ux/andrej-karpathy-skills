@@ -21,18 +21,18 @@ Only the elements that are needed, intentional empty space, and close attention 
 
 ## architectural-minimalism
 
-**Visual DNA:** Large planes of tone, hard light and crisp shadows, monumental scale, and thin type set like annotations on a plan.
-**Design principles:** Form and light as content. Geometry and proportion drive everything. Few materials, perfectly executed.
+**Visual DNA:** Large planes of tone and stone, one hard directional light with crisp, deep cast shadows, monumental scale and exact proportion, and thin type set like annotations on a plan. Works with photography or with built graphic planes.
+**Design principles:** Form and light as content. Geometry and proportion drive everything: pick one ratio (for example 1:2 or 2:3) and repeat it in planes, openings, and text blocks. Few materials, perfectly executed. Depth comes from overlapping planes and one consistent shadow angle, never from gradients chosen for effect.
 **Color behavior:** Greys, concrete, stone, or a single muted tone. Light creates the variation.
 **Typography:** Light or regular grotesk, small, often uppercase with tracking; monospace for dimensions and data.
 **Layout:** Full-bleed photographs of space; text in narrow columns aligned to architectural lines in the image.
 **Composition:** Strong verticals and horizontals; diagonal shadows as the only dynamic element.
 **Image treatment:** Architectural photography or renders with hard sun, long shadows, and minimal people.
-**Texture and material:** Concrete, stone, plaster, glass.
+**Texture and material:** Concrete, honed stone, travertine, plaster, glass. In graphics, stone is a flat tone with at most a faint grain; the light and shadow make it read as material.
 **Motion language:** Slow camera dolly or the sun moving (shadow sweeps over 4 to 8 s).
 **Best for:** Architecture practices, real estate, furniture, property launches.
 **Avoid when:** Warmth and human presence are central to the message.
-**Differs from:** japanese-minimalism is soft and intimate; architectural-minimalism is monumental and hard-lit. sculpted-surface is curved and soft; architectural-minimalism is planar.
+**Differs from:** japanese-minimalism is soft and intimate; architectural-minimalism is monumental and hard-lit. sculpted-surface is curved and soft; architectural-minimalism is planar. tactile-minimalism works at the scale of paper relief (1 to 3px); architectural-minimalism works at the scale of walls and long cast shadows.
 **Prompt recipe:** "Architectural minimalism, concrete planes in hard sunlight with long diagonal shadows, full-bleed image, thin tracked uppercase grotesk annotations, monospace dimensions."
 **Implementation notes:** Align text to lines in the photo by choosing crops intentionally per breakpoint (`object-position`). Use monospace only for numeric data.
 

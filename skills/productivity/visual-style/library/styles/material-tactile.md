@@ -32,7 +32,7 @@ Surface, material, light, shadow, and depth are part of the design, including ho
 **Motion language:** Light sweeps across the surface to reveal the relief (2 to 5 s), or the camera tilts to catch the light.
 **Best for:** Luxury packaging, book covers, certificates, brand reveal moments.
 **Avoid when:** The surface must deliver detailed information or viewers need high contrast (accessibility).
-**Differs from:** letterpress presses inked type in; embossed-print raises shapes without ink. sculpted-surface is a 3D digital material; embossed-print imitates paper.
+**Differs from:** letterpress presses inked type in; embossed-print raises shapes without ink. sculpted-surface is a 3D digital material; embossed-print imitates paper. tactile-minimalism is the whole system around it: layered stocks, edges, and printed hierarchy.
 **Prompt recipe:** "Blind embossed brand mark on heavy grey paper, no ink, soft raking light from the top left revealing the relief, minimal small printed text below."
 **Implementation notes:** Never put essential text only in emboss: contrast is near 1:1. Use the palette's text pairs for printed information.
 
@@ -86,3 +86,20 @@ Surface, material, light, shadow, and depth are part of the design, including ho
 **Differs from:** letterpress focuses on type impression; material-led-packaging focuses on the whole substrate. minimal-product-showcase is about presenting products; material-led-packaging is about the package itself.
 **Prompt recipe:** "Material-led packaging, plain kraft box with a small black monospace label and stamped logo, natural fiber texture visible in raking light."
 **Implementation notes:** For mockups, use real texture photos with clear rights. Keep regulatory text legible (minimum sizes depend on the market).
+
+## tactile-minimalism
+
+**Visual DNA:** Layered matte stocks with visible edges, fine paper grain, one blind deboss or emboss per surface, and a soft raking light from one corner, with small, printed, fully readable type.
+**Design principles:** Touch is the luxury, so remove everything that does not change how the surface feels or reads. One relief per surface, one light direction per system. Relief carries brand marks and pattern; information is always printed at readable contrast.
+**Color behavior:** Two or three stocks in close tones from one family (for example oat, beige, and walnut board) plus one ink. A colored edge or a second-color stock may replace an accent. No foil or gloss by default.
+**Typography:** A text serif or a quiet grotesk at 14 to 18px for printed copy, one display size at 28 to 40px. Debossed type is set larger (24px or more) and heavier than printed type so its shadow edge reads.
+**Layout:** Stacked panels offset by 8 to 16px so edges show; one deboss panel or emboss mark per surface with at least 25 percent of the area left flat around it. Asymmetric placement on a 12-column grid.
+**Composition:** The light comes from the top left at about 30 to 45 degrees: highlights on top-left edges of raised forms, shadows on the bottom-right; debossed forms reverse this. Keep every relief consistent with that one light.
+**Image treatment:** Macro photographs of paper fibers, cotton board, ceramic glaze, or linen, lit with one low side light; product photographed on the same stocks used in print.
+**Texture and material:** Cotton and uncoated papers, soft-touch laminate, felt, matte ceramic, unglazed clay. Grain at 3 to 8 percent opacity on screen; shadows short (1 to 3px offset, 2 to 6px blur) because paper relief is shallow.
+**Motion language:** The light moves, not the object: a highlight sweep across the relief over 2 to 4 s, or a card lifting 4 to 8px with its shadow lengthening. Reduced motion shows the lit state.
+**Best for:** Stationery and brand kits, ceramics and craft studios, skincare and fragrance packaging, invitation suites, websites that sell paper or textile goods.
+**Avoid when:** The audience reads mostly on small, low-quality screens, information density is high, or the brand cannot afford real finishing in print (the digital version then promises a feel the product does not have).
+**Differs from:** embossed-print is one technique (a single blind emboss); tactile-minimalism is a whole system of layered stocks, edges, light, and printed hierarchy that may include one emboss. quiet-luxury puts texture in photography and keeps graphics flat; tactile-minimalism builds texture into the graphic surfaces. material-led-packaging shows raw honest substrates such as kraft and tin; tactile-minimalism uses refined matte stocks and precise relief.
+**Prompt recipe:** "Tactile minimalism brand kit, three layered matte cotton cards in oat, beige, and walnut with visible edges, one blind debossed square panel with a small raised circle mark, soft raking light from the top left, fine paper grain, small printed serif text, no foil, no gloss."
+**Implementation notes:** Draw relief with two thin offset copies of the shape (highlight at -1px with white at 50 to 70 percent, shadow at +1px with the text color at 15 to 25 percent), not with heavy box shadows. Bake grain into one small tiled image or an SVG filter on a static layer; do not filter animated layers. Never put essential text only in relief.

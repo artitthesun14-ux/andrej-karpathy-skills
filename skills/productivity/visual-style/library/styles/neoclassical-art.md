@@ -15,7 +15,7 @@ Structure borrowed from classical art and architecture: balanced proportion, ser
 **Motion language:** Slow, dignified fades and vertical rises (800 to 1400 ms). Frames draw in from the center outward. No bounce, no rotation.
 **Best for:** Cultural institutions, heritage brands, law and finance firms, ceremonies, presentations that need authority and a distinct personality.
 **Avoid when:** The brand is youthful or tech-forward, or the message is about speed and disruption.
-**Differs from:** luxury-editorial is asymmetric and modern; neoclassical-editorial is symmetric and historical. renaissance-composition is about pictorial composition and light; neoclassical-editorial is about typographic and architectural structure.
+**Differs from:** luxury-editorial is asymmetric and modern; neoclassical-editorial is symmetric and historical. heritage-luxury is a brand identity built on a monogram and a founding fact, asymmetric and modern; neoclassical-editorial is institutional and architectural. renaissance-composition is about pictorial composition and light; neoclassical-editorial is about typographic and architectural structure.
 **Prompt recipe:** "Neoclassical editorial cover, centered symmetric layout, widely tracked Roman capitals title, thin brass keyline frame, arched image window with a marble sculpture, emerald ground, cream inner pages."
 **Implementation notes:** Use `letter-spacing: 0.15em` to `0.25em` on uppercase titles. Arched frames: `border-radius: 50% 50% 0 0 / 30% 30% 0 0` or an SVG clip path. Keep symmetry on mobile by stacking along the same center axis.
 
