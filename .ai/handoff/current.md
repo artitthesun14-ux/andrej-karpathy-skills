@@ -1,104 +1,101 @@
 # Handoff: ai-product-workflow-skills
 
-Updated: 2026-10-19. Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. One self-contained file, because the user asked for one. Earlier history: `sessions/2026-10-11.md`, plus older versions of this file in git (`e99cd36` Tank Day motion deck built and deleted; `8882233` Canva Tank Day build; `7c67075` AI chatbot deck; `30457aa` Luxury Minimalism; older: `e4797d2`, `5bb2c42`, `769098b`, `a2652bd`, `f5747e5`, `e66e6d7`, `9221fed`, `c95ea66`).
+Updated: 2026-10-21. Repo: artitthesun14-ux/andrej-karpathy-skills. Work branch: `claude/setup-workflow-xd5lho`. One self-contained file, because the user asked for one. Earlier history: `sessions/2026-10-11.md`, plus older versions of this file in git (`f856a76` JD store rules deck in gallery; `e99cd36` Tank Day motion deck; `8882233` Canva Tank Day; `7c67075` AI chatbot deck; older: `30457aa`, `e4797d2`, `5bb2c42`, `769098b`, `a2652bd`, `f5747e5`, `e66e6d7`, `9221fed`, `c95ea66`).
 
 ## 1. Goal and Success Criteria
 
-- Goal: maintain `ai-product-workflow-skills` and use `/visual-style` and `/create-presentation` to make real works.
-- This session: `/create-presentation style=constructivist-layout palette=primary-bold` for an animated Thai deck that teaches all 39 JD Sports Fashion (Thailand) in-store rules through one employee's working day, for new staff.
-- Success (from the user's Definition of Done): all 39 rules with original numbers, counter reaches 39/39, summary table of all 39, scenes in day order, each scene animation under 10 s with pause and replay, reduced motion shows every card, no horizontal scroll at 360 px, keyboard plus on-screen plus timeline navigation.
+- Goal: maintain `ai-product-workflow-skills` and make real works for the user.
+- This session: a Thai exam-prep document for 90643026 Investment Planning (KMITL, ภาคเรียนที่ 1/2569) that answers the essay exam (3 main questions, 9 subparts). Deliver `.docx` and `.pdf` from the same docx, in the page layout of group 5's report "การจัดพอร์ตการลงทุน".
+- User's Definition of Done (from their prompt): Letter, 1 in margins; TH SarabunPSK 14 pt body, 1.15 spacing, 0.5 in first-line indent; 16 pt bold headings (subheadings underlined); cover and numbered references like the template; all 9 subparts with lists plus examples; 1.2 has reasons, expected-return table (2,000,000 baht, 120,200 baht, 6.01%) and a picture; at least 6 figures with Thai alt text and the "ภาพประกอบเพื่ออธิบาย ไม่ใช่สัดส่วนจริง" label on conceptual ones; every external fact has a citation number, a date and a link; unconfirmed points say "ยังไม่มีข้อมูลยืนยัน"; analysis starts with "บทวิเคราะห์" and is conditional; no group 5 member names; every PDF page checked as an image; target 12-18 pages.
+- Latest user request (2026-10-19): "อยากได้ครับตอบแบบเป็นนักศึกษากำลังจะเรียนจบ เตรียมตัวเริ่มทำงานเป็นครั้งแรก แต่มีประสบการณ์การทำงาน part time". Rewrite the answers in that student's voice.
 
 ## 2. Current Status
 
-- CONFIRMED: the deck lives only in the Visual Style Library gallery: https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT (version 27), Works tab, card "หนึ่งวันกับกฎร้าน", path `works/jd-store-rules-day/index.html` with `cover.jpg`; `works.json` entry id `jd-store-rules-day` added first, the 7 older works kept.
-- CONFIRMED: the standalone artifact `UhNrRCyhEojSQp7Zg6PHhW` was **deleted at the user's request** ("ให้เหลือแค่ในคลังพอ"). Do not reuse that URL; do not republish a standalone copy unless asked.
-- CONFIRMED: cards and summary now follow the user's source PDF (`In-Store Rules and Regulations`, 2 pages, uploaded this session at `/root/.claude/uploads/b09ba2f5-ac02-5876-89f3-6b949654719d/87b993ce-_________________.pdf`, ephemeral).
-- CONFIRMED: a PDF export `หนึ่งวันกับกฎร้าน.pdf` (9 pages, screenshots, text not selectable, uneven page heights) was sent to the user, latest version after the PDF alignment.
-- CONFIRMED: repo clean at `e99cd36` before this file was written. Only this file changes; commit only if the user asks.
-- Gallery and deck are private; sharing is the user's choice from the Share menu.
+- CONFIRMED: v1 (neutral voice, 25 pages) was sent to the user as .docx and .pdf.
+- CONFIRMED: v2 (persona voice) is built but **not sent and not fully reviewed**: `out/สรุปเตรียมสอบ_Investment_Planning.docx` and `.pdf`, 26 pages, 8 figures, 8 tables. Pages 3, 10 and 18 were rendered (`out/q-*.png`) but not looked at yet.
+- CONFIRMED: both versions are over the 12-18 page target. Pages are nearly full (text reaches y≈700 of 720 pt on most pages), so the length is real content. The gaps come from figures that do not fit the rest of a page.
+- UNKNOWN: whether "อยากได้ครับ" also meant yes to my offer to cut to ≤18 pages. I took it as yes, trimmed, and only got from 27 to 26. The user has not been told v2's page count yet.
+- All work files are in the ephemeral scratchpad `S=/tmp/claude-0/-home-user-andrej-karpathy-skills/b09ba2f5-ac02-5876-89f3-6b949654719d/scratchpad/inv`. They still existed on 2026-10-21. Nothing is in the repo. If `S` is gone, only v1 survives (in the user's chat as sent files).
+- Repo: clean at `f856a76` before this file. Only this file changes; commit only if the user asks.
 
 ## 3. Completed
 
-1. Counted rules 1 to 39 in the prompt list: none missing. Multi-scene rules (4, 9, 10, 11, 13, 28) have one main card and short "ทวน" cards elsewhere.
-2. Built the deck: cover with day timeline, scenes 1 to 7 (บ้าน, มาถึงร้าน, ทำงาน, ออกจากโซน, พักกินข้าว, ทำงานบ่าย = scene 6 "กฎที่ใช้ตลอดเวลา", เลิกงาน), summary table. Character walks along beats; cards slam in; counter "กฎที่ดูแล้ว x/39"; yellow "ใช้ตลอดเวลา" band at the bottom opens a dialog with rules 22, 23, 27, 31, 33, 34. Fonts Kanit + Sarabun; light single theme.
-3. Mobile fix 1: page auto-scrolled to each new card (user video). Removed `scrollIntoView` below 960 px; added a rule box under the stage showing the current rule number, text and tags.
-4. Mobile fix 2: the sticky stage plus box covered cards on a real phone (second video). Removed the sticky rule; stage scrolls with the page.
-5. Added to gallery, made cover and PDF.
-6. Summary table switched to verbatim PDF text (Thai plus English), tags removed from the table, document spellings kept (กลื่น, หริอ, สวดมนตร์, บันทุก, สับปลี่ยน, ทอยู่); only the lost "ำ" from text extraction was restored.
-7. Cards aligned to the PDF on the user's instruction: new tag "ไม่ควรทำ" (15, 18, 19, 24, 31); "ควรทำ" for 17, 20, 24, 25; 11 is "ทำได้" plus "ต้องทำ" for the sealed container; 13 adds locking when finishing work; 28 says สวดมนต์ (no ละหมาด); 7 says makeup "เช่น"; beat captions and recap cards updated.
+1. Read both PDFs. Template: Word export, TH SarabunPSK, Letter. Body line pitch measured at 21.24 pt (pdftotext bbox). Headings: "1." bold 16; "2.1" bold 16 underlined. Tables in the template are Excel images (navy header, green total row). Exam sheet: CordiaNew, 1 page. The prompt named `c6ebe480-...` paths; the real uploads are `/root/.claude/uploads/b09ba2f5-ac02-5876-89f3-6b949654719d/495420e9-...pdf` (template, 11 pages) and `bf8eb1f8-...pdf` (exam). Copies are in `S/src/`.
+2. Asked about the visual style (the prompt's Handoff slot was empty). User chose "เรียบ ๆ ให้เข้ากับรายงาน": navy/blue tones, Laksaman font in figures, readable in black and white.
+3. Research by 5 subagents, saved in `S/research/` (`tax.md`, `sources_brokers.md`, `macro.md`, `verify_examples.md`, `firstjob.md`), each fact with URL and date, accessed 2026-10-19.
+4. Recomputed the portfolio with scripts (`build/calc.py`): total 2,000,000; return 120,200 (6.01%); value after 5 years 2,677,713.87 (+33.89%, no rounding per year). It matches the report.
+5. Built 8 figures as HTML, rendered to PNG at 2x with Playwright (`build/render.js`): roadmap, compounding, donut, tax table, investor status, risk staircase, situation map, decision tree.
+6. Built the docx with docx-js (`build/build.js`, content in `content.js`, `part13/2/23/31/32/33.js`, `refs.js`, `doc.js`) using real styles, numbering and tables. Post-processing in `build/fixstyles.py` removes duplicate default Heading1-3 styles. `validate.py` from the docx skill passed.
+7. v2 persona changes: intro "มุมมองของคำตอบ"; 1.1 rewritten (age 22, part-time 8,000/month, savings 20,000, first salary 25,000, budget table, emergency fund plan; all labelled สมมติ); 1.2 own-money paragraph; 1.3 first-salary tax table; 2.2, 2.3, 3.1 and 3.3 reframed; roadmap figure relabelled; condensed 1.3, 2.1, 3.2 and the dividend-credit example.
 
 ## 4. Issues and Fixes
 
 | Issue | Status | Cause | Resolution | Evidence |
 |---|---|---|---|---|
-| Phone: page scrolled down on play | FIXED | `scrollIntoView` on every card | only on two-column layout (min-width 960 px) plus rule box under stage | user video 13:50; headless 390 px scrollTop stayed 0 |
-| Phone: rule box covered other text | FIXED | sticky stage took about half of a real phone screen | removed sticky | user video 13:55; not re-tested on a real phone |
-| Mobile overflow and clipped timeline | FIXED before publish | grid children without `minmax(0,1fr)` | added minmax columns | headless 360/390/1400 px |
-| Stage labels overlapping | FIXED | one label row | alternate rows, viewBox 600x322 | screenshots |
-| Prompt list stronger or weaker than PDF | FIXED | prompt paraphrase | cards follow PDF (section 3 item 7) | PDF text extraction |
-| Gallery publish refused without `file_path` | FIXED | tool needs the page file | read every line of the gallery page, published it unchanged with `files` | gallery v25 to v27 |
+| TH SarabunPSK not installable | MITIGATED | no verified download source (GitHub mirrors 404, npm has only Sarabun / TH Sarabun New) | docx keeps "TH SarabunPSK". PDF uses `~/.fonts/lakrep/LaksamanReport-*.ttf`, a Laksaman copy (apt `fonts-tlwg-laksaman`) with line metrics set to ascent 960 / descent 359, aliased in `~/.config/fontconfig/fonts.conf` | `fc-match "TH SarabunPSK"` gives Laksaman Report; PDF pitch 21.2 pt equals the template |
+| PDF lines overlapped and images were clipped to one line | FIXED | docx-js wrote `w:line="276"` without `lineRule`, and LibreOffice read it as exact 13.8 pt | `lineRule: AUTO` everywhere; image paragraphs use single spacing | re-render |
+| Duplicate Heading1-3 styles in styles.xml | FIXED | docx-js defaults plus my custom styles | `fixstyles.py`, run after every build | styles.xml check |
+| "→" fell back to other fonts (Inter, FreeSans) | FIXED | Laksaman has no U+2192 | replaced in body text (figures keep it, rendered by Chromium) | `pdffonts` shows only LaksamanReport |
+| Over 18 pages | OPEN | content volume plus 8 figures plus about 56 references (3+ pages at 12 pt) | figures at 4.8 in, tables and references at 12 pt, references merged and trimmed; 32 to 25 (v1), 26 (v2) | `pdfinfo` |
+| Group 5 report figures differ from sources | REPORTED to user (v1) | report errors | SCBGQUAL(A) factsheet (31 Aug 2569): 1-year 16.17%, 3-year 12.65%, not 14.09/11.14. The calc table keeps the report's 11.41% so the result is 120,200. ADVANC dividend yield is 9.94% vs 9.69% in the report; neither checkable. 2.3 uses the factsheet figures | `research/verify_examples.md` |
 
 ## 5. Attempts That Failed or Were Rejected
 
-- Sticky stage with rule box on phones: rejected by the user (covered text). Do not bring it back.
-- Standalone artifact: deleted by the user; the gallery copy is the only one.
-- Slides Artifact type: offered by quickstart, not used (needs custom animation and 360 px layout).
+- matplotlib was not installed and has weak Thai shaping; used HTML/SVG in Chromium instead.
+- Shrinking figures below about 4.8 in makes figure text about 7 pt, too small to print. Do not go smaller.
+- Content trims saved only about 1 page each; figure gaps dominate the remaining slack.
 
 ## 6. Decisions and Constraints
 
-User decisions:
-- Style `constructivist-layout`, palette `primary-bold` (from the gallery command). Keep them.
-- The PDF is the source of truth for rule wording; cards and summary follow it.
-- Keep the deck only in the gallery.
+User decisions: figure style is plain, matching the report. Answers in the persona voice: final-year student with part-time experience, about to start a first job.
 
-Agent defaults (reported to the user, still in place):
-- Rule 1 keeps the tag "ต้องทำ" though the PDF only says when briefing starts. User was told; no answer yet.
-- No clock times (none in the source); a sun position shows time of day.
-- No JD logo; company named only as the document source.
-- Tags: ต้องทำ (blue), ห้ามทำ (red), ควรทำ (yellow), ไม่ควรทำ (red outline), ทำได้ (outline), ทวน (dashed).
+Agent defaults (tell the user; v1 summary already listed most):
+- The cover keeps the instructor (อาจารย์ภาณุวัฒน์ สังสิลลา), adds placeholders `{{ชื่อและรหัสนักศึกษา}}` and `{{เป้าหมายของฉัน}}`, and has no member list.
+- Tax figures use tax-year 2568 rules (Ins91 guide). The 2569 guide is not published, so 2569 is marked unconfirmed.
+- Social security uses 5% of wages up to 17,500 baht, so 875 baht a month. The ceiling is on sso.go.th from 1 Jan 2569; the rate and 875 come from news only.
+- Persona numbers (สมมติ): first salary 25,000 means net income 129,500 and tax 0. At 35,000 the tax is 4,975, or 3,475 with ThaiESG 30,000 (`build/calc_persona.py`).
+- At the macro research date the baht had weakened (33.495 on 15 Oct 2569 vs 30.87 in late January), and a VAT rise is only a plan (7% until 30 Sep 2570). 3.2 says this.
 
-Tool rules: artifact deletes are permanent and need the user's explicit request. Before republishing the gallery, read it fully (`action: read` then Read every line of the saved file) and publish that file with `files`; keep every existing work in `works.json`.
-
-Repo rules (`.claude/CLAUDE.md`): no em-dashes.
+Repo rules: no em-dashes (`.claude/CLAUDE.md`). Do not commit unless asked.
 
 ## 7. Files Changed
 
 - Repo: only this file.
-- Deck source was in this session's scratchpad (`/tmp/claude-0/-home-user-andrej-karpathy-skills/b09ba2f5-ac02-5876-89f3-6b949654719d/scratchpad/jd-rules/`: `index.html`, `presentation-brief.md`, `src.py` with the verbatim PDF text, `gallery/`, `test/`). Assume it is gone next session. Durable copy: gallery file `works/jd-store-rules-day/index.html` (read it with `Artifact action: read, path`). In the gallery copy the brand bar has an extra "แกลเลอรี" link to `../../`.
+- Scratchpad `S` (ephemeral): `src/`, `research/`, `figs/*.html` + `base.css`, `img/*.png`, `build/*` (sources above), `build_v1_backup/` (v1 sources), `out/` (v2 docx/pdf).
 
 ## 8. Validation and Evidence
 
-- Headless Chromium (Playwright 1.56): every scene, no page errors; counter 39/39; summary 39 rows; scenes finish in 9.9 s or less; pause freezes cards; reduced motion shows all cards; no horizontal scroll at 360, 390, 1280, 1400 px; 7 "ไม่ควรทำ" tags render.
-- Contrast: white on red 5.02, white on blue 7.99, ink on yellow 11.23, muted on paper 8.38.
-- Not verified: real phone after the last two fixes; gallery Works card rendering after publish; projector.
+- v1: every page rendered and checked; fonts embedded are only LaksamanReport; docx XML has Letter 12240x15840, margins 1440, Body 28 half-points, line 276 auto, firstLine 720; 8 images each with descr; validate.py PASSED.
+- v2: built, `fixstyles.py` run, PDF 26 pages. Not yet: full visual check, validate.py re-run, `pdffonts` check, em-dash check.
 
 ## 9. Open Questions and Risks
 
-- Rule 1 tag "ต้องทำ": keep or remove? (asked, no answer)
-- PDF export is image based; user may want an A4, searchable version (offered).
-- Sharing the gallery shows all other works too.
-- Carried over: Canva Tank Day deck `DAHYV68zUwE` awaits feedback on pages 2 and 5 and a decision on page 3 (see `8882233`); AI chatbot deck `NjR1vHeghHG9RemNhgkVaQ` awaits feedback.
+- Does the user accept 25-26 pages, or want cuts to ≤18? Options: drop figure 2 (compounding, not required), shorten 3.1 tables, put references in a smaller font or fewer entries.
+- The scratchpad can disappear and take every source with it. Offer to copy `S/build`, `S/figs` and `S/research` into the repo (for example `works/investment-exam-prep/`) and commit, only if the user agrees.
+- The PDF font is Laksaman, not real TH SarabunPSK. The user can open the docx in Word with the real font and save as PDF.
+- Carried over: JD deck rule 1 tag "ต้องทำ" question; Canva Tank Day `DAHYV68zUwE` feedback on pages 2, 5, 3; AI chatbot deck `NjR1vHeghHG9RemNhgkVaQ` feedback (see `f856a76`).
 
 ## 10. Next Actions, in priority order
 
-1. Wait for the user. If they report a problem on the JD deck, read the gallery file `works/jd-store-rules-day/index.html`, fix it, and republish the gallery (rule in section 6).
-2. If asked: change rule 1's tag; make an A4 searchable PDF.
-3. Carried over: Canva Tank Day feedback (pages 2, 5, 3).
+1. Check `S` exists. If yes, view `out/q-03.png`, `q-10.png` and `q-18.png`, then all 26 pages (`pdftoppm -r 55` plus `build/sheet.py`), and fix any layout problem.
+2. Run `validate.py`, `pdffonts` (only LaksamanReport) and an em-dash grep. Then send v2 docx and pdf with SendUserFile, and report: persona changes, 26 pages, the new tax/social-security facts and what is unconfirmed.
+3. Ask whether to cut to ≤18 pages and which parts may go. Offer to save the sources in the repo.
+4. Carried-over items in section 9.
 
 ## 11. Exact First Step for the Next Session
 
 ```
-git fetch origin claude/setup-workflow-xd5lho && git checkout claude/setup-workflow-xd5lho && git status -sb && git log -2 --oneline
+S=/tmp/claude-0/-home-user-andrej-karpathy-skills/b09ba2f5-ac02-5876-89f3-6b949654719d/scratchpad/inv; ls $S/build $S/out && fc-match "TH SarabunPSK" && pdfinfo $S/out/*.pdf | grep Pages
 ```
 
-Then, only if the task is the JD deck: `Artifact action: read, url: https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT, path: works/jd-store-rules-day/index.html`. Success check: the file has `const SRC=` with 39 entries and `shouldnt:'ไม่ควรทำ'`.
+Success check: the build files are listed, fc-match prints "Laksaman Report", and the PDF has 26 pages. Rebuild: `cd $S && node build/build.js && python3 -I build/fixstyles.py out/*.docx && cd out && soffice --headless --convert-to pdf *.docx`. If `S` or the fonts are gone, tell the user that v2 is lost, and ask whether to rebuild from v1. The PDFs need re-uploading.
 
 ## 12. Ready-to-paste Continuation Prompt
 
 ```
 อ่าน .ai/handoff/current.md ก่อน แล้วทำต่อ
-session ล่าสุด: ทำพรีเซนกฎร้าน JD 39 ข้อ (constructivist-layout + primary-bold) เก็บไว้ใน gallery เท่านั้น https://claude.ai/artifact/TEgWtaAsxAdNuhwVjhX1QT แท็บ Works "หนึ่งวันกับกฎร้าน" (ไฟล์ works/jd-store-rules-day/index.html) ตัว artifact แยกถูกลบแล้ว ห้ามใช้ลิงก์เดิม
-การ์ดและตารางสรุปยึดตาม PDF ต้นฉบับของผู้ใช้แล้ว ค้างคำถาม: ป้ายข้อ 1 "ต้องทำ" เก็บหรือเอาออก
-ก่อน publish gallery ต้องอ่านไฟล์หน้า gallery ให้ครบและเก็บงานเดิมใน works.json ทุกชิ้น
-ทำตาม .claude/CLAUDE.md (ไม่มี em-dash)
+งานล่าสุด: เอกสารสรุปเตรียมสอบ Investment Planning (docx+pdf) ตามรูปแบบรายงานกลุ่ม 5 v1 ส่งแล้ว (25 หน้า)
+v2 เขียนแบบนักศึกษาจบใหม่ที่เคยทำพาร์ทไทม์และกำลังเริ่มงานแรก สร้างเสร็จแล้วแต่ยังไม่ได้ตรวจทุกหน้าและยังไม่ได้ส่ง (26 หน้า เกินเป้า 18)
+ไฟล์ทั้งหมดอยู่ใน scratchpad .../b09ba2f5-.../scratchpad/inv (หายได้) ตรวจ ส่ง v2 แล้วถามเรื่องตัดให้ไม่เกิน 18 หน้า
+ทำตาม .claude/CLAUDE.md (ไม่มี em-dash) ห้าม commit ถ้าไม่ได้สั่ง
 ```
